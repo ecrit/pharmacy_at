@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pharmacy_at -->
+      <package
+            uri="pharmacy_at/model"
+            class="at.medevit.ecrit.pharmacy_at.model.ModelPackage"
+            genModel="model/pharmacy_at.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pharmacy_at -->
+      <package
+            uri="pharmacy_at/application"
+            class="at.medevit.ecrit.pharmacy_at.application.ApplicationPackage"
+            genModel="model/pharmacy_at.genmodel"/>
+   </extension>
+
+</plugin>

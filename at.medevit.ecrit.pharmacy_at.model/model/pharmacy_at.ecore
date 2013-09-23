@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="pharmacy_at" nsURI="pharmacy_at" nsPrefix="www.ecrit.at">
+  <eSubpackages name="model" nsURI="pharmacy_at/model" nsPrefix="www.ecrit.at">
+    <eClassifiers xsi:type="ecore:EClass" name="Prescription">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="issuingPractitioner"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="article" upperBound="-1"
+          eType="#//model/Article"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Article">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="admissionNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Bill">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="article" upperBound="-1"
+          eType="#//model/Article"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="prescription" upperBound="-1"
+          eType="#//model/Prescription"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="paidAmount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Stock">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="articles" upperBound="-1"
+          eType="#//model/StockArticle"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="StockArticle">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="article" lowerBound="1"
+          eType="#//model/Article"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOnStock" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lowerBound" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="StockOrder">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="article" upperBound="-1"
+          eType="#//model/Article"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="issuer" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="StockOrderStatus">
+      <eLiterals name="NEW"/>
+      <eLiterals name="ORDERED" value="1"/>
+      <eLiterals name="AWAITING_DELIVERY" value="2"/>
+      <eLiterals name="RECEIVED" value="3"/>
+      <eLiterals name="ARTICLE_REPLACED" value="98" literal=""/>
+      <eLiterals name="NOT_AVAILABLE" value="99"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="application" nsURI="pharmacy_at/application" nsPrefix="www.ecrit.at">
+    <eClassifiers xsi:type="ecore:EClass" name="User">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="role" lowerBound="1"
+          eType="#//application/UserRole"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="UserRole">
+      <eLiterals name="SELLER"/>
+      <eLiterals name="CLERK" value="1"/>
+      <eLiterals name="STOCKIST" value="2"/>
+      <eLiterals name="SYSADMIN" value="3"/>
+    </eClassifiers>
+  </eSubpackages>
+</ecore:EPackage>

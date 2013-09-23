@@ -1,0 +1,43 @@
+h1. Pharmacy AT
+
+Pharmacy AT (PHARMAT) is a sample application used for the development of the Écrit automated user documentation project. Its purpose is
+to provide a small, yet comprehensive enough application and scenario to give a meaningful testbed.
+
+h2. Application Domain
+
+The application models a very basic pharmacy application software, considering austrian regulations, distributing pharmaceutical and non-pharmaceutical articles to customers. It provides the following basic features:
+
+* Basic Article management (update article list)
+* Basic stock management (add article, order article, remove article, refill article)
+* User role support
+* Bill "management"
+* Prescription "management"
+
+
+h3. Audiences
+
+The following audiences, resp. user roles have been identified in our pharmacy:
+
+h4. SELLER
+
+The seller is responsible for taking care of customer needs. He takes orders for articles, checks their availability on stock - possibly back-ordering them, takes prescriptions as "vouchers" for articles and bills the remainder for direct payment of the customer.
+
+h4. STOCKIST
+
+The stockist is responsible for taking care of the article stock. He updates the list of articles available on the market, performs back-orders with pharmaceutical enterprises, adds, removes and refills articles in the stock.
+
+h4. CLERK
+
+The clerk covers matters of bookkeeping. It is her responsibility to check the balance. That is, for each article that has been sold within a bill, either a resp. prescription has to exist, or the amount must have been paid by the customer directly.
+
+h4. SYSADMIN
+
+The system administrator manages user accounts to the system, and determines the access rights to the different functions. He is also
+responsible for ensuring the general availability of the system and its correct working.
+
+h3. Tasks (and Error Messages)
+
+
+h4. Common tasks
+
+h4. Audience specific tasks
