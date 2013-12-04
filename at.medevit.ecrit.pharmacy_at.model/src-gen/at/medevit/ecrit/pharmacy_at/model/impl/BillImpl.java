@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.BillImpl#getNumber <em>Number</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.BillImpl#getArticle <em>Article</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.BillImpl#getPrescription <em>Prescription</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.BillImpl#getPaidAmount <em>Paid Amount</em>}</li>
@@ -36,6 +37,26 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * @generated
  */
 public class BillImpl extends MinimalEObjectImpl.Container implements Bill {
+	/**
+	 * The default value of the '{@link #getNumber() <em>Number</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNumber()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int NUMBER_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getNumber() <em>Number</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNumber()
+	 * @generated
+	 * @ordered
+	 */
+	protected int number = NUMBER_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getArticle() <em>Article</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -100,6 +121,27 @@ public class BillImpl extends MinimalEObjectImpl.Container implements Bill {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getNumber() {
+		return number;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNumber(int newNumber) {
+		int oldNumber = number;
+		number = newNumber;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.BILL__NUMBER, oldNumber, number));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<Article> getArticle() {
 		if (article == null) {
 			article = new EObjectResolvingEList<Article>(Article.class, this, ModelPackage.BILL__ARTICLE);
@@ -148,6 +190,8 @@ public class BillImpl extends MinimalEObjectImpl.Container implements Bill {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ModelPackage.BILL__NUMBER:
+				return getNumber();
 			case ModelPackage.BILL__ARTICLE:
 				return getArticle();
 			case ModelPackage.BILL__PRESCRIPTION:
@@ -167,6 +211,9 @@ public class BillImpl extends MinimalEObjectImpl.Container implements Bill {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case ModelPackage.BILL__NUMBER:
+				setNumber((Integer)newValue);
+				return;
 			case ModelPackage.BILL__ARTICLE:
 				getArticle().clear();
 				getArticle().addAll((Collection<? extends Article>)newValue);
@@ -190,6 +237,9 @@ public class BillImpl extends MinimalEObjectImpl.Container implements Bill {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case ModelPackage.BILL__NUMBER:
+				setNumber(NUMBER_EDEFAULT);
+				return;
 			case ModelPackage.BILL__ARTICLE:
 				getArticle().clear();
 				return;
@@ -211,6 +261,8 @@ public class BillImpl extends MinimalEObjectImpl.Container implements Bill {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ModelPackage.BILL__NUMBER:
+				return number != NUMBER_EDEFAULT;
 			case ModelPackage.BILL__ARTICLE:
 				return article != null && !article.isEmpty();
 			case ModelPackage.BILL__PRESCRIPTION:
@@ -231,7 +283,9 @@ public class BillImpl extends MinimalEObjectImpl.Container implements Bill {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (paidAmount: ");
+		result.append(" (number: ");
+		result.append(number);
+		result.append(", paidAmount: ");
 		result.append(paidAmount);
 		result.append(')');
 		return result.toString();

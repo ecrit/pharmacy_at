@@ -16,12 +16,16 @@ import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 import at.medevit.ecrit.pharmacy_at.model.StockOrder;
 import at.medevit.ecrit.pharmacy_at.model.StockOrderStatus;
 
+import at.medevit.ecrit.pharmacy_at.model.util.ModelValidator;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EGenericType;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
+import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -137,6 +141,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		theModelPackage.initializePackageContents();
 		theApplicationPackage.initializePackageContents();
 
+		// Register package validator
+		EValidator.Registry.INSTANCE.put
+			(theModelPackage, 
+			 new EValidator.Descriptor() {
+				 public EValidator getEValidator() {
+					 return ModelValidator.INSTANCE;
+				 }
+			 });
+
 		// Mark meta-data to indicate it can't be changed
 		theModelPackage.freeze();
 
@@ -223,6 +236,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EOperation getArticle__HasName__DiagnosticChain_Map() {
+		return articleEClass.getEOperations().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getBill() {
 		return billEClass;
 	}
@@ -232,8 +254,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBill_Article() {
-		return (EReference)billEClass.getEStructuralFeatures().get(0);
+	public EAttribute getBill_Number() {
+		return (EAttribute)billEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -241,7 +263,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBill_Prescription() {
+	public EReference getBill_Article() {
 		return (EReference)billEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -250,8 +272,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getBill_Prescription() {
+		return (EReference)billEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getBill_PaidAmount() {
-		return (EAttribute)billEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)billEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -349,6 +380,24 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getStockOrder_BoundFor() {
+		return (EReference)stockOrderEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStockOrder_Status() {
+		return (EAttribute)stockOrderEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getStockOrderStatus() {
 		return stockOrderStatusEEnum;
 	}
@@ -390,8 +439,10 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEAttribute(articleEClass, ARTICLE__NAME);
 		createEAttribute(articleEClass, ARTICLE__DESCRIPTION);
 		createEAttribute(articleEClass, ARTICLE__ADMISSION_NUMBER);
+		createEOperation(articleEClass, ARTICLE___HAS_NAME__DIAGNOSTICCHAIN_MAP);
 
 		billEClass = createEClass(BILL);
+		createEAttribute(billEClass, BILL__NUMBER);
 		createEReference(billEClass, BILL__ARTICLE);
 		createEReference(billEClass, BILL__PRESCRIPTION);
 		createEAttribute(billEClass, BILL__PAID_AMOUNT);
@@ -408,6 +459,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(stockOrderEClass, STOCK_ORDER__ARTICLE);
 		createEAttribute(stockOrderEClass, STOCK_ORDER__ISSUER);
 		createEAttribute(stockOrderEClass, STOCK_ORDER__NUMBER);
+		createEReference(stockOrderEClass, STOCK_ORDER__BOUND_FOR);
+		createEAttribute(stockOrderEClass, STOCK_ORDER__STATUS);
 
 		// Create enums
 		stockOrderStatusEEnum = createEEnum(STOCK_ORDER_STATUS);
@@ -453,7 +506,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEAttribute(getArticle_Description(), ecorePackage.getEString(), "description", null, 0, 1, Article.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getArticle_AdmissionNumber(), ecorePackage.getEInt(), "admissionNumber", null, 0, 1, Article.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		EOperation op = initEOperation(getArticle__HasName__DiagnosticChain_Map(), ecorePackage.getEBoolean(), "hasName", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEDiagnosticChain(), "chain", 0, 1, IS_UNIQUE, IS_ORDERED);
+		EGenericType g1 = createEGenericType(ecorePackage.getEMap());
+		EGenericType g2 = createEGenericType();
+		g1.getETypeArguments().add(g2);
+		g2 = createEGenericType();
+		g1.getETypeArguments().add(g2);
+		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(billEClass, Bill.class, "Bill", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBill_Number(), ecorePackage.getEInt(), "number", null, 1, 1, Bill.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBill_Article(), this.getArticle(), null, "article", null, 0, -1, Bill.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBill_Prescription(), this.getPrescription(), null, "prescription", null, 0, -1, Bill.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBill_PaidAmount(), ecorePackage.getEFloat(), "paidAmount", null, 0, 1, Bill.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -470,6 +533,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getStockOrder_Article(), this.getArticle(), null, "article", null, 0, -1, StockOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStockOrder_Issuer(), ecorePackage.getEString(), "issuer", null, 0, 1, StockOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStockOrder_Number(), ecorePackage.getEInt(), "number", null, 0, 1, StockOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStockOrder_BoundFor(), this.getStock(), null, "boundFor", null, 0, 1, StockOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStockOrder_Status(), this.getStockOrderStatus(), "status", null, 1, 1, StockOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(stockOrderStatusEEnum, StockOrderStatus.class, "StockOrderStatus");

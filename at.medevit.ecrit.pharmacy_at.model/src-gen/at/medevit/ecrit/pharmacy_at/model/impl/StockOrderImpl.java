@@ -4,8 +4,10 @@ package at.medevit.ecrit.pharmacy_at.model.impl;
 
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
+import at.medevit.ecrit.pharmacy_at.model.Stock;
 import at.medevit.ecrit.pharmacy_at.model.StockOrder;
 
+import at.medevit.ecrit.pharmacy_at.model.StockOrderStatus;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -14,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -29,6 +32,8 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.StockOrderImpl#getArticle <em>Article</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.StockOrderImpl#getIssuer <em>Issuer</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.StockOrderImpl#getNumber <em>Number</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.StockOrderImpl#getBoundFor <em>Bound For</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.StockOrderImpl#getStatus <em>Status</em>}</li>
  * </ul>
  * </p>
  *
@@ -84,6 +89,36 @@ public class StockOrderImpl extends MinimalEObjectImpl.Container implements Stoc
 	 * @ordered
 	 */
 	protected int number = NUMBER_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getBoundFor() <em>Bound For</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBoundFor()
+	 * @generated
+	 * @ordered
+	 */
+	protected Stock boundFor;
+
+	/**
+	 * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStatus()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final StockOrderStatus STATUS_EDEFAULT = StockOrderStatus.NEW;
+
+	/**
+	 * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStatus()
+	 * @generated
+	 * @ordered
+	 */
+	protected StockOrderStatus status = STATUS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -163,6 +198,65 @@ public class StockOrderImpl extends MinimalEObjectImpl.Container implements Stoc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Stock getBoundFor() {
+		if (boundFor != null && boundFor.eIsProxy()) {
+			InternalEObject oldBoundFor = (InternalEObject)boundFor;
+			boundFor = (Stock)eResolveProxy(oldBoundFor);
+			if (boundFor != oldBoundFor) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.STOCK_ORDER__BOUND_FOR, oldBoundFor, boundFor));
+			}
+		}
+		return boundFor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Stock basicGetBoundFor() {
+		return boundFor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBoundFor(Stock newBoundFor) {
+		Stock oldBoundFor = boundFor;
+		boundFor = newBoundFor;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.STOCK_ORDER__BOUND_FOR, oldBoundFor, boundFor));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StockOrderStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStatus(StockOrderStatus newStatus) {
+		StockOrderStatus oldStatus = status;
+		status = newStatus == null ? STATUS_EDEFAULT : newStatus;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.STOCK_ORDER__STATUS, oldStatus, status));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -172,6 +266,11 @@ public class StockOrderImpl extends MinimalEObjectImpl.Container implements Stoc
 				return getIssuer();
 			case ModelPackage.STOCK_ORDER__NUMBER:
 				return getNumber();
+			case ModelPackage.STOCK_ORDER__BOUND_FOR:
+				if (resolve) return getBoundFor();
+				return basicGetBoundFor();
+			case ModelPackage.STOCK_ORDER__STATUS:
+				return getStatus();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -195,6 +294,12 @@ public class StockOrderImpl extends MinimalEObjectImpl.Container implements Stoc
 			case ModelPackage.STOCK_ORDER__NUMBER:
 				setNumber((Integer)newValue);
 				return;
+			case ModelPackage.STOCK_ORDER__BOUND_FOR:
+				setBoundFor((Stock)newValue);
+				return;
+			case ModelPackage.STOCK_ORDER__STATUS:
+				setStatus((StockOrderStatus)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -216,6 +321,12 @@ public class StockOrderImpl extends MinimalEObjectImpl.Container implements Stoc
 			case ModelPackage.STOCK_ORDER__NUMBER:
 				setNumber(NUMBER_EDEFAULT);
 				return;
+			case ModelPackage.STOCK_ORDER__BOUND_FOR:
+				setBoundFor((Stock)null);
+				return;
+			case ModelPackage.STOCK_ORDER__STATUS:
+				setStatus(STATUS_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -234,6 +345,10 @@ public class StockOrderImpl extends MinimalEObjectImpl.Container implements Stoc
 				return ISSUER_EDEFAULT == null ? issuer != null : !ISSUER_EDEFAULT.equals(issuer);
 			case ModelPackage.STOCK_ORDER__NUMBER:
 				return number != NUMBER_EDEFAULT;
+			case ModelPackage.STOCK_ORDER__BOUND_FOR:
+				return boundFor != null;
+			case ModelPackage.STOCK_ORDER__STATUS:
+				return status != STATUS_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -252,6 +367,8 @@ public class StockOrderImpl extends MinimalEObjectImpl.Container implements Stoc
 		result.append(issuer);
 		result.append(", number: ");
 		result.append(number);
+		result.append(", status: ");
+		result.append(status);
 		result.append(')');
 		return result.toString();
 	}

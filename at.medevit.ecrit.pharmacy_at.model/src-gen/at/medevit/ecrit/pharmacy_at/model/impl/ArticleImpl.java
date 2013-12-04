@@ -4,18 +4,21 @@ package at.medevit.ecrit.pharmacy_at.model.impl;
 
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
-
+import at.medevit.ecrit.pharmacy_at.model.util.ModelValidator;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Article</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Article</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -27,11 +30,11 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public class ArticleImpl extends MinimalEObjectImpl.Container implements Article {
+public class ArticleImpl extends MinimalEObjectImpl.Container implements
+		Article {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -40,8 +43,7 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -50,8 +52,7 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getDescription()
 	 * @generated
 	 * @ordered
@@ -60,8 +61,7 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 
 	/**
 	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getDescription()
 	 * @generated
 	 * @ordered
@@ -70,8 +70,8 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 
 	/**
 	 * The default value of the '{@link #getAdmissionNumber() <em>Admission Number</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * @see #getAdmissionNumber()
 	 * @generated
 	 * @ordered
@@ -80,8 +80,8 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 
 	/**
 	 * The cached value of the '{@link #getAdmissionNumber() <em>Admission Number</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * @see #getAdmissionNumber()
 	 * @generated
 	 * @ordered
@@ -89,8 +89,7 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 	protected int admissionNumber = ADMISSION_NUMBER_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected ArticleImpl() {
@@ -98,8 +97,7 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -108,8 +106,7 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public String getName() {
@@ -117,8 +114,7 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setName(String newName) {
@@ -129,8 +125,7 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public String getDescription() {
@@ -138,8 +133,7 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setDescription(String newDescription) {
@@ -150,8 +144,7 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public int getAdmissionNumber() {
@@ -159,8 +152,7 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setAdmissionNumber(int newAdmissionNumber) {
@@ -171,8 +163,26 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	public boolean hasName(DiagnosticChain chain, Map<?, ?> context) {
+		if (getName() == null || getName().equals("")) {
+			if (chain != null) {
+				chain.add(new BasicDiagnostic(Diagnostic.ERROR,
+						ModelValidator.DIAGNOSTIC_SOURCE,
+						ModelValidator.ARTICLE__HAS_NAME,
+						"Article needs to have a name", new Object[] { this,
+								ModelPackage.eINSTANCE.getArticle_Name() }));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -189,8 +199,7 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -210,8 +219,7 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -231,8 +239,7 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -249,8 +256,21 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eInvoke(int operationID, EList<?> arguments)
+			throws InvocationTargetException {
+		switch (operationID) {
+			case ModelPackage.ARTICLE___HAS_NAME__DIAGNOSTICCHAIN_MAP:
+				return hasName((DiagnosticChain)arguments.get(0), (Map<?, ?>)arguments.get(1));
+		}
+		return super.eInvoke(operationID, arguments);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -268,4 +288,4 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements Article
 		return result.toString();
 	}
 
-} //ArticleImpl
+} // ArticleImpl

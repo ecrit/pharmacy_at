@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: at.medevit.ecrit.pharmacy_at.model.edit;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Activator: at.medevit.ecrit.pharmacy_at.model.provider.Pharmacy_atEditPlugin$Implementation
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: at.medevit.ecrit.pharmacy_at.application.provider,
+ at.medevit.ecrit.pharmacy_at.model.provider
+Require-Bundle: org.eclipse.core.runtime,
+ at.medevit.ecrit.pharmacy_at.model;visibility:=reexport,
+ org.eclipse.emf.edit;visibility:=reexport
+Bundle-ActivationPolicy: lazy

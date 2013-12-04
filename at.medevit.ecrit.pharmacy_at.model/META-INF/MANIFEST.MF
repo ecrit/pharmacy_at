@@ -14,5 +14,6 @@ Export-Package: at.medevit.ecrit.pharmacy_at.application,
  at.medevit.ecrit.pharmacy_at.model.impl,
  at.medevit.ecrit.pharmacy_at.model.util
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecp.view.model.provider.xmi;bundle-version="1.1.0"
 Bundle-ActivationPolicy: lazy

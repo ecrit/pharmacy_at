@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            name="at.medevit.ecrit.pharmacy_at.application"
+            application="org.eclipse.e4.ui.workbench.swt.E4Application">
+         <property
+               name="applicationCSS"
+               value="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/css/default.css">
+         </property>
+         <property
+               name="appName"
+               value="at.medevit.ecrit.pharmacy_at.application">
+         </property>
+      </product>
+   </extension>
+
+</plugin>

@@ -5,6 +5,7 @@ package at.medevit.ecrit.pharmacy_at.model;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -159,13 +160,22 @@ public interface ModelPackage extends EPackage {
 	int ARTICLE_FEATURE_COUNT = 3;
 
 	/**
+	 * The operation id for the '<em>Has Name</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARTICLE___HAS_NAME__DIAGNOSTICCHAIN_MAP = 0;
+
+	/**
 	 * The number of operations of the '<em>Article</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARTICLE_OPERATION_COUNT = 0;
+	int ARTICLE_OPERATION_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.BillImpl <em>Bill</em>}' class.
@@ -178,13 +188,22 @@ public interface ModelPackage extends EPackage {
 	int BILL = 2;
 
 	/**
+	 * The feature id for the '<em><b>Number</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BILL__NUMBER = 0;
+
+	/**
 	 * The feature id for the '<em><b>Article</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BILL__ARTICLE = 0;
+	int BILL__ARTICLE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Prescription</b></em>' reference list.
@@ -193,7 +212,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BILL__PRESCRIPTION = 1;
+	int BILL__PRESCRIPTION = 2;
 
 	/**
 	 * The feature id for the '<em><b>Paid Amount</b></em>' attribute.
@@ -202,7 +221,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BILL__PAID_AMOUNT = 2;
+	int BILL__PAID_AMOUNT = 3;
 
 	/**
 	 * The number of structural features of the '<em>Bill</em>' class.
@@ -211,7 +230,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BILL_FEATURE_COUNT = 3;
+	int BILL_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Bill</em>' class.
@@ -352,13 +371,31 @@ public interface ModelPackage extends EPackage {
 	int STOCK_ORDER__NUMBER = 2;
 
 	/**
+	 * The feature id for the '<em><b>Bound For</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STOCK_ORDER__BOUND_FOR = 3;
+
+	/**
+	 * The feature id for the '<em><b>Status</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STOCK_ORDER__STATUS = 4;
+
+	/**
 	 * The number of structural features of the '<em>Stock Order</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STOCK_ORDER_FEATURE_COUNT = 3;
+	int STOCK_ORDER_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Stock Order</em>' class.
@@ -467,6 +504,16 @@ public interface ModelPackage extends EPackage {
 	EAttribute getArticle_AdmissionNumber();
 
 	/**
+	 * Returns the meta object for the '{@link at.medevit.ecrit.pharmacy_at.model.Article#hasName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Has Name</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Has Name</em>' operation.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Article#hasName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+	 * @generated
+	 */
+	EOperation getArticle__HasName__DiagnosticChain_Map();
+
+	/**
 	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.Bill <em>Bill</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -475,6 +522,17 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getBill();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Bill#getNumber <em>Number</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Number</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Bill#getNumber()
+	 * @see #getBill()
+	 * @generated
+	 */
+	EAttribute getBill_Number();
 
 	/**
 	 * Returns the meta object for the reference list '{@link at.medevit.ecrit.pharmacy_at.model.Bill#getArticle <em>Article</em>}'.
@@ -617,6 +675,28 @@ public interface ModelPackage extends EPackage {
 	EAttribute getStockOrder_Number();
 
 	/**
+	 * Returns the meta object for the reference '{@link at.medevit.ecrit.pharmacy_at.model.StockOrder#getBoundFor <em>Bound For</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Bound For</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.StockOrder#getBoundFor()
+	 * @see #getStockOrder()
+	 * @generated
+	 */
+	EReference getStockOrder_BoundFor();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.StockOrder#getStatus <em>Status</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Status</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.StockOrder#getStatus()
+	 * @see #getStockOrder()
+	 * @generated
+	 */
+	EAttribute getStockOrder_Status();
+
+	/**
 	 * Returns the meta object for enum '{@link at.medevit.ecrit.pharmacy_at.model.StockOrderStatus <em>Stock Order Status</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -718,6 +798,14 @@ public interface ModelPackage extends EPackage {
 		EAttribute ARTICLE__ADMISSION_NUMBER = eINSTANCE.getArticle_AdmissionNumber();
 
 		/**
+		 * The meta object literal for the '<em><b>Has Name</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation ARTICLE___HAS_NAME__DIAGNOSTICCHAIN_MAP = eINSTANCE.getArticle__HasName__DiagnosticChain_Map();
+
+		/**
 		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.BillImpl <em>Bill</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -726,6 +814,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass BILL = eINSTANCE.getBill();
+
+		/**
+		 * The meta object literal for the '<em><b>Number</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BILL__NUMBER = eINSTANCE.getBill_Number();
 
 		/**
 		 * The meta object literal for the '<em><b>Article</b></em>' reference list feature.
@@ -836,6 +932,22 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute STOCK_ORDER__NUMBER = eINSTANCE.getStockOrder_Number();
+
+		/**
+		 * The meta object literal for the '<em><b>Bound For</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STOCK_ORDER__BOUND_FOR = eINSTANCE.getStockOrder_BoundFor();
+
+		/**
+		 * The meta object literal for the '<em><b>Status</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STOCK_ORDER__STATUS = eINSTANCE.getStockOrder_Status();
 
 		/**
 		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.StockOrderStatus <em>Stock Order Status</em>}' enum.

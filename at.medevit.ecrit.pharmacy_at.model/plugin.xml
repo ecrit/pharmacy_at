@@ -21,5 +21,11 @@
             class="at.medevit.ecrit.pharmacy_at.application.ApplicationPackage"
             genModel="model/pharmacy_at.genmodel"/>
    </extension>
+   <extension
+         point="org.eclipse.emf.ecp.view.model.provider.xmi.file">
+      <file
+            filePath="model/ArticleView.view">
+      </file>
+   </extension>
 
 </plugin>
