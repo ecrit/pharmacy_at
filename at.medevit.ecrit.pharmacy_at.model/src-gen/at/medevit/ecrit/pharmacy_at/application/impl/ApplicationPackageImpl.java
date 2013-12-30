@@ -137,6 +137,15 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getUser_Password() {
+		return (EAttribute)userEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getUserRole() {
 		return userRoleEEnum;
 	}
@@ -172,6 +181,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 		userEClass = createEClass(USER);
 		createEAttribute(userEClass, USER__NAME);
 		createEAttribute(userEClass, USER__ROLE);
+		createEAttribute(userEClass, USER__PASSWORD);
 
 		// Create enums
 		userRoleEEnum = createEEnum(USER_ROLE);
@@ -210,6 +220,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 		initEClass(userEClass, User.class, "User", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getUser_Name(), ecorePackage.getEString(), "name", null, 1, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getUser_Role(), this.getUserRole(), "role", null, 1, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getUser_Password(), ecorePackage.getEString(), "password", null, 1, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(userRoleEEnum, UserRole.class, "UserRole");

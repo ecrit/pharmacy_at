@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Bill#getArticle <em>Article</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Bill#getPrescription <em>Prescription</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Bill#getPaidAmount <em>Paid Amount</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Bill#getDateTime <em>Date Time</em>}</li>
  * </ul>
  * </p>
  *
@@ -109,5 +110,31 @@ public interface Bill extends EObject {
 	 * @generated
 	 */
 	void setPaidAmount(float value);
+
+	/**
+	 * Returns the value of the '<em><b>Date Time</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Date Time</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Date Time</em>' reference.
+	 * @see #setDateTime(Date)
+	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getBill_DateTime()
+	 * @model required="true"
+	 * @generated
+	 */
+	Date getDateTime();
+
+	/**
+	 * Sets the value of the '{@link at.medevit.ecrit.pharmacy_at.model.Bill#getDateTime <em>Date Time</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Date Time</em>' reference.
+	 * @see #getDateTime()
+	 * @generated
+	 */
+	void setDateTime(Date value);
 
 } // Bill

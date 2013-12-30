@@ -7,10 +7,14 @@ import at.medevit.ecrit.pharmacy_at.application.ApplicationPackage;
 import at.medevit.ecrit.pharmacy_at.application.impl.ApplicationPackageImpl;
 
 import at.medevit.ecrit.pharmacy_at.model.Article;
+import at.medevit.ecrit.pharmacy_at.model.ArticleAvailability;
 import at.medevit.ecrit.pharmacy_at.model.Bill;
+import at.medevit.ecrit.pharmacy_at.model.Date;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
+import at.medevit.ecrit.pharmacy_at.model.Priority;
+import at.medevit.ecrit.pharmacy_at.model.Report;
 import at.medevit.ecrit.pharmacy_at.model.Stock;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 import at.medevit.ecrit.pharmacy_at.model.StockOrder;
@@ -82,7 +86,35 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass dateEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass reportEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum stockOrderStatusEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum articleAvailabilityEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum priorityEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -236,6 +268,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getArticle_Availability() {
+		return (EAttribute)articleEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EOperation getArticle__HasName__DiagnosticChain_Map() {
 		return articleEClass.getEOperations().get(0);
 	}
@@ -283,6 +324,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 */
 	public EAttribute getBill_PaidAmount() {
 		return (EAttribute)billEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBill_DateTime() {
+		return (EReference)billEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -398,8 +448,107 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getDate() {
+		return dateEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDate_Date() {
+		return (EAttribute)dateEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDate_Time() {
+		return (EAttribute)dateEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getReport() {
+		return reportEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReport_Title() {
+		return (EAttribute)reportEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getReport_Issuer() {
+		return (EReference)reportEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReport_Priority() {
+		return (EAttribute)reportEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReport_Concerns() {
+		return (EAttribute)reportEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReport_Text() {
+		return (EAttribute)reportEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getStockOrderStatus() {
 		return stockOrderStatusEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getArticleAvailability() {
+		return articleAvailabilityEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getPriority() {
+		return priorityEEnum;
 	}
 
 	/**
@@ -439,6 +588,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEAttribute(articleEClass, ARTICLE__NAME);
 		createEAttribute(articleEClass, ARTICLE__DESCRIPTION);
 		createEAttribute(articleEClass, ARTICLE__ADMISSION_NUMBER);
+		createEAttribute(articleEClass, ARTICLE__AVAILABILITY);
 		createEOperation(articleEClass, ARTICLE___HAS_NAME__DIAGNOSTICCHAIN_MAP);
 
 		billEClass = createEClass(BILL);
@@ -446,6 +596,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(billEClass, BILL__ARTICLE);
 		createEReference(billEClass, BILL__PRESCRIPTION);
 		createEAttribute(billEClass, BILL__PAID_AMOUNT);
+		createEReference(billEClass, BILL__DATE_TIME);
 
 		stockEClass = createEClass(STOCK);
 		createEReference(stockEClass, STOCK__ARTICLES);
@@ -462,8 +613,21 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(stockOrderEClass, STOCK_ORDER__BOUND_FOR);
 		createEAttribute(stockOrderEClass, STOCK_ORDER__STATUS);
 
+		dateEClass = createEClass(DATE);
+		createEAttribute(dateEClass, DATE__DATE);
+		createEAttribute(dateEClass, DATE__TIME);
+
+		reportEClass = createEClass(REPORT);
+		createEAttribute(reportEClass, REPORT__TITLE);
+		createEReference(reportEClass, REPORT__ISSUER);
+		createEAttribute(reportEClass, REPORT__PRIORITY);
+		createEAttribute(reportEClass, REPORT__CONCERNS);
+		createEAttribute(reportEClass, REPORT__TEXT);
+
 		// Create enums
 		stockOrderStatusEEnum = createEEnum(STOCK_ORDER_STATUS);
+		articleAvailabilityEEnum = createEEnum(ARTICLE_AVAILABILITY);
+		priorityEEnum = createEEnum(PRIORITY);
 	}
 
 	/**
@@ -489,6 +653,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		ApplicationPackage theApplicationPackage = (ApplicationPackage)EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI);
+
 		// Create type parameters
 
 		// Set bounds for type parameters
@@ -505,6 +672,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEAttribute(getArticle_Name(), ecorePackage.getEString(), "name", null, 0, 1, Article.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getArticle_Description(), ecorePackage.getEString(), "description", null, 0, 1, Article.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getArticle_AdmissionNumber(), ecorePackage.getEInt(), "admissionNumber", null, 0, 1, Article.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getArticle_Availability(), this.getArticleAvailability(), "availability", null, 1, 1, Article.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = initEOperation(getArticle__HasName__DiagnosticChain_Map(), ecorePackage.getEBoolean(), "hasName", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEDiagnosticChain(), "chain", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -520,6 +688,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getBill_Article(), this.getArticle(), null, "article", null, 0, -1, Bill.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBill_Prescription(), this.getPrescription(), null, "prescription", null, 0, -1, Bill.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBill_PaidAmount(), ecorePackage.getEFloat(), "paidAmount", null, 0, 1, Bill.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBill_DateTime(), this.getDate(), null, "dateTime", null, 1, 1, Bill.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stockEClass, Stock.class, "Stock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getStock_Articles(), this.getStockArticle(), null, "articles", null, 0, -1, Stock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -536,6 +705,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getStockOrder_BoundFor(), this.getStock(), null, "boundFor", null, 0, 1, StockOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStockOrder_Status(), this.getStockOrderStatus(), "status", null, 1, 1, StockOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(dateEClass, Date.class, "Date", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDate_Date(), ecorePackage.getEDate(), "date", null, 1, 1, Date.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDate_Time(), ecorePackage.getEDate(), "time", null, 1, 1, Date.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(reportEClass, Report.class, "Report", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getReport_Title(), ecorePackage.getEString(), "title", null, 1, 1, Report.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getReport_Issuer(), theApplicationPackage.getUser(), null, "issuer", null, 1, 1, Report.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getReport_Priority(), this.getPriority(), "priority", null, 0, 1, Report.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getReport_Concerns(), ecorePackage.getEString(), "concerns", null, 0, 1, Report.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getReport_Text(), ecorePackage.getEString(), "text", null, 0, 1, Report.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(stockOrderStatusEEnum, StockOrderStatus.class, "StockOrderStatus");
 		addEEnumLiteral(stockOrderStatusEEnum, StockOrderStatus.NEW);
@@ -544,6 +724,16 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEEnumLiteral(stockOrderStatusEEnum, StockOrderStatus.RECEIVED);
 		addEEnumLiteral(stockOrderStatusEEnum, StockOrderStatus.ARTICLE_REPLACED);
 		addEEnumLiteral(stockOrderStatusEEnum, StockOrderStatus.NOT_AVAILABLE);
+
+		initEEnum(articleAvailabilityEEnum, ArticleAvailability.class, "ArticleAvailability");
+		addEEnumLiteral(articleAvailabilityEEnum, ArticleAvailability.AVAILABLE);
+		addEEnumLiteral(articleAvailabilityEEnum, ArticleAvailability.BLACKLISTED);
+
+		initEEnum(priorityEEnum, Priority.class, "Priority");
+		addEEnumLiteral(priorityEEnum, Priority.HIGH);
+		addEEnumLiteral(priorityEEnum, Priority.MEDIUM);
+		addEEnumLiteral(priorityEEnum, Priority.LOW);
+		addEEnumLiteral(priorityEEnum, Priority.CRITICAL);
 
 		// Create resource
 		createResource(eNS_URI);

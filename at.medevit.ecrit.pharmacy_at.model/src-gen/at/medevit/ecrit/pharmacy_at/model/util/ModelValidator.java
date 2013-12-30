@@ -105,8 +105,16 @@ public class ModelValidator extends EObjectValidator {
 				return validateStockArticle((StockArticle)value, diagnostics, context);
 			case ModelPackage.STOCK_ORDER:
 				return validateStockOrder((StockOrder)value, diagnostics, context);
+			case ModelPackage.DATE:
+				return validateDate((Date)value, diagnostics, context);
+			case ModelPackage.REPORT:
+				return validateReport((Report)value, diagnostics, context);
 			case ModelPackage.STOCK_ORDER_STATUS:
 				return validateStockOrderStatus((StockOrderStatus)value, diagnostics, context);
+			case ModelPackage.ARTICLE_AVAILABILITY:
+				return validateArticleAvailability((ArticleAvailability)value, diagnostics, context);
+			case ModelPackage.PRIORITY:
+				return validatePriority((Priority)value, diagnostics, context);
 			default:
 				return true;
 		}
@@ -191,7 +199,43 @@ public class ModelValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateDate(Date date, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(date, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateReport(Report report, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(report, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateStockOrderStatus(StockOrderStatus stockOrderStatus, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateArticleAvailability(ArticleAvailability articleAvailability, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validatePriority(Priority priority, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

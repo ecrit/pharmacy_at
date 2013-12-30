@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.application.User#getName <em>Name</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.application.User#getRole <em>Role</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.application.User#getPassword <em>Password</em>}</li>
  * </ul>
  * </p>
  *
@@ -76,5 +77,31 @@ public interface User extends EObject {
 	 * @generated
 	 */
 	void setRole(UserRole value);
+
+	/**
+	 * Returns the value of the '<em><b>Password</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Password</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Password</em>' attribute.
+	 * @see #setPassword(String)
+	 * @see at.medevit.ecrit.pharmacy_at.application.ApplicationPackage#getUser_Password()
+	 * @model required="true"
+	 * @generated
+	 */
+	String getPassword();
+
+	/**
+	 * Sets the value of the '{@link at.medevit.ecrit.pharmacy_at.application.User#getPassword <em>Password</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Password</em>' attribute.
+	 * @see #getPassword()
+	 * @generated
+	 */
+	void setPassword(String value);
 
 } // User

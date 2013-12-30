@@ -3,6 +3,7 @@
 package at.medevit.ecrit.pharmacy_at.model.impl;
 
 import at.medevit.ecrit.pharmacy_at.model.Article;
+import at.medevit.ecrit.pharmacy_at.model.ArticleAvailability;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.util.ModelValidator;
 import java.lang.reflect.InvocationTargetException;
@@ -25,6 +26,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.ArticleImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.ArticleImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.ArticleImpl#getAdmissionNumber <em>Admission Number</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.ArticleImpl#getAvailability <em>Availability</em>}</li>
  * </ul>
  * </p>
  *
@@ -87,6 +89,26 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements
 	 * @ordered
 	 */
 	protected int admissionNumber = ADMISSION_NUMBER_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getAvailability() <em>Availability</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAvailability()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ArticleAvailability AVAILABILITY_EDEFAULT = ArticleAvailability.AVAILABLE;
+
+	/**
+	 * The cached value of the '{@link #getAvailability() <em>Availability</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAvailability()
+	 * @generated
+	 * @ordered
+	 */
+	protected ArticleAvailability availability = AVAILABILITY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -163,6 +185,27 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ArticleAvailability getAvailability() {
+		return availability;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAvailability(ArticleAvailability newAvailability) {
+		ArticleAvailability oldAvailability = availability;
+		availability = newAvailability == null ? AVAILABILITY_EDEFAULT : newAvailability;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ARTICLE__AVAILABILITY, oldAvailability, availability));
+	}
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated NOT
@@ -194,6 +237,8 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements
 				return getDescription();
 			case ModelPackage.ARTICLE__ADMISSION_NUMBER:
 				return getAdmissionNumber();
+			case ModelPackage.ARTICLE__AVAILABILITY:
+				return getAvailability();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -213,6 +258,9 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements
 				return;
 			case ModelPackage.ARTICLE__ADMISSION_NUMBER:
 				setAdmissionNumber((Integer)newValue);
+				return;
+			case ModelPackage.ARTICLE__AVAILABILITY:
+				setAvailability((ArticleAvailability)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -234,6 +282,9 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements
 			case ModelPackage.ARTICLE__ADMISSION_NUMBER:
 				setAdmissionNumber(ADMISSION_NUMBER_EDEFAULT);
 				return;
+			case ModelPackage.ARTICLE__AVAILABILITY:
+				setAvailability(AVAILABILITY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -251,6 +302,8 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case ModelPackage.ARTICLE__ADMISSION_NUMBER:
 				return admissionNumber != ADMISSION_NUMBER_EDEFAULT;
+			case ModelPackage.ARTICLE__AVAILABILITY:
+				return availability != AVAILABILITY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -284,6 +337,8 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements
 		result.append(description);
 		result.append(", admissionNumber: ");
 		result.append(admissionNumber);
+		result.append(", availability: ");
+		result.append(availability);
 		result.append(')');
 		return result.toString();
 	}

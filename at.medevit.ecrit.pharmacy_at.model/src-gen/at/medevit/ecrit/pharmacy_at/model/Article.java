@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Article#getName <em>Name</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Article#getDescription <em>Description</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Article#getAdmissionNumber <em>Admission Number</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Article#getAvailability <em>Availability</em>}</li>
  * </ul>
  * </p>
  *
@@ -102,6 +103,35 @@ public interface Article extends EObject {
 	 * @generated
 	 */
 	void setAdmissionNumber(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Availability</b></em>' attribute.
+	 * The literals are from the enumeration {@link at.medevit.ecrit.pharmacy_at.model.ArticleAvailability}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Availability</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Availability</em>' attribute.
+	 * @see at.medevit.ecrit.pharmacy_at.model.ArticleAvailability
+	 * @see #setAvailability(ArticleAvailability)
+	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getArticle_Availability()
+	 * @model required="true"
+	 * @generated
+	 */
+	ArticleAvailability getAvailability();
+
+	/**
+	 * Sets the value of the '{@link at.medevit.ecrit.pharmacy_at.model.Article#getAvailability <em>Availability</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Availability</em>' attribute.
+	 * @see at.medevit.ecrit.pharmacy_at.model.ArticleAvailability
+	 * @see #getAvailability()
+	 * @generated
+	 */
+	void setAvailability(ArticleAvailability value);
 
 	/**
 	 * <!-- begin-user-doc -->

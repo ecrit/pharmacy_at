@@ -22,6 +22,8 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="admissionNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="availability" lowerBound="1"
+          eType="#//model/ArticleAvailability"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Bill">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" lowerBound="1"
@@ -31,6 +33,8 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="prescription" upperBound="-1"
           eType="#//model/Prescription"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="paidAmount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dateTime" lowerBound="1"
+          eType="#//model/Date"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Stock">
       <eStructuralFeatures xsi:type="ecore:EReference" name="articles" upperBound="-1"
@@ -59,6 +63,31 @@
       <eLiterals name="ARTICLE_REPLACED" value="98" literal=""/>
       <eLiterals name="NOT_AVAILABLE" value="99"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="ArticleAvailability">
+      <eLiterals name="AVAILABLE"/>
+      <eLiterals name="BLACKLISTED" value="1"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Date">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Report">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="issuer" lowerBound="1"
+          eType="#//application/User"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="priority" eType="#//model/Priority"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="concerns" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="Priority">
+      <eLiterals name="HIGH"/>
+      <eLiterals name="MEDIUM" value="1"/>
+      <eLiterals name="LOW" value="2"/>
+      <eLiterals name="CRITICAL" value="3"/>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="application" nsURI="pharmacy_at/application" nsPrefix="www.ecrit.at">
     <eClassifiers xsi:type="ecore:EClass" name="User">
@@ -66,6 +95,8 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="role" lowerBound="1"
           eType="#//application/UserRole"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="UserRole">
       <eLiterals name="SELLER"/>

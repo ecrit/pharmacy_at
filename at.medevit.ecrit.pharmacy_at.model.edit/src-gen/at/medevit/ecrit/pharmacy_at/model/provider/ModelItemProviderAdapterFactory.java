@@ -17,6 +17,7 @@ import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IChangeNotifier;
 import org.eclipse.emf.edit.provider.IDisposable;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
+import org.eclipse.emf.edit.provider.IItemColorProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.INotifyChangedListener;
@@ -69,6 +70,7 @@ public class ModelItemProviderAdapterFactory extends ModelAdapterFactory impleme
 		supportedTypes.add(ITreeItemContentProvider.class);
 		supportedTypes.add(IItemLabelProvider.class);
 		supportedTypes.add(IItemPropertySource.class);
+		supportedTypes.add(IItemColorProvider.class);
 	}
 
 	/**
@@ -210,6 +212,52 @@ public class ModelItemProviderAdapterFactory extends ModelAdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link at.medevit.ecrit.pharmacy_at.model.Date} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DateItemProvider dateItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link at.medevit.ecrit.pharmacy_at.model.Date}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDateAdapter() {
+		if (dateItemProvider == null) {
+			dateItemProvider = new DateItemProvider(this);
+		}
+
+		return dateItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link at.medevit.ecrit.pharmacy_at.model.Report} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ReportItemProvider reportItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link at.medevit.ecrit.pharmacy_at.model.Report}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createReportAdapter() {
+		if (reportItemProvider == null) {
+			reportItemProvider = new ReportItemProvider(this);
+		}
+
+		return reportItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -314,6 +362,8 @@ public class ModelItemProviderAdapterFactory extends ModelAdapterFactory impleme
 		if (stockItemProvider != null) stockItemProvider.dispose();
 		if (stockArticleItemProvider != null) stockArticleItemProvider.dispose();
 		if (stockOrderItemProvider != null) stockOrderItemProvider.dispose();
+		if (dateItemProvider != null) dateItemProvider.dispose();
+		if (reportItemProvider != null) reportItemProvider.dispose();
 	}
 
 }

@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.application.impl.UserImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.application.impl.UserImpl#getRole <em>Role</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.application.impl.UserImpl#getPassword <em>Password</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,6 +68,26 @@ public class UserImpl extends MinimalEObjectImpl.Container implements User {
 	 * @ordered
 	 */
 	protected UserRole role = ROLE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getPassword() <em>Password</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPassword()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PASSWORD_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPassword() <em>Password</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPassword()
+	 * @generated
+	 * @ordered
+	 */
+	protected String password = PASSWORD_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -134,6 +155,27 @@ public class UserImpl extends MinimalEObjectImpl.Container implements User {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPassword(String newPassword) {
+		String oldPassword = password;
+		password = newPassword;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ApplicationPackage.USER__PASSWORD, oldPassword, password));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -141,6 +183,8 @@ public class UserImpl extends MinimalEObjectImpl.Container implements User {
 				return getName();
 			case ApplicationPackage.USER__ROLE:
 				return getRole();
+			case ApplicationPackage.USER__PASSWORD:
+				return getPassword();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -158,6 +202,9 @@ public class UserImpl extends MinimalEObjectImpl.Container implements User {
 				return;
 			case ApplicationPackage.USER__ROLE:
 				setRole((UserRole)newValue);
+				return;
+			case ApplicationPackage.USER__PASSWORD:
+				setPassword((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -177,6 +224,9 @@ public class UserImpl extends MinimalEObjectImpl.Container implements User {
 			case ApplicationPackage.USER__ROLE:
 				setRole(ROLE_EDEFAULT);
 				return;
+			case ApplicationPackage.USER__PASSWORD:
+				setPassword(PASSWORD_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -193,6 +243,8 @@ public class UserImpl extends MinimalEObjectImpl.Container implements User {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ApplicationPackage.USER__ROLE:
 				return role != ROLE_EDEFAULT;
+			case ApplicationPackage.USER__PASSWORD:
+				return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -211,6 +263,8 @@ public class UserImpl extends MinimalEObjectImpl.Container implements User {
 		result.append(name);
 		result.append(", role: ");
 		result.append(role);
+		result.append(", password: ");
+		result.append(password);
 		result.append(')');
 		return result.toString();
 	}

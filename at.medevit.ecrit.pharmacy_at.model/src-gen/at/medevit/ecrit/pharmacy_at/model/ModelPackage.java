@@ -151,13 +151,22 @@ public interface ModelPackage extends EPackage {
 	int ARTICLE__ADMISSION_NUMBER = 2;
 
 	/**
+	 * The feature id for the '<em><b>Availability</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARTICLE__AVAILABILITY = 3;
+
+	/**
 	 * The number of structural features of the '<em>Article</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARTICLE_FEATURE_COUNT = 3;
+	int ARTICLE_FEATURE_COUNT = 4;
 
 	/**
 	 * The operation id for the '<em>Has Name</em>' operation.
@@ -224,13 +233,22 @@ public interface ModelPackage extends EPackage {
 	int BILL__PAID_AMOUNT = 3;
 
 	/**
+	 * The feature id for the '<em><b>Date Time</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BILL__DATE_TIME = 4;
+
+	/**
 	 * The number of structural features of the '<em>Bill</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BILL_FEATURE_COUNT = 4;
+	int BILL_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Bill</em>' class.
@@ -407,6 +425,125 @@ public interface ModelPackage extends EPackage {
 	int STOCK_ORDER_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.DateImpl <em>Date</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.DateImpl
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getDate()
+	 * @generated
+	 */
+	int DATE = 6;
+
+	/**
+	 * The feature id for the '<em><b>Date</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATE__DATE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATE__TIME = 1;
+
+	/**
+	 * The number of structural features of the '<em>Date</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATE_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Date</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.ReportImpl <em>Report</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ReportImpl
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getReport()
+	 * @generated
+	 */
+	int REPORT = 7;
+
+	/**
+	 * The feature id for the '<em><b>Title</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPORT__TITLE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Issuer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPORT__ISSUER = 1;
+
+	/**
+	 * The feature id for the '<em><b>Priority</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPORT__PRIORITY = 2;
+
+	/**
+	 * The feature id for the '<em><b>Concerns</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPORT__CONCERNS = 3;
+
+	/**
+	 * The feature id for the '<em><b>Text</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPORT__TEXT = 4;
+
+	/**
+	 * The number of structural features of the '<em>Report</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPORT_FEATURE_COUNT = 5;
+
+	/**
+	 * The number of operations of the '<em>Report</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPORT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.StockOrderStatus <em>Stock Order Status</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -414,7 +551,28 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getStockOrderStatus()
 	 * @generated
 	 */
-	int STOCK_ORDER_STATUS = 6;
+	int STOCK_ORDER_STATUS = 8;
+
+
+	/**
+	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.ArticleAvailability <em>Article Availability</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.medevit.ecrit.pharmacy_at.model.ArticleAvailability
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getArticleAvailability()
+	 * @generated
+	 */
+	int ARTICLE_AVAILABILITY = 9;
+
+	/**
+	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.Priority <em>Priority</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.medevit.ecrit.pharmacy_at.model.Priority
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getPriority()
+	 * @generated
+	 */
+	int PRIORITY = 10;
 
 
 	/**
@@ -504,6 +662,17 @@ public interface ModelPackage extends EPackage {
 	EAttribute getArticle_AdmissionNumber();
 
 	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Article#getAvailability <em>Availability</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Availability</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Article#getAvailability()
+	 * @see #getArticle()
+	 * @generated
+	 */
+	EAttribute getArticle_Availability();
+
+	/**
 	 * Returns the meta object for the '{@link at.medevit.ecrit.pharmacy_at.model.Article#hasName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Has Name</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -566,6 +735,17 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getBill_PaidAmount();
+
+	/**
+	 * Returns the meta object for the reference '{@link at.medevit.ecrit.pharmacy_at.model.Bill#getDateTime <em>Date Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Date Time</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Bill#getDateTime()
+	 * @see #getBill()
+	 * @generated
+	 */
+	EReference getBill_DateTime();
 
 	/**
 	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.Stock <em>Stock</em>}'.
@@ -697,6 +877,103 @@ public interface ModelPackage extends EPackage {
 	EAttribute getStockOrder_Status();
 
 	/**
+	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.Date <em>Date</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Date</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Date
+	 * @generated
+	 */
+	EClass getDate();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Date#getDate <em>Date</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Date</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Date#getDate()
+	 * @see #getDate()
+	 * @generated
+	 */
+	EAttribute getDate_Date();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Date#getTime <em>Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Time</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Date#getTime()
+	 * @see #getDate()
+	 * @generated
+	 */
+	EAttribute getDate_Time();
+
+	/**
+	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.Report <em>Report</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Report</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Report
+	 * @generated
+	 */
+	EClass getReport();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Report#getTitle <em>Title</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Title</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Report#getTitle()
+	 * @see #getReport()
+	 * @generated
+	 */
+	EAttribute getReport_Title();
+
+	/**
+	 * Returns the meta object for the reference '{@link at.medevit.ecrit.pharmacy_at.model.Report#getIssuer <em>Issuer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Issuer</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Report#getIssuer()
+	 * @see #getReport()
+	 * @generated
+	 */
+	EReference getReport_Issuer();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Report#getPriority <em>Priority</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Priority</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Report#getPriority()
+	 * @see #getReport()
+	 * @generated
+	 */
+	EAttribute getReport_Priority();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Report#getConcerns <em>Concerns</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Concerns</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Report#getConcerns()
+	 * @see #getReport()
+	 * @generated
+	 */
+	EAttribute getReport_Concerns();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Report#getText <em>Text</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Text</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Report#getText()
+	 * @see #getReport()
+	 * @generated
+	 */
+	EAttribute getReport_Text();
+
+	/**
 	 * Returns the meta object for enum '{@link at.medevit.ecrit.pharmacy_at.model.StockOrderStatus <em>Stock Order Status</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -705,6 +982,26 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getStockOrderStatus();
+
+	/**
+	 * Returns the meta object for enum '{@link at.medevit.ecrit.pharmacy_at.model.ArticleAvailability <em>Article Availability</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Article Availability</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.ArticleAvailability
+	 * @generated
+	 */
+	EEnum getArticleAvailability();
+
+	/**
+	 * Returns the meta object for enum '{@link at.medevit.ecrit.pharmacy_at.model.Priority <em>Priority</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Priority</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Priority
+	 * @generated
+	 */
+	EEnum getPriority();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -798,6 +1095,14 @@ public interface ModelPackage extends EPackage {
 		EAttribute ARTICLE__ADMISSION_NUMBER = eINSTANCE.getArticle_AdmissionNumber();
 
 		/**
+		 * The meta object literal for the '<em><b>Availability</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ARTICLE__AVAILABILITY = eINSTANCE.getArticle_Availability();
+
+		/**
 		 * The meta object literal for the '<em><b>Has Name</b></em>' operation.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -846,6 +1151,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BILL__PAID_AMOUNT = eINSTANCE.getBill_PaidAmount();
+
+		/**
+		 * The meta object literal for the '<em><b>Date Time</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BILL__DATE_TIME = eINSTANCE.getBill_DateTime();
 
 		/**
 		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.StockImpl <em>Stock</em>}' class.
@@ -950,6 +1263,82 @@ public interface ModelPackage extends EPackage {
 		EAttribute STOCK_ORDER__STATUS = eINSTANCE.getStockOrder_Status();
 
 		/**
+		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.DateImpl <em>Date</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.DateImpl
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getDate()
+		 * @generated
+		 */
+		EClass DATE = eINSTANCE.getDate();
+
+		/**
+		 * The meta object literal for the '<em><b>Date</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATE__DATE = eINSTANCE.getDate_Date();
+
+		/**
+		 * The meta object literal for the '<em><b>Time</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATE__TIME = eINSTANCE.getDate_Time();
+
+		/**
+		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.ReportImpl <em>Report</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.ReportImpl
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getReport()
+		 * @generated
+		 */
+		EClass REPORT = eINSTANCE.getReport();
+
+		/**
+		 * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REPORT__TITLE = eINSTANCE.getReport_Title();
+
+		/**
+		 * The meta object literal for the '<em><b>Issuer</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REPORT__ISSUER = eINSTANCE.getReport_Issuer();
+
+		/**
+		 * The meta object literal for the '<em><b>Priority</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REPORT__PRIORITY = eINSTANCE.getReport_Priority();
+
+		/**
+		 * The meta object literal for the '<em><b>Concerns</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REPORT__CONCERNS = eINSTANCE.getReport_Concerns();
+
+		/**
+		 * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REPORT__TEXT = eINSTANCE.getReport_Text();
+
+		/**
 		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.StockOrderStatus <em>Stock Order Status</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -958,6 +1347,26 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum STOCK_ORDER_STATUS = eINSTANCE.getStockOrderStatus();
+
+		/**
+		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.ArticleAvailability <em>Article Availability</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.medevit.ecrit.pharmacy_at.model.ArticleAvailability
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getArticleAvailability()
+		 * @generated
+		 */
+		EEnum ARTICLE_AVAILABILITY = eINSTANCE.getArticleAvailability();
+
+		/**
+		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.Priority <em>Priority</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.medevit.ecrit.pharmacy_at.model.Priority
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getPriority()
+		 * @generated
+		 */
+		EEnum PRIORITY = eINSTANCE.getPriority();
 
 	}
 

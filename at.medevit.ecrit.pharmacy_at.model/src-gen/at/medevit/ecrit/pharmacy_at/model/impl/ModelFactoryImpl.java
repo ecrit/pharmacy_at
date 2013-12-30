@@ -63,6 +63,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.STOCK: return createStock();
 			case ModelPackage.STOCK_ARTICLE: return createStockArticle();
 			case ModelPackage.STOCK_ORDER: return createStockOrder();
+			case ModelPackage.DATE: return createDate();
+			case ModelPackage.REPORT: return createReport();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -78,6 +80,10 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 		switch (eDataType.getClassifierID()) {
 			case ModelPackage.STOCK_ORDER_STATUS:
 				return createStockOrderStatusFromString(eDataType, initialValue);
+			case ModelPackage.ARTICLE_AVAILABILITY:
+				return createArticleAvailabilityFromString(eDataType, initialValue);
+			case ModelPackage.PRIORITY:
+				return createPriorityFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -93,6 +99,10 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 		switch (eDataType.getClassifierID()) {
 			case ModelPackage.STOCK_ORDER_STATUS:
 				return convertStockOrderStatusToString(eDataType, instanceValue);
+			case ModelPackage.ARTICLE_AVAILABILITY:
+				return convertArticleAvailabilityToString(eDataType, instanceValue);
+			case ModelPackage.PRIORITY:
+				return convertPriorityToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -163,6 +173,26 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Date createDate() {
+		DateImpl date = new DateImpl();
+		return date;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Report createReport() {
+		ReportImpl report = new ReportImpl();
+		return report;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public StockOrderStatus createStockOrderStatusFromString(EDataType eDataType, String initialValue) {
 		StockOrderStatus result = StockOrderStatus.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -175,6 +205,46 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * @generated
 	 */
 	public String convertStockOrderStatusToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ArticleAvailability createArticleAvailabilityFromString(EDataType eDataType, String initialValue) {
+		ArticleAvailability result = ArticleAvailability.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertArticleAvailabilityToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Priority createPriorityFromString(EDataType eDataType, String initialValue) {
+		Priority result = Priority.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertPriorityToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

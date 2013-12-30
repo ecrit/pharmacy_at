@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_EJuB8HGGEeODb4TgKtQeWw" type="EcoreTools" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_EJ2k0HGGEeODb4TgKtQeWw" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_EJ3L4HGGEeODb4TgKtQeWw" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_EJ3y8HGGEeODb4TgKtQeWw" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_EJ5oIHGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/Prescription/issuingPractitioner"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EJ5oIXGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EJ5oInGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/Prescription/number"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EJ5oI3GGEeODb4TgKtQeWw"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EJ3y8XGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EJ3y8nGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EJ3y83GGEeODb4TgKtQeWw"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EJ4aAHGGEeODb4TgKtQeWw" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EJ4aAXGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EJ4aAnGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EJ4aA3GGEeODb4TgKtQeWw"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_EJ2k0XGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="pharmacy_at.ecore#//model/Prescription"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EJ2k0nGGEeODb4TgKtQeWw" x="324" y="201"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_EJ6PMHGGEeODb4TgKtQeWw" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_EJ6PM3GGEeODb4TgKtQeWw" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_EJ6PNHGGEeODb4TgKtQeWw" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_EJ7dU3GGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/Article/name"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EJ7dVHGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EJ8EYHGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/Article/description"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EJ8EYXGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EJ8EYnGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/Article/admissionNumber"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EJ8EY3GGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EJ8EZHGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/Article/availability"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EJ8EZXGGEeODb4TgKtQeWw"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EJ6PNXGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EJ6PNnGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EJ6PN3GGEeODb4TgKtQeWw"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EJ62QHGGEeODb4TgKtQeWw" type="5002">
+      <children xmi:type="notation:Node" xmi:id="_EJ8rcHGGEeODb4TgKtQeWw" type="2002">
+        <element xmi:type="ecore:EOperation" href="pharmacy_at.ecore#//model/Article/hasName"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EJ8rcXGGEeODb4TgKtQeWw"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EJ7dUHGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EJ7dUXGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EJ7dUnGGEeODb4TgKtQeWw"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_EJ6PMXGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="pharmacy_at.ecore#//model/Article"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EJ6PMnGGEeODb4TgKtQeWw" x="213"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_EJ9SgHGGEeODb4TgKtQeWw" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_EJ9Sg3GGEeODb4TgKtQeWw" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_EJ95kHGGEeODb4TgKtQeWw" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_EJ95mHGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/Bill/number"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EJ95mXGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EJ95mnGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/Bill/paidAmount"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EJ95m3GGEeODb4TgKtQeWw"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EJ95kXGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EJ95knGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EJ95k3GGEeODb4TgKtQeWw"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EJ95lHGGEeODb4TgKtQeWw" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EJ95lXGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EJ95lnGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EJ95l3GGEeODb4TgKtQeWw"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_EJ9SgXGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="pharmacy_at.ecore#//model/Bill"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EJ9SgnGGEeODb4TgKtQeWw" x="522" y="329"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_EJ-goHGGEeODb4TgKtQeWw" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_EJ-go3GGEeODb4TgKtQeWw" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_EJ-gpHGGEeODb4TgKtQeWw" type="5001">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EJ-gpXGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EJ-gpnGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EJ-gp3GGEeODb4TgKtQeWw"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EJ-gqHGGEeODb4TgKtQeWw" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EJ-gqXGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EJ-gqnGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EJ-gq3GGEeODb4TgKtQeWw"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_EJ-goXGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="pharmacy_at.ecore#//model/Stock"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EJ-gonGGEeODb4TgKtQeWw" x="55" y="329"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_EJ_HsHGGEeODb4TgKtQeWw" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_EJ_Hs3GGEeODb4TgKtQeWw" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_EJ_HtHGGEeODb4TgKtQeWw" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_EJ_HvHGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/StockArticle/numberOnStock"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EJ_HvXGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EJ_uwHGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/StockArticle/lowerBound"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EJ_uwXGGEeODb4TgKtQeWw"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EJ_HtXGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EJ_HtnGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EJ_Ht3GGEeODb4TgKtQeWw"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EJ_HuHGGEeODb4TgKtQeWw" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EJ_HuXGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EJ_HunGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EJ_Hu3GGEeODb4TgKtQeWw"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_EJ_HsXGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="pharmacy_at.ecore#//model/StockArticle"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EJ_HsnGGEeODb4TgKtQeWw" y="201"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_EJ_uwnGGEeODb4TgKtQeWw" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_EJ_uxXGGEeODb4TgKtQeWw" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_EJ_uxnGGEeODb4TgKtQeWw" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_EKAV1HGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/StockOrder/issuer"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKAV1XGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EKAV1nGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/StockOrder/number"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKAV13GGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EKAV2HGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/StockOrder/status"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKAV2XGGEeODb4TgKtQeWw"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EJ_ux3GGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EJ_uyHGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EJ_uyXGGEeODb4TgKtQeWw"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EKAV0HGGEeODb4TgKtQeWw" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EKAV0XGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EKAV0nGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EKAV03GGEeODb4TgKtQeWw"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_EJ_uw3GGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="pharmacy_at.ecore#//model/StockOrder"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EJ_uxHGGEeODb4TgKtQeWw" x="152" y="457"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_EKA84HGGEeODb4TgKtQeWw" type="1005">
+    <children xmi:type="notation:Node" xmi:id="_EKBj8HGGEeODb4TgKtQeWw" type="4010"/>
+    <children xmi:type="notation:Node" xmi:id="_EKCLAHGGEeODb4TgKtQeWw" type="5008">
+      <children xmi:type="notation:Node" xmi:id="_EKCLBHGGEeODb4TgKtQeWw" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="pharmacy_at.ecore#//model/StockOrderStatus/NEW"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKCLBXGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EKCLBnGGEeODb4TgKtQeWw" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="pharmacy_at.ecore#//model/StockOrderStatus/ORDERED"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKCLB3GGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EKCyEHGGEeODb4TgKtQeWw" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="pharmacy_at.ecore#//model/StockOrderStatus/AWAITING_DELIVERY"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKCyEXGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EKCyEnGGEeODb4TgKtQeWw" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="pharmacy_at.ecore#//model/StockOrderStatus/RECEIVED"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKCyE3GGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EKCyFHGGEeODb4TgKtQeWw" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="pharmacy_at.ecore#//model/StockOrderStatus/ARTICLE_REPLACED"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKCyFXGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EKCyFnGGEeODb4TgKtQeWw" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="pharmacy_at.ecore#//model/StockOrderStatus/NOT_AVAILABLE"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKCyF3GGEeODb4TgKtQeWw"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EKCLAXGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EKCLAnGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EKCLA3GGEeODb4TgKtQeWw"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_EKA84XGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EEnum" href="pharmacy_at.ecore#//model/StockOrderStatus"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EKA84nGGEeODb4TgKtQeWw" x="570"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_EKDZIHGGEeODb4TgKtQeWw" type="1005">
+    <children xmi:type="notation:Node" xmi:id="_EKDZI3GGEeODb4TgKtQeWw" type="4010"/>
+    <children xmi:type="notation:Node" xmi:id="_EKDZJHGGEeODb4TgKtQeWw" type="5008">
+      <children xmi:type="notation:Node" xmi:id="_EKDZKHGGEeODb4TgKtQeWw" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="pharmacy_at.ecore#//model/ArticleAvailability/AVAILABLE"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKDZKXGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EKEAMHGGEeODb4TgKtQeWw" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="pharmacy_at.ecore#//model/ArticleAvailability/BLACKLISTED"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKEAMXGGEeODb4TgKtQeWw"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EKDZJXGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EKDZJnGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EKDZJ3GGEeODb4TgKtQeWw"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_EKDZIXGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EEnum" href="pharmacy_at.ecore#//model/ArticleAvailability"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EKDZInGGEeODb4TgKtQeWw" x="782"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_EKEAMnGGEeODb4TgKtQeWw" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_EKEANXGGEeODb4TgKtQeWw" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_EKEnQHGGEeODb4TgKtQeWw" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_EKEnSHGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/Date/date"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKEnSXGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EKEnSnGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/Date/time"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKEnS3GGEeODb4TgKtQeWw"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EKEnQXGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EKEnQnGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EKEnQ3GGEeODb4TgKtQeWw"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EKEnRHGGEeODb4TgKtQeWw" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EKEnRXGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EKEnRnGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EKEnR3GGEeODb4TgKtQeWw"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_EKEAM3GGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="pharmacy_at.ecore#//model/Date"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EKEANHGGEeODb4TgKtQeWw" x="680" y="201"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_EKEnTHGGEeODb4TgKtQeWw" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_EKFOUHGGEeODb4TgKtQeWw" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_EKFOUXGGEeODb4TgKtQeWw" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_EKF1YHGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/Report/title"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKF1YXGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EKF1YnGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/Report/priority"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKF1Y3GGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EKF1ZHGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/Report/concerns"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKF1ZXGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EKGccHGGEeODb4TgKtQeWw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="pharmacy_at.ecore#//model/Report/text"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKGccXGGEeODb4TgKtQeWw"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EKFOUnGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EKFOU3GGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EKFOVHGGEeODb4TgKtQeWw"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EKFOVXGGEeODb4TgKtQeWw" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EKFOVnGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EKFOV3GGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EKFOWHGGEeODb4TgKtQeWw"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_EKEnTXGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="pharmacy_at.ecore#//model/Report"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EKEnTnGGEeODb4TgKtQeWw" x="961"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_EKGccnGGEeODb4TgKtQeWw" type="1005">
+    <children xmi:type="notation:Node" xmi:id="_EKHDgHGGEeODb4TgKtQeWw" type="4010"/>
+    <children xmi:type="notation:Node" xmi:id="_EKHDgXGGEeODb4TgKtQeWw" type="5008">
+      <children xmi:type="notation:Node" xmi:id="_EKHDhXGGEeODb4TgKtQeWw" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="pharmacy_at.ecore#//model/Priority/HIGH"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKHDhnGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EKHDh3GGEeODb4TgKtQeWw" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="pharmacy_at.ecore#//model/Priority/MEDIUM"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKHDiHGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EKHDiXGGEeODb4TgKtQeWw" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="pharmacy_at.ecore#//model/Priority/LOW"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKHDinGGEeODb4TgKtQeWw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EKHqkHGGEeODb4TgKtQeWw" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="pharmacy_at.ecore#//model/Priority/CRITICAL"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EKHqkXGGEeODb4TgKtQeWw"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_EKHDgnGGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_EKHDg3GGEeODb4TgKtQeWw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_EKHDhHGGEeODb4TgKtQeWw"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_EKGcc3GGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EEnum" href="pharmacy_at.ecore#//model/Priority"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EKGcdHGGEeODb4TgKtQeWw" x="1156"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_EJupAHGGEeODb4TgKtQeWw"/>
+  <element xmi:type="ecore:EPackage" href="pharmacy_at.ecore#//model"/>
+  <edges xmi:type="notation:Edge" xmi:id="_EKI4sHGGEeODb4TgKtQeWw" type="3002" source="_EJ2k0HGGEeODb4TgKtQeWw" target="_EJ6PMHGGEeODb4TgKtQeWw">
+    <children xmi:type="notation:Node" xmi:id="_EKJfwHGGEeODb4TgKtQeWw" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKJfwXGGEeODb4TgKtQeWw" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EKJfwnGGEeODb4TgKtQeWw" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKJfw3GGEeODb4TgKtQeWw" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_EKI4sXGGEeODb4TgKtQeWw" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_EKI4snGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="pharmacy_at.ecore#//model/Prescription/article"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_EKI4s3GGEeODb4TgKtQeWw" points="[0, 0, 0, 91]$[0, -91, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELhYwHGGEeODb4TgKtQeWw" id="(0.4973544973544973,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELhYwXGGEeODb4TgKtQeWw" id="(0.6902356902356902,1.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_EKKG0HGGEeODb4TgKtQeWw" type="3002" source="_EJ9SgHGGEeODb4TgKtQeWw" target="_EJ6PMHGGEeODb4TgKtQeWw">
+    <children xmi:type="notation:Node" xmi:id="_EKKG1HGGEeODb4TgKtQeWw" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKKG1XGGEeODb4TgKtQeWw" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EKKG1nGGEeODb4TgKtQeWw" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKKG13GGEeODb4TgKtQeWw" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_EKKG0XGGEeODb4TgKtQeWw" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_EKKG0nGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="pharmacy_at.ecore#//model/Bill/article"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_EKKG03GGEeODb4TgKtQeWw" points="[0, 0, 131, 219]$[0, -128, 131, 91]$[-108, -189, 23, 30]$[-131, -219, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELlqMHGGEeODb4TgKtQeWw" id="(0.4899328859060403,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELlqMXGGEeODb4TgKtQeWw" id="(0.8451178451178452,1.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_EKKG2HGGEeODb4TgKtQeWw" type="3002" source="_EJ9SgHGGEeODb4TgKtQeWw" target="_EJ2k0HGGEeODb4TgKtQeWw">
+    <children xmi:type="notation:Node" xmi:id="_EKKG3HGGEeODb4TgKtQeWw" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKKG3XGGEeODb4TgKtQeWw" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EKKt4HGGEeODb4TgKtQeWw" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKKt4XGGEeODb4TgKtQeWw" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_EKKG2XGGEeODb4TgKtQeWw" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_EKKG2nGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="pharmacy_at.ecore#//model/Bill/prescription"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_EKKG23GGEeODb4TgKtQeWw" points="[0, 0, 140, 60]$[-140, -60, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELjN8HGGEeODb4TgKtQeWw" id="(0.24161073825503357,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELjN8XGGEeODb4TgKtQeWw" id="(0.4973544973544973,1.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_EKKt4nGGEeODb4TgKtQeWw" type="3002" source="_EJ9SgHGGEeODb4TgKtQeWw" target="_EKEAMnGGEeODb4TgKtQeWw">
+    <children xmi:type="notation:Node" xmi:id="_EKKt5nGGEeODb4TgKtQeWw" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKKt53GGEeODb4TgKtQeWw" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EKKt6HGGEeODb4TgKtQeWw" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKKt6XGGEeODb4TgKtQeWw" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_EKKt43GGEeODb4TgKtQeWw" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_EKKt5HGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="pharmacy_at.ecore#//model/Bill/dateTime"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_EKKt5XGGEeODb4TgKtQeWw" points="[0, 0, -98, 60]$[98, -60, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELim4HGGEeODb4TgKtQeWw" id="(0.7449664429530202,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELim4XGGEeODb4TgKtQeWw" id="(0.5,1.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_EKKt6nGGEeODb4TgKtQeWw" type="3002" source="_EJ-goHGGEeODb4TgKtQeWw" target="_EJ_HsHGGEeODb4TgKtQeWw">
+    <children xmi:type="notation:Node" xmi:id="_EKLU8HGGEeODb4TgKtQeWw" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKLU8XGGEeODb4TgKtQeWw" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EKLU8nGGEeODb4TgKtQeWw" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKLU83GGEeODb4TgKtQeWw" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_EKKt63GGEeODb4TgKtQeWw" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_EKKt7HGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="pharmacy_at.ecore#//model/Stock/articles"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_EKKt7XGGEeODb4TgKtQeWw" points="[0, 0, 0, 60]$[0, -60, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELj1AHGGEeODb4TgKtQeWw" id="(0.5,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELj1AXGGEeODb4TgKtQeWw" id="(0.6751592356687898,1.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_EKLU9HGGEeODb4TgKtQeWw" type="3002" source="_EJ_HsHGGEeODb4TgKtQeWw" target="_EJ6PMHGGEeODb4TgKtQeWw">
+    <children xmi:type="notation:Node" xmi:id="_EKLU-HGGEeODb4TgKtQeWw" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKLU-XGGEeODb4TgKtQeWw" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EKLU-nGGEeODb4TgKtQeWw" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKLU-3GGEeODb4TgKtQeWw" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_EKLU9XGGEeODb4TgKtQeWw" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_EKLU9nGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="pharmacy_at.ecore#//model/StockArticle/article"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_EKLU93GGEeODb4TgKtQeWw" points="[0, 0, -149, 91]$[149, -91, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELh_0HGGEeODb4TgKtQeWw" id="(0.4968152866242038,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELh_0XGGEeODb4TgKtQeWw" id="(0.04713804713804714,1.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_EKLU_HGGEeODb4TgKtQeWw" type="3002" source="_EJ_uwnGGEeODb4TgKtQeWw" target="_EJ6PMHGGEeODb4TgKtQeWw">
+    <children xmi:type="notation:Node" xmi:id="_EKL8AHGGEeODb4TgKtQeWw" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKL8AXGGEeODb4TgKtQeWw" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EKL8AnGGEeODb4TgKtQeWw" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKL8A3GGEeODb4TgKtQeWw" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_EKLU_XGGEeODb4TgKtQeWw" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_EKLU_nGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="pharmacy_at.ecore#//model/StockOrder/article"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_EKLU_3GGEeODb4TgKtQeWw" points="[0, 0, 0, 347]$[0, -347, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELkcEHGGEeODb4TgKtQeWw" id="(0.5084745762711864,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELlDIHGGEeODb4TgKtQeWw" id="(0.09764309764309764,1.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_EKL8BHGGEeODb4TgKtQeWw" type="3002" source="_EJ_uwnGGEeODb4TgKtQeWw" target="_EJ-goHGGEeODb4TgKtQeWw">
+    <children xmi:type="notation:Node" xmi:id="_EKL8CHGGEeODb4TgKtQeWw" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKL8CXGGEeODb4TgKtQeWw" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EKL8CnGGEeODb4TgKtQeWw" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EKL8C3GGEeODb4TgKtQeWw" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_EKL8BXGGEeODb4TgKtQeWw" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_EKL8BnGGEeODb4TgKtQeWw" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="pharmacy_at.ecore#//model/StockOrder/boundFor"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_EKL8B3GGEeODb4TgKtQeWw" points="[0, 0, 91, 85]$[-91, -85, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELgKoHGGEeODb4TgKtQeWw" id="(0.2542372881355932,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ELgxsHGGEeODb4TgKtQeWw" id="(0.5,1.0)"/>
+  </edges>
+</notation:Diagram>

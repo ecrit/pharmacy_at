@@ -4,6 +4,7 @@ package at.medevit.ecrit.pharmacy_at.model.impl;
 
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Bill;
+import at.medevit.ecrit.pharmacy_at.model.Date;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
@@ -15,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -31,6 +33,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.BillImpl#getArticle <em>Article</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.BillImpl#getPrescription <em>Prescription</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.BillImpl#getPaidAmount <em>Paid Amount</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.BillImpl#getDateTime <em>Date Time</em>}</li>
  * </ul>
  * </p>
  *
@@ -96,6 +99,16 @@ public class BillImpl extends MinimalEObjectImpl.Container implements Bill {
 	 * @ordered
 	 */
 	protected float paidAmount = PAID_AMOUNT_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getDateTime() <em>Date Time</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDateTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected Date dateTime;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -187,6 +200,44 @@ public class BillImpl extends MinimalEObjectImpl.Container implements Bill {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Date getDateTime() {
+		if (dateTime != null && dateTime.eIsProxy()) {
+			InternalEObject oldDateTime = (InternalEObject)dateTime;
+			dateTime = (Date)eResolveProxy(oldDateTime);
+			if (dateTime != oldDateTime) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.BILL__DATE_TIME, oldDateTime, dateTime));
+			}
+		}
+		return dateTime;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Date basicGetDateTime() {
+		return dateTime;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDateTime(Date newDateTime) {
+		Date oldDateTime = dateTime;
+		dateTime = newDateTime;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.BILL__DATE_TIME, oldDateTime, dateTime));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -198,6 +249,9 @@ public class BillImpl extends MinimalEObjectImpl.Container implements Bill {
 				return getPrescription();
 			case ModelPackage.BILL__PAID_AMOUNT:
 				return getPaidAmount();
+			case ModelPackage.BILL__DATE_TIME:
+				if (resolve) return getDateTime();
+				return basicGetDateTime();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -225,6 +279,9 @@ public class BillImpl extends MinimalEObjectImpl.Container implements Bill {
 			case ModelPackage.BILL__PAID_AMOUNT:
 				setPaidAmount((Float)newValue);
 				return;
+			case ModelPackage.BILL__DATE_TIME:
+				setDateTime((Date)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -249,6 +306,9 @@ public class BillImpl extends MinimalEObjectImpl.Container implements Bill {
 			case ModelPackage.BILL__PAID_AMOUNT:
 				setPaidAmount(PAID_AMOUNT_EDEFAULT);
 				return;
+			case ModelPackage.BILL__DATE_TIME:
+				setDateTime((Date)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -269,6 +329,8 @@ public class BillImpl extends MinimalEObjectImpl.Container implements Bill {
 				return prescription != null && !prescription.isEmpty();
 			case ModelPackage.BILL__PAID_AMOUNT:
 				return paidAmount != PAID_AMOUNT_EDEFAULT;
+			case ModelPackage.BILL__DATE_TIME:
+				return dateTime != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -76,6 +76,24 @@ public interface ModelFactory extends EFactory {
 	StockOrder createStockOrder();
 
 	/**
+	 * Returns a new object of class '<em>Date</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Date</em>'.
+	 * @generated
+	 */
+	Date createDate();
+
+	/**
+	 * Returns a new object of class '<em>Report</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Report</em>'.
+	 * @generated
+	 */
+	Report createReport();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

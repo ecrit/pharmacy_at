@@ -85,13 +85,22 @@ public interface ApplicationPackage extends EPackage {
 	int USER__ROLE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Password</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER__PASSWORD = 2;
+
+	/**
 	 * The number of structural features of the '<em>User</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int USER_FEATURE_COUNT = 2;
+	int USER_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>User</em>' class.
@@ -144,6 +153,17 @@ public interface ApplicationPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getUser_Role();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.application.User#getPassword <em>Password</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Password</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.application.User#getPassword()
+	 * @see #getUser()
+	 * @generated
+	 */
+	EAttribute getUser_Password();
 
 	/**
 	 * Returns the meta object for enum '{@link at.medevit.ecrit.pharmacy_at.application.UserRole <em>User Role</em>}'.
@@ -203,6 +223,14 @@ public interface ApplicationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute USER__ROLE = eINSTANCE.getUser_Role();
+
+		/**
+		 * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute USER__PASSWORD = eINSTANCE.getUser_Password();
 
 		/**
 		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.application.UserRole <em>User Role</em>}' enum.
