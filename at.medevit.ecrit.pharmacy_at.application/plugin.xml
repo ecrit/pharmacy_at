@@ -5,7 +5,7 @@
          id="product"
          point="org.eclipse.core.runtime.products">
       <product
-            name="at.medevit.ecrit.pharmacy_at.application"
+            name="Ecrit Project - Pharmacy Austria"
             application="org.eclipse.e4.ui.workbench.swt.E4Application">
          <property
                name="applicationCSS"
@@ -13,7 +13,7 @@
          </property>
          <property
                name="appName"
-               value="at.medevit.ecrit.pharmacy_at.application">
+               value="Ecrit Project - Pharmacy Austria">
          </property>
       </product>
    </extension>
