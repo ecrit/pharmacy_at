@@ -37,6 +37,8 @@
           eType="#//model/Date"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="prescription" upperBound="-1"
           eType="#//model/Prescription"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Stock">
       <eStructuralFeatures xsi:type="ecore:EReference" name="articles" upperBound="-1"
