@@ -96,13 +96,22 @@ public interface ModelPackage extends EPackage {
 	int PRESCRIPTION__ARTICLE = 2;
 
 	/**
+	 * The feature id for the '<em><b>Prescription Customer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRESCRIPTION__PRESCRIPTION_CUSTOMER = 3;
+
+	/**
 	 * The number of structural features of the '<em>Prescription</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PRESCRIPTION_FEATURE_COUNT = 3;
+	int PRESCRIPTION_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Prescription</em>' class.
@@ -187,23 +196,23 @@ public interface ModelPackage extends EPackage {
 	int ARTICLE_OPERATION_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.BillImpl <em>Bill</em>}' class.
+	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.InvoiceImpl <em>Invoice</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see at.medevit.ecrit.pharmacy_at.model.impl.BillImpl
-	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getBill()
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.InvoiceImpl
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getInvoice()
 	 * @generated
 	 */
-	int BILL = 2;
+	int INVOICE = 2;
 
 	/**
-	 * The feature id for the '<em><b>Number</b></em>' attribute.
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BILL__NUMBER = 0;
+	int INVOICE__ID = 0;
 
 	/**
 	 * The feature id for the '<em><b>Article</b></em>' reference list.
@@ -212,7 +221,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BILL__ARTICLE = 1;
+	int INVOICE__ARTICLE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Prescription</b></em>' reference list.
@@ -221,7 +230,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BILL__PRESCRIPTION = 2;
+	int INVOICE__PRESCRIPTION = 2;
 
 	/**
 	 * The feature id for the '<em><b>Paid Amount</b></em>' attribute.
@@ -230,34 +239,43 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BILL__PAID_AMOUNT = 3;
+	int INVOICE__PAID_AMOUNT = 3;
 
 	/**
-	 * The feature id for the '<em><b>Date Time</b></em>' reference.
+	 * The feature id for the '<em><b>Date</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BILL__DATE_TIME = 4;
+	int INVOICE__DATE = 4;
 
 	/**
-	 * The number of structural features of the '<em>Bill</em>' class.
+	 * The feature id for the '<em><b>Invoice Customer</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BILL_FEATURE_COUNT = 5;
+	int INVOICE__INVOICE_CUSTOMER = 5;
 
 	/**
-	 * The number of operations of the '<em>Bill</em>' class.
+	 * The number of structural features of the '<em>Invoice</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BILL_OPERATION_COUNT = 0;
+	int INVOICE_FEATURE_COUNT = 6;
+
+	/**
+	 * The number of operations of the '<em>Invoice</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INVOICE_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.StockImpl <em>Stock</em>}' class.
@@ -425,52 +443,6 @@ public interface ModelPackage extends EPackage {
 	int STOCK_ORDER_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.DateImpl <em>Date</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see at.medevit.ecrit.pharmacy_at.model.impl.DateImpl
-	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getDate()
-	 * @generated
-	 */
-	int DATE = 6;
-
-	/**
-	 * The feature id for the '<em><b>Date</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATE__DATE = 0;
-
-	/**
-	 * The feature id for the '<em><b>Time</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATE__TIME = 1;
-
-	/**
-	 * The number of structural features of the '<em>Date</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATE_FEATURE_COUNT = 2;
-
-	/**
-	 * The number of operations of the '<em>Date</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATE_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.ReportImpl <em>Report</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -478,7 +450,7 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getReport()
 	 * @generated
 	 */
-	int REPORT = 7;
+	int REPORT = 6;
 
 	/**
 	 * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -544,6 +516,134 @@ public interface ModelPackage extends EPackage {
 	int REPORT_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.AddressImpl <em>Address</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.AddressImpl
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getAddress()
+	 * @generated
+	 */
+	int ADDRESS = 7;
+
+	/**
+	 * The feature id for the '<em><b>Street</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADDRESS__STREET = 0;
+
+	/**
+	 * The feature id for the '<em><b>Post Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADDRESS__POST_CODE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Town</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADDRESS__TOWN = 2;
+
+	/**
+	 * The feature id for the '<em><b>Country</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADDRESS__COUNTRY = 3;
+
+	/**
+	 * The number of structural features of the '<em>Address</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADDRESS_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Address</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADDRESS_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.CustomerImpl <em>Customer</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.CustomerImpl
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getCustomer()
+	 * @generated
+	 */
+	int CUSTOMER = 8;
+
+	/**
+	 * The feature id for the '<em><b>Insurance Number</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOMER__INSURANCE_NUMBER = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOMER__NAME = 1;
+
+	/**
+	 * The feature id for the '<em><b>Phone Number</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOMER__PHONE_NUMBER = 2;
+
+	/**
+	 * The feature id for the '<em><b>Address</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOMER__ADDRESS = 3;
+
+	/**
+	 * The number of structural features of the '<em>Customer</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOMER_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Customer</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOMER_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.StockOrderStatus <em>Stock Order Status</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -551,7 +651,7 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getStockOrderStatus()
 	 * @generated
 	 */
-	int STOCK_ORDER_STATUS = 8;
+	int STOCK_ORDER_STATUS = 9;
 
 
 	/**
@@ -562,7 +662,7 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getArticleAvailability()
 	 * @generated
 	 */
-	int ARTICLE_AVAILABILITY = 9;
+	int ARTICLE_AVAILABILITY = 10;
 
 	/**
 	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.Priority <em>Priority</em>}' enum.
@@ -572,7 +672,7 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getPriority()
 	 * @generated
 	 */
-	int PRIORITY = 10;
+	int PRIORITY = 11;
 
 
 	/**
@@ -617,6 +717,17 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPrescription_Article();
+
+	/**
+	 * Returns the meta object for the reference '{@link at.medevit.ecrit.pharmacy_at.model.Prescription#getPrescriptionCustomer <em>Prescription Customer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Prescription Customer</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Prescription#getPrescriptionCustomer()
+	 * @see #getPrescription()
+	 * @generated
+	 */
+	EReference getPrescription_PrescriptionCustomer();
 
 	/**
 	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.Article <em>Article</em>}'.
@@ -683,69 +794,80 @@ public interface ModelPackage extends EPackage {
 	EOperation getArticle__HasName__DiagnosticChain_Map();
 
 	/**
-	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.Bill <em>Bill</em>}'.
+	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.Invoice <em>Invoice</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Bill</em>'.
-	 * @see at.medevit.ecrit.pharmacy_at.model.Bill
+	 * @return the meta object for class '<em>Invoice</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Invoice
 	 * @generated
 	 */
-	EClass getBill();
+	EClass getInvoice();
 
 	/**
-	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Bill#getNumber <em>Number</em>}'.
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Invoice#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Number</em>'.
-	 * @see at.medevit.ecrit.pharmacy_at.model.Bill#getNumber()
-	 * @see #getBill()
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Invoice#getId()
+	 * @see #getInvoice()
 	 * @generated
 	 */
-	EAttribute getBill_Number();
+	EAttribute getInvoice_Id();
 
 	/**
-	 * Returns the meta object for the reference list '{@link at.medevit.ecrit.pharmacy_at.model.Bill#getArticle <em>Article</em>}'.
+	 * Returns the meta object for the reference list '{@link at.medevit.ecrit.pharmacy_at.model.Invoice#getArticle <em>Article</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference list '<em>Article</em>'.
-	 * @see at.medevit.ecrit.pharmacy_at.model.Bill#getArticle()
-	 * @see #getBill()
+	 * @see at.medevit.ecrit.pharmacy_at.model.Invoice#getArticle()
+	 * @see #getInvoice()
 	 * @generated
 	 */
-	EReference getBill_Article();
+	EReference getInvoice_Article();
 
 	/**
-	 * Returns the meta object for the reference list '{@link at.medevit.ecrit.pharmacy_at.model.Bill#getPrescription <em>Prescription</em>}'.
+	 * Returns the meta object for the reference list '{@link at.medevit.ecrit.pharmacy_at.model.Invoice#getPrescription <em>Prescription</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference list '<em>Prescription</em>'.
-	 * @see at.medevit.ecrit.pharmacy_at.model.Bill#getPrescription()
-	 * @see #getBill()
+	 * @see at.medevit.ecrit.pharmacy_at.model.Invoice#getPrescription()
+	 * @see #getInvoice()
 	 * @generated
 	 */
-	EReference getBill_Prescription();
+	EReference getInvoice_Prescription();
 
 	/**
-	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Bill#getPaidAmount <em>Paid Amount</em>}'.
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Invoice#getPaidAmount <em>Paid Amount</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Paid Amount</em>'.
-	 * @see at.medevit.ecrit.pharmacy_at.model.Bill#getPaidAmount()
-	 * @see #getBill()
+	 * @see at.medevit.ecrit.pharmacy_at.model.Invoice#getPaidAmount()
+	 * @see #getInvoice()
 	 * @generated
 	 */
-	EAttribute getBill_PaidAmount();
+	EAttribute getInvoice_PaidAmount();
 
 	/**
-	 * Returns the meta object for the reference '{@link at.medevit.ecrit.pharmacy_at.model.Bill#getDateTime <em>Date Time</em>}'.
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Invoice#getDate <em>Date</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Date Time</em>'.
-	 * @see at.medevit.ecrit.pharmacy_at.model.Bill#getDateTime()
-	 * @see #getBill()
+	 * @return the meta object for the attribute '<em>Date</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Invoice#getDate()
+	 * @see #getInvoice()
 	 * @generated
 	 */
-	EReference getBill_DateTime();
+	EAttribute getInvoice_Date();
+
+	/**
+	 * Returns the meta object for the reference '{@link at.medevit.ecrit.pharmacy_at.model.Invoice#getInvoiceCustomer <em>Invoice Customer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Invoice Customer</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Invoice#getInvoiceCustomer()
+	 * @see #getInvoice()
+	 * @generated
+	 */
+	EReference getInvoice_InvoiceCustomer();
 
 	/**
 	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.Stock <em>Stock</em>}'.
@@ -877,38 +999,6 @@ public interface ModelPackage extends EPackage {
 	EAttribute getStockOrder_Status();
 
 	/**
-	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.Date <em>Date</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Date</em>'.
-	 * @see at.medevit.ecrit.pharmacy_at.model.Date
-	 * @generated
-	 */
-	EClass getDate();
-
-	/**
-	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Date#getDate <em>Date</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Date</em>'.
-	 * @see at.medevit.ecrit.pharmacy_at.model.Date#getDate()
-	 * @see #getDate()
-	 * @generated
-	 */
-	EAttribute getDate_Date();
-
-	/**
-	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Date#getTime <em>Time</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Time</em>'.
-	 * @see at.medevit.ecrit.pharmacy_at.model.Date#getTime()
-	 * @see #getDate()
-	 * @generated
-	 */
-	EAttribute getDate_Time();
-
-	/**
 	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.Report <em>Report</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -972,6 +1062,114 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getReport_Text();
+
+	/**
+	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.Address <em>Address</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Address</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Address
+	 * @generated
+	 */
+	EClass getAddress();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Address#getStreet <em>Street</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Street</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Address#getStreet()
+	 * @see #getAddress()
+	 * @generated
+	 */
+	EAttribute getAddress_Street();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Address#getPostCode <em>Post Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Post Code</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Address#getPostCode()
+	 * @see #getAddress()
+	 * @generated
+	 */
+	EAttribute getAddress_PostCode();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Address#getTown <em>Town</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Town</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Address#getTown()
+	 * @see #getAddress()
+	 * @generated
+	 */
+	EAttribute getAddress_Town();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Address#getCountry <em>Country</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Country</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Address#getCountry()
+	 * @see #getAddress()
+	 * @generated
+	 */
+	EAttribute getAddress_Country();
+
+	/**
+	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.Customer <em>Customer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Customer</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Customer
+	 * @generated
+	 */
+	EClass getCustomer();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Customer#getInsuranceNumber <em>Insurance Number</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Insurance Number</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Customer#getInsuranceNumber()
+	 * @see #getCustomer()
+	 * @generated
+	 */
+	EAttribute getCustomer_InsuranceNumber();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Customer#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Customer#getName()
+	 * @see #getCustomer()
+	 * @generated
+	 */
+	EAttribute getCustomer_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Customer#getPhoneNumber <em>Phone Number</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Phone Number</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Customer#getPhoneNumber()
+	 * @see #getCustomer()
+	 * @generated
+	 */
+	EAttribute getCustomer_PhoneNumber();
+
+	/**
+	 * Returns the meta object for the reference list '{@link at.medevit.ecrit.pharmacy_at.model.Customer#getAddress <em>Address</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Address</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Customer#getAddress()
+	 * @see #getCustomer()
+	 * @generated
+	 */
+	EReference getCustomer_Address();
 
 	/**
 	 * Returns the meta object for enum '{@link at.medevit.ecrit.pharmacy_at.model.StockOrderStatus <em>Stock Order Status</em>}'.
@@ -1061,6 +1259,14 @@ public interface ModelPackage extends EPackage {
 		EReference PRESCRIPTION__ARTICLE = eINSTANCE.getPrescription_Article();
 
 		/**
+		 * The meta object literal for the '<em><b>Prescription Customer</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PRESCRIPTION__PRESCRIPTION_CUSTOMER = eINSTANCE.getPrescription_PrescriptionCustomer();
+
+		/**
 		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.ArticleImpl <em>Article</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1111,22 +1317,22 @@ public interface ModelPackage extends EPackage {
 		EOperation ARTICLE___HAS_NAME__DIAGNOSTICCHAIN_MAP = eINSTANCE.getArticle__HasName__DiagnosticChain_Map();
 
 		/**
-		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.BillImpl <em>Bill</em>}' class.
+		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.InvoiceImpl <em>Invoice</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see at.medevit.ecrit.pharmacy_at.model.impl.BillImpl
-		 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getBill()
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.InvoiceImpl
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getInvoice()
 		 * @generated
 		 */
-		EClass BILL = eINSTANCE.getBill();
+		EClass INVOICE = eINSTANCE.getInvoice();
 
 		/**
-		 * The meta object literal for the '<em><b>Number</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BILL__NUMBER = eINSTANCE.getBill_Number();
+		EAttribute INVOICE__ID = eINSTANCE.getInvoice_Id();
 
 		/**
 		 * The meta object literal for the '<em><b>Article</b></em>' reference list feature.
@@ -1134,7 +1340,7 @@ public interface ModelPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference BILL__ARTICLE = eINSTANCE.getBill_Article();
+		EReference INVOICE__ARTICLE = eINSTANCE.getInvoice_Article();
 
 		/**
 		 * The meta object literal for the '<em><b>Prescription</b></em>' reference list feature.
@@ -1142,7 +1348,7 @@ public interface ModelPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference BILL__PRESCRIPTION = eINSTANCE.getBill_Prescription();
+		EReference INVOICE__PRESCRIPTION = eINSTANCE.getInvoice_Prescription();
 
 		/**
 		 * The meta object literal for the '<em><b>Paid Amount</b></em>' attribute feature.
@@ -1150,15 +1356,23 @@ public interface ModelPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BILL__PAID_AMOUNT = eINSTANCE.getBill_PaidAmount();
+		EAttribute INVOICE__PAID_AMOUNT = eINSTANCE.getInvoice_PaidAmount();
 
 		/**
-		 * The meta object literal for the '<em><b>Date Time</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Date</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference BILL__DATE_TIME = eINSTANCE.getBill_DateTime();
+		EAttribute INVOICE__DATE = eINSTANCE.getInvoice_Date();
+
+		/**
+		 * The meta object literal for the '<em><b>Invoice Customer</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INVOICE__INVOICE_CUSTOMER = eINSTANCE.getInvoice_InvoiceCustomer();
 
 		/**
 		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.StockImpl <em>Stock</em>}' class.
@@ -1263,32 +1477,6 @@ public interface ModelPackage extends EPackage {
 		EAttribute STOCK_ORDER__STATUS = eINSTANCE.getStockOrder_Status();
 
 		/**
-		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.DateImpl <em>Date</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see at.medevit.ecrit.pharmacy_at.model.impl.DateImpl
-		 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getDate()
-		 * @generated
-		 */
-		EClass DATE = eINSTANCE.getDate();
-
-		/**
-		 * The meta object literal for the '<em><b>Date</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DATE__DATE = eINSTANCE.getDate_Date();
-
-		/**
-		 * The meta object literal for the '<em><b>Time</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DATE__TIME = eINSTANCE.getDate_Time();
-
-		/**
 		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.ReportImpl <em>Report</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1337,6 +1525,90 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute REPORT__TEXT = eINSTANCE.getReport_Text();
+
+		/**
+		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.AddressImpl <em>Address</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.AddressImpl
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getAddress()
+		 * @generated
+		 */
+		EClass ADDRESS = eINSTANCE.getAddress();
+
+		/**
+		 * The meta object literal for the '<em><b>Street</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADDRESS__STREET = eINSTANCE.getAddress_Street();
+
+		/**
+		 * The meta object literal for the '<em><b>Post Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADDRESS__POST_CODE = eINSTANCE.getAddress_PostCode();
+
+		/**
+		 * The meta object literal for the '<em><b>Town</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADDRESS__TOWN = eINSTANCE.getAddress_Town();
+
+		/**
+		 * The meta object literal for the '<em><b>Country</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADDRESS__COUNTRY = eINSTANCE.getAddress_Country();
+
+		/**
+		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.CustomerImpl <em>Customer</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.CustomerImpl
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getCustomer()
+		 * @generated
+		 */
+		EClass CUSTOMER = eINSTANCE.getCustomer();
+
+		/**
+		 * The meta object literal for the '<em><b>Insurance Number</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CUSTOMER__INSURANCE_NUMBER = eINSTANCE.getCustomer_InsuranceNumber();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CUSTOMER__NAME = eINSTANCE.getCustomer_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Phone Number</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CUSTOMER__PHONE_NUMBER = eINSTANCE.getCustomer_PhoneNumber();
+
+		/**
+		 * The meta object literal for the '<em><b>Address</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CUSTOMER__ADDRESS = eINSTANCE.getCustomer_Address();
 
 		/**
 		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.StockOrderStatus <em>Stock Order Status</em>}' enum.

@@ -78,17 +78,16 @@ public class ArticleListPart {
 
 		ObservableListContentProvider cp = new ObservableListContentProvider();
 		initColumns(cp);
-		IObservableList input = Properties.selfList(StockArticle.class).observe(
-				createStockArticles());
+		IObservableList input = Properties.selfList(StockArticle.class)
+				.observe(createStockArticles());
 		tableViewer.setContentProvider(cp);
 
 		// add search filter to tableviewer
 		filter = new ArticleFilter();
 		tableViewer.addFilter(filter);
 
-		
 		// add drag support
-		Transfer[] transferTypes = new Transfer[]{TextTransfer.getInstance()};
+		Transfer[] transferTypes = new Transfer[] { TextTransfer.getInstance() };
 		tableViewer.addDragSupport(DND.DROP_COPY, transferTypes,
 				new DragSourceAdapter() {
 					@Override
@@ -100,12 +99,21 @@ public class ArticleListPart {
 
 						if (TextTransfer.getInstance().isSupportedType(
 								event.dataType)) {
-							event.data = a.getArticle().getName();
+								event.data = a.getArticle().getName();
 						}
+					}
 
+					@Override
+					public void dragFinished(DragSourceEvent event) {
+						if (event.detail == DND.DROP_COPY) {
+							IStructuredSelection selection = (IStructuredSelection) tableViewer
+									.getSelection();
+							StockArticle a = (StockArticle) selection
+									.getFirstElement();
+							a.setNumberOnStock(a.getNumberOnStock() - 1);
+						}
 					}
 				});
-
 
 		// set model
 		tableViewer.setInput(input);
@@ -227,5 +235,4 @@ public class ArticleListPart {
 		return articleList;
 	}
 
-	
 }

@@ -97,18 +97,20 @@ public class ModelValidator extends EObjectValidator {
 				return validatePrescription((Prescription)value, diagnostics, context);
 			case ModelPackage.ARTICLE:
 				return validateArticle((Article)value, diagnostics, context);
-			case ModelPackage.BILL:
-				return validateBill((Bill)value, diagnostics, context);
+			case ModelPackage.INVOICE:
+				return validateInvoice((Invoice)value, diagnostics, context);
 			case ModelPackage.STOCK:
 				return validateStock((Stock)value, diagnostics, context);
 			case ModelPackage.STOCK_ARTICLE:
 				return validateStockArticle((StockArticle)value, diagnostics, context);
 			case ModelPackage.STOCK_ORDER:
 				return validateStockOrder((StockOrder)value, diagnostics, context);
-			case ModelPackage.DATE:
-				return validateDate((Date)value, diagnostics, context);
 			case ModelPackage.REPORT:
 				return validateReport((Report)value, diagnostics, context);
+			case ModelPackage.ADDRESS:
+				return validateAddress((Address)value, diagnostics, context);
+			case ModelPackage.CUSTOMER:
+				return validateCustomer((Customer)value, diagnostics, context);
 			case ModelPackage.STOCK_ORDER_STATUS:
 				return validateStockOrderStatus((StockOrderStatus)value, diagnostics, context);
 			case ModelPackage.ARTICLE_AVAILABILITY:
@@ -163,8 +165,8 @@ public class ModelValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateBill(Bill bill, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(bill, diagnostics, context);
+	public boolean validateInvoice(Invoice invoice, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(invoice, diagnostics, context);
 	}
 
 	/**
@@ -199,8 +201,8 @@ public class ModelValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateDate(Date date, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(date, diagnostics, context);
+	public boolean validateReport(Report report, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(report, diagnostics, context);
 	}
 
 	/**
@@ -208,8 +210,17 @@ public class ModelValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateReport(Report report, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(report, diagnostics, context);
+	public boolean validateAddress(Address address, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(address, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateCustomer(Customer customer, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(customer, diagnostics, context);
 	}
 
 	/**

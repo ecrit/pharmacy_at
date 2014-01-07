@@ -27,21 +27,16 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="availability" lowerBound="1"
           eType="#//model/ArticleAvailability"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Bill">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Invoice">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="article" upperBound="-1"
           eType="#//model/Article"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="prescription" upperBound="-1"
           eType="#//model/Prescription"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="paidAmount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="dateTime" lowerBound="1"
-          eType="#//model/Date"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="prescription" upperBound="-1"
-          eType="#//model/Prescription"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="billCustomer" eType="#//model/Customer"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="invoiceCustomer" eType="#//model/Customer"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Stock">
       <eStructuralFeatures xsi:type="ecore:EReference" name="articles" upperBound="-1"
@@ -74,12 +69,6 @@
       <eLiterals name="AVAILABLE"/>
       <eLiterals name="BLACKLISTED" value="1"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Date">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
-    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Report">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -102,9 +91,9 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="Country" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Customer">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="insuranceNumber"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="phoneNumber"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="insuranceNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="phoneNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="address" lowerBound="1"
           upperBound="-1" eType="#//model/Address"/>
     </eClassifiers>

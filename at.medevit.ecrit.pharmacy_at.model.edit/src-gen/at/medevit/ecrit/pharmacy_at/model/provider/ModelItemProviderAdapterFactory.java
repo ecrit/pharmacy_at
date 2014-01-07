@@ -120,26 +120,26 @@ public class ModelItemProviderAdapterFactory extends ModelAdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link at.medevit.ecrit.pharmacy_at.model.Bill} instances.
+	 * This keeps track of the one adapter used for all {@link at.medevit.ecrit.pharmacy_at.model.Invoice} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BillItemProvider billItemProvider;
+	protected InvoiceItemProvider invoiceItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link at.medevit.ecrit.pharmacy_at.model.Bill}.
+	 * This creates an adapter for a {@link at.medevit.ecrit.pharmacy_at.model.Invoice}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createBillAdapter() {
-		if (billItemProvider == null) {
-			billItemProvider = new BillItemProvider(this);
+	public Adapter createInvoiceAdapter() {
+		if (invoiceItemProvider == null) {
+			invoiceItemProvider = new InvoiceItemProvider(this);
 		}
 
-		return billItemProvider;
+		return invoiceItemProvider;
 	}
 
 	/**
@@ -212,29 +212,6 @@ public class ModelItemProviderAdapterFactory extends ModelAdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link at.medevit.ecrit.pharmacy_at.model.Date} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DateItemProvider dateItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link at.medevit.ecrit.pharmacy_at.model.Date}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createDateAdapter() {
-		if (dateItemProvider == null) {
-			dateItemProvider = new DateItemProvider(this);
-		}
-
-		return dateItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link at.medevit.ecrit.pharmacy_at.model.Report} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -255,6 +232,52 @@ public class ModelItemProviderAdapterFactory extends ModelAdapterFactory impleme
 		}
 
 		return reportItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link at.medevit.ecrit.pharmacy_at.model.Address} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AddressItemProvider addressItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link at.medevit.ecrit.pharmacy_at.model.Address}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAddressAdapter() {
+		if (addressItemProvider == null) {
+			addressItemProvider = new AddressItemProvider(this);
+		}
+
+		return addressItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link at.medevit.ecrit.pharmacy_at.model.Customer} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CustomerItemProvider customerItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link at.medevit.ecrit.pharmacy_at.model.Customer}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCustomerAdapter() {
+		if (customerItemProvider == null) {
+			customerItemProvider = new CustomerItemProvider(this);
+		}
+
+		return customerItemProvider;
 	}
 
 	/**
@@ -358,12 +381,13 @@ public class ModelItemProviderAdapterFactory extends ModelAdapterFactory impleme
 	public void dispose() {
 		if (prescriptionItemProvider != null) prescriptionItemProvider.dispose();
 		if (articleItemProvider != null) articleItemProvider.dispose();
-		if (billItemProvider != null) billItemProvider.dispose();
+		if (invoiceItemProvider != null) invoiceItemProvider.dispose();
 		if (stockItemProvider != null) stockItemProvider.dispose();
 		if (stockArticleItemProvider != null) stockArticleItemProvider.dispose();
 		if (stockOrderItemProvider != null) stockOrderItemProvider.dispose();
-		if (dateItemProvider != null) dateItemProvider.dispose();
 		if (reportItemProvider != null) reportItemProvider.dispose();
+		if (addressItemProvider != null) addressItemProvider.dispose();
+		if (customerItemProvider != null) customerItemProvider.dispose();
 	}
 
 }

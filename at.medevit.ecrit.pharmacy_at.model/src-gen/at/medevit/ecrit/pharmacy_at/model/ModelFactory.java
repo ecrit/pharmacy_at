@@ -40,13 +40,13 @@ public interface ModelFactory extends EFactory {
 	Article createArticle();
 
 	/**
-	 * Returns a new object of class '<em>Bill</em>'.
+	 * Returns a new object of class '<em>Invoice</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Bill</em>'.
+	 * @return a new object of class '<em>Invoice</em>'.
 	 * @generated
 	 */
-	Bill createBill();
+	Invoice createInvoice();
 
 	/**
 	 * Returns a new object of class '<em>Stock</em>'.
@@ -76,15 +76,6 @@ public interface ModelFactory extends EFactory {
 	StockOrder createStockOrder();
 
 	/**
-	 * Returns a new object of class '<em>Date</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Date</em>'.
-	 * @generated
-	 */
-	Date createDate();
-
-	/**
 	 * Returns a new object of class '<em>Report</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -92,6 +83,24 @@ public interface ModelFactory extends EFactory {
 	 * @generated
 	 */
 	Report createReport();
+
+	/**
+	 * Returns a new object of class '<em>Address</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Address</em>'.
+	 * @generated
+	 */
+	Address createAddress();
+
+	/**
+	 * Returns a new object of class '<em>Customer</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Customer</em>'.
+	 * @generated
+	 */
+	Customer createCustomer();
 
 	/**
 	 * Returns the package supported by this factory.

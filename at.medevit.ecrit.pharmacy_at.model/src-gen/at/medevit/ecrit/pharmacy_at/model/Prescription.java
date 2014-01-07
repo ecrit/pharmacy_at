@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Prescription#getIssuingPractitioner <em>Issuing Practitioner</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Prescription#getNumber <em>Number</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Prescription#getArticle <em>Article</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Prescription#getPrescriptionCustomer <em>Prescription Customer</em>}</li>
  * </ul>
  * </p>
  *
@@ -92,5 +93,31 @@ public interface Prescription extends EObject {
 	 * @generated
 	 */
 	EList<Article> getArticle();
+
+	/**
+	 * Returns the value of the '<em><b>Prescription Customer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Prescription Customer</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Prescription Customer</em>' reference.
+	 * @see #setPrescriptionCustomer(Customer)
+	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getPrescription_PrescriptionCustomer()
+	 * @model
+	 * @generated
+	 */
+	Customer getPrescriptionCustomer();
+
+	/**
+	 * Sets the value of the '{@link at.medevit.ecrit.pharmacy_at.model.Prescription#getPrescriptionCustomer <em>Prescription Customer</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Prescription Customer</em>' reference.
+	 * @see #getPrescriptionCustomer()
+	 * @generated
+	 */
+	void setPrescriptionCustomer(Customer value);
 
 } // Prescription

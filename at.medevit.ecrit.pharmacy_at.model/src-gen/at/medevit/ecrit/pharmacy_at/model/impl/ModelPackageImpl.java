@@ -3,13 +3,12 @@
 package at.medevit.ecrit.pharmacy_at.model.impl;
 
 import at.medevit.ecrit.pharmacy_at.application.ApplicationPackage;
-
 import at.medevit.ecrit.pharmacy_at.application.impl.ApplicationPackageImpl;
-
+import at.medevit.ecrit.pharmacy_at.model.Address;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ArticleAvailability;
-import at.medevit.ecrit.pharmacy_at.model.Bill;
-import at.medevit.ecrit.pharmacy_at.model.Date;
+import at.medevit.ecrit.pharmacy_at.model.Customer;
+import at.medevit.ecrit.pharmacy_at.model.Invoice;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
@@ -19,7 +18,6 @@ import at.medevit.ecrit.pharmacy_at.model.Stock;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 import at.medevit.ecrit.pharmacy_at.model.StockOrder;
 import at.medevit.ecrit.pharmacy_at.model.StockOrderStatus;
-
 import at.medevit.ecrit.pharmacy_at.model.util.ModelValidator;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -28,7 +26,6 @@ import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
@@ -58,7 +55,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass billEClass = null;
+	private EClass invoiceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -86,14 +83,21 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass dateEClass = null;
+	private EClass reportEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass reportEClass = null;
+	private EClass addressEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass customerEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -232,6 +236,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getPrescription_PrescriptionCustomer() {
+		return (EReference)prescriptionEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getArticle() {
 		return articleEClass;
 	}
@@ -286,8 +299,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getBill() {
-		return billEClass;
+	public EClass getInvoice() {
+		return invoiceEClass;
 	}
 
 	/**
@@ -295,8 +308,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBill_Number() {
-		return (EAttribute)billEClass.getEStructuralFeatures().get(0);
+	public EAttribute getInvoice_Id() {
+		return (EAttribute)invoiceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -304,8 +317,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBill_Article() {
-		return (EReference)billEClass.getEStructuralFeatures().get(1);
+	public EReference getInvoice_Article() {
+		return (EReference)invoiceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -313,8 +326,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBill_Prescription() {
-		return (EReference)billEClass.getEStructuralFeatures().get(2);
+	public EReference getInvoice_Prescription() {
+		return (EReference)invoiceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -322,8 +335,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBill_PaidAmount() {
-		return (EAttribute)billEClass.getEStructuralFeatures().get(3);
+	public EAttribute getInvoice_PaidAmount() {
+		return (EAttribute)invoiceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -331,8 +344,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBill_DateTime() {
-		return (EReference)billEClass.getEStructuralFeatures().get(4);
+	public EAttribute getInvoice_Date() {
+		return (EAttribute)invoiceEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getInvoice_InvoiceCustomer() {
+		return (EReference)invoiceEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -448,33 +470,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getDate() {
-		return dateEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getDate_Date() {
-		return (EAttribute)dateEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getDate_Time() {
-		return (EAttribute)dateEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getReport() {
 		return reportEClass;
 	}
@@ -522,6 +517,96 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 */
 	public EAttribute getReport_Text() {
 		return (EAttribute)reportEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAddress() {
+		return addressEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAddress_Street() {
+		return (EAttribute)addressEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAddress_PostCode() {
+		return (EAttribute)addressEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAddress_Town() {
+		return (EAttribute)addressEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAddress_Country() {
+		return (EAttribute)addressEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCustomer() {
+		return customerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomer_InsuranceNumber() {
+		return (EAttribute)customerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomer_Name() {
+		return (EAttribute)customerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomer_PhoneNumber() {
+		return (EAttribute)customerEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCustomer_Address() {
+		return (EReference)customerEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -583,6 +668,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEAttribute(prescriptionEClass, PRESCRIPTION__ISSUING_PRACTITIONER);
 		createEAttribute(prescriptionEClass, PRESCRIPTION__NUMBER);
 		createEReference(prescriptionEClass, PRESCRIPTION__ARTICLE);
+		createEReference(prescriptionEClass, PRESCRIPTION__PRESCRIPTION_CUSTOMER);
 
 		articleEClass = createEClass(ARTICLE);
 		createEAttribute(articleEClass, ARTICLE__NAME);
@@ -591,12 +677,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEAttribute(articleEClass, ARTICLE__AVAILABILITY);
 		createEOperation(articleEClass, ARTICLE___HAS_NAME__DIAGNOSTICCHAIN_MAP);
 
-		billEClass = createEClass(BILL);
-		createEAttribute(billEClass, BILL__NUMBER);
-		createEReference(billEClass, BILL__ARTICLE);
-		createEReference(billEClass, BILL__PRESCRIPTION);
-		createEAttribute(billEClass, BILL__PAID_AMOUNT);
-		createEReference(billEClass, BILL__DATE_TIME);
+		invoiceEClass = createEClass(INVOICE);
+		createEAttribute(invoiceEClass, INVOICE__ID);
+		createEReference(invoiceEClass, INVOICE__ARTICLE);
+		createEReference(invoiceEClass, INVOICE__PRESCRIPTION);
+		createEAttribute(invoiceEClass, INVOICE__PAID_AMOUNT);
+		createEAttribute(invoiceEClass, INVOICE__DATE);
+		createEReference(invoiceEClass, INVOICE__INVOICE_CUSTOMER);
 
 		stockEClass = createEClass(STOCK);
 		createEReference(stockEClass, STOCK__ARTICLES);
@@ -613,16 +700,24 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(stockOrderEClass, STOCK_ORDER__BOUND_FOR);
 		createEAttribute(stockOrderEClass, STOCK_ORDER__STATUS);
 
-		dateEClass = createEClass(DATE);
-		createEAttribute(dateEClass, DATE__DATE);
-		createEAttribute(dateEClass, DATE__TIME);
-
 		reportEClass = createEClass(REPORT);
 		createEAttribute(reportEClass, REPORT__TITLE);
 		createEReference(reportEClass, REPORT__ISSUER);
 		createEAttribute(reportEClass, REPORT__PRIORITY);
 		createEAttribute(reportEClass, REPORT__CONCERNS);
 		createEAttribute(reportEClass, REPORT__TEXT);
+
+		addressEClass = createEClass(ADDRESS);
+		createEAttribute(addressEClass, ADDRESS__STREET);
+		createEAttribute(addressEClass, ADDRESS__POST_CODE);
+		createEAttribute(addressEClass, ADDRESS__TOWN);
+		createEAttribute(addressEClass, ADDRESS__COUNTRY);
+
+		customerEClass = createEClass(CUSTOMER);
+		createEAttribute(customerEClass, CUSTOMER__INSURANCE_NUMBER);
+		createEAttribute(customerEClass, CUSTOMER__NAME);
+		createEAttribute(customerEClass, CUSTOMER__PHONE_NUMBER);
+		createEReference(customerEClass, CUSTOMER__ADDRESS);
 
 		// Create enums
 		stockOrderStatusEEnum = createEEnum(STOCK_ORDER_STATUS);
@@ -667,6 +762,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEAttribute(getPrescription_IssuingPractitioner(), ecorePackage.getEString(), "issuingPractitioner", null, 0, 1, Prescription.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPrescription_Number(), ecorePackage.getEInt(), "number", null, 0, 1, Prescription.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPrescription_Article(), this.getArticle(), null, "article", null, 0, -1, Prescription.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPrescription_PrescriptionCustomer(), this.getCustomer(), null, "prescriptionCustomer", null, 0, 1, Prescription.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(articleEClass, Article.class, "Article", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getArticle_Name(), ecorePackage.getEString(), "name", null, 0, 1, Article.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -683,12 +779,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		g1.getETypeArguments().add(g2);
 		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		initEClass(billEClass, Bill.class, "Bill", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBill_Number(), ecorePackage.getEInt(), "number", null, 1, 1, Bill.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBill_Article(), this.getArticle(), null, "article", null, 0, -1, Bill.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBill_Prescription(), this.getPrescription(), null, "prescription", null, 0, -1, Bill.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBill_PaidAmount(), ecorePackage.getEFloat(), "paidAmount", null, 0, 1, Bill.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBill_DateTime(), this.getDate(), null, "dateTime", null, 1, 1, Bill.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(invoiceEClass, Invoice.class, "Invoice", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getInvoice_Id(), ecorePackage.getEInt(), "id", null, 1, 1, Invoice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInvoice_Article(), this.getArticle(), null, "article", null, 0, -1, Invoice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInvoice_Prescription(), this.getPrescription(), null, "prescription", null, 0, -1, Invoice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInvoice_PaidAmount(), ecorePackage.getEFloat(), "paidAmount", null, 0, 1, Invoice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInvoice_Date(), ecorePackage.getEDate(), "date", null, 1, 1, Invoice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInvoice_InvoiceCustomer(), this.getCustomer(), null, "invoiceCustomer", null, 0, 1, Invoice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stockEClass, Stock.class, "Stock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getStock_Articles(), this.getStockArticle(), null, "articles", null, 0, -1, Stock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -705,16 +802,24 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getStockOrder_BoundFor(), this.getStock(), null, "boundFor", null, 0, 1, StockOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStockOrder_Status(), this.getStockOrderStatus(), "status", null, 1, 1, StockOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(dateEClass, Date.class, "Date", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDate_Date(), ecorePackage.getEDate(), "date", null, 1, 1, Date.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDate_Time(), ecorePackage.getEDate(), "time", null, 1, 1, Date.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(reportEClass, Report.class, "Report", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getReport_Title(), ecorePackage.getEString(), "title", null, 1, 1, Report.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getReport_Issuer(), theApplicationPackage.getUser(), null, "issuer", null, 1, 1, Report.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getReport_Priority(), this.getPriority(), "priority", null, 0, 1, Report.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getReport_Concerns(), ecorePackage.getEString(), "concerns", null, 0, 1, Report.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getReport_Text(), ecorePackage.getEString(), "text", null, 0, 1, Report.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(addressEClass, Address.class, "Address", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAddress_Street(), ecorePackage.getEString(), "street", null, 0, 1, Address.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAddress_PostCode(), ecorePackage.getEString(), "PostCode", null, 0, 1, Address.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAddress_Town(), ecorePackage.getEString(), "Town", null, 0, 1, Address.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAddress_Country(), ecorePackage.getEString(), "Country", null, 0, 1, Address.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(customerEClass, Customer.class, "Customer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCustomer_InsuranceNumber(), ecorePackage.getEInt(), "insuranceNumber", null, 0, 1, Customer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCustomer_Name(), ecorePackage.getEString(), "name", null, 0, 1, Customer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCustomer_PhoneNumber(), ecorePackage.getEString(), "phoneNumber", null, 0, 1, Customer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCustomer_Address(), this.getAddress(), null, "address", null, 1, -1, Customer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(stockOrderStatusEEnum, StockOrderStatus.class, "StockOrderStatus");

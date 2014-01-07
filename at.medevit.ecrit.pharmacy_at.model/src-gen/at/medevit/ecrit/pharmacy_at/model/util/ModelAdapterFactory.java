@@ -76,8 +76,8 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createArticleAdapter();
 			}
 			@Override
-			public Adapter caseBill(Bill object) {
-				return createBillAdapter();
+			public Adapter caseInvoice(Invoice object) {
+				return createInvoiceAdapter();
 			}
 			@Override
 			public Adapter caseStock(Stock object) {
@@ -92,12 +92,16 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createStockOrderAdapter();
 			}
 			@Override
-			public Adapter caseDate(Date object) {
-				return createDateAdapter();
-			}
-			@Override
 			public Adapter caseReport(Report object) {
 				return createReportAdapter();
+			}
+			@Override
+			public Adapter caseAddress(Address object) {
+				return createAddressAdapter();
+			}
+			@Override
+			public Adapter caseCustomer(Customer object) {
+				return createCustomerAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -148,16 +152,16 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link at.medevit.ecrit.pharmacy_at.model.Bill <em>Bill</em>}'.
+	 * Creates a new adapter for an object of class '{@link at.medevit.ecrit.pharmacy_at.model.Invoice <em>Invoice</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see at.medevit.ecrit.pharmacy_at.model.Bill
+	 * @see at.medevit.ecrit.pharmacy_at.model.Invoice
 	 * @generated
 	 */
-	public Adapter createBillAdapter() {
+	public Adapter createInvoiceAdapter() {
 		return null;
 	}
 
@@ -204,20 +208,6 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link at.medevit.ecrit.pharmacy_at.model.Date <em>Date</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see at.medevit.ecrit.pharmacy_at.model.Date
-	 * @generated
-	 */
-	public Adapter createDateAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link at.medevit.ecrit.pharmacy_at.model.Report <em>Report</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -228,6 +218,34 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createReportAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link at.medevit.ecrit.pharmacy_at.model.Address <em>Address</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Address
+	 * @generated
+	 */
+	public Adapter createAddressAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link at.medevit.ecrit.pharmacy_at.model.Customer <em>Customer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Customer
+	 * @generated
+	 */
+	public Adapter createCustomerAdapter() {
 		return null;
 	}
 

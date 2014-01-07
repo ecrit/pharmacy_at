@@ -13,6 +13,16 @@
 
    <windowImages/>
 
+   <launcher>
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
    <plugins>
       <plugin id="at.medevit.ecrit.pharmacy_at.application"/>
       <plugin id="at.medevit.ecrit.pharmacy_at.model"/>

@@ -60,6 +60,7 @@ public class PrescriptionItemProvider
 			addIssuingPractitionerPropertyDescriptor(object);
 			addNumberPropertyDescriptor(object);
 			addArticlePropertyDescriptor(object);
+			addPrescriptionCustomerPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -122,6 +123,28 @@ public class PrescriptionItemProvider
 				 getString("_UI_Prescription_article_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Prescription_article_feature", "_UI_Prescription_type"),
 				 ModelPackage.Literals.PRESCRIPTION__ARTICLE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Prescription Customer feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPrescriptionCustomerPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Prescription_prescriptionCustomer_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Prescription_prescriptionCustomer_feature", "_UI_Prescription_type"),
+				 ModelPackage.Literals.PRESCRIPTION__PRESCRIPTION_CUSTOMER,
 				 true,
 				 false,
 				 true,

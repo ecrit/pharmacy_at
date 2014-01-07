@@ -59,12 +59,13 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 		switch (eClass.getClassifierID()) {
 			case ModelPackage.PRESCRIPTION: return createPrescription();
 			case ModelPackage.ARTICLE: return createArticle();
-			case ModelPackage.BILL: return createBill();
+			case ModelPackage.INVOICE: return createInvoice();
 			case ModelPackage.STOCK: return createStock();
 			case ModelPackage.STOCK_ARTICLE: return createStockArticle();
 			case ModelPackage.STOCK_ORDER: return createStockOrder();
-			case ModelPackage.DATE: return createDate();
 			case ModelPackage.REPORT: return createReport();
+			case ModelPackage.ADDRESS: return createAddress();
+			case ModelPackage.CUSTOMER: return createCustomer();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -133,9 +134,9 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Bill createBill() {
-		BillImpl bill = new BillImpl();
-		return bill;
+	public Invoice createInvoice() {
+		InvoiceImpl invoice = new InvoiceImpl();
+		return invoice;
 	}
 
 	/**
@@ -173,9 +174,9 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Date createDate() {
-		DateImpl date = new DateImpl();
-		return date;
+	public Report createReport() {
+		ReportImpl report = new ReportImpl();
+		return report;
 	}
 
 	/**
@@ -183,9 +184,19 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Report createReport() {
-		ReportImpl report = new ReportImpl();
-		return report;
+	public Address createAddress() {
+		AddressImpl address = new AddressImpl();
+		return address;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Customer createCustomer() {
+		CustomerImpl customer = new CustomerImpl();
+		return customer;
 	}
 
 	/**

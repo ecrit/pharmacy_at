@@ -3,10 +3,10 @@
 package at.medevit.ecrit.pharmacy_at.model.provider;
 
 
+import at.medevit.ecrit.pharmacy_at.model.Customer;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -27,12 +27,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link at.medevit.ecrit.pharmacy_at.model.Date} object.
+ * This is the item provider adapter for a {@link at.medevit.ecrit.pharmacy_at.model.Customer} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class DateItemProvider
+public class CustomerItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -47,7 +47,7 @@ public class DateItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DateItemProvider(AdapterFactory adapterFactory) {
+	public CustomerItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -62,26 +62,50 @@ public class DateItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDatePropertyDescriptor(object);
-			addTimePropertyDescriptor(object);
+			addInsuranceNumberPropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
+			addPhoneNumberPropertyDescriptor(object);
+			addAddressPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Date feature.
+	 * This adds a property descriptor for the Insurance Number feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDatePropertyDescriptor(Object object) {
+	protected void addInsuranceNumberPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Date_date_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Date_date_feature", "_UI_Date_type"),
-				 ModelPackage.Literals.DATE__DATE,
+				 getString("_UI_Customer_insuranceNumber_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Customer_insuranceNumber_feature", "_UI_Customer_type"),
+				 ModelPackage.Literals.CUSTOMER__INSURANCE_NUMBER,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Customer_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Customer_name_feature", "_UI_Customer_type"),
+				 ModelPackage.Literals.CUSTOMER__NAME,
 				 true,
 				 false,
 				 false,
@@ -91,19 +115,19 @@ public class DateItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Time feature.
+	 * This adds a property descriptor for the Phone Number feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addTimePropertyDescriptor(Object object) {
+	protected void addPhoneNumberPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Date_time_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Date_time_feature", "_UI_Date_type"),
-				 ModelPackage.Literals.DATE__TIME,
+				 getString("_UI_Customer_phoneNumber_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Customer_phoneNumber_feature", "_UI_Customer_type"),
+				 ModelPackage.Literals.CUSTOMER__PHONE_NUMBER,
 				 true,
 				 false,
 				 false,
@@ -113,14 +137,36 @@ public class DateItemProvider
 	}
 
 	/**
-	 * This returns Date.gif.
+	 * This adds a property descriptor for the Address feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAddressPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Customer_address_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Customer_address_feature", "_UI_Customer_type"),
+				 ModelPackage.Literals.CUSTOMER__ADDRESS,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This returns Customer.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Date"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Customer"));
 	}
 
 	/**
@@ -131,11 +177,10 @@ public class DateItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		Date labelValue = ((at.medevit.ecrit.pharmacy_at.model.Date)object).getDate();
-		String label = labelValue == null ? null : labelValue.toString();
+		String label = ((Customer)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_Date_type") :
-			getString("_UI_Date_type") + " " + label;
+			getString("_UI_Customer_type") :
+			getString("_UI_Customer_type") + " " + label;
 	}
 
 	/**
@@ -149,9 +194,10 @@ public class DateItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(at.medevit.ecrit.pharmacy_at.model.Date.class)) {
-			case ModelPackage.DATE__DATE:
-			case ModelPackage.DATE__TIME:
+		switch (notification.getFeatureID(Customer.class)) {
+			case ModelPackage.CUSTOMER__INSURANCE_NUMBER:
+			case ModelPackage.CUSTOMER__NAME:
+			case ModelPackage.CUSTOMER__PHONE_NUMBER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
