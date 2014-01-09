@@ -5,33 +5,30 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.swing.TransferHandler;
 
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.property.Properties;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.emf.databinding.EMFProperties;
 import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.dnd.ByteArrayTransfer;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSourceAdapter;
 import org.eclipse.swt.dnd.DragSourceEvent;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
-import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -48,7 +45,12 @@ import at.medevit.ecrit.pharmacy_at.util.ArticleFilter;
 public class ArticleListPart {
 	private TableViewer tableViewer;
 	private ArticleFilter filter;
+	
+	@Inject
+	private EPartService partService;
 
+	private static final String ID_PROPERTIES_PART = "at.medevit.ecrit.pharmacy_at.application.part.properties";
+	
 	@Inject
 	public ArticleListPart() {
 	}
@@ -99,7 +101,7 @@ public class ArticleListPart {
 
 						if (TextTransfer.getInstance().isSupportedType(
 								event.dataType)) {
-								event.data = a.getArticle().getName();
+							event.data = a.getArticle().getName();
 						}
 					}
 
@@ -115,19 +117,31 @@ public class ArticleListPart {
 					}
 				});
 
+		tableViewer
+				.addSelectionChangedListener(new ISelectionChangedListener() {
+					@Override
+					public void selectionChanged(SelectionChangedEvent event) {
+						IStructuredSelection selection = (IStructuredSelection)event.getSelection();
+						StockArticle stockArticle = (StockArticle) selection.getFirstElement();
+						
+						//TODO replace with databinding
+						MPart mPart = partService.findPart(ID_PROPERTIES_PART);
+						PropertiesPart propertyPart = (PropertiesPart) mPart.getObject();
+						propertyPart.setArticle(stockArticle.getArticle());
+					}
+				});
+
 		// set model
 		tableViewer.setInput(input);
 	}
 
 	private void initColumns(ObservableListContentProvider cp) {
-		String[] columnNames = new String[] { "AdmNr", "Name", "Availalbility",
-				"Description" };
+		String[] columnNames = new String[] { "AdmNr", "Name", "Availalbility" };
 		EAttribute[] columnAttributes = new EAttribute[] {
 				ModelPackage.Literals.ARTICLE__ADMISSION_NUMBER,
 				ModelPackage.Literals.ARTICLE__NAME,
-				ModelPackage.Literals.ARTICLE__AVAILABILITY,
-				ModelPackage.Literals.ARTICLE__DESCRIPTION };
-		int[] columnWidths = new int[] { 80, 100, 100, 100 };
+				ModelPackage.Literals.ARTICLE__AVAILABILITY };
+		int[] columnWidths = new int[] { 80, 100, 100 };
 
 		for (int i = 0; i < columnNames.length; i++) {
 			TableViewerColumn tvc = new TableViewerColumn(tableViewer, SWT.NONE);

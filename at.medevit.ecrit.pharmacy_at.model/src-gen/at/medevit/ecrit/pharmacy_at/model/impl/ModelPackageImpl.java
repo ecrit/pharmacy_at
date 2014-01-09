@@ -290,6 +290,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getArticle_Price() {
+		return (EAttribute)articleEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EOperation getArticle__HasName__DiagnosticChain_Map() {
 		return articleEClass.getEOperations().get(0);
 	}
@@ -675,6 +684,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEAttribute(articleEClass, ARTICLE__DESCRIPTION);
 		createEAttribute(articleEClass, ARTICLE__ADMISSION_NUMBER);
 		createEAttribute(articleEClass, ARTICLE__AVAILABILITY);
+		createEAttribute(articleEClass, ARTICLE__PRICE);
 		createEOperation(articleEClass, ARTICLE___HAS_NAME__DIAGNOSTICCHAIN_MAP);
 
 		invoiceEClass = createEClass(INVOICE);
@@ -769,6 +779,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEAttribute(getArticle_Description(), ecorePackage.getEString(), "description", null, 0, 1, Article.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getArticle_AdmissionNumber(), ecorePackage.getEInt(), "admissionNumber", null, 0, 1, Article.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getArticle_Availability(), this.getArticleAvailability(), "availability", null, 1, 1, Article.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getArticle_Price(), ecorePackage.getEFloat(), "price", null, 1, 1, Article.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = initEOperation(getArticle__HasName__DiagnosticChain_Map(), ecorePackage.getEBoolean(), "hasName", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEDiagnosticChain(), "chain", 0, 1, IS_UNIQUE, IS_ORDERED);

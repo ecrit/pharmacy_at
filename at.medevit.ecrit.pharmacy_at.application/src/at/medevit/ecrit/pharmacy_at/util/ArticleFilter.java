@@ -5,7 +5,7 @@ import org.eclipse.jface.viewers.ViewerFilter;
 
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
-//1225
+
 public class ArticleFilter extends ViewerFilter {
 
 	private String searchTxt;

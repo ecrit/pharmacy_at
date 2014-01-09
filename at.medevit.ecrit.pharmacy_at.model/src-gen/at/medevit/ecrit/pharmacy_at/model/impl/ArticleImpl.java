@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.ArticleImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.ArticleImpl#getAdmissionNumber <em>Admission Number</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.ArticleImpl#getAvailability <em>Availability</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.ArticleImpl#getPrice <em>Price</em>}</li>
  * </ul>
  * </p>
  *
@@ -109,6 +110,26 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements
 	 * @ordered
 	 */
 	protected ArticleAvailability availability = AVAILABILITY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getPrice() <em>Price</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPrice()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final float PRICE_EDEFAULT = 0.0F;
+
+	/**
+	 * The cached value of the '{@link #getPrice() <em>Price</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPrice()
+	 * @generated
+	 * @ordered
+	 */
+	protected float price = PRICE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -206,6 +227,27 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public float getPrice() {
+		return price;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPrice(float newPrice) {
+		float oldPrice = price;
+		price = newPrice;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ARTICLE__PRICE, oldPrice, price));
+	}
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated NOT
@@ -239,6 +281,8 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements
 				return getAdmissionNumber();
 			case ModelPackage.ARTICLE__AVAILABILITY:
 				return getAvailability();
+			case ModelPackage.ARTICLE__PRICE:
+				return getPrice();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -261,6 +305,9 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements
 				return;
 			case ModelPackage.ARTICLE__AVAILABILITY:
 				setAvailability((ArticleAvailability)newValue);
+				return;
+			case ModelPackage.ARTICLE__PRICE:
+				setPrice((Float)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -285,6 +332,9 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements
 			case ModelPackage.ARTICLE__AVAILABILITY:
 				setAvailability(AVAILABILITY_EDEFAULT);
 				return;
+			case ModelPackage.ARTICLE__PRICE:
+				setPrice(PRICE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -304,6 +354,8 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements
 				return admissionNumber != ADMISSION_NUMBER_EDEFAULT;
 			case ModelPackage.ARTICLE__AVAILABILITY:
 				return availability != AVAILABILITY_EDEFAULT;
+			case ModelPackage.ARTICLE__PRICE:
+				return price != PRICE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -339,6 +391,8 @@ public class ArticleImpl extends MinimalEObjectImpl.Container implements
 		result.append(admissionNumber);
 		result.append(", availability: ");
 		result.append(availability);
+		result.append(", price: ");
+		result.append(price);
 		result.append(')');
 		return result.toString();
 	}

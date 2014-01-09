@@ -1,7 +1,5 @@
- 
 package at.medevit.ecrit.pharmacy_at.application.handler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,40 +21,47 @@ import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
 public class AddPrescriptionHandler {
-	
+
 	@Inject
 	private ESelectionService selectionService;
-	
 	@Inject
-	private EPartService partService; 
-	
+	private EPartService partService;
+
+	private static final String ID_BILL_PART = "at.medevit.ecrit.pharmacy_at.application.part.bill";
+	private static final String ID_PRESCRIPTION_PART = "at.medevit.ecrit.pharmacy_at.application.part.prescription";
+
 	@Execute
 	public void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
-		List<Article> articles = (List<Article>)selectionService.getSelection();
-		if(articles == null){
-			articles = new ArrayList<Article>();
-		}
+		List<Article> articles = (List<Article>) selectionService.getSelection(ID_BILL_PART);
+
 		Prescription p = ModelFactory.eINSTANCE.createPrescription();
 		PrescriptionDialog dlg = new PrescriptionDialog(shell, articles);
 		dlg.setPrescription(p);
-//		dlg.create();
-		int retVal = dlg.open();
 		
-		if(retVal == IDialogConstants.OK_ID){
+		int retVal = dlg.open();
+		if (retVal == IDialogConstants.OK_ID) {
 			if (p != null) {
-				MPart mPart = partService.findPart("at.medevit.ecrit.pharmacy_at.application.part.prescription");
-				PrescriptionPart prescPart = (PrescriptionPart) mPart.getObject();
+				// TODO once proper model exists -> binding should solves this
+				MPart mPart = partService.findPart(ID_PRESCRIPTION_PART);
+				PrescriptionPart prescPart = (PrescriptionPart) mPart
+						.getObject();
 				prescPart.addPrescription(p);
+
+				// TODO remove articles that have a prescription already from
+				// list that goes to prescription selection
+				// BillPart billPart = (BillPart)
+				// partService.findPart(ID_BILL_PART).getObject();
 			}
 		}
 	}
 
-//	@CanExecute
-//	public boolean canExecute() {
-//		if(selectionService.getSelection() != null){
-//			return true;
-//		}else{
-//			return false;
-//		}
-//	}
+	@CanExecute
+	public boolean canExecute() {
+		Object selection = selectionService.getSelection(ID_BILL_PART);
+		if (selection != null && selection instanceof List<?>) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

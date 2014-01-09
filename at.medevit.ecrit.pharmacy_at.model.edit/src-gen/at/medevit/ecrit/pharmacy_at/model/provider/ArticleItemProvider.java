@@ -61,6 +61,7 @@ public class ArticleItemProvider
 			addDescriptionPropertyDescriptor(object);
 			addAdmissionNumberPropertyDescriptor(object);
 			addAvailabilityPropertyDescriptor(object);
+			addPricePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -154,6 +155,28 @@ public class ArticleItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Price feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPricePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Article_price_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Article_price_feature", "_UI_Article_type"),
+				 ModelPackage.Literals.ARTICLE__PRICE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns Article.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -194,6 +217,7 @@ public class ArticleItemProvider
 			case ModelPackage.ARTICLE__DESCRIPTION:
 			case ModelPackage.ARTICLE__ADMISSION_NUMBER:
 			case ModelPackage.ARTICLE__AVAILABILITY:
+			case ModelPackage.ARTICLE__PRICE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

@@ -5,20 +5,34 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.jws.WebParam.Mode;
 
+import org.eclipse.core.commands.Command;
+import org.eclipse.core.commands.ParameterizedCommand;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.property.Properties;
+import org.eclipse.e4.core.commands.ECommandService;
+import org.eclipse.e4.core.commands.EHandlerService;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.emf.databinding.EMFProperties;
-import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DropTargetAdapter;
+import org.eclipse.swt.dnd.DropTargetEvent;
+import org.eclipse.swt.dnd.TextTransfer;
+import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -37,15 +51,26 @@ public class PrescriptionPart {
 	private IObservableList input;
 
 	@Inject
+	private ECommandService commandService;
+	@Inject
+	private EHandlerService handlerService;
+	@Inject
+	private EPartService partService;
+	@Inject
+	private ESelectionService selectionService;
+	@Inject
 	private EMenuService menuService;
+
 	private static final String ID_ADD_PRESCRIPTION = "at.medevit.ecrit.pharmacy_at.application.popupmenu.addPrescritption";
+	private static final String ID_ADD_PRESCRIPTION_CMD = "at.medevit.ecrit.pharmacy_at.application.command.addPrescritption";
+	private static final String ID_OPEN_PRESCRIPTION_CMD = "at.medevit.ecrit.pharmacy_at.application.command.openPrescritption";
+	private static final String ID_BILL_PART = "at.medevit.ecrit.pharmacy_at.application.part.bill";
 
 	@Inject
 	public PrescriptionPart() {
 		// TODO Your code here
 	}
 
-	@SuppressWarnings("restriction")
 	@PostConstruct
 	public void postConstruct(Composite parent) {
 		parent.setLayout(new GridLayout(1, false));
@@ -72,6 +97,79 @@ public class PrescriptionPart {
 				createPrescriptions());
 		tableViewer.setContentProvider(cp);
 
+		// add drop support
+		Transfer[] transferTypes = new Transfer[] { TextTransfer.getInstance() };
+		tableViewer.addDropSupport(DND.DROP_COPY, transferTypes,
+				new DropTargetAdapter() {
+					@Override
+					public void dragEnter(DropTargetEvent event) {
+						event.detail = DND.DROP_COPY;
+						tableViewer.refresh();
+					}
+
+					@Override
+					public void drop(DropTargetEvent event) {
+						if (TextTransfer.getInstance().isSupportedType(
+								event.currentDataType)) {
+							String name = (String) event.data;
+							Article a = ModelFactory.eINSTANCE.createArticle();
+							a.setName(name);
+
+							if (event.item != null) {
+								Prescription p = (Prescription) event.item
+										.getData();
+								p.getArticle().add(a);
+							} else {
+								tableViewer.getTable().setFocus();
+								List<Article> tmpArticleList = new ArrayList<Article>();
+								tmpArticleList.add(a);
+								
+								BillPart billPart = (BillPart) partService
+										.findPart(ID_BILL_PART).getObject();
+								billPart.updateSelection(tmpArticleList);
+
+								Command cmd = commandService
+										.getCommand(ID_ADD_PRESCRIPTION_CMD);
+								ParameterizedCommand pCmd = new ParameterizedCommand(
+										cmd, null);
+
+								// only execute if command can be executed
+								if (handlerService.canExecute(pCmd)) {
+									handlerService.executeHandler(pCmd);
+								}
+							}
+						}
+					}
+				});
+
+		tableViewer.addDoubleClickListener(new IDoubleClickListener() {
+			@Override
+			public void doubleClick(DoubleClickEvent event) {
+				Command cmd = commandService
+						.getCommand(ID_OPEN_PRESCRIPTION_CMD);
+				ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
+
+				// only execute if command can be executed
+				if (handlerService.canExecute(pCmd)) {
+					handlerService.executeHandler(pCmd);
+				}
+			}
+		});
+
+		tableViewer
+				.addSelectionChangedListener(new ISelectionChangedListener() {
+
+					@Override
+					public void selectionChanged(SelectionChangedEvent event) {
+						IStructuredSelection sel = (IStructuredSelection) event
+								.getSelection();
+						Prescription p = (Prescription) sel.getFirstElement();
+						if (p != null) {
+							tableViewer.getTable().setFocus();
+							selectionService.setSelection(p);
+						}
+					}
+				});
 		// set model
 		tableViewer.setInput(input);
 	}
@@ -85,8 +183,9 @@ public class PrescriptionPart {
 
 		for (int i = 0; i < columnNames.length; i++) {
 			TableViewerColumn tvc = new TableViewerColumn(tableViewer, SWT.NONE);
-			
-			IObservableMap map = EMFProperties.value(columnAttributes[i]).observeDetail(cp.getKnownElements());
+
+			IObservableMap map = EMFProperties.value(columnAttributes[i])
+					.observeDetail(cp.getKnownElements());
 			tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
 
 			// set the column title & size
@@ -94,19 +193,19 @@ public class PrescriptionPart {
 			tvc.getColumn().setWidth(columnWidths[i]);
 			tvc.getColumn().setResizable(true);
 		}
-		
-		//FIXME make this work (articles are not shown till now!
-//		FeaturePath path = FeaturePath.fromList(
-//				ModelPackage.Literals.ARTICLE__NAME,
-//				ModelPackage.Literals.PRESCRIPTION__ARTICLE);
-//
-//		// bind the feature and setup a table column
-//		IObservableMap featureMap = EMFProperties.value(path).observeDetail(
-//				cp.getKnownElements());
-//		TableViewerColumn tvc = new TableViewerColumn(tableViewer, SWT.NONE);
-//		tvc.setLabelProvider(new ObservableMapCellLabelProvider(featureMap));
-//		tvc.getColumn().setText("Article");
-//		tvc.getColumn().setWidth(150);
+
+		// FIXME make this work (articles are not shown till now!
+		// FeaturePath path = FeaturePath.fromList(
+		// ModelPackage.Literals.ARTICLE__NAME,
+		// ModelPackage.Literals.PRESCRIPTION__ARTICLE);
+		//
+		// // bind the feature and setup a table column
+		// IObservableMap featureMap = EMFProperties.value(path).observeDetail(
+		// cp.getKnownElements());
+		// TableViewerColumn tvc = new TableViewerColumn(tableViewer, SWT.NONE);
+		// tvc.setLabelProvider(new ObservableMapCellLabelProvider(featureMap));
+		// tvc.getColumn().setText("Article");
+		// tvc.getColumn().setWidth(150);
 	}
 
 	private List<Prescription> createPrescriptions() {
@@ -143,4 +242,5 @@ public class PrescriptionPart {
 		input.add(p);
 		tableViewer.refresh();
 	}
+
 }

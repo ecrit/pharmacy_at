@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Article#getDescription <em>Description</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Article#getAdmissionNumber <em>Admission Number</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Article#getAvailability <em>Availability</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Article#getPrice <em>Price</em>}</li>
  * </ul>
  * </p>
  *
@@ -132,6 +133,32 @@ public interface Article extends EObject {
 	 * @generated
 	 */
 	void setAvailability(ArticleAvailability value);
+
+	/**
+	 * Returns the value of the '<em><b>Price</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Price</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Price</em>' attribute.
+	 * @see #setPrice(float)
+	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getArticle_Price()
+	 * @model required="true"
+	 * @generated
+	 */
+	float getPrice();
+
+	/**
+	 * Sets the value of the '{@link at.medevit.ecrit.pharmacy_at.model.Article#getPrice <em>Price</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Price</em>' attribute.
+	 * @see #getPrice()
+	 * @generated
+	 */
+	void setPrice(float value);
 
 	/**
 	 * <!-- begin-user-doc -->

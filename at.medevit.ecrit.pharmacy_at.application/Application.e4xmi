@@ -24,18 +24,26 @@
         <children xsi:type="basic:PartSashContainer" xmi:id="_6cj7kEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.2" horizontal="true"/>
       </children>
       <children xsi:type="advanced:Perspective" xmi:id="_lbwGIEVOEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.perspective.admin" label="Admin" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/equalizer.png">
-        <children xsi:type="basic:PartSashContainer" xmi:id="_6yCcUEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.3" horizontal="true"/>
+        <children xsi:type="basic:PartSashContainer" xmi:id="_6yCcUEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.3" horizontal="true">
+          <children xsi:type="advanced:Placeholder" xmi:id="_6h7t4HkQEeOVKfoEVF45Aw" elementId="at.medevit.ecrit.pharmacy_at.application.placeholder.user" ref="_cLcGAHkPEeOVKfoEVF45Aw"/>
+        </children>
       </children>
     </children>
-    <sharedElements xsi:type="basic:Part" xmi:id="_K6LbcFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.articlelist" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart" label="Article List"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_K6LbcFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.articlelist" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart" label="Article List">
+      <menus xsi:type="menu:PopupMenu" xmi:id="_P8d34HiEEeOBFOXoaudQpg" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.showDescription" visible="false">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_qsEHAHiEEeOBFOXoaudQpg" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.2" label="Show Description"/>
+      </menus>
+    </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_u11KcFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.properties" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.PropertiesPart" label="Properties"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_0mzDgFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.bill" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.BillPart" label="Bill"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_2ptWcFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.prescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.PrescriptionPart" label="Prescription">
       <menus xsi:type="menu:PopupMenu" xmi:id="__JskUHd9EeOts5KVA_mezg" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.addPrescritption">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_Ukz94HeFEeOts5KVA_mezg" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.0" label="Add Prescription" command="_KeYD8HeGEeOts5KVA_mezg"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_jy3P0HheEeOEsqkdxBqDvw" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.1" label="Open Prescription" command="_t0BywHheEeOEsqkdxBqDvw"/>
       </menus>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_4GxKUFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.invoice" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.InvoicePart" label="Invoice"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_cLcGAHkPEeOVKfoEVF45Aw" elementId="at.medevit.ecrit.pharmacy_at.application.part.user" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.UserPart" label="User"/>
     <trimBars xmi:id="_lC8W0EVJEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.trimbar.0">
       <children xsi:type="menu:ToolBar" xmi:id="_lvbpYEVJEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.toolbar.0">
         <children xsi:type="menu:ToolControl" xmi:id="_zhQlEEVKEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.perspectiveSwitcher" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.direct.PerspectiveTabs"/>
@@ -43,11 +51,15 @@
     </trimBars>
   </children>
   <handlers xmi:id="_bs6MgHeGEeOts5KVA_mezg" elementId="at.medevit.ecrit.pharmacy_at.application.handler.addPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.AddPrescriptionHandler" command="_KeYD8HeGEeOts5KVA_mezg"/>
+  <handlers xmi:id="_zDgvYHheEeOEsqkdxBqDvw" elementId="at.medevit.ecrit.pharmacy_at.application.handler.openPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.OpenPrescriptionHandler" command="_t0BywHheEeOEsqkdxBqDvw"/>
+  <handlers xmi:id="__wtlgHiEEeOBFOXoaudQpg" elementId="at.medevit.ecrit.pharmacy_at.application.handler.showDescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.ShowDescriptionHandler" command="_woawsHiEEeOBFOXoaudQpg"/>
   <rootContext xmi:id="_4Ip46UVIEeOaYLXjRggZbw" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_4Ip46kVIEeOaYLXjRggZbw" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_4Ip460VIEeOaYLXjRggZbw" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
   <commands xmi:id="_KeYD8HeGEeOts5KVA_mezg" elementId="at.medevit.ecrit.pharmacy_at.application.command.addPrescritption" commandName="Add Prescription" category="_4fQhEHeHEeOts5KVA_mezg"/>
+  <commands xmi:id="_t0BywHheEeOEsqkdxBqDvw" elementId="at.medevit.ecrit.pharmacy_at.application.command.openPrescritption" commandName="Open Prescription" category="_4fQhEHeHEeOts5KVA_mezg"/>
+  <commands xmi:id="_woawsHiEEeOBFOXoaudQpg" elementId="at.medevit.ecrit.pharmacy_at.application.command.showDescription" commandName="Show Description" category="_3hHt4HiEEeOBFOXoaudQpg"/>
   <addons xmi:id="_4Ip44kVIEeOaYLXjRggZbw" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_4Ip440VIEeOaYLXjRggZbw" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_4Ip45EVIEeOaYLXjRggZbw" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
@@ -56,4 +68,5 @@
   <addons xmi:id="_4Ip450VIEeOaYLXjRggZbw" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
   <addons xmi:id="_4Ip46EVIEeOaYLXjRggZbw" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
   <categories xmi:id="_4fQhEHeHEeOts5KVA_mezg" elementId="at.medevit.ecrit.pharmacy_at.application.category.prescription" name="Prescritption" description="prescription commands"/>
+  <categories xmi:id="_3hHt4HiEEeOBFOXoaudQpg" elementId="at.medevit.ecrit.pharmacy_at.application.category.article" name="Article" description="everything concerning article information and further descriptions"/>
 </application:Application>

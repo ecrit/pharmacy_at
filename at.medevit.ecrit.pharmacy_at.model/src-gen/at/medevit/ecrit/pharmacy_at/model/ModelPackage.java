@@ -169,13 +169,22 @@ public interface ModelPackage extends EPackage {
 	int ARTICLE__AVAILABILITY = 3;
 
 	/**
+	 * The feature id for the '<em><b>Price</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARTICLE__PRICE = 4;
+
+	/**
 	 * The number of structural features of the '<em>Article</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARTICLE_FEATURE_COUNT = 4;
+	int ARTICLE_FEATURE_COUNT = 5;
 
 	/**
 	 * The operation id for the '<em>Has Name</em>' operation.
@@ -784,6 +793,17 @@ public interface ModelPackage extends EPackage {
 	EAttribute getArticle_Availability();
 
 	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Article#getPrice <em>Price</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Price</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Article#getPrice()
+	 * @see #getArticle()
+	 * @generated
+	 */
+	EAttribute getArticle_Price();
+
+	/**
 	 * Returns the meta object for the '{@link at.medevit.ecrit.pharmacy_at.model.Article#hasName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Has Name</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1307,6 +1327,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ARTICLE__AVAILABILITY = eINSTANCE.getArticle_Availability();
+
+		/**
+		 * The meta object literal for the '<em><b>Price</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ARTICLE__PRICE = eINSTANCE.getArticle_Price();
 
 		/**
 		 * The meta object literal for the '<em><b>Has Name</b></em>' operation.

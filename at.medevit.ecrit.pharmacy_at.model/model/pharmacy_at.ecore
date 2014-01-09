@@ -26,6 +26,8 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="admissionNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="availability" lowerBound="1"
           eType="#//model/ArticleAvailability"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="price" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Invoice">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
