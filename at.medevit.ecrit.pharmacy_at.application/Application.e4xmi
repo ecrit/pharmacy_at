@@ -29,17 +29,36 @@
         </children>
       </children>
     </children>
+    <mainMenu xmi:id="_iWAvoHw1EeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.menu.0"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_K6LbcFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.articlelist" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart" label="Article List">
-      <menus xsi:type="menu:PopupMenu" xmi:id="_P8d34HiEEeOBFOXoaudQpg" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.showDescription" visible="false">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_qsEHAHiEEeOBFOXoaudQpg" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.2" label="Show Description"/>
+      <menus xmi:id="_gCVnYHw2EeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.menu.1">
+        <tags>ViewMenu</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_K1V90Hw5EeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.articlelist">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_MveIMHw5EeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.addToInvoice" label="Add To Invoice" command="_SPCvQHw5EeOl7olWdGHeBA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_6opPcHxpEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.requestOrder" visible="false" label="Request Order" command="_J7UzgHxjEeOl7olWdGHeBA"/>
       </menus>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_u11KcFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.properties" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.PropertiesPart" label="Properties"/>
-    <sharedElements xsi:type="basic:Part" xmi:id="_0mzDgFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.bill" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.BillPart" label="Bill"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_0mzDgFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.bill" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.BillPart" label="Bill">
+      <menus xmi:id="_Zj-KEHxoEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.menu.invoicePlacement">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_cxrcMHxoEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.addInvoice" visible="false" label="Add Invoice" command="_N2HgAHxhEeOl7olWdGHeBA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_gRjcYHxoEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.cancelInvoice" label="Cancel Invoice" command="_1u-2AHxiEeOl7olWdGHeBA"/>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_wnGHcHxoEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.0">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_w-qS4HxoEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.deleteFromInvoice" label="Delete from Invoice" command="_pSIwQHxhEeOl7olWdGHeBA"/>
+      </menus>
+    </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_2ptWcFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.prescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.PrescriptionPart" label="Prescription">
-      <menus xsi:type="menu:PopupMenu" xmi:id="__JskUHd9EeOts5KVA_mezg" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.addPrescritption">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_Ukz94HeFEeOts5KVA_mezg" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.0" label="Add Prescription" command="_KeYD8HeGEeOts5KVA_mezg"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_jy3P0HheEeOEsqkdxBqDvw" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.1" label="Open Prescription" command="_t0BywHheEeOEsqkdxBqDvw"/>
+      <menus xmi:id="_qNzNoHxpEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.menu.2">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_r1EtcHxpEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.addPrescription" label="Add Prescription" command="_KeYD8HeGEeOts5KVA_mezg"/>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="__JskUHd9EeOts5KVA_mezg" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.prescritption">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_Ukz94HeFEeOts5KVA_mezg" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.addPrescription" label="Add Prescription" command="_KeYD8HeGEeOts5KVA_mezg"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_jy3P0HheEeOEsqkdxBqDvw" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.openPrescription" label="Open Prescription" command="_t0BywHheEeOEsqkdxBqDvw"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_wVeKwHxOEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.addToPrescription" visible="false" label="Add Article to Prescription" command="_zgnf0HxIEeOl7olWdGHeBA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_hDYsgHxpEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.editPrescription" label="Edit Prescription" command="_YAGyUHxiEeOl7olWdGHeBA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_lBcdgHxpEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.deletePrescription" label="Delete Prescription" command="_QGMyoHxpEeOl7olWdGHeBA"/>
       </menus>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_4GxKUFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.invoice" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.InvoicePart" label="Invoice"/>
@@ -50,16 +69,66 @@
       </children>
     </trimBars>
   </children>
-  <handlers xmi:id="_bs6MgHeGEeOts5KVA_mezg" elementId="at.medevit.ecrit.pharmacy_at.application.handler.addPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.AddPrescriptionHandler" command="_KeYD8HeGEeOts5KVA_mezg"/>
-  <handlers xmi:id="_zDgvYHheEeOEsqkdxBqDvw" elementId="at.medevit.ecrit.pharmacy_at.application.handler.openPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.OpenPrescriptionHandler" command="_t0BywHheEeOEsqkdxBqDvw"/>
-  <handlers xmi:id="__wtlgHiEEeOBFOXoaudQpg" elementId="at.medevit.ecrit.pharmacy_at.application.handler.showDescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.ShowDescriptionHandler" command="_woawsHiEEeOBFOXoaudQpg"/>
+  <handlers xmi:id="_bs6MgHeGEeOts5KVA_mezg" elementId="at.medevit.ecrit.pharmacy_at.application.handler.addPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.AddPrescriptionHandler" command="_KeYD8HeGEeOts5KVA_mezg"/>
+  <handlers xmi:id="_5ehosHxIEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.addToPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.AddToPrescriptionHandler" command="_zgnf0HxIEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_zDgvYHheEeOEsqkdxBqDvw" elementId="at.medevit.ecrit.pharmacy_at.application.handler.openPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.OpenPrescriptionHandler" command="_t0BywHheEeOEsqkdxBqDvw"/>
+  <handlers xmi:id="_u79DAHxiEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.editPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.EditPrescriptionHandler" command="_YAGyUHxiEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_VbifoHxpEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.deletePrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.DeletePrescriptionHandler" command="_QGMyoHxpEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_YsInUHxhEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.addInvoice" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.AddInvoiceHandler" command="_N2HgAHxhEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_ZrxmkHw5EeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.addToInvoice" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.AddToInvoiceHandler" command="_SPCvQHw5EeOl7olWdGHeBA"/>
+  <handlers xmi:id="_JB9_EHxiEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.deleteFromInvoice" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.DeleteFromInvoiceHandler" command="_pSIwQHxhEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_BdhgwHxjEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.cancelInvoice" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.CancelInvoiceHandler" command="_1u-2AHxiEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_M_4wsHxjEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.requestOrder" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.RequestOrderHandler" command="_J7UzgHxjEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_WeW2QHxjEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.orderArticle" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.stockist.OrderArticleHandler" command="_TnG8UHxjEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_kkXusHxjEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.0" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.stockist.AddToStockHandler" command="_cgKAoHxjEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_2hGaAHxjEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.deleteFromStock" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.stockist.DeleteFromStock" command="_zf-yYHxjEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_D3J1IHxkEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.updateStockArticle" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.stockist.UpdateStockArticleHandler" command="_-QqGsHxjEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_W4EhUHxkEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.showTotalSales" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.clerk.ShowTotalSalesHandler" command="_R2YwIHxkEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_mkyR0HxkEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.showAppliedPrescriptions" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.clerk.ShowAppliedPrescriptionsHandler" command="_fGhwgHxkEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_3QidcHxkEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.checkInventory" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.clerk.CheckInventoryHandler" command="_s2EpsHxkEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_E9XZ0HxlEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.addUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.AddUserHandler" command="_CR55IHxlEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_On9P0HxlEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.deleteUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.DeleteUserHandler" command="_J6QKkHxlEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_WJDpwHxlEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.editUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.EditUserHandler" command="_Sod34HxlEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_jxeAMHxlEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.addUserRole" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.AddUserRoleHandler" command="_aj3BIHxlEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_ouJVkHxlEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.deleteUserRole" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.DeleteUserRoleHandler" command="_eEU3MHxlEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_u2NgAHxlEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.editUserRole" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.EditUserRoleHandler" command="_gQtPMHxlEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_OaPHcHxmEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.updateArticleList" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.UpdateArticleListHandler" command="_4lPxIHxlEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_TeZk4HxmEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.addArticleToList" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.AddArticleToListHandler" command="_8RWPcHxlEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_Z1gQ4HxmEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.deleteArticleFromList" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.DeleteArticleFromListHandler" command="_B1kF8HxmEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_esDwIHxmEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.editArticleOnList" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.EditArticleOnListHandler" command="_F2IYYHxmEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_jPk-oHxmEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.createReport" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.CreateReportHandler" command="_Lydz8HxmEeOl7olWdGHeBA"/>
   <rootContext xmi:id="_4Ip46UVIEeOaYLXjRggZbw" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_4Ip46kVIEeOaYLXjRggZbw" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_4Ip460VIEeOaYLXjRggZbw" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
   <commands xmi:id="_KeYD8HeGEeOts5KVA_mezg" elementId="at.medevit.ecrit.pharmacy_at.application.command.addPrescritption" commandName="Add Prescription" category="_4fQhEHeHEeOts5KVA_mezg"/>
+  <commands xmi:id="_zgnf0HxIEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.addToPrescription" commandName="Add to Prescription" category="_4fQhEHeHEeOts5KVA_mezg"/>
   <commands xmi:id="_t0BywHheEeOEsqkdxBqDvw" elementId="at.medevit.ecrit.pharmacy_at.application.command.openPrescritption" commandName="Open Prescription" category="_4fQhEHeHEeOts5KVA_mezg"/>
-  <commands xmi:id="_woawsHiEEeOBFOXoaudQpg" elementId="at.medevit.ecrit.pharmacy_at.application.command.showDescription" commandName="Show Description" category="_3hHt4HiEEeOBFOXoaudQpg"/>
+  <commands xmi:id="_YAGyUHxiEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.editPrescription" commandName="Edit Prescription" category="_4fQhEHeHEeOts5KVA_mezg"/>
+  <commands xmi:id="_QGMyoHxpEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.deletePrescription" commandName="Delete Prescription" category="_4fQhEHeHEeOts5KVA_mezg"/>
+  <commands xmi:id="_N2HgAHxhEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.addInvoice" commandName="Add Invoice" category="_wdrJ4HxhEeOl7olWdGHeBA"/>
+  <commands xmi:id="_SPCvQHw5EeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.addToInvoice" commandName="Add to Invoice" category="_3hHt4HiEEeOBFOXoaudQpg"/>
+  <commands xmi:id="_pSIwQHxhEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.deleteFromInvoice" commandName="Delete from Invoice" category="_wdrJ4HxhEeOl7olWdGHeBA"/>
+  <commands xmi:id="_1u-2AHxiEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.cancelInvoice" commandName="Cancel Invoice" category="_wdrJ4HxhEeOl7olWdGHeBA"/>
+  <commands xmi:id="_J7UzgHxjEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.requestOrder" commandName="Request Order" category="_3hHt4HiEEeOBFOXoaudQpg"/>
+  <commands xmi:id="_TnG8UHxjEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.orderArticle" commandName="Order Article" category="_3hHt4HiEEeOBFOXoaudQpg"/>
+  <commands xmi:id="_cgKAoHxjEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.addToStock" commandName="Add to Stock" category="_3hHt4HiEEeOBFOXoaudQpg"/>
+  <commands xmi:id="_zf-yYHxjEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.deleteFromStock" commandName="Delete from Stock" category="_3hHt4HiEEeOBFOXoaudQpg"/>
+  <commands xmi:id="_-QqGsHxjEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.updateStockArticle" commandName="Update StockArticle" category="_3hHt4HiEEeOBFOXoaudQpg"/>
+  <commands xmi:id="_R2YwIHxkEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.showTotalSales" commandName="Show Total Sales"/>
+  <commands xmi:id="_fGhwgHxkEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.showAppliedPrescriptions" commandName="Show Applied Prescriptions" category="_4fQhEHeHEeOts5KVA_mezg"/>
+  <commands xmi:id="_s2EpsHxkEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.checkInventory" commandName="Check Inventory" category="_3hHt4HiEEeOBFOXoaudQpg"/>
+  <commands xmi:id="_CR55IHxlEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.addUser" commandName="Add User" category="_34iY8HxhEeOl7olWdGHeBA"/>
+  <commands xmi:id="_J6QKkHxlEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.deleteUser" commandName="Delete User" category="_34iY8HxhEeOl7olWdGHeBA"/>
+  <commands xmi:id="_Sod34HxlEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.editUser" commandName="Edit User" category="_34iY8HxhEeOl7olWdGHeBA"/>
+  <commands xmi:id="_aj3BIHxlEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.addUserRole" commandName="Add UserRole"/>
+  <commands xmi:id="_eEU3MHxlEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.deleteUserRole" commandName="Delete UserRole"/>
+  <commands xmi:id="_gQtPMHxlEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.editUserRole" commandName="Edit UserRole"/>
+  <commands xmi:id="_4lPxIHxlEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.updateArticleList" commandName="Update ArticleList" category="_3hHt4HiEEeOBFOXoaudQpg"/>
+  <commands xmi:id="_8RWPcHxlEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.addArticleToList" commandName="Add Article to List" category="_3hHt4HiEEeOBFOXoaudQpg"/>
+  <commands xmi:id="_B1kF8HxmEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.deleteArticleFromList" commandName="Delete Article from List" category="_3hHt4HiEEeOBFOXoaudQpg"/>
+  <commands xmi:id="_F2IYYHxmEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.editArticleOnList" commandName="Edit Article on List" category="_3hHt4HiEEeOBFOXoaudQpg"/>
+  <commands xmi:id="_Lydz8HxmEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.createReport" commandName="Create Report"/>
   <addons xmi:id="_4Ip44kVIEeOaYLXjRggZbw" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_4Ip440VIEeOaYLXjRggZbw" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_4Ip45EVIEeOaYLXjRggZbw" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
@@ -69,4 +138,7 @@
   <addons xmi:id="_4Ip46EVIEeOaYLXjRggZbw" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
   <categories xmi:id="_4fQhEHeHEeOts5KVA_mezg" elementId="at.medevit.ecrit.pharmacy_at.application.category.prescription" name="Prescritption" description="prescription commands"/>
   <categories xmi:id="_3hHt4HiEEeOBFOXoaudQpg" elementId="at.medevit.ecrit.pharmacy_at.application.category.article" name="Article" description="everything concerning article information and further descriptions"/>
+  <categories xmi:id="_wdrJ4HxhEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.category.invoice" name="Invoice"/>
+  <categories xmi:id="_0mWPcHxhEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.category.description" name="Description"/>
+  <categories xmi:id="_34iY8HxhEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.category.user" name="User" description="add, remove, delete, update users"/>
 </application:Application>

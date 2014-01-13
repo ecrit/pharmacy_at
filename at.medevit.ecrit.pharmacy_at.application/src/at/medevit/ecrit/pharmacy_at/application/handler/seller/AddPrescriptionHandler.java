@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.handler;
+package at.medevit.ecrit.pharmacy_at.application.handler.seller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,7 @@ import at.medevit.ecrit.pharmacy_at.application.part.PrescriptionPart;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
+import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class AddPrescriptionHandler {
 

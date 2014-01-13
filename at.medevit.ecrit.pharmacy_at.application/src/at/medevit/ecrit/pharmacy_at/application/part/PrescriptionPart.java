@@ -45,12 +45,13 @@ import at.medevit.ecrit.pharmacy_at.model.ArticleAvailability;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
+import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class PrescriptionPart {
 
 	private TableViewer tableViewer;
 	private IObservableList input;
-
+	private List<Prescription> prescriptions; 
 	@Inject
 	private ECommandService commandService;
 	@Inject
@@ -62,13 +63,16 @@ public class PrescriptionPart {
 	@Inject
 	private EMenuService menuService;
 
-	private static final String ID_ADD_PRESCRIPTION = "at.medevit.ecrit.pharmacy_at.application.popupmenu.addPrescritption";
+	private static final String ID_ADD_PRESCRIPTION = "at.medevit.ecrit.pharmacy_at.application.popupmenu.prescritption";
 	private static final String ID_ADD_PRESCRIPTION_CMD = "at.medevit.ecrit.pharmacy_at.application.command.addPrescritption";
+	private static final String ID_ADD_ARTICLE_TO_PRESCRIPTION_CMD = "at.medevit.ecrit.pharmacy_at.application.command.addToPrescription";
 	private static final String ID_OPEN_PRESCRIPTION_CMD = "at.medevit.ecrit.pharmacy_at.application.command.openPrescritption";
 	private static final String ID_BILL_PART = "at.medevit.ecrit.pharmacy_at.application.part.bill";
+	private static final String ID_ARTICLE_PART = "at.medevit.ecrit.pharmacy_at.application.part.articlelist";
 
 	@Inject
 	public PrescriptionPart() {
+		prescriptions = SampleModel.getInvoice().getPrescription();
 	}
 
 	@PostConstruct
@@ -83,6 +87,7 @@ public class PrescriptionPart {
 				ID_ADD_PRESCRIPTION);
 	}
 
+	@EcritDrop(command=ID_ADD_PRESCRIPTION_CMD)
 	private void initTableViewer(Composite composite) {
 		tableViewer = new TableViewer(composite, SWT.BORDER
 				| SWT.FULL_SELECTION);
@@ -97,6 +102,7 @@ public class PrescriptionPart {
 
 		// add drop support
 		Transfer[] transferTypes = new Transfer[] { TextTransfer.getInstance() };
+		
 		tableViewer.addDropSupport(DND.DROP_COPY, transferTypes,
 				new DropTargetAdapter() {
 					@Override
@@ -108,19 +114,28 @@ public class PrescriptionPart {
 					@Override
 					public void drop(DropTargetEvent event) {
 						if (TextTransfer.getInstance().isSupportedType(event.currentDataType)) {
-							Article a = convertStringToArticle((String)event.data);
 							BillPart billPart = (BillPart) partService
 									.findPart(ID_BILL_PART).getObject();
 
 							if (event.item != null) {
-								Prescription p = (Prescription) event.item
-										.getData();
-								p.getArticle().add(a);								
-								SampleModel.getInvoice().getArticle().add(a);
+								selectionService.setSelection((Prescription) event.item.getData());
+								
+								Command cmd = commandService
+										.getCommand(ID_ADD_ARTICLE_TO_PRESCRIPTION_CMD);
+								ParameterizedCommand pCmd = new ParameterizedCommand(
+										cmd, null);
+
+								// only execute if command can be executed
+								if (handlerService.canExecute(pCmd)) {
+									handlerService.executeHandler(pCmd);
+								}
+//								p.getArticle().add(a);								
+//								SampleModel.getInvoice().getArticle().add(a);
+								
 							} else {
-								tableViewer.getTable().setFocus();
+								StockArticle sa = (StockArticle) selectionService.getSelection(ID_ARTICLE_PART);
 								List<Article> tmpArticleList = new ArrayList<Article>();
-								tmpArticleList.add(a);
+								tmpArticleList.add(sa.getArticle());
 								
 								billPart.updateSelection(tmpArticleList);
 
@@ -133,6 +148,7 @@ public class PrescriptionPart {
 								if (handlerService.canExecute(pCmd)) {
 									handlerService.executeHandler(pCmd);
 								}
+								sa.setNumberOnStock(sa.getNumberOnStock() - 1);
 							}
 							billPart.updateTable();
 						}
@@ -169,7 +185,7 @@ public class PrescriptionPart {
 				});
 		
 		// set model
-		input = Properties.selfList(Article.class).observe(SampleModel.getInvoice().getPrescription());
+		input = Properties.selfList(Prescription.class).observe(prescriptions);
 		tableViewer.setInput(input);
 	}
 
@@ -197,42 +213,13 @@ public class PrescriptionPart {
 
 	public void updateTable() {
 		if (tableViewer != null) {
+			prescriptions = SampleModel.getInvoice().getPrescription();
 			tableViewer.refresh();
 		}
 	}
 	
-	/**
-	 * Convert the string with article information to an actual article 
-	 * @param value article.toString()
-	 * @return article
-	 */
-	protected Article convertStringToArticle(String value) {
-		Article a = ModelFactory.eINSTANCE.createArticle();
-		int beginIdx = value.indexOf("name: ");
-		beginIdx = value.indexOf(" ", beginIdx) +1;
-		int endIdx = value.indexOf(", description: ", beginIdx);
-		a.setName(value.substring(beginIdx, endIdx));
-		
-		beginIdx = endIdx + 2; 
-		beginIdx = value.indexOf(" ", beginIdx) + 1;
-		endIdx = value.indexOf(", admissionNumber: ", beginIdx);
-		a.setDescription(value.substring(beginIdx, endIdx));
-		
-		beginIdx = endIdx + 2; 
-		beginIdx = value.indexOf(" ", beginIdx) + 1;
-		endIdx = value.indexOf(", availability: ", beginIdx);
-		a.setAdmissionNumber(Integer.parseInt(value.substring(beginIdx, endIdx)));
-		
-		beginIdx = endIdx + 2; 
-		beginIdx = value.indexOf(" ", beginIdx) + 1;
-		endIdx = value.indexOf(", price: ", beginIdx);
-		a.setAvailability(ArticleAvailability.get(value.substring(beginIdx, endIdx)));
-		
-		beginIdx = endIdx + 2; 
-		beginIdx = value.indexOf(" ", beginIdx) + 1;
-		endIdx = value.indexOf(")", beginIdx);
-		a.setPrice(Float.parseFloat(value.substring(beginIdx, endIdx)));
-		
-		return a;
+	
+	public void clearPrescriptions() {
+		prescriptions.clear();
 	}
 }

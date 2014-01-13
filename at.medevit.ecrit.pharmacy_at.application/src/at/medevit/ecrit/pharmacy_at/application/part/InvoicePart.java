@@ -47,6 +47,7 @@ public class InvoicePart {
 	private DataBindingContext m_bindingContext;
 	
 	private Invoice invoice;
+	private List<Prescription> prescriptions;
 	private HashMap<String, String> articleAmountMap;
 	private List<Article> noDuplicateList;
 
@@ -63,6 +64,7 @@ public class InvoicePart {
 	public InvoicePart() {
 		invoice = SampleModel.getInvoice();
 		invoice.setPaidAmount(10.0f);
+		prescriptions = SampleModel.getInvoice().getPrescription();
 		articleAmountMap = new HashMap<String, String>();
 		noDuplicateList = new ArrayList<Article>();
 	}
@@ -150,7 +152,7 @@ public class InvoicePart {
 		presTableViewer.setContentProvider(cp);
 		initPrescriptionColumns(cp);
 
-		IObservableList input = Properties.selfList(Article.class).observe(invoice.getPrescription());
+		IObservableList input = Properties.selfList(Prescription.class).observe(prescriptions);
 		presTableViewer.setInput(input);
 	}
 
@@ -256,9 +258,12 @@ public class InvoicePart {
 	
 	public void updateTable(){
 		if(presTableViewer != null && tableViewer != null){
-			presTableViewer.refresh();	
+			invoice = SampleModel.getInvoice();
+			prescriptions = SampleModel.getInvoice().getPrescription();
 			extractInvoiceRelevantValues(invoice.getArticle());
 			calculateTotalCosts();
+			
+			presTableViewer.refresh();	
 			tableViewer.refresh();
 		}
 	}

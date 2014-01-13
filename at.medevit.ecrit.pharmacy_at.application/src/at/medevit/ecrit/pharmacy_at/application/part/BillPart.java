@@ -7,9 +7,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.eclipse.core.commands.Command;
+import org.eclipse.core.commands.ParameterizedCommand;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.property.Properties;
+import org.eclipse.e4.core.commands.ECommandService;
+import org.eclipse.e4.core.commands.EHandlerService;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.emf.databinding.EMFProperties;
@@ -54,6 +59,14 @@ public class BillPart {
 	private EPartService partService;
 	@Inject
 	private ESelectionService selectionService;
+	@Inject
+	private ECommandService commandService;
+	@Inject
+	private EHandlerService handlerService;
+	
+	private static final String ID_PRESCRIPTION_PART = "at.medevit.ecrit.pharmacy_at.application.part.prescription";
+	private static final String ID_INVOICE_PART = "at.medevit.ecrit.pharmacy_at.application.part.invoice";
+	private static final String ID_ADD_TO_INVOICE_CMD = "at.medevit.ecrit.pharmacy_at.application.command.addToInvoice";
 
 	@Inject
 	public BillPart() {
@@ -79,8 +92,13 @@ public class BillPart {
 		// initialize tableviewer
 		initTableViewer(composite);
 
+		// Buttons
+		Composite buttonComposite = new Composite(composite, SWT.NONE);
+		buttonComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
+		buttonComposite.setLayout(new GridLayout(2, false));
+
 		// payment button
-		Button btnPay = new Button(composite, SWT.PUSH);
+		Button btnPay = new Button(buttonComposite, SWT.PUSH);
 		btnPay.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
 				1, 1));
 		btnPay.setText("Cash up");
@@ -91,6 +109,38 @@ public class BillPart {
 						"Receipt printed... TODO ");
 			}
 		});
+
+		// cancle button
+		Button btnRevert = new Button(buttonComposite, SWT.PUSH);
+		btnRevert.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
+				false, 1, 1));
+		btnRevert.setText("Cancel Cash up");
+		btnRevert.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (MessageDialog.openConfirm(
+						parent.getShell(),
+						"Cancle selling",
+						"Are you sure you want to cancle this selling process?\n All changes will be lost!")){
+					SampleModel.revertInvoice(invoice);
+					invoice = SampleModel.getInvoice();
+					updateTable();
+					updateConnectedParts();
+				}
+			}
+		});
+	}
+
+	protected void updateConnectedParts() {
+		MPart pPart = partService.findPart(ID_PRESCRIPTION_PART);
+		PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
+		prescPart.clearPrescriptions();
+		prescPart.updateTable();
+		
+		MPart iPart = partService.findPart(ID_INVOICE_PART);
+		InvoicePart invoicePart = (InvoicePart) iPart.getObject();
+		invoicePart.updateTable();
+		
 	}
 
 	private void initTableViewer(Composite composite) {
@@ -118,18 +168,15 @@ public class BillPart {
 
 					@Override
 					public void drop(DropTargetEvent event) {
-						Article a = convertStringToArticle((String) event.data);
-						invoice.getArticle().add(a);
+						Command cmd = commandService
+								.getCommand(ID_ADD_TO_INVOICE_CMD);
+						ParameterizedCommand pCmd = new ParameterizedCommand(
+								cmd, null);
 
-						if (isDuplicate(a)) {
-							int newAmount = amountMap.get(a.getName()) + 1;
-							amountMap.put(a.getName(), newAmount);
-						} else {
-							noDuplicateArticles.add(a);
-							amountMap.put(a.getName(), 1);
+						// only execute if command can be executed
+						if (handlerService.canExecute(pCmd)) {
+							handlerService.executeHandler(pCmd);
 						}
-						tableViewer.refresh();
-						updateSelection(invoice.getArticle());
 					}
 				});
 
@@ -137,9 +184,10 @@ public class BillPart {
 		input = Properties.selfList(Article.class).observe(noDuplicateArticles);
 		tableViewer.setInput(input);
 	}
-	
+
 	/**
 	 * initialise columns and setup databinding
+	 * 
 	 * @param cp
 	 */
 	private void initColumns(ObservableListContentProvider cp) {
@@ -161,7 +209,9 @@ public class BillPart {
 					}
 				});
 			} else {
-				IObservableMap map = EMFProperties.value(ModelPackage.Literals.ARTICLE__NAME).observeDetail(cp.getKnownElements());
+				IObservableMap map = EMFProperties.value(
+						ModelPackage.Literals.ARTICLE__NAME).observeDetail(
+						cp.getKnownElements());
 				tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
 			}
 
@@ -170,44 +220,6 @@ public class BillPart {
 			tvc.getColumn().setWidth(columnWidths[i]);
 			tvc.getColumn().setResizable(true);
 		}
-	}
-
-	/**
-	 * Convert the string with article information to an actual article
-	 * 
-	 * @param value
-	 *            article.toString();
-	 * @return article
-	 */
-	protected Article convertStringToArticle(String value) {
-		Article a = ModelFactory.eINSTANCE.createArticle();
-		int beginIdx = value.indexOf("name: ");
-		beginIdx = value.indexOf(" ", beginIdx) + 1;
-		int endIdx = value.indexOf(", description: ", beginIdx);
-		a.setName(value.substring(beginIdx, endIdx));
-
-		beginIdx = endIdx + 2;
-		beginIdx = value.indexOf(" ", beginIdx) + 1;
-		endIdx = value.indexOf(", admissionNumber: ", beginIdx);
-		a.setDescription(value.substring(beginIdx, endIdx));
-
-		beginIdx = endIdx + 2;
-		beginIdx = value.indexOf(" ", beginIdx) + 1;
-		endIdx = value.indexOf(", availability: ", beginIdx);
-		a.setAdmissionNumber(Integer.parseInt(value.substring(beginIdx, endIdx)));
-
-		beginIdx = endIdx + 2;
-		beginIdx = value.indexOf(" ", beginIdx) + 1;
-		endIdx = value.indexOf(", price: ", beginIdx);
-		a.setAvailability(ArticleAvailability.get(value.substring(beginIdx,
-				endIdx)));
-
-		beginIdx = endIdx + 2;
-		beginIdx = value.indexOf(" ", beginIdx) + 1;
-		endIdx = value.indexOf(")", beginIdx);
-		a.setPrice(Float.parseFloat(value.substring(beginIdx, endIdx)));
-
-		return a;
 	}
 
 	/**
@@ -230,18 +242,15 @@ public class BillPart {
 	 * makes sure article is only displayed once but amount is increased if an
 	 * article occures more than once
 	 */
-	private void assureNoDuplicates() {
-		noDuplicateArticles.clear();
-		int newAmount = 0;
-		for (Article a : invoice.getArticle()) {
+	private void assureNoDuplicates(List<Article> articles) {
+		for (Article a : articles) {
 			if (isDuplicate(a)) {
-				newAmount = amountMap.get(a.getName()) + 1;
+				int newAmount = amountMap.get(a.getName()) + 1;
 				amountMap.put(a.getName(), newAmount);
 			} else {
 				noDuplicateArticles.add(a);
 				amountMap.put(a.getName(), 1);
 			}
-
 		}
 	}
 
@@ -252,9 +261,18 @@ public class BillPart {
 
 	public void updateTable() {
 		if (tableViewer != null) {
-			assureNoDuplicates();
+			noDuplicateArticles.clear();
+			assureNoDuplicates(invoice.getArticle());
+			selectionService.setSelection(invoice.getArticle());
 			tableViewer.refresh();
 		}
 	}
-
+	
+	public void addArticleAndUpdate(Article a){
+		List<Article> articles = new ArrayList<>();
+		articles.add(a);
+		assureNoDuplicates(articles);
+		tableViewer.refresh();
+		updateSelection(invoice.getArticle());
+	}
 }

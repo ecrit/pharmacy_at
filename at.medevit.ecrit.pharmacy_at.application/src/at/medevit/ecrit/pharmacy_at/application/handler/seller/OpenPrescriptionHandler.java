@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.handler;
+package at.medevit.ecrit.pharmacy_at.application.handler.seller;
 
 import javax.inject.Inject;
 import javax.inject.Named;

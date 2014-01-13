@@ -32,10 +32,15 @@ public class SampleModel {
 		Resource s = getSampleModel();
 		return (Stock) s.getContents().get(0);
 	}
-	
+
 	public static Invoice getInvoice() {
 		Resource s = getSampleModel();
 		return (Invoice) s.getContents().get(1);
+	}
+
+	public static void revertInvoice(Invoice i) {
+		resource.getContents().remove(i);
+		resource.getContents().add(initInvoice());
 	}
 
 	private static void initSampleModel() {
@@ -44,18 +49,16 @@ public class SampleModel {
 		resource = resSet.createResource(URI.createURI("pharmacy_at/my.model"));
 
 		Stock stock = initStock();
-		Invoice i1 = factory.createInvoice();
-		i1.setDate(Calendar.getInstance().getTime());
-		i1.setId(0001);
-		
+		Invoice i1 = initInvoice();
+
 		resource.getContents().add(stock);
 		resource.getContents().add(i1);
 
-//		try {
-//			resource.save(Collections.EMPTY_MAP);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		// try {
+		// resource.save(Collections.EMPTY_MAP);
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
 	}
 
 	private static Stock initStock() {
@@ -122,7 +125,15 @@ public class SampleModel {
 		stock.getArticles().add(sa3);
 		stock.getArticles().add(sa4);
 		stock.getArticles().add(sa5);
-		
+
 		return stock;
+	}
+
+	private static Invoice initInvoice() {
+		Invoice i1 = factory.createInvoice();
+		i1.setDate(Calendar.getInstance().getTime());
+		i1.setId(0001);
+
+		return i1;
 	}
 }

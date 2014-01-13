@@ -3,6 +3,7 @@ package at.medevit.ecrit.pharmacy_at.application.dialog;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.observable.list.IObservableList;
@@ -10,6 +11,7 @@ import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.property.Properties;
 import org.eclipse.emf.databinding.EMFProperties;
+import org.eclipse.jface.databinding.fieldassist.ControlDecorationSupport;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider;
@@ -32,6 +34,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
 import at.medevit.ecrit.pharmacy_at.application.converter.IntToStringConverter;
+import at.medevit.ecrit.pharmacy_at.application.validator.NumbersOnlyValidator;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
@@ -175,9 +178,12 @@ public class PrescriptionDialog extends TitleAreaDialog {
 				ModelPackage.Literals.PRESCRIPTION__NUMBER).observe(p);
 		IObservableValue textTxtNumberObserveValue = WidgetProperties.text(
 				SWT.Modify).observe(txtNumber);
-		bindingContext.bindValue(textTxtNumberObserveValue, numberObserveValue,
-				null, new UpdateValueStrategy()
-						.setConverter(new IntToStringConverter()));
+		UpdateValueStrategy numberStrategy = new UpdateValueStrategy();
+		numberStrategy.setAfterConvertValidator(new NumbersOnlyValidator());
+		numberStrategy.setConverter(new IntToStringConverter());
+		Binding bindValue = bindingContext.bindValue(textTxtNumberObserveValue, numberObserveValue,
+				null, numberStrategy);
+		ControlDecorationSupport.create(bindValue, SWT.TOP | SWT.LEFT);
 		//
 		IObservableValue practitionerObserveValue = EMFProperties.value(
 				ModelPackage.Literals.PRESCRIPTION__ISSUING_PRACTITIONER)

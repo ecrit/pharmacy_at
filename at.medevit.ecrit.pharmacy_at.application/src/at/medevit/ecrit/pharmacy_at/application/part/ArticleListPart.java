@@ -3,16 +3,23 @@ package at.medevit.ecrit.pharmacy_at.application.part;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.eclipse.core.commands.Command;
+import org.eclipse.core.commands.ParameterizedCommand;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.property.Properties;
+import org.eclipse.e4.core.commands.ECommandService;
+import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.emf.databinding.EMFProperties;
 import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -42,7 +49,16 @@ public class ArticleListPart {
 	private ArticleFilter filter;
 
 	@Inject
+	private EMenuService menuService;
+	@Inject
 	private ESelectionService selectionService;
+	@Inject
+	private ECommandService commandService;
+	@Inject
+	private EHandlerService handlerService;
+	
+	private static final String ID_ARTICLE_POPUP = "at.medevit.ecrit.pharmacy_at.application.popupmenu.articlelist";
+	private static final String ID_ADD_TO_INVOICE_CMD = "at.medevit.ecrit.pharmacy_at.application.command.addToInvoice";
 
 	@Inject
 	public ArticleListPart() {
@@ -67,6 +83,9 @@ public class ArticleListPart {
 		});
 
 		initTableViewer(composite);
+		
+		menuService.registerContextMenu(tableViewer.getTable(),
+				ID_ARTICLE_POPUP);
 	}
 
 	private void initTableViewer(Composite composite) {
@@ -92,24 +111,12 @@ public class ArticleListPart {
 					public void dragSetData(DragSourceEvent event) {
 						IStructuredSelection selection = (IStructuredSelection) tableViewer
 								.getSelection();
-						StockArticle a = (StockArticle) selection
-								.getFirstElement();
+						StockArticle a = (StockArticle) selection.getFirstElement();
+						selectionService.setSelection(a);
 
 						if (TextTransfer.getInstance().isSupportedType(
 								event.dataType)) {
-							event.data = a.getArticle().toString();
-						}
-					}
-
-					@Override
-					public void dragFinished(DragSourceEvent event) {
-						if (event.detail == DND.DROP_COPY) {
-							IStructuredSelection selection = (IStructuredSelection) tableViewer
-									.getSelection();
-							StockArticle a = (StockArticle) selection
-									.getFirstElement();
-							// update aticles number on stock attribute
-							a.setNumberOnStock(a.getNumberOnStock() - 1);
+							event.data = a.toString();
 						}
 					}
 				});
@@ -123,9 +130,25 @@ public class ArticleListPart {
 								.getSelection();
 						StockArticle stockArticle = (StockArticle) selection
 								.getFirstElement();
-						selectionService.setSelection(stockArticle.getArticle());
+						selectionService.setSelection(stockArticle);
 					}
 				});
+		
+		tableViewer.addDoubleClickListener(new IDoubleClickListener() {
+			
+			@Override
+			public void doubleClick(DoubleClickEvent event) {
+				Command cmd = commandService
+						.getCommand(ID_ADD_TO_INVOICE_CMD);
+				ParameterizedCommand pCmd = new ParameterizedCommand(
+						cmd, null);
+
+				// only execute if command can be executed
+				if (handlerService.canExecute(pCmd)) {
+					handlerService.executeHandler(pCmd);
+				}
+			}
+		});
 
 		// set model
 		IObservableList input = Properties.selfList(StockArticle.class)
@@ -167,4 +190,5 @@ public class ArticleListPart {
 				.observeDetail(cp.getKnownElements());
 		tvc.setLabelProvider(new ObservableMapCellLabelProvider(stockMap));
 	}
+
 }
