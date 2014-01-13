@@ -20,26 +20,27 @@ public class ArticleFilter extends ViewerFilter {
 			return true;
 		}
 
-		StockArticle article = (StockArticle) element;
-		if ((Integer.toString(article.getArticle().getAdmissionNumber()))
+		StockArticle stockArticle = (StockArticle) element;
+		Article article = stockArticle.getArticle();
+		if ((Integer.toString(article.getAdmissionNumber()))
 				.contains(searchTxt)) {
 			return true;
 		}
 
-		if (article.getArticle().getAvailability().toString().toLowerCase()
+		if (article.getAvailability().toString().toLowerCase()
 				.contains(searchTxt)) {
 			return true;
 		}
 
-		if ((article.getArticle().getName().toLowerCase()).contains(searchTxt)) {
+		if ((article.getName().toLowerCase()).contains(searchTxt)) {
 			return true;
 		}
 
-		if ((article.getArticle().getDescription().toLowerCase()).contains(searchTxt)) {
+		if ((article.getDescription().toLowerCase()).contains(searchTxt)) {
 			return true;
 		}
 
-		if (Integer.toString(article.getNumberOnStock()).contains(searchTxt)) {
+		if (Integer.toString(stockArticle.getNumberOnStock()).contains(searchTxt)) {
 			return true;
 		}
 

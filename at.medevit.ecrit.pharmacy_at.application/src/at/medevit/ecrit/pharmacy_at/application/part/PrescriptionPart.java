@@ -39,8 +39,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
+import at.medevit.ecrit.pharmacy_at.application.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
-import at.medevit.ecrit.pharmacy_at.model.Customer;
+import at.medevit.ecrit.pharmacy_at.model.ArticleAvailability;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
@@ -68,7 +69,6 @@ public class PrescriptionPart {
 
 	@Inject
 	public PrescriptionPart() {
-		// TODO Your code here
 	}
 
 	@PostConstruct
@@ -93,8 +93,6 @@ public class PrescriptionPart {
 
 		ObservableListContentProvider cp = new ObservableListContentProvider();
 		initColumns(cp);
-		input = Properties.selfList(Article.class).observe(
-				createPrescriptions());
 		tableViewer.setContentProvider(cp);
 
 		// add drop support
@@ -109,23 +107,21 @@ public class PrescriptionPart {
 
 					@Override
 					public void drop(DropTargetEvent event) {
-						if (TextTransfer.getInstance().isSupportedType(
-								event.currentDataType)) {
-							String name = (String) event.data;
-							Article a = ModelFactory.eINSTANCE.createArticle();
-							a.setName(name);
+						if (TextTransfer.getInstance().isSupportedType(event.currentDataType)) {
+							Article a = convertStringToArticle((String)event.data);
+							BillPart billPart = (BillPart) partService
+									.findPart(ID_BILL_PART).getObject();
 
 							if (event.item != null) {
 								Prescription p = (Prescription) event.item
 										.getData();
-								p.getArticle().add(a);
+								p.getArticle().add(a);								
+								SampleModel.getInvoice().getArticle().add(a);
 							} else {
 								tableViewer.getTable().setFocus();
 								List<Article> tmpArticleList = new ArrayList<Article>();
 								tmpArticleList.add(a);
 								
-								BillPart billPart = (BillPart) partService
-										.findPart(ID_BILL_PART).getObject();
 								billPart.updateSelection(tmpArticleList);
 
 								Command cmd = commandService
@@ -138,6 +134,7 @@ public class PrescriptionPart {
 									handlerService.executeHandler(pCmd);
 								}
 							}
+							billPart.updateTable();
 						}
 					}
 				});
@@ -170,7 +167,9 @@ public class PrescriptionPart {
 						}
 					}
 				});
+		
 		// set model
+		input = Properties.selfList(Article.class).observe(SampleModel.getInvoice().getPrescription());
 		tableViewer.setInput(input);
 	}
 
@@ -184,6 +183,7 @@ public class PrescriptionPart {
 		for (int i = 0; i < columnNames.length; i++) {
 			TableViewerColumn tvc = new TableViewerColumn(tableViewer, SWT.NONE);
 
+			// bind values
 			IObservableMap map = EMFProperties.value(columnAttributes[i])
 					.observeDetail(cp.getKnownElements());
 			tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
@@ -193,54 +193,46 @@ public class PrescriptionPart {
 			tvc.getColumn().setWidth(columnWidths[i]);
 			tvc.getColumn().setResizable(true);
 		}
-
-		// FIXME make this work (articles are not shown till now!
-		// FeaturePath path = FeaturePath.fromList(
-		// ModelPackage.Literals.ARTICLE__NAME,
-		// ModelPackage.Literals.PRESCRIPTION__ARTICLE);
-		//
-		// // bind the feature and setup a table column
-		// IObservableMap featureMap = EMFProperties.value(path).observeDetail(
-		// cp.getKnownElements());
-		// TableViewerColumn tvc = new TableViewerColumn(tableViewer, SWT.NONE);
-		// tvc.setLabelProvider(new ObservableMapCellLabelProvider(featureMap));
-		// tvc.getColumn().setText("Article");
-		// tvc.getColumn().setWidth(150);
 	}
 
-	private List<Prescription> createPrescriptions() {
-		List<Prescription> prescriptionList = new ArrayList<Prescription>();
-		ModelFactory factory = ModelFactory.eINSTANCE;
-
-		String[] issuingPractitioner = new String[] { "Dr.Seltsam", "Dr.Doe",
-				"Dr.Pain" };
-		int[] number = new int[] { 1234456, 2341234, 9872340 };
-		Customer c1 = factory.createCustomer();
-		c1.setName("Sputnik Unkaputtbar");
-
-		Article a1 = factory.createArticle();
-		a1.setName("MexaVit");
-		Article a2 = factory.createArticle();
-		a2.setName("Lemocin");
-		Article a3 = factory.createArticle();
-		a3.setName("Aspirin");
-
-		Prescription p = factory.createPrescription();
-		p.setIssuingPractitioner(issuingPractitioner[0]);
-		p.setNumber(number[0]);
-		p.setPrescriptionCustomer(c1);
-		p.getArticle().add(a3);
-		p.getArticle().add(a2);
-		p.getArticle().add(a1);
-
-		prescriptionList.add(p);
-
-		return prescriptionList;
+	public void updateTable() {
+		if (tableViewer != null) {
+			tableViewer.refresh();
+		}
 	}
-
-	public void addPrescription(Prescription p) {
-		input.add(p);
-		tableViewer.refresh();
+	
+	/**
+	 * Convert the string with article information to an actual article 
+	 * @param value article.toString()
+	 * @return article
+	 */
+	protected Article convertStringToArticle(String value) {
+		Article a = ModelFactory.eINSTANCE.createArticle();
+		int beginIdx = value.indexOf("name: ");
+		beginIdx = value.indexOf(" ", beginIdx) +1;
+		int endIdx = value.indexOf(", description: ", beginIdx);
+		a.setName(value.substring(beginIdx, endIdx));
+		
+		beginIdx = endIdx + 2; 
+		beginIdx = value.indexOf(" ", beginIdx) + 1;
+		endIdx = value.indexOf(", admissionNumber: ", beginIdx);
+		a.setDescription(value.substring(beginIdx, endIdx));
+		
+		beginIdx = endIdx + 2; 
+		beginIdx = value.indexOf(" ", beginIdx) + 1;
+		endIdx = value.indexOf(", availability: ", beginIdx);
+		a.setAdmissionNumber(Integer.parseInt(value.substring(beginIdx, endIdx)));
+		
+		beginIdx = endIdx + 2; 
+		beginIdx = value.indexOf(" ", beginIdx) + 1;
+		endIdx = value.indexOf(", price: ", beginIdx);
+		a.setAvailability(ArticleAvailability.get(value.substring(beginIdx, endIdx)));
+		
+		beginIdx = endIdx + 2; 
+		beginIdx = value.indexOf(" ", beginIdx) + 1;
+		endIdx = value.indexOf(")", beginIdx);
+		a.setPrice(Float.parseFloat(value.substring(beginIdx, endIdx)));
+		
+		return a;
 	}
-
 }

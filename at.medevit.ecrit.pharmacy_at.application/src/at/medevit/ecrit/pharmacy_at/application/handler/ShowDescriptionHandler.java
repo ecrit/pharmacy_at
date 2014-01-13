@@ -27,7 +27,7 @@ public class ShowDescriptionHandler {
 		
 		MPart mPart = partService.findPart(ID_PROPERTIES_PART);
 		PropertiesPart propertyPart = (PropertiesPart) mPart.getObject();
-		propertyPart.setArticle(stockArticle.getArticle());
+//		propertyPart.setArticle(stockArticle.getArticle());
 				
 		
 	}

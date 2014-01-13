@@ -1,40 +1,24 @@
 package at.medevit.ecrit.pharmacy_at.application.part;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.swing.table.TableColumn;
-import javax.swing.text.TableView.TableRow;
 
-import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
-import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.property.Properties;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.emf.databinding.EMFProperties;
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.CellLabelProvider;
-import org.eclipse.jface.viewers.CheckboxCellEditor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.jface.viewers.EditingSupport;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTargetAdapter;
@@ -43,7 +27,6 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -51,32 +34,32 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
+import at.medevit.ecrit.pharmacy_at.application.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
+import at.medevit.ecrit.pharmacy_at.model.ArticleAvailability;
 import at.medevit.ecrit.pharmacy_at.model.Invoice;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 
 public class BillPart {
 	private Invoice invoice;
+	private List<Article> noDuplicateArticles;
+	private HashMap<String, Integer> amountMap = new HashMap<String, Integer>();
+	private IObservableList input;
+
 	private TableViewer tableViewer;
 	private Table table;
-	private IObservableList input;
-	private List<Article> articles;
-	private List<Article> articles4Prescription;
-	private HashMap<String, Integer> amountMap;
 
+	@Inject
+	private EPartService partService;
 	@Inject
 	private ESelectionService selectionService;
 
 	@Inject
 	public BillPart() {
-		invoice = ModelFactory.eINSTANCE.createInvoice();
-		invoice.setDate(new Date());
-		invoice.setId(1);
-
-		articles = new ArrayList<Article>();
-		articles4Prescription = new ArrayList<Article>();
-		amountMap = new HashMap<String, Integer>();
+		invoice = SampleModel.getInvoice();
+		noDuplicateArticles = new ArrayList<Article>();
+		// amountMap = new HashMap<String, Integer>();
 	}
 
 	@PostConstruct
@@ -93,7 +76,7 @@ public class BillPart {
 		lblBillpart.setLayoutData(gd_lblBillpart);
 		lblBillpart.setText("Placed on the invoice");
 
-		// initialises the tableviewer
+		// initialize tableviewer
 		initTableViewer(composite);
 
 		// payment button
@@ -110,17 +93,6 @@ public class BillPart {
 		});
 	}
 
-	private List<String> getArticles() {
-		List<String> articleList = new ArrayList<String>();
-		Iterator<?> it = input.iterator();
-
-		for (int i = 0; it.hasNext(); i++) {
-			Article a = (Article) it.next();
-			articleList.add(a.getName());
-		}
-		return articleList;
-	}
-
 	private void initTableViewer(Composite composite) {
 		tableViewer = new TableViewer(composite, SWT.BORDER
 				| SWT.FULL_SELECTION);
@@ -129,10 +101,9 @@ public class BillPart {
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
+		// set content provider and init columns
 		ObservableListContentProvider cp = new ObservableListContentProvider();
 		initColumns(cp);
-		input = Properties.selfList(Article.class).observe(
-				new ArrayList<Article>());
 		tableViewer.setContentProvider(cp);
 
 		// add drop support
@@ -147,41 +118,32 @@ public class BillPart {
 
 					@Override
 					public void drop(DropTargetEvent event) {
-						String name = (String) event.data;
-						Article a = ModelFactory.eINSTANCE.createArticle();
-						a.setName(name);
-						articles4Prescription.add(a);
+						Article a = convertStringToArticle((String) event.data);
+						invoice.getArticle().add(a);
 
-						if(isAlreadyOnInvoice(a)){
+						if (isDuplicate(a)) {
 							int newAmount = amountMap.get(a.getName()) + 1;
 							amountMap.put(a.getName(), newAmount);
-						}else {
-							articles.add(a);
+						} else {
+							noDuplicateArticles.add(a);
 							amountMap.put(a.getName(), 1);
-							input.add(a);
-						} 
-						
+						}
 						tableViewer.refresh();
-						updateSelection(articles4Prescription);
+						updateSelection(invoice.getArticle());
 					}
 				});
 
 		// set model
+		input = Properties.selfList(Article.class).observe(noDuplicateArticles);
 		tableViewer.setInput(input);
 	}
-
-	protected boolean isAlreadyOnInvoice(Article a) {
-		for (Article val : articles) {
-			if(val.getName().equals(a.getName())){
-				return true;
-			}
-		}
-		return false;
-	}
-
+	
+	/**
+	 * initialise columns and setup databinding
+	 * @param cp
+	 */
 	private void initColumns(ObservableListContentProvider cp) {
 		String[] columnNames = new String[] { "Amount", "Article Name" };
-//		EAttribute[] columnAttributes = new EAttribute[] {  };
 		int[] columnWidths = new int[] { 100, 200 };
 
 		for (int i = 0; i < columnNames.length; i++) {
@@ -192,14 +154,14 @@ public class BillPart {
 					@Override
 					public String getText(Object element) {
 						Article a = (Article) element;
-						return Integer.toString(amountMap.get(a.getName()));
+						if (amountMap.get(a.getName()) != null) {
+							return Integer.toString(amountMap.get(a.getName()));
+						}
+						return "1";
 					}
 				});
 			} else {
-				IObservableMap map = EMFProperties.value(ModelPackage.Literals.ARTICLE__NAME) 
-						// TODO attention this wont be here for long  *bad-stuff* 
-						// use columnAttributes[i]
-						.observeDetail(cp.getKnownElements());
+				IObservableMap map = EMFProperties.value(ModelPackage.Literals.ARTICLE__NAME).observeDetail(cp.getKnownElements());
 				tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
 			}
 
@@ -208,12 +170,91 @@ public class BillPart {
 			tvc.getColumn().setWidth(columnWidths[i]);
 			tvc.getColumn().setResizable(true);
 		}
-
 	}
-	
-	public void updateSelection(List<Article> aList){
+
+	/**
+	 * Convert the string with article information to an actual article
+	 * 
+	 * @param value
+	 *            article.toString();
+	 * @return article
+	 */
+	protected Article convertStringToArticle(String value) {
+		Article a = ModelFactory.eINSTANCE.createArticle();
+		int beginIdx = value.indexOf("name: ");
+		beginIdx = value.indexOf(" ", beginIdx) + 1;
+		int endIdx = value.indexOf(", description: ", beginIdx);
+		a.setName(value.substring(beginIdx, endIdx));
+
+		beginIdx = endIdx + 2;
+		beginIdx = value.indexOf(" ", beginIdx) + 1;
+		endIdx = value.indexOf(", admissionNumber: ", beginIdx);
+		a.setDescription(value.substring(beginIdx, endIdx));
+
+		beginIdx = endIdx + 2;
+		beginIdx = value.indexOf(" ", beginIdx) + 1;
+		endIdx = value.indexOf(", availability: ", beginIdx);
+		a.setAdmissionNumber(Integer.parseInt(value.substring(beginIdx, endIdx)));
+
+		beginIdx = endIdx + 2;
+		beginIdx = value.indexOf(" ", beginIdx) + 1;
+		endIdx = value.indexOf(", price: ", beginIdx);
+		a.setAvailability(ArticleAvailability.get(value.substring(beginIdx,
+				endIdx)));
+
+		beginIdx = endIdx + 2;
+		beginIdx = value.indexOf(" ", beginIdx) + 1;
+		endIdx = value.indexOf(")", beginIdx);
+		a.setPrice(Float.parseFloat(value.substring(beginIdx, endIdx)));
+
+		return a;
+	}
+
+	/**
+	 * checks if article is already displayed on invoice
+	 * 
+	 * @param a
+	 *            article
+	 * @return true if article is part of noDuplicateList, false if not
+	 */
+	protected boolean isDuplicate(Article a) {
+		for (Article val : noDuplicateArticles) {
+			if (val.getName().equals(a.getName())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * makes sure article is only displayed once but amount is increased if an
+	 * article occures more than once
+	 */
+	private void assureNoDuplicates() {
+		noDuplicateArticles.clear();
+		int newAmount = 0;
+		for (Article a : invoice.getArticle()) {
+			if (isDuplicate(a)) {
+				newAmount = amountMap.get(a.getName()) + 1;
+				amountMap.put(a.getName(), newAmount);
+			} else {
+				noDuplicateArticles.add(a);
+				amountMap.put(a.getName(), 1);
+			}
+
+		}
+	}
+
+	public void updateSelection(List<Article> aList) {
 		tableViewer.getTable().setFocus();
 		selectionService.setSelection(aList);
+	}
+
+	public void updateTable() {
+		if (tableViewer != null) {
+			assureNoDuplicates();
+			tableViewer.refresh();
+		}
 	}
 
 }

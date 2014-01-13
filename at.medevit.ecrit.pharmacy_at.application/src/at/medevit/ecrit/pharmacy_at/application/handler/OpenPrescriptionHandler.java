@@ -25,9 +25,10 @@ public class OpenPrescriptionHandler {
 		
 		PrescriptionDialog dlg = new PrescriptionDialog(shell, p.getArticle());
 		dlg.setPrescription(p);
+		dlg.disableSelection();
 		dlg.open();
-		//TODO might include Edit function so prescription can be edited
 	}
+	
 
 	@CanExecute
 	public boolean canExecute() {

@@ -2,10 +2,15 @@ package at.medevit.ecrit.pharmacy_at.application.part;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.emf.databinding.EMFProperties;
+import org.eclipse.core.databinding.observable.value.WritableValue;
+import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.emf.databinding.EMFObservables;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -15,12 +20,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import at.medevit.ecrit.pharmacy_at.model.Article;
-import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 
 public class PropertiesPart {
 	private DataBindingContext m_bindingContext;
-	private Article article = ModelFactory.eINSTANCE.createArticle();;
+	protected IObservableValue element = new WritableValue(null, Article.class);
 	private Text txtDescription;
 
 	@Inject
@@ -54,19 +58,19 @@ public class PropertiesPart {
 		m_bindingContext = initDataBinding();
 	}
 
-	public void setArticle(Article article) {
-		if (m_bindingContext != null) {
-			m_bindingContext.dispose();
-		}
-		this.article = article;
-		m_bindingContext = initDataBinding();
+	@Inject
+	void setSelection(
+			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) Article article) {
+		element.setValue(article);
 	}
 
 	protected DataBindingContext initDataBinding() {
 		DataBindingContext bindingContext = new DataBindingContext();
-		//
-		IObservableValue descriptionObserveValue = EMFProperties.value(
-				ModelPackage.Literals.ARTICLE__DESCRIPTION).observe(article);
+		
+		//Bind description to txtDescription
+		IObservableValue descriptionObserveValue = EMFObservables
+				.observeDetailValue(Realm.getDefault(), element,
+						ModelPackage.Literals.ARTICLE__DESCRIPTION);
 		IObservableValue textTxtDescriptionObserveValue = WidgetProperties
 				.text(SWT.Modify).observe(txtDescription);
 		bindingContext.bindValue(textTxtDescriptionObserveValue,
@@ -74,4 +78,5 @@ public class PropertiesPart {
 
 		return bindingContext;
 	}
+
 }

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.core.databinding.observable.value.WritableValue;
 import org.eclipse.core.databinding.property.Properties;
 import org.eclipse.emf.databinding.EMFProperties;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
+import at.medevit.ecrit.pharmacy_at.application.converter.IntToStringConverter;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
@@ -41,8 +42,10 @@ public class PrescriptionDialog extends TitleAreaDialog {
 	private TableViewer tableViewer;
 	private Text txtNumber;
 	private Text txtIssuingPractitioner;
+	private boolean isSelectable = true;
 
-//	protected IObservableValue element = new WritableValue(null, Prescription.class);
+	// protected IObservableValue element = new WritableValue(null,
+	// Prescription.class);
 	private Prescription p;
 	private IObservableList input;
 	private List<Article> articles;
@@ -67,8 +70,8 @@ public class PrescriptionDialog extends TitleAreaDialog {
 
 		createPrescriptionNrPart(container);
 		createIssuingPractitionerPart(container);
-		// createArticleReviewPart(container);
 		createArticleSelectionPart(container);
+
 		m_bindingContext = initDataBinding();
 		return area;
 	}
@@ -103,6 +106,7 @@ public class PrescriptionDialog extends TitleAreaDialog {
 		table.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1));
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
+		table.setEnabled(isSelectable);
 		table.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
 				if (event.detail == SWT.CHECK) {
@@ -134,25 +138,19 @@ public class PrescriptionDialog extends TitleAreaDialog {
 
 		tableViewer = new TableViewer(container, SWT.BORDER);
 		Table table = tableViewer.getTable();
-		table.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, true, 1, 1));
+		table.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1));
 		table.setHeaderVisible(true);
-		table.setLinesVisible(false);
-		table.setEnabled(false);
+		table.setLinesVisible(true);
 
 		TableViewerColumn tvc = new TableViewerColumn(tableViewer, SWT.NONE);
 		// set the column title & size
 		tvc.getColumn().setText("Article Name");
 		tvc.getColumn().setWidth(200);
 		tvc.getColumn().setResizable(false);
-		tvc.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				Article a = (Article) element;
-				return a.getName();
-			}
-		});
-		tableViewer.setContentProvider(new ArrayContentProvider());
-		tableViewer.setInput(articles);
+	}
+
+	public void disableSelection() {
+		isSelectable = false;
 	}
 
 	@Override
@@ -166,11 +164,6 @@ public class PrescriptionDialog extends TitleAreaDialog {
 		super.okPressed();
 	}
 
-	public void setConcernedArticles(List<Article> articles) {
-		this.articles = articles;
-		tableViewer.refresh();
-	}
-
 	public void setPrescription(Prescription p) {
 		this.p = p;
 	}
@@ -178,13 +171,21 @@ public class PrescriptionDialog extends TitleAreaDialog {
 	protected DataBindingContext initDataBinding() {
 		DataBindingContext bindingContext = new DataBindingContext();
 		//
-		IObservableValue numberObserveValue = EMFProperties.value(ModelPackage.Literals.PRESCRIPTION__NUMBER).observe(p);		
-		IObservableValue textTxtNumberObserveValue = WidgetProperties.text(SWT.Modify).observe(txtNumber);
-		bindingContext.bindValue(textTxtNumberObserveValue, numberObserveValue);
+		IObservableValue numberObserveValue = EMFProperties.value(
+				ModelPackage.Literals.PRESCRIPTION__NUMBER).observe(p);
+		IObservableValue textTxtNumberObserveValue = WidgetProperties.text(
+				SWT.Modify).observe(txtNumber);
+		bindingContext.bindValue(textTxtNumberObserveValue, numberObserveValue,
+				null, new UpdateValueStrategy()
+						.setConverter(new IntToStringConverter()));
 		//
-		IObservableValue practitionerObserveValue = EMFProperties.value(ModelPackage.Literals.PRESCRIPTION__ISSUING_PRACTITIONER).observe(p);
-		IObservableValue textTxtIssuingPractitionerObserveValue = WidgetProperties.text(SWT.Modify).observe(txtIssuingPractitioner);
-		bindingContext.bindValue(textTxtIssuingPractitionerObserveValue, practitionerObserveValue);		
+		IObservableValue practitionerObserveValue = EMFProperties.value(
+				ModelPackage.Literals.PRESCRIPTION__ISSUING_PRACTITIONER)
+				.observe(p);
+		IObservableValue textTxtIssuingPractitionerObserveValue = WidgetProperties
+				.text(SWT.Modify).observe(txtIssuingPractitioner);
+		bindingContext.bindValue(textTxtIssuingPractitionerObserveValue,
+				practitionerObserveValue);
 		//
 		ObservableListContentProvider cp = new ObservableListContentProvider();
 		tableViewer.setContentProvider(cp);
