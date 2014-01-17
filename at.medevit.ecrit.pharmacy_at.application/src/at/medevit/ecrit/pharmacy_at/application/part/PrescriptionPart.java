@@ -39,6 +39,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
+import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ArticleAvailability;
@@ -63,13 +64,6 @@ public class PrescriptionPart {
 	@Inject
 	private EMenuService menuService;
 
-	private static final String ID_ADD_PRESCRIPTION = "at.medevit.ecrit.pharmacy_at.application.popupmenu.prescritption";
-	private static final String ID_ADD_PRESCRIPTION_CMD = "at.medevit.ecrit.pharmacy_at.application.command.addPrescritption";
-	private static final String ID_ADD_ARTICLE_TO_PRESCRIPTION_CMD = "at.medevit.ecrit.pharmacy_at.application.command.addToPrescription";
-	private static final String ID_OPEN_PRESCRIPTION_CMD = "at.medevit.ecrit.pharmacy_at.application.command.openPrescritption";
-	private static final String ID_BILL_PART = "at.medevit.ecrit.pharmacy_at.application.part.bill";
-	private static final String ID_ARTICLE_PART = "at.medevit.ecrit.pharmacy_at.application.part.articlelist";
-
 	@Inject
 	public PrescriptionPart() {
 		prescriptions = SampleModel.getInvoice().getPrescription();
@@ -83,11 +77,10 @@ public class PrescriptionPart {
 		lblPrescriptionpart.setText("PrescriptionPart");
 
 		initTableViewer(parent);
-		menuService.registerContextMenu(tableViewer.getTable(),
-				ID_ADD_PRESCRIPTION);
+		menuService.registerContextMenu(tableViewer.getTable(), Messages.ID_POPUP_PRESCRIPTION);
 	}
 
-	@EcritDrop(command=ID_ADD_PRESCRIPTION_CMD)
+	@EcritDrop(command="at.medevit.ecrit.pharmacy_at.application.command.addPrescritption")
 	private void initTableViewer(Composite composite) {
 		tableViewer = new TableViewer(composite, SWT.BORDER
 				| SWT.FULL_SELECTION);
@@ -114,14 +107,14 @@ public class PrescriptionPart {
 					@Override
 					public void drop(DropTargetEvent event) {
 						if (TextTransfer.getInstance().isSupportedType(event.currentDataType)) {
-							BillPart billPart = (BillPart) partService
-									.findPart(ID_BILL_PART).getObject();
+							InvoiceDataPart invoiceDataPart = (InvoiceDataPart) partService
+									.findPart(Messages.ID_PART_INVOICE_DATA).getObject();
 
 							if (event.item != null) {
 								selectionService.setSelection((Prescription) event.item.getData());
 								
 								Command cmd = commandService
-										.getCommand(ID_ADD_ARTICLE_TO_PRESCRIPTION_CMD);
+										.getCommand(Messages.ID_CMD_ADD_TO_PRESCRIPTION);
 								ParameterizedCommand pCmd = new ParameterizedCommand(
 										cmd, null);
 
@@ -133,14 +126,14 @@ public class PrescriptionPart {
 //								SampleModel.getInvoice().getArticle().add(a);
 								
 							} else {
-								StockArticle sa = (StockArticle) selectionService.getSelection(ID_ARTICLE_PART);
+								StockArticle sa = (StockArticle) selectionService.getSelection(Messages.ID_PART_ARTICLELIST);
 								List<Article> tmpArticleList = new ArrayList<Article>();
 								tmpArticleList.add(sa.getArticle());
 								
-								billPart.updateSelection(tmpArticleList);
+								invoiceDataPart.updateSelection(tmpArticleList);
 
 								Command cmd = commandService
-										.getCommand(ID_ADD_PRESCRIPTION_CMD);
+										.getCommand(Messages.ID_CMD_ADD_PRESCRIPTION);
 								ParameterizedCommand pCmd = new ParameterizedCommand(
 										cmd, null);
 
@@ -150,7 +143,7 @@ public class PrescriptionPart {
 								}
 								sa.setNumberOnStock(sa.getNumberOnStock() - 1);
 							}
-							billPart.updateTable();
+							invoiceDataPart.updateTable();
 						}
 					}
 				});
@@ -159,7 +152,7 @@ public class PrescriptionPart {
 			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				Command cmd = commandService
-						.getCommand(ID_OPEN_PRESCRIPTION_CMD);
+						.getCommand(Messages.ID_CMD_OPEN_PRESCRIPTION);
 				ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
 
 				// only execute if command can be executed

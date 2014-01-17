@@ -15,6 +15,7 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 
+import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.SampleModel;
 import at.medevit.ecrit.pharmacy_at.application.dialog.PrescriptionDialog;
 import at.medevit.ecrit.pharmacy_at.application.part.InvoicePart;
@@ -31,13 +32,9 @@ public class AddPrescriptionHandler {
 	@Inject
 	private EPartService partService;
 
-	private static final String ID_BILL_PART = "at.medevit.ecrit.pharmacy_at.application.part.bill";
-	private static final String ID_PRESCRIPTION_PART = "at.medevit.ecrit.pharmacy_at.application.part.prescription";
-	private static final String ID_INVOICE_PART = "at.medevit.ecrit.pharmacy_at.application.part.invoice";
-
 	@Execute
 	public void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
-		List<Article> articles = (List<Article>) selectionService.getSelection(ID_BILL_PART);
+		List<Article> articles = (List<Article>) selectionService.getSelection(Messages.ID_PART_INVOICE_DATA);
 
 		Prescription p = ModelFactory.eINSTANCE.createPrescription();
 		PrescriptionDialog dlg = new PrescriptionDialog(shell, getNotYetPrescriptedArticle(articles));
@@ -60,11 +57,11 @@ public class AddPrescriptionHandler {
 
 				// assure tables are updated properly
 				// TODO check if this can be solved via injection as well (selection inj. didn't work as expected)
-				MPart pPart = partService.findPart(ID_PRESCRIPTION_PART);
+				MPart pPart = partService.findPart(Messages.ID_PART_PRESCRIPTION);
 				PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
 				prescPart.updateTable();
 				
-				MPart iPart = partService.findPart(ID_INVOICE_PART);
+				MPart iPart = partService.findPart(Messages.ID_PART_INVOICE);
 				InvoicePart invoicePart = (InvoicePart) iPart.getObject();
 				invoicePart.updateTable();
 			}
@@ -91,7 +88,7 @@ public class AddPrescriptionHandler {
 
 	@CanExecute
 	public boolean canExecute() {
-		Object selection = selectionService.getSelection(ID_BILL_PART);
+		Object selection = selectionService.getSelection(Messages.ID_PART_INVOICE_DATA);
 		if (selection != null && selection instanceof List<?>) {
 			return true;
 		} else {

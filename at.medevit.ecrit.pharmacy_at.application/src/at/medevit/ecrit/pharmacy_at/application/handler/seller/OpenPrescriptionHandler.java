@@ -9,6 +9,7 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.swt.widgets.Shell;
 
+import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.dialog.PrescriptionDialog;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
@@ -17,11 +18,9 @@ public class OpenPrescriptionHandler {
 	@Inject
 	private ESelectionService selectionService;
 	
-	private static final String ID_PRESCRIPTION_PART = "at.medevit.ecrit.pharmacy_at.application.part.prescription";
-
 	@Execute
 	public void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
-		Prescription p = (Prescription) selectionService.getSelection(ID_PRESCRIPTION_PART);
+		Prescription p = (Prescription) selectionService.getSelection(Messages.ID_PART_PRESCRIPTION);
 		
 		PrescriptionDialog dlg = new PrescriptionDialog(shell, p.getArticle());
 		dlg.setPrescription(p);
@@ -32,7 +31,7 @@ public class OpenPrescriptionHandler {
 
 	@CanExecute
 	public boolean canExecute() {
-		Object selection = selectionService.getSelection(ID_PRESCRIPTION_PART);
+		Object selection = selectionService.getSelection(Messages.ID_PART_PRESCRIPTION);
 		if (selection != null && selection instanceof Prescription) {
 			return true;
 		} else {

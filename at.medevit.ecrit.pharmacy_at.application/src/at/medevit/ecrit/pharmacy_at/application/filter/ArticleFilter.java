@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.util;
+package at.medevit.ecrit.pharmacy_at.application.filter;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;

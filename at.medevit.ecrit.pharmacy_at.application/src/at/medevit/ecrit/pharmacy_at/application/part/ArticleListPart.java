@@ -10,7 +10,6 @@ import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.property.Properties;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
-import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.emf.databinding.EMFProperties;
@@ -39,10 +38,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
+import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.SampleModel;
+import at.medevit.ecrit.pharmacy_at.application.filter.ArticleFilter;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
-import at.medevit.ecrit.pharmacy_at.util.ArticleFilter;
 
 public class ArticleListPart {
 	private TableViewer tableViewer;
@@ -57,9 +57,6 @@ public class ArticleListPart {
 	@Inject
 	private EHandlerService handlerService;
 	
-	private static final String ID_ARTICLE_POPUP = "at.medevit.ecrit.pharmacy_at.application.popupmenu.articlelist";
-	private static final String ID_ADD_TO_INVOICE_CMD = "at.medevit.ecrit.pharmacy_at.application.command.addToInvoice";
-
 	@Inject
 	public ArticleListPart() {
 	}
@@ -84,8 +81,7 @@ public class ArticleListPart {
 
 		initTableViewer(composite);
 		
-		menuService.registerContextMenu(tableViewer.getTable(),
-				ID_ARTICLE_POPUP);
+		menuService.registerContextMenu(tableViewer.getTable(), Messages.ID_POPUP_ARTICLELIST);
 	}
 
 	private void initTableViewer(Composite composite) {
@@ -139,7 +135,7 @@ public class ArticleListPart {
 			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				Command cmd = commandService
-						.getCommand(ID_ADD_TO_INVOICE_CMD);
+						.getCommand(Messages.ID_CMD_ADD_TO_INVOICE);
 				ParameterizedCommand pCmd = new ParameterizedCommand(
 						cmd, null);
 

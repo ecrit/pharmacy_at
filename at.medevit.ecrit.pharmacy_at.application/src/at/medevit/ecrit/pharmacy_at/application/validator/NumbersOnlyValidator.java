@@ -10,12 +10,11 @@ public class NumbersOnlyValidator implements IValidator {
 	public IStatus validate(Object value) {
 		if (value instanceof String) {
 			String s = (String) value;
-			
-			if (s.matches(".*\\d.*")) {
+			if (s.matches("[0-9]*")) {
 				return ValidationStatus.ok();
 			}
 		}
-		return ValidationStatus.error(value.toString() + " is not a number");
+		return ValidationStatus.error(value.toString() + " is not a valid number");
 	}
 
 }

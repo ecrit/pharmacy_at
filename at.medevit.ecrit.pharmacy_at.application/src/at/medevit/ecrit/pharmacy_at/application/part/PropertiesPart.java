@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Text;
 
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
+import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class PropertiesPart {
 	private DataBindingContext m_bindingContext;
@@ -60,14 +61,18 @@ public class PropertiesPart {
 
 	@Inject
 	void setSelection(
-			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) Article article) {
-		element.setValue(article);
+			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) StockArticle article) {
+		if (article == null) {
+			element.setValue(null);
+		} else {
+			element.setValue(article.getArticle());
+		}
 	}
 
 	protected DataBindingContext initDataBinding() {
 		DataBindingContext bindingContext = new DataBindingContext();
-		
-		//Bind description to txtDescription
+
+		// Bind description to txtDescription
 		IObservableValue descriptionObserveValue = EMFObservables
 				.observeDetailValue(Realm.getDefault(), element,
 						ModelPackage.Literals.ARTICLE__DESCRIPTION);

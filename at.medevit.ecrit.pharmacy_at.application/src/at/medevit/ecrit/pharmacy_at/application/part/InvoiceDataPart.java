@@ -17,11 +17,15 @@ import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.emf.databinding.EMFProperties;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
@@ -39,14 +43,16 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
+import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ArticleAvailability;
 import at.medevit.ecrit.pharmacy_at.model.Invoice;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
+import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
-public class BillPart {
+public class InvoiceDataPart {
 	private Invoice invoice;
 	private List<Article> noDuplicateArticles;
 	private HashMap<String, Integer> amountMap = new HashMap<String, Integer>();
@@ -56,6 +62,8 @@ public class BillPart {
 	private Table table;
 
 	@Inject
+	private EMenuService menuService;
+	@Inject
 	private EPartService partService;
 	@Inject
 	private ESelectionService selectionService;
@@ -63,13 +71,9 @@ public class BillPart {
 	private ECommandService commandService;
 	@Inject
 	private EHandlerService handlerService;
-	
-	private static final String ID_PRESCRIPTION_PART = "at.medevit.ecrit.pharmacy_at.application.part.prescription";
-	private static final String ID_INVOICE_PART = "at.medevit.ecrit.pharmacy_at.application.part.invoice";
-	private static final String ID_ADD_TO_INVOICE_CMD = "at.medevit.ecrit.pharmacy_at.application.command.addToInvoice";
 
 	@Inject
-	public BillPart() {
+	public InvoiceDataPart() {
 		invoice = SampleModel.getInvoice();
 		noDuplicateArticles = new ArrayList<Article>();
 		// amountMap = new HashMap<String, Integer>();
@@ -87,14 +91,15 @@ public class BillPart {
 				false, 1, 1);
 		gd_lblBillpart.widthHint = 400;
 		lblBillpart.setLayoutData(gd_lblBillpart);
-		lblBillpart.setText("Placed on the invoice");
+		lblBillpart.setText("Invoice Form");
 
 		// initialize tableviewer
 		initTableViewer(composite);
 
 		// Buttons
 		Composite buttonComposite = new Composite(composite, SWT.NONE);
-		buttonComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
+		buttonComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
+				false, 1, 1));
 		buttonComposite.setLayout(new GridLayout(2, false));
 
 		// payment button
@@ -121,7 +126,7 @@ public class BillPart {
 				if (MessageDialog.openConfirm(
 						parent.getShell(),
 						"Cancle selling",
-						"Are you sure you want to cancle this selling process?\n All changes will be lost!")){
+						"Are you sure you want to cancle this selling process?\n All changes will be lost!")) {
 					SampleModel.revertInvoice(invoice);
 					invoice = SampleModel.getInvoice();
 					updateTable();
@@ -129,18 +134,21 @@ public class BillPart {
 				}
 			}
 		});
+
+		menuService.registerContextMenu(tableViewer.getTable(),
+				Messages.ID_POPUP_INVOICE_DATA);
 	}
 
 	protected void updateConnectedParts() {
-		MPart pPart = partService.findPart(ID_PRESCRIPTION_PART);
+		MPart pPart = partService.findPart(Messages.ID_PART_PRESCRIPTION);
 		PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
 		prescPart.clearPrescriptions();
 		prescPart.updateTable();
-		
-		MPart iPart = partService.findPart(ID_INVOICE_PART);
+
+		MPart iPart = partService.findPart(Messages.ID_PART_INVOICE);
 		InvoicePart invoicePart = (InvoicePart) iPart.getObject();
 		invoicePart.updateTable();
-		
+
 	}
 
 	private void initTableViewer(Composite composite) {
@@ -169,7 +177,7 @@ public class BillPart {
 					@Override
 					public void drop(DropTargetEvent event) {
 						Command cmd = commandService
-								.getCommand(ID_ADD_TO_INVOICE_CMD);
+								.getCommand(Messages.ID_CMD_ADD_TO_INVOICE);
 						ParameterizedCommand pCmd = new ParameterizedCommand(
 								cmd, null);
 
@@ -177,6 +185,18 @@ public class BillPart {
 						if (handlerService.canExecute(pCmd)) {
 							handlerService.executeHandler(pCmd);
 						}
+					}
+				});
+
+		tableViewer
+				.addSelectionChangedListener(new ISelectionChangedListener() {
+					@Override
+					public void selectionChanged(SelectionChangedEvent event) {
+						IStructuredSelection selection = (IStructuredSelection) event
+								.getSelection();
+						Article article = (Article) selection
+								.getFirstElement();
+						selectionService.setSelection(article);
 					}
 				});
 
@@ -267,8 +287,8 @@ public class BillPart {
 			tableViewer.refresh();
 		}
 	}
-	
-	public void addArticleAndUpdate(Article a){
+
+	public void addArticleAndUpdate(Article a) {
 		List<Article> articles = new ArrayList<>();
 		articles.add(a);
 		assureNoDuplicates(articles);

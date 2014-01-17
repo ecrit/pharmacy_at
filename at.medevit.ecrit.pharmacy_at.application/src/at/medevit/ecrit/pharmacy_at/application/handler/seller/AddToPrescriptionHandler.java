@@ -11,6 +11,7 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.swt.widgets.Shell;
 
+import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.SampleModel;
 import at.medevit.ecrit.pharmacy_at.application.part.PrescriptionPart;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
@@ -22,19 +23,17 @@ public class AddToPrescriptionHandler {
 	@Inject
 	private EPartService partService;
 
-	private static final String ID_ARTICLE_PART = "at.medevit.ecrit.pharmacy_at.application.part.articlelist";
-	private static final String ID_PRESCRIPTION_PART = "at.medevit.ecrit.pharmacy_at.application.part.prescription";
 
 	@Execute
 	public void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
 		StockArticle a = (StockArticle) selectionService
-				.getSelection(ID_ARTICLE_PART);
+				.getSelection(Messages.ID_PART_ARTICLELIST);
 		a.setNumberOnStock(a.getNumberOnStock() - 1);
 
-		MPart part = partService.findPart(ID_PRESCRIPTION_PART);
+		MPart part = partService.findPart(Messages.ID_PART_PRESCRIPTION);
 		PrescriptionPart presPart = (PrescriptionPart) part.getObject();
 		Prescription p = (Prescription) selectionService
-				.getSelection(ID_PRESCRIPTION_PART);
+				.getSelection(Messages.ID_PART_PRESCRIPTION);
 
 		p.getArticle().add(a.getArticle());
 		SampleModel.getInvoice().getArticle().add(a.getArticle());
@@ -43,7 +42,7 @@ public class AddToPrescriptionHandler {
 
 	@CanExecute
 	public boolean canExecute() {
-		Object selection = selectionService.getSelection(ID_ARTICLE_PART);
+		Object selection = selectionService.getSelection(Messages.ID_PART_ARTICLELIST);
 		if (selection != null && selection instanceof StockArticle) {
 			return true;
 		} else {

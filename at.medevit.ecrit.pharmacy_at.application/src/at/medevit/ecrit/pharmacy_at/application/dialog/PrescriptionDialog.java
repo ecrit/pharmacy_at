@@ -6,16 +6,20 @@ import java.util.List;
 import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
+import org.eclipse.core.databinding.conversion.IConverter;
+import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.property.Properties;
+import org.eclipse.core.databinding.validation.ValidationStatus;
 import org.eclipse.emf.databinding.EMFProperties;
 import org.eclipse.jface.databinding.fieldassist.ControlDecorationSupport;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider;
 import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -34,6 +38,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
 import at.medevit.ecrit.pharmacy_at.application.converter.IntToStringConverter;
+import at.medevit.ecrit.pharmacy_at.application.converter.StringToIntConverter;
 import at.medevit.ecrit.pharmacy_at.application.validator.NumbersOnlyValidator;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
@@ -178,11 +183,16 @@ public class PrescriptionDialog extends TitleAreaDialog {
 				ModelPackage.Literals.PRESCRIPTION__NUMBER).observe(p);
 		IObservableValue textTxtNumberObserveValue = WidgetProperties.text(
 				SWT.Modify).observe(txtNumber);
-		UpdateValueStrategy numberStrategy = new UpdateValueStrategy();
-		numberStrategy.setAfterConvertValidator(new NumbersOnlyValidator());
-		numberStrategy.setConverter(new IntToStringConverter());
-		Binding bindValue = bindingContext.bindValue(textTxtNumberObserveValue, numberObserveValue,
-				null, numberStrategy);
+
+		
+		UpdateValueStrategy stringToInt = new UpdateValueStrategy();
+		stringToInt.setConverter(new StringToIntConverter());
+		stringToInt.setAfterGetValidator(new NumbersOnlyValidator());
+	    UpdateValueStrategy intToString = new UpdateValueStrategy();
+	    intToString.setConverter(new IntToStringConverter());
+		
+		Binding bindValue = bindingContext.bindValue(textTxtNumberObserveValue,
+				numberObserveValue, stringToInt, intToString);
 		ControlDecorationSupport.create(bindValue, SWT.TOP | SWT.LEFT);
 		//
 		IObservableValue practitionerObserveValue = EMFProperties.value(
