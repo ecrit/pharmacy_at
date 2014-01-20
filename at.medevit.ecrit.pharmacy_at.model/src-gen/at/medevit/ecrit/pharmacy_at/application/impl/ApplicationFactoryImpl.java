@@ -58,6 +58,7 @@ public class ApplicationFactoryImpl extends EFactoryImpl implements ApplicationF
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case ApplicationPackage.USER: return createUser();
+			case ApplicationPackage.USERS: return createUsers();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -101,6 +102,16 @@ public class ApplicationFactoryImpl extends EFactoryImpl implements ApplicationF
 	public User createUser() {
 		UserImpl user = new UserImpl();
 		return user;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Users createUsers() {
+		UsersImpl users = new UsersImpl();
+		return users;
 	}
 
 	/**

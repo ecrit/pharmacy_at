@@ -104,7 +104,7 @@
     <eClassifiers xsi:type="ecore:EClass" name="User">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="role" lowerBound="1"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="role" upperBound="-1"
           eType="#//application/UserRole"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -114,6 +114,10 @@
       <eLiterals name="CLERK" value="1"/>
       <eLiterals name="STOCKIST" value="2"/>
       <eLiterals name="SYSADMIN" value="3"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Users">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="users" upperBound="-1"
+          eType="#//application/User"/>
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>

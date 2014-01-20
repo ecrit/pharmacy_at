@@ -72,6 +72,10 @@ public class ApplicationAdapterFactory extends AdapterFactoryImpl {
 				return createUserAdapter();
 			}
 			@Override
+			public Adapter caseUsers(Users object) {
+				return createUsersAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -102,6 +106,20 @@ public class ApplicationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createUserAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link at.medevit.ecrit.pharmacy_at.application.Users <em>Users</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see at.medevit.ecrit.pharmacy_at.application.Users
+	 * @generated
+	 */
+	public Adapter createUsersAdapter() {
 		return null;
 	}
 

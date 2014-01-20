@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -76,7 +77,7 @@ public interface ApplicationPackage extends EPackage {
 	int USER__NAME = 0;
 
 	/**
-	 * The feature id for the '<em><b>Role</b></em>' attribute.
+	 * The feature id for the '<em><b>Role</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -112,6 +113,43 @@ public interface ApplicationPackage extends EPackage {
 	int USER_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.application.impl.UsersImpl <em>Users</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.medevit.ecrit.pharmacy_at.application.impl.UsersImpl
+	 * @see at.medevit.ecrit.pharmacy_at.application.impl.ApplicationPackageImpl#getUsers()
+	 * @generated
+	 */
+	int USERS = 1;
+
+	/**
+	 * The feature id for the '<em><b>Users</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USERS__USERS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Users</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USERS_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Users</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USERS_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.application.UserRole <em>User Role</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -119,7 +157,7 @@ public interface ApplicationPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.application.impl.ApplicationPackageImpl#getUserRole()
 	 * @generated
 	 */
-	int USER_ROLE = 1;
+	int USER_ROLE = 2;
 
 
 	/**
@@ -144,10 +182,10 @@ public interface ApplicationPackage extends EPackage {
 	EAttribute getUser_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.application.User#getRole <em>Role</em>}'.
+	 * Returns the meta object for the attribute list '{@link at.medevit.ecrit.pharmacy_at.application.User#getRole <em>Role</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Role</em>'.
+	 * @return the meta object for the attribute list '<em>Role</em>'.
 	 * @see at.medevit.ecrit.pharmacy_at.application.User#getRole()
 	 * @see #getUser()
 	 * @generated
@@ -164,6 +202,27 @@ public interface ApplicationPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getUser_Password();
+
+	/**
+	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.application.Users <em>Users</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Users</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.application.Users
+	 * @generated
+	 */
+	EClass getUsers();
+
+	/**
+	 * Returns the meta object for the reference list '{@link at.medevit.ecrit.pharmacy_at.application.Users#getUsers <em>Users</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Users</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.application.Users#getUsers()
+	 * @see #getUsers()
+	 * @generated
+	 */
+	EReference getUsers_Users();
 
 	/**
 	 * Returns the meta object for enum '{@link at.medevit.ecrit.pharmacy_at.application.UserRole <em>User Role</em>}'.
@@ -217,7 +276,7 @@ public interface ApplicationPackage extends EPackage {
 		EAttribute USER__NAME = eINSTANCE.getUser_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Role</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Role</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -231,6 +290,24 @@ public interface ApplicationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute USER__PASSWORD = eINSTANCE.getUser_Password();
+
+		/**
+		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.application.impl.UsersImpl <em>Users</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.medevit.ecrit.pharmacy_at.application.impl.UsersImpl
+		 * @see at.medevit.ecrit.pharmacy_at.application.impl.ApplicationPackageImpl#getUsers()
+		 * @generated
+		 */
+		EClass USERS = eINSTANCE.getUsers();
+
+		/**
+		 * The meta object literal for the '<em><b>Users</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference USERS__USERS = eINSTANCE.getUsers_Users();
 
 		/**
 		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.application.UserRole <em>User Role</em>}' enum.

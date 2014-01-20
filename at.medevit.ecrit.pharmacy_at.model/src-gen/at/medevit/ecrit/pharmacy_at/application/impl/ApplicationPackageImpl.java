@@ -7,6 +7,7 @@ import at.medevit.ecrit.pharmacy_at.application.ApplicationPackage;
 import at.medevit.ecrit.pharmacy_at.application.User;
 import at.medevit.ecrit.pharmacy_at.application.UserRole;
 
+import at.medevit.ecrit.pharmacy_at.application.Users;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 
 import at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl;
@@ -16,6 +17,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -31,6 +33,13 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * @generated
 	 */
 	private EClass userEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass usersEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -146,6 +155,24 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getUsers() {
+		return usersEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getUsers_Users() {
+		return (EReference)usersEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getUserRole() {
 		return userRoleEEnum;
 	}
@@ -183,6 +210,9 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 		createEAttribute(userEClass, USER__ROLE);
 		createEAttribute(userEClass, USER__PASSWORD);
 
+		usersEClass = createEClass(USERS);
+		createEReference(usersEClass, USERS__USERS);
+
 		// Create enums
 		userRoleEEnum = createEEnum(USER_ROLE);
 	}
@@ -219,8 +249,11 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 		// Initialize classes, features, and operations; add parameters
 		initEClass(userEClass, User.class, "User", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getUser_Name(), ecorePackage.getEString(), "name", null, 1, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getUser_Role(), this.getUserRole(), "role", null, 1, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getUser_Role(), this.getUserRole(), "role", null, 0, -1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getUser_Password(), ecorePackage.getEString(), "password", null, 1, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(usersEClass, Users.class, "Users", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getUsers_Users(), this.getUser(), null, "users", null, 0, -1, Users.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(userRoleEEnum, UserRole.class, "UserRole");
