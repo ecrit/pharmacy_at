@@ -6,27 +6,35 @@ import javax.inject.Named;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.Realm;
+import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.observable.value.WritableValue;
+import org.eclipse.core.databinding.property.Properties;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.emf.databinding.EMFObservables;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
+import at.medevit.ecrit.pharmacy_at.application.SampleApplication;
+import at.medevit.ecrit.pharmacy_at.application.User;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class UserPart {
+	private TableViewer tableViewer;
+
 	private DataBindingContext m_bindingContext;
 	protected IObservableValue element = new WritableValue(null, Article.class);
 	private Text txtDescription;
@@ -54,40 +62,73 @@ public class UserPart {
 		lblDescription.setLayoutData(gd_lblDescription);
 		lblDescription.setText("Choose User: ");
 
-		// txtDescription = new Text(composite, SWT.BORDER);
-		// GridData gd_txtDescription = new GridData(SWT.FILL, SWT.TOP, true,
-		// false, 1, 1);
-		// gd_txtDescription.heightHint = 100;
-		// txtDescription.setLayoutData(gd_txtDescription);
+		// final List userList = new List(composite, SWT.BORDER | SWT.MULTI
+		// | SWT.V_SCROLL);
+		// // composite.setSize(300, 20);
+		//
+		// for (User user : SampleApplication.getUsers().getUsers()) {
+		// System.out.println("User: " + user);
+		// userList.add(user.getName());
+		// }
+		//
+		// userList.addSelectionListener(new SelectionListener() {
+		//
+		// public void widgetSelected(SelectionEvent event) {
+		// int[] selections = userList.getSelectionIndices();
+		// String outText = "";
+		// for (int loopIndex = 0; loopIndex < selections.length; loopIndex++)
+		// outText += selections[loopIndex] + " ";
+		// System.out.println("You selected: " + outText);
+		// }
+		//
+		// public void widgetDefaultSelected(SelectionEvent event) {
+		// int[] selections = userList.getSelectionIndices();
+		// String outText = "";
+		// for (int loopIndex = 0; loopIndex < selections.length; loopIndex++)
+		// outText += selections[loopIndex] + " ";
+		// System.out.println("You selected: " + outText);
+		// }
+		// });
 
-		final List userList = new List(composite, SWT.BORDER | SWT.MULTI
-				| SWT.V_SCROLL);
-		// composite.setSize(300, 20);
-
-		for (int loopIndex = 0; loopIndex < 10; loopIndex++) {
-			userList.add("Item " + loopIndex);
-		}
-
-		userList.addSelectionListener(new SelectionListener() {
-
-			public void widgetSelected(SelectionEvent event) {
-				int[] selections = userList.getSelectionIndices();
-				String outText = "";
-				for (int loopIndex = 0; loopIndex < selections.length; loopIndex++)
-					outText += selections[loopIndex] + " ";
-				System.out.println("You selected: " + outText);
-			}
-
-			public void widgetDefaultSelected(SelectionEvent event) {
-				int[] selections = userList.getSelectionIndices();
-				String outText = "";
-				for (int loopIndex = 0; loopIndex < selections.length; loopIndex++)
-					outText += selections[loopIndex] + " ";
-				System.out.println("You selected: " + outText);
-			}
-		});
+		initTableViewer(composite);
 
 		m_bindingContext = initDataBinding();
+	}
+
+	private void initTableViewer(Composite composite) {
+		tableViewer = new TableViewer(composite, SWT.BORDER
+				| SWT.FULL_SELECTION | SWT.V_SCROLL);
+		Table table = tableViewer.getTable();
+		table.setHeaderVisible(true);
+		table.setLinesVisible(true);
+
+		initColumns(tableViewer);
+
+		tableViewer.setContentProvider(ArrayContentProvider.getInstance());
+
+		// set model
+		IObservableList input = Properties.selfList(User.class).observe(
+				SampleApplication.getUsers().getUsers());
+		tableViewer.setInput(input);
+
+	}
+
+	private void initColumns(TableViewer tv) {
+		TableViewerColumn tvc = new TableViewerColumn(tableViewer, SWT.NONE);
+		tvc.getColumn().setWidth(100);
+
+		// bind the feature and setup a table column
+		// IObservableMap map = EMFProperties.value(path).observeDetail(
+		// cp.getKnownElements());
+		// tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
+
+		tvc.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public String getText(Object element) {
+				User u = (User) element;
+				return u.getName();
+			}
+		});
 	}
 
 	@Inject
