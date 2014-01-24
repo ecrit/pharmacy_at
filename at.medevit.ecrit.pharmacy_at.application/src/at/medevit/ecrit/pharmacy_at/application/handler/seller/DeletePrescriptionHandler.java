@@ -11,8 +11,8 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.swt.widgets.Shell;
 
+import at.medeit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.SampleModel;
 import at.medevit.ecrit.pharmacy_at.application.part.InvoicePart;
 import at.medevit.ecrit.pharmacy_at.application.part.PrescriptionPart;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
@@ -25,27 +25,31 @@ public class DeletePrescriptionHandler {
 	private EPartService partService;
 	
 	@Execute
-	public void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
-		Prescription p = (Prescription) selectionService.getSelection(Messages.ID_PART_PRESCRIPTION);
+	public void execute(@Named(IServiceConstants.ACTIVE_SHELL)
+	Shell shell){
+		Prescription p =
+			(Prescription) selectionService
+				.getSelection(Messages.getString("ID_PART_PRESCRIPTION"));
 		SampleModel.getInvoice().getPrescription().remove(p);
 		
-		MPart pPart = partService.findPart(Messages.ID_PART_PRESCRIPTION);
+		MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
 		PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
 		prescPart.updateTable();
 		
-		MPart iPart = partService.findPart(Messages.ID_PART_INVOICE);
+		MPart iPart = partService.findPart(Messages.getString("ID_PART_INVOICE"));
 		InvoicePart invoicePart = (InvoicePart) iPart.getObject();
 		invoicePart.updateTable();
 	}
-
+	
 	@CanExecute
-	public boolean canExecute() {
-		Object selection = selectionService.getSelection(Messages.ID_PART_PRESCRIPTION);
+	public boolean canExecute(){
+		Object selection =
+			selectionService.getSelection(Messages.getString("ID_PART_PRESCRIPTION"));
 		if (selection != null && selection instanceof Prescription) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-
+	
 }

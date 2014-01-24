@@ -20,8 +20,7 @@
    <extension
          point="org.eclipse.ui.commands">
       <commandParameterType
-            converter="at.medevit.ecrit.pharmacy_at.application.converter.StockArticleConverter"
-            id="at.medevit.ecrit.pharmacy_at.application.commandParameterType.StockArticle"
+            id="commandparameter.article.type"
             type="at.medevit.ecrit.pharmacy_at.model.StockArticle">
       </commandParameterType>
    </extension>

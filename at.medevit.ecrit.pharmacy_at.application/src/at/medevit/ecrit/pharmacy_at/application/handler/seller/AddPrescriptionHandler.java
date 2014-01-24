@@ -15,60 +15,64 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 
+import at.medeit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.SampleModel;
 import at.medevit.ecrit.pharmacy_at.application.dialog.PrescriptionDialog;
 import at.medevit.ecrit.pharmacy_at.application.part.InvoicePart;
 import at.medevit.ecrit.pharmacy_at.application.part.PrescriptionPart;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
-import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class AddPrescriptionHandler {
-
+	
 	@Inject
 	private ESelectionService selectionService;
 	@Inject
 	private EPartService partService;
-
+	
 	@Execute
-	public void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
-		List<Article> articles = (List<Article>) selectionService.getSelection(Messages.ID_PART_INVOICE_DATA);
-
+	public void execute(@Named(IServiceConstants.ACTIVE_SHELL)
+	Shell shell){
+		List<Article> articles =
+			(List<Article>) selectionService.getSelection(Messages
+				.getString("ID_PART_INVOICE_DATA"));
+		
 		Prescription p = ModelFactory.eINSTANCE.createPrescription();
-		PrescriptionDialog dlg = new PrescriptionDialog(shell, getNotYetPrescriptedArticle(articles));
+		PrescriptionDialog dlg =
+			new PrescriptionDialog(shell, getNotYetPrescriptedArticle(articles));
 		dlg.setPrescription(p);
 		
 		int retVal = dlg.open();
 		if (retVal == IDialogConstants.OK_ID) {
 			if (p != null) {
 				SampleModel.getInvoice().getPrescription().add(p);
-				List<Article>aList = SampleModel.getInvoice().getArticle();
-				List<Article>paList = p.getArticle();
+				List<Article> aList = SampleModel.getInvoice().getArticle();
+				List<Article> paList = p.getArticle();
 				
-				// if article is directly added to prescription 
+				// if article is directly added to prescription
 				// add to invoice articles as well
 				for (Article a : paList) {
-					if(!aList.contains(a)){
+					if (!aList.contains(a)) {
 						SampleModel.getInvoice().getArticle().add(a);
 					}
 				}
-
+				
 				// assure tables are updated properly
-				// TODO check if this can be solved via injection as well (selection inj. didn't work as expected)
-				MPart pPart = partService.findPart(Messages.ID_PART_PRESCRIPTION);
+				// TODO check if this can be solved via injection as well (selection inj. didn't
+// work as expected)
+				MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
 				PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
 				prescPart.updateTable();
 				
-				MPart iPart = partService.findPart(Messages.ID_PART_INVOICE);
+				MPart iPart = partService.findPart(Messages.getString("ID_PART_INVOICE"));
 				InvoicePart invoicePart = (InvoicePart) iPart.getObject();
 				invoicePart.updateTable();
 			}
 		}
 	}
-
-	private List<Article> getNotYetPrescriptedArticle(List<Article> articles) {
+	
+	private List<Article> getNotYetPrescriptedArticle(List<Article> articles){
 		List<Article> notPrescripted = new ArrayList<Article>();
 		List<Article> prescripted = new ArrayList<Article>();
 		
@@ -79,16 +83,17 @@ public class AddPrescriptionHandler {
 		
 		// add only articles that have no prescription yet
 		for (Article article : articles) {
-			if(!prescripted.contains(article)){
+			if (!prescripted.contains(article)) {
 				notPrescripted.add(article);
-			}			
+			}
 		}
-		return notPrescripted; 
+		return notPrescripted;
 	}
-
+	
 	@CanExecute
-	public boolean canExecute() {
-		Object selection = selectionService.getSelection(Messages.ID_PART_INVOICE_DATA);
+	public boolean canExecute(){
+		Object selection =
+			selectionService.getSelection(Messages.getString("ID_PART_INVOICE_DATA"));
 		if (selection != null && selection instanceof List<?>) {
 			return true;
 		} else {
