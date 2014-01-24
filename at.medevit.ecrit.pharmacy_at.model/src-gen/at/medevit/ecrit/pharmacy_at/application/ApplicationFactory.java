@@ -31,6 +31,15 @@ public interface ApplicationFactory extends EFactory {
 	User createUser();
 
 	/**
+	 * Returns a new object of class '<em>Users</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Users</em>'.
+	 * @generated
+	 */
+	Users createUsers();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

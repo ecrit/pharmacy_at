@@ -6,12 +6,15 @@ import at.medevit.ecrit.pharmacy_at.application.ApplicationPackage;
 import at.medevit.ecrit.pharmacy_at.application.User;
 import at.medevit.ecrit.pharmacy_at.application.UserRole;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -50,24 +53,14 @@ public class UserImpl extends MinimalEObjectImpl.Container implements User {
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getRole() <em>Role</em>}' attribute.
+	 * The cached value of the '{@link #getRole() <em>Role</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRole()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final UserRole ROLE_EDEFAULT = UserRole.SELLER;
-
-	/**
-	 * The cached value of the '{@link #getRole() <em>Role</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRole()
-	 * @generated
-	 * @ordered
-	 */
-	protected UserRole role = ROLE_EDEFAULT;
+	protected EList<UserRole> role;
 
 	/**
 	 * The default value of the '{@link #getPassword() <em>Password</em>}' attribute.
@@ -134,20 +127,11 @@ public class UserImpl extends MinimalEObjectImpl.Container implements User {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public UserRole getRole() {
+	public EList<UserRole> getRole() {
+		if (role == null) {
+			role = new EDataTypeUniqueEList<UserRole>(UserRole.class, this, ApplicationPackage.USER__ROLE);
+		}
 		return role;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setRole(UserRole newRole) {
-		UserRole oldRole = role;
-		role = newRole == null ? ROLE_EDEFAULT : newRole;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ApplicationPackage.USER__ROLE, oldRole, role));
 	}
 
 	/**
@@ -194,6 +178,7 @@ public class UserImpl extends MinimalEObjectImpl.Container implements User {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -201,7 +186,8 @@ public class UserImpl extends MinimalEObjectImpl.Container implements User {
 				setName((String)newValue);
 				return;
 			case ApplicationPackage.USER__ROLE:
-				setRole((UserRole)newValue);
+				getRole().clear();
+				getRole().addAll((Collection<? extends UserRole>)newValue);
 				return;
 			case ApplicationPackage.USER__PASSWORD:
 				setPassword((String)newValue);
@@ -222,7 +208,7 @@ public class UserImpl extends MinimalEObjectImpl.Container implements User {
 				setName(NAME_EDEFAULT);
 				return;
 			case ApplicationPackage.USER__ROLE:
-				setRole(ROLE_EDEFAULT);
+				getRole().clear();
 				return;
 			case ApplicationPackage.USER__PASSWORD:
 				setPassword(PASSWORD_EDEFAULT);
@@ -242,7 +228,7 @@ public class UserImpl extends MinimalEObjectImpl.Container implements User {
 			case ApplicationPackage.USER__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ApplicationPackage.USER__ROLE:
-				return role != ROLE_EDEFAULT;
+				return role != null && !role.isEmpty();
 			case ApplicationPackage.USER__PASSWORD:
 				return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
 		}
