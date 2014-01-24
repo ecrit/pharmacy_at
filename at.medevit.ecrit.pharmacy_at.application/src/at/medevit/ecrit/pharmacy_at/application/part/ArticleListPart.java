@@ -44,10 +44,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
-import at.medeit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.converter.StockArticleConverter;
 import at.medevit.ecrit.pharmacy_at.application.filter.ArticleFilter;
+import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
@@ -139,8 +139,8 @@ public class ArticleListPart {
 			public void doubleClick(DoubleClickEvent event){
 				Command cmd =
 					commandService.getCommand(Messages.getString("ID_CMD_ADD_TO_INVOICE"));
-				ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
-				// ParameterizedCommand pCmd = prepareCommandWithParameters(cmd);
+				// ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
+				ParameterizedCommand pCmd = prepareCommandWithParameters(cmd);
 				
 				// only execute if command can be executed
 				System.out.println(handlerService.canExecute(pCmd));
@@ -159,13 +159,15 @@ public class ArticleListPart {
 		ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
 		try {
 			StockArticleConverter sac = StockArticleConverter.getInstance();
-			Object stockArticle = (Object) selectionService.getSelection();
+			StockArticle stockArticle = (StockArticle) selectionService.getSelection();
 			sac.convertToString(stockArticle);
 			
 			// get parameters
 			IParameter iparam = cmd.getParameter("commandparameter.modelelement.Article");
 			ArrayList<Parameterization> parameters = new ArrayList<Parameterization>();
-			parameters.add(new Parameterization(iparam, stockArticle.hashCode() + ""));
+			parameters.add(new Parameterization(iparam, stockArticle.getArticle().toString()));
+			// would only be relevant if passing via converter would work properly
+// parameters.add(new Parameterization(iparam, stockArticle.hashCode() + ""));
 			
 			// create parameterized command
 			pCmd =

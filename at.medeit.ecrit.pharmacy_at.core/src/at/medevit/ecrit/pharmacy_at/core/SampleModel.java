@@ -1,6 +1,7 @@
-package at.medeit.ecrit.pharmacy_at.core;
+package at.medevit.ecrit.pharmacy_at.core;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -12,6 +13,7 @@ import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ArticleAvailability;
 import at.medevit.ecrit.pharmacy_at.model.Invoice;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
+import at.medevit.ecrit.pharmacy_at.model.Prescription;
 import at.medevit.ecrit.pharmacy_at.model.Stock;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 import at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl;
@@ -140,6 +142,47 @@ public class SampleModel {
 		i1.setId(0001);
 		
 		return i1;
+	}
+	
+	public static void addPrescription(Prescription p){
+		getInvoice().getPrescription().add(p);
+	}
+	
+	/**
+	 * Adds prescription and assures synch with invoice data
+	 * 
+	 * @param p
+	 *            Prescription to add
+	 */
+	public static void addPrescriptionAndSync(Prescription p){
+		getInvoice().getPrescription().add(p);
+		synchPrescriptedArticlesWithInvoice(p);
+	}
+	
+	/**
+	 * in case article was added to prescription directly -> add to invoice articles as well
+	 * 
+	 * @param p
+	 *            Prescription that was added
+	 */
+	private static void synchPrescriptedArticlesWithInvoice(Prescription p){
+		List<Article> onInvoice = getInvoice().getArticle();
+		List<Article> onPrescription = p.getArticle();
+		
+		for (Article a : onPrescription) {
+			if (!onInvoice.contains(a)) {
+				getInvoice().getArticle().add(a);
+			}
+		}
+	}
+	
+	public static List<Prescription> getAllPrescriptions(){
+		return getInvoice().getPrescription();
+	}
+	
+	public static void addArticleToPrescription(Prescription prescription, StockArticle stockArticle){
+		Article arti = EcoreUtil.copy(stockArticle.getArticle());
+		prescription.getArticle().add(arti);
 	}
 	
 }

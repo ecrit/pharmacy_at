@@ -20,8 +20,12 @@
    <extension
          point="org.eclipse.ui.commands">
       <commandParameterType
-            id="commandparameter.article.type"
+            id="commandparameter.type.stockarticle"
             type="at.medevit.ecrit.pharmacy_at.model.StockArticle">
+      </commandParameterType>
+      <commandParameterType
+            id="commandparameter.type.article"
+            type="at.medevit.ecrit.pharmacy_at.model.Article">
       </commandParameterType>
    </extension>
 

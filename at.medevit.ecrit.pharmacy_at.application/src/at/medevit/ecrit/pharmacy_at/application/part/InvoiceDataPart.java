@@ -9,7 +9,6 @@ import javax.inject.Inject;
 
 import org.eclipse.core.commands.Command;
 import org.eclipse.core.commands.IParameter;
-import org.eclipse.core.commands.ParameterValueConversionException;
 import org.eclipse.core.commands.Parameterization;
 import org.eclipse.core.commands.ParameterizedCommand;
 import org.eclipse.core.commands.common.NotDefinedException;
@@ -18,6 +17,8 @@ import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.property.Properties;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
@@ -47,9 +48,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
-import at.medeit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.converter.StockArticleConverter;
+import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToInvoiceViewerHandler;
+import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Invoice;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
@@ -64,6 +65,8 @@ public class InvoiceDataPart {
 	private TableViewer tableViewer;
 	private Table table;
 	
+	@Inject
+	private IEclipseContext context;
 	@Inject
 	private EMenuService menuService;
 	@Inject
@@ -172,15 +175,23 @@ public class InvoiceDataPart {
 			
 			@Override
 			public void drop(DropTargetEvent event){
-				System.out.println((StockArticle) selectionService.getSelection(Messages
-					.getString("ID_PART_ARTICLELIST")));
-				Command cmd =
-					commandService.getCommand(Messages.getString("ID_CMD_ADD_TO_INVOICE"));
-				ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
-				
-				// only execute if command can be executed
-				System.out.println(handlerService.canExecute(pCmd));
-				handlerService.executeHandler(pCmd);
+				if (TextTransfer.getInstance().isSupportedType(event.currentDataType)) {
+					Command cmd =
+						commandService.getCommand(Messages.getString("ID_CMD_ADD_TO_INVOICE"));
+					ParameterizedCommand pCmd = prepareCommandWithParameters(cmd);
+					
+					// tell the HandlerService which handler we're talking about
+					AddToInvoiceViewerHandler addToInvoiceViewerHandler =
+						new AddToInvoiceViewerHandler();
+					// manually inject as all the injected values are null otherwise
+					ContextInjectionFactory.inject(addToInvoiceViewerHandler, context);
+					handlerService.activateHandler(Messages.getString("ID_CMD_ADD_TO_INVOICE"),
+						addToInvoiceViewerHandler);
+					
+					if (handlerService.canExecute(pCmd)) {
+						handlerService.executeHandler(pCmd);
+					}
+				}
 			}
 		});
 		
@@ -201,22 +212,20 @@ public class InvoiceDataPart {
 	protected ParameterizedCommand prepareCommandWithParameters(Command cmd){
 		ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
 		try {
-			StockArticleConverter sac = StockArticleConverter.getInstance();
 			Object stockArticle =
 				(StockArticle) selectionService.getSelection(Messages
 					.getString("ID_PART_ARTICLELIST"));
-			sac.convertToString(stockArticle);
 			
 			// get parameters
 			IParameter iparam = cmd.getParameter("commandparameter.modelelement.Article");
 			ArrayList<Parameterization> parameters = new ArrayList<Parameterization>();
-			parameters.add(new Parameterization(iparam, stockArticle.hashCode() + ""));
+			parameters.add(new Parameterization(iparam, stockArticle.toString()));
 			
 			// create parameterized command
 			pCmd =
 				new ParameterizedCommand(cmd, parameters.toArray(new Parameterization[parameters
 					.size()]));
-		} catch (ParameterValueConversionException | NotDefinedException e) {
+		} catch (NotDefinedException e) {
 			e.printStackTrace();
 		}
 		return pCmd;

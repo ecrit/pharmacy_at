@@ -9,9 +9,9 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 
-import at.medeit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.part.InvoiceDataPart;
+import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class AddToInvoiceViewerHandler {
@@ -26,7 +26,8 @@ public class AddToInvoiceViewerHandler {
 	
 	@Execute
 	public void execute(@Named("commandparameter.modelelement.Article")
-	StockArticle article){
+	String stockArticle){
+		System.out.println(stockArticle);
 		selection.setNumberOnStock(selection.getNumberOnStock() - 1);
 		
 		// put a copy of this article on the invoice

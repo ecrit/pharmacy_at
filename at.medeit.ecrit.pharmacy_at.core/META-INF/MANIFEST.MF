@@ -7,4 +7,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-Vendor: ecrit.at
 Require-Bundle: at.medevit.ecrit.pharmacy_at.model,
  org.eclipse.emf.ecore
-Export-Package: at.medeit.ecrit.pharmacy_at.core
+Export-Package: at.medevit.ecrit.pharmacy_at.core
