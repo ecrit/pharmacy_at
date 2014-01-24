@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Core
+Bundle-SymbolicName: at.medeit.ecrit.pharmacy_at.core
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-Vendor: ecrit.at
+Require-Bundle: at.medevit.ecrit.pharmacy_at.model,
+ org.eclipse.emf.ecore
+Export-Package: at.medeit.ecrit.pharmacy_at.core
