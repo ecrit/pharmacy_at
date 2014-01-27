@@ -10,8 +10,8 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.SampleModel;
 import at.medevit.ecrit.pharmacy_at.application.part.InvoiceDataPart;
+import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class AddToInvoiceViewerHandler {

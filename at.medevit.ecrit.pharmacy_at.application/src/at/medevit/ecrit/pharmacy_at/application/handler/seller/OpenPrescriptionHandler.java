@@ -14,13 +14,16 @@ import at.medevit.ecrit.pharmacy_at.application.dialog.PrescriptionDialog;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
 public class OpenPrescriptionHandler {
-
+	
 	@Inject
 	private ESelectionService selectionService;
 	
 	@Execute
-	public void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
-		Prescription p = (Prescription) selectionService.getSelection(Messages.ID_PART_PRESCRIPTION);
+	public void execute(@Named(IServiceConstants.ACTIVE_SHELL)
+	Shell shell){
+		Prescription p =
+			(Prescription) selectionService
+				.getSelection(Messages.getString("ID_PART_PRESCRIPTION"));
 		
 		PrescriptionDialog dlg = new PrescriptionDialog(shell, p.getArticle());
 		dlg.setPrescription(p);
@@ -28,10 +31,10 @@ public class OpenPrescriptionHandler {
 		dlg.open();
 	}
 	
-
 	@CanExecute
-	public boolean canExecute() {
-		Object selection = selectionService.getSelection(Messages.ID_PART_PRESCRIPTION);
+	public boolean canExecute(){
+		Object selection =
+			selectionService.getSelection(Messages.getString("ID_PART_PRESCRIPTION"));
 		if (selection != null && selection instanceof Prescription) {
 			return true;
 		} else {

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -34,10 +33,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
-import at.medevit.ecrit.pharmacy_at.application.SampleModel;
 import at.medevit.ecrit.pharmacy_at.application.converter.DateToStringConverter;
 import at.medevit.ecrit.pharmacy_at.application.converter.FloatToStringConverter;
 import at.medevit.ecrit.pharmacy_at.application.converter.IntToStringConverter;
+import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Invoice;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
@@ -50,7 +49,7 @@ public class InvoicePart {
 	private List<Prescription> prescriptions;
 	private HashMap<String, String> articleAmountMap;
 	private List<Article> noDuplicateList;
-
+	
 	private Text txtDate;
 	private Text txtID;
 	private Text txtTotalCosts;
@@ -58,142 +57,139 @@ public class InvoicePart {
 	private TableViewer presTableViewer;
 	
 	@Inject
-	EPartService partService; 
-
+	EPartService partService;
+	
 	@Inject
-	public InvoicePart() {
+	public InvoicePart(){
 		invoice = SampleModel.getInvoice();
 		invoice.setPaidAmount(10.0f);
 		prescriptions = SampleModel.getInvoice().getPrescription();
 		articleAmountMap = new HashMap<String, String>();
 		noDuplicateList = new ArrayList<Article>();
 	}
-
+	
 	@PostConstruct
-	public void postConstruct(Composite parent) {
+	public void postConstruct(Composite parent){
 		Composite composite = new Composite(parent, SWT.NONE);
-		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1,
-				1));
+		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		composite.setLayout(new GridLayout(2, false));
-
+		
 		Label lblInvoicepart = new Label(composite, SWT.NONE);
 		lblInvoicepart.setText("Invoice");
 		new Label(composite, SWT.NONE);
-
+		
 		// set invoice date
 		Label lblDate = new Label(composite, SWT.NONE);
-		GridData gd_lblDate = new GridData(SWT.RIGHT, SWT.CENTER, true, false,
-				1, 1);
+		GridData gd_lblDate = new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1);
 		lblDate.setLayoutData(gd_lblDate);
 		lblDate.setText("Date: ");
-
+		
 		txtDate = new Text(composite, SWT.NONE);
-		txtDate.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false,
-				1, 1));
+		txtDate.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1));
 		txtDate.setEnabled(false);
-
+		
 		// set invoice number
 		Label lblID = new Label(composite, SWT.NONE);
 		GridData gd_ID = new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1);
 		lblID.setLayoutData(gd_ID);
 		lblID.setText("InvoiceNumber: ");
-
+		
 		txtID = new Text(composite, SWT.NONE);
-		txtID.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1,
-				1));
+		txtID.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1));
 		txtID.setEnabled(false);
-
+		
 		// set invoice line items
 		initCostsTableViewer(composite);
-
+		
 		// set prescription voucher lines
 		initPrescriptionTableViewer(composite);
 		
 		// set total costs
 		Label lblTotalCosts = new Label(composite, SWT.NONE);
-		GridData gd_lblTotalCosts = new GridData(SWT.RIGHT, SWT.CENTER, true,
-				false, 1, 1);
+		GridData gd_lblTotalCosts = new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1);
 		lblTotalCosts.setLayoutData(gd_lblTotalCosts);
-		lblTotalCosts.setText("Total Costs (€): ");
-
+		lblTotalCosts.setText("Total Costs (â‚¬): ");
+		
 		txtTotalCosts = new Text(composite, SWT.NONE);
-		txtTotalCosts.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true,
-				false, 1, 1));
+		txtTotalCosts.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1));
 		txtTotalCosts.setEnabled(false);
-
+		
 		m_bindingContext = initDataBinding();
 	}
-
-	private void initCostsTableViewer(Composite composite) {
+	
+	private void initCostsTableViewer(Composite composite){
 		tableViewer = new TableViewer(composite, SWT.NONE);
 		Table table = tableViewer.getTable();
 		table.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, true, false, 2, 1));
 		table.setHeaderVisible(true);
 		table.setLinesVisible(false);
 		table.setEnabled(false);
-
+		
 		ObservableListContentProvider cp = new ObservableListContentProvider();
 		tableViewer.setContentProvider(cp);
 		initCostsColumns(cp);
-
+		
 		IObservableList input = Properties.selfList(Article.class).observe(noDuplicateList);
 		tableViewer.setInput(input);
 	}
 	
-	private void initPrescriptionTableViewer(Composite composite) {
+	private void initPrescriptionTableViewer(Composite composite){
 		presTableViewer = new TableViewer(composite, SWT.NONE);
 		Table table = presTableViewer.getTable();
 		table.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, true, false, 2, 1));
 		table.setHeaderVisible(true);
 		table.setLinesVisible(false);
 		table.setEnabled(false);
-
+		
 		ObservableListContentProvider cp = new ObservableListContentProvider();
 		presTableViewer.setContentProvider(cp);
 		initPrescriptionColumns(cp);
-
+		
 		IObservableList input = Properties.selfList(Prescription.class).observe(prescriptions);
 		presTableViewer.setInput(input);
 	}
-
-	private void initCostsColumns(ObservableListContentProvider cp) {
-		String[] columnNames = new String[] { "Amount", "Article Name",
-				"Price(Unit)", "Price" };
-		int[] columnWidths = new int[] { 70, 200, 80, 80 };
-
+	
+	private void initCostsColumns(ObservableListContentProvider cp){
+		String[] columnNames = new String[] {
+			"Amount", "Article Name", "Price(Unit)", "Price"
+		};
+		int[] columnWidths = new int[] {
+			70, 200, 80, 80
+		};
+		
 		TableViewerColumn tvc = new TableViewerColumn(tableViewer, SWT.NONE);
 		tvc.getColumn().setText(columnNames[0]);
 		tvc.getColumn().setWidth(columnWidths[0]);
 		tvc.setLabelProvider(new ColumnLabelProvider() {
 			@Override
-			public String getText(Object element) {
+			public String getText(Object element){
 				Article a = (Article) element;
 				return articleAmountMap.get(a.getName());
 			}
 		});
-
+		
 		tvc = new TableViewerColumn(tableViewer, SWT.NONE);
 		tvc.getColumn().setText(columnNames[1]);
 		tvc.getColumn().setWidth(columnWidths[1]);
-		IObservableMap nameMap = EMFProperties.value(
-				ModelPackage.Literals.ARTICLE__NAME).observeDetail(
+		IObservableMap nameMap =
+			EMFProperties.value(ModelPackage.Literals.ARTICLE__NAME).observeDetail(
 				cp.getKnownElements());
 		tvc.setLabelProvider(new ObservableMapCellLabelProvider(nameMap));
-
+		
 		tvc = new TableViewerColumn(tableViewer, SWT.NONE);
 		tvc.getColumn().setText(columnNames[2]);
 		tvc.getColumn().setWidth(columnWidths[2]);
-		IObservableMap priceMap = EMFProperties.value(
-				ModelPackage.Literals.ARTICLE__PRICE).observeDetail(
+		IObservableMap priceMap =
+			EMFProperties.value(ModelPackage.Literals.ARTICLE__PRICE).observeDetail(
 				cp.getKnownElements());
 		tvc.setLabelProvider(new ObservableMapCellLabelProvider(priceMap));
-
+		
 		tvc = new TableViewerColumn(tableViewer, SWT.NONE);
 		tvc.getColumn().setText(columnNames[3]);
 		tvc.getColumn().setWidth(columnWidths[3]);
 		tvc.setLabelProvider(new ColumnLabelProvider() {
 			@Override
-			public String getText(Object element) {
+			public String getText(Object element){
 				Article a = (Article) element;
 				int factor = Integer.parseInt(articleAmountMap.get(a.getName()));
 				return Float.toString(a.getPrice() * factor);
@@ -201,33 +197,37 @@ public class InvoicePart {
 		});
 	}
 	
-	private void initPrescriptionColumns(ObservableListContentProvider cp) {
-		String[] columnNames = new String[] { "Number", "Articles", "Refund" };
-		int[] columnWidths = new int[] { 60, 300, 80 };
-
+	private void initPrescriptionColumns(ObservableListContentProvider cp){
+		String[] columnNames = new String[] {
+			"Number", "Articles", "Refund"
+		};
+		int[] columnWidths = new int[] {
+			60, 300, 80
+		};
+		
 		TableViewerColumn tvc = new TableViewerColumn(presTableViewer, SWT.NONE);
 		tvc.getColumn().setText(columnNames[0]);
 		tvc.getColumn().setWidth(columnWidths[0]);
-		IObservableMap nrObserveMap = EMFProperties.value(
-				ModelPackage.Literals.PRESCRIPTION__NUMBER).observeDetail(
+		IObservableMap nrObserveMap =
+			EMFProperties.value(ModelPackage.Literals.PRESCRIPTION__NUMBER).observeDetail(
 				cp.getKnownElements());
 		tvc.setLabelProvider(new ObservableMapCellLabelProvider(nrObserveMap));
-
-//		tvc = new TableViewerColumn(presTableViewer, SWT.NONE);
-//		tvc.getColumn().setText(columnNames[1]);
-//		tvc.getColumn().setWidth(columnWidths[1]);
-//		IObservableMap practitionerObserveMap = EMFProperties.value(
-//				ModelPackage.Literals.PRESCRIPTION__ISSUING_PRACTITIONER).observeDetail(
-//				cp.getKnownElements());
-//		tvc.setLabelProvider(new ObservableMapCellLabelProvider(practitionerObserveMap));
-
+		
+// tvc = new TableViewerColumn(presTableViewer, SWT.NONE);
+// tvc.getColumn().setText(columnNames[1]);
+// tvc.getColumn().setWidth(columnWidths[1]);
+// IObservableMap practitionerObserveMap = EMFProperties.value(
+// ModelPackage.Literals.PRESCRIPTION__ISSUING_PRACTITIONER).observeDetail(
+// cp.getKnownElements());
+// tvc.setLabelProvider(new ObservableMapCellLabelProvider(practitionerObserveMap));
+		
 		tvc = new TableViewerColumn(presTableViewer, SWT.NONE);
 		tvc.getColumn().setText(columnNames[1]);
 		tvc.getColumn().setWidth(columnWidths[1]);
 		tvc.getColumn().setResizable(true);
-		tvc.setLabelProvider(new ColumnLabelProvider(){
+		tvc.setLabelProvider(new ColumnLabelProvider() {
 			@Override
-			public String getText(Object element) {
+			public String getText(Object element){
 				Prescription p = (Prescription) element;
 				StringBuilder sb = new StringBuilder();
 				for (Article a : p.getArticle()) {
@@ -242,45 +242,45 @@ public class InvoicePart {
 		tvc.getColumn().setWidth(columnWidths[2]);
 		tvc.setLabelProvider(new ColumnLabelProvider() {
 			@Override
-			public String getText(Object element) {
+			public String getText(Object element){
 				Prescription p = (Prescription) element;
 				float total = calculateTotalPrescriptionRefund(p);
 				return Float.toString(total);
 			}
 		});
 	}
-
+	
 	@Inject
-	void setSelection(
-			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) Object o) {
+	void setSelection(@Optional
+	@Named(IServiceConstants.ACTIVE_SELECTION)
+	Object o){
 		updateTable();
 	}
 	
 	public void updateTable(){
-		if(presTableViewer != null && tableViewer != null){
+		if (presTableViewer != null && tableViewer != null) {
 			invoice = SampleModel.getInvoice();
 			prescriptions = SampleModel.getInvoice().getPrescription();
 			extractInvoiceRelevantValues(invoice.getArticle());
 			calculateTotalCosts();
 			
-			presTableViewer.refresh();	
+			presTableViewer.refresh();
 			tableViewer.refresh();
 		}
 	}
-
+	
 	/**
-	 * check articles and if they occur multiple times
-	 * if yes update amount of this article
+	 * check articles and if they occur multiple times if yes update amount of this article
+	 * 
 	 * @param articles
 	 */
-	private void extractInvoiceRelevantValues(EList<Article> articles) {
-		 articleAmountMap.clear();
-		 noDuplicateList.clear();
-
+	private void extractInvoiceRelevantValues(EList<Article> articles){
+		articleAmountMap.clear();
+		noDuplicateList.clear();
+		
 		for (Article a : articles) {
 			if (articleAmountMap.containsKey(a.getName())) {
-				int amount = Integer
-						.parseInt(articleAmountMap.get(a.getName())) + 1;
+				int amount = Integer.parseInt(articleAmountMap.get(a.getName())) + 1;
 				articleAmountMap.put(a.getName(), Integer.toString(amount));
 			} else {
 				articleAmountMap.put(a.getName(), "1");
@@ -288,18 +288,18 @@ public class InvoicePart {
 			}
 		}
 	}
-
+	
 	/**
 	 * calculate the total costs of all articles, minus prescriptions
 	 */
-	private void calculateTotalCosts() {
+	private void calculateTotalCosts(){
 		float totalAmount = 0.0f;
 		for (Article a : invoice.getArticle()) {
 			totalAmount += a.getPrice();
 		}
 		
 		float refundAmount = 0.0f;
-		for(Prescription p : invoice.getPrescription()){
+		for (Prescription p : invoice.getPrescription()) {
 			for (Article a : p.getArticle()) {
 				refundAmount += a.getPrice();
 			}
@@ -307,48 +307,45 @@ public class InvoicePart {
 		totalAmount = totalAmount - refundAmount;
 		invoice.setPaidAmount(totalAmount);
 	}
-
+	
 	/**
 	 * calculate total refund caused by a prescription
-	 * @param p prescription
+	 * 
+	 * @param p
+	 *            prescription
 	 * @return total costs of all articles from the prescription
 	 */
-	private float calculateTotalPrescriptionRefund(Prescription p) {
+	private float calculateTotalPrescriptionRefund(Prescription p){
 		List<Article> presArticles = p.getArticle();
 		float sum = 0.0f;
 		
 		for (Article article : presArticles) {
 			sum += article.getPrice();
 		}
-		return sum;		
+		return sum;
 	}
 	
-	protected DataBindingContext initDataBinding() {
+	protected DataBindingContext initDataBinding(){
 		DataBindingContext bindingContext = new DataBindingContext();
 		//
-		IObservableValue dateObserveValue = EMFProperties.value(
-				ModelPackage.Literals.INVOICE__DATE).observe(invoice);
-		IObservableValue textDateObserveValue = WidgetProperties.text(
-				SWT.Modify).observe(txtDate);
+		IObservableValue dateObserveValue =
+			EMFProperties.value(ModelPackage.Literals.INVOICE__DATE).observe(invoice);
+		IObservableValue textDateObserveValue = WidgetProperties.text(SWT.Modify).observe(txtDate);
 		bindingContext.bindValue(textDateObserveValue, dateObserveValue, null,
-				new UpdateValueStrategy()
-						.setConverter(new DateToStringConverter()));
+			new UpdateValueStrategy().setConverter(new DateToStringConverter()));
 		//
-		IObservableValue idObserveValue = EMFProperties.value(
-				ModelPackage.Literals.INVOICE__ID).observe(invoice);
-		IObservableValue textIdObserveValue = WidgetProperties.text(SWT.Modify)
-				.observe(txtID);
+		IObservableValue idObserveValue =
+			EMFProperties.value(ModelPackage.Literals.INVOICE__ID).observe(invoice);
+		IObservableValue textIdObserveValue = WidgetProperties.text(SWT.Modify).observe(txtID);
 		bindingContext.bindValue(textIdObserveValue, idObserveValue, null,
-				new UpdateValueStrategy()
-						.setConverter(new IntToStringConverter()));
+			new UpdateValueStrategy().setConverter(new IntToStringConverter()));
 		//
-		IObservableValue totalCostsObserveValue = EMFProperties.value(
-				ModelPackage.Literals.INVOICE__PAID_AMOUNT).observe(invoice);
-		IObservableValue textTotalCostsObsereveVale = WidgetProperties.text(
-				SWT.Modify).observe(txtTotalCosts);
-		bindingContext.bindValue(textTotalCostsObsereveVale,
-				totalCostsObserveValue, null, new UpdateValueStrategy()
-						.setConverter(new FloatToStringConverter()));
+		IObservableValue totalCostsObserveValue =
+			EMFProperties.value(ModelPackage.Literals.INVOICE__PAID_AMOUNT).observe(invoice);
+		IObservableValue textTotalCostsObsereveVale =
+			WidgetProperties.text(SWT.Modify).observe(txtTotalCosts);
+		bindingContext.bindValue(textTotalCostsObsereveVale, totalCostsObserveValue, null,
+			new UpdateValueStrategy().setConverter(new FloatToStringConverter()));
 		//
 		// ObservableListContentProvider cp = new
 		// ObservableListContentProvider();
@@ -359,11 +356,7 @@ public class InvoicePart {
 		// tableViewer.setLabelProvider(new
 		// ObservableMapCellLabelProvider(map));
 		//
-
+		
 		return bindingContext;
-	}
-	
-	@PreDestroy
-	public void dispose() {
 	}
 }
