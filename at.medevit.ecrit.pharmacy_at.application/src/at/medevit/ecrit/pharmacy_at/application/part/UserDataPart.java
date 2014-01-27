@@ -20,8 +20,6 @@ import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
-import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -31,11 +29,12 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
+import at.medevit.ecrit.pharmacy_at.application.ApplicationPackage;
 import at.medevit.ecrit.pharmacy_at.application.User;
 import at.medevit.ecrit.pharmacy_at.application.UserRole;
-import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 
 public class UserDataPart {
 	private CheckboxTableViewer tableViewer;
@@ -44,6 +43,7 @@ public class UserDataPart {
 
 	// InputDialog txtPassword;
 
+	private Text txtUsername;
 	private Text txtPassword;
 
 	@Inject
@@ -68,8 +68,8 @@ public class UserDataPart {
 		GridData gd_lblUsername = new GridData(SWT.LEFT, SWT.TOP, false, false,
 				1, 1);
 
-		Label txtUsername = new Label(composite, SWT.NONE);
-		txtUsername.setText("User1");
+		txtUsername = new Text(composite, SWT.SINGLE | SWT.BORDER);
+		// txtUsername.setText("User1");
 		GridData gd_txtUsername = new GridData(SWT.FILL, SWT.TOP, true, false,
 				1, 1);
 		txtUsername.setLayoutData(gd_txtUsername);
@@ -80,13 +80,12 @@ public class UserDataPart {
 				1, 1);
 		lblPassword.setLayoutData(gd_lblPassword);
 		lblPassword.setText("Password: ");
-		txtPassword = new Text(composite, SWT.BORDER);
+		txtPassword = new Text(composite, SWT.SINGLE | SWT.BORDER
+				| SWT.PASSWORD);
 		// txtPassword = new InputDialog(null, "", "Enter 5-8 characters",
 		// "initial value", new LengthValidator());
 		GridData gd_txtPassword = new GridData(SWT.FILL, SWT.TOP, true, false,
 				1, 1);
-		// gd_txtPassword.horizontalSpan = 5;
-		// gd_txtPassword.heightHint = 50;
 		txtPassword.setLayoutData(gd_txtPassword);
 
 		// Roles with CheckboxTableViewer
@@ -139,6 +138,8 @@ public class UserDataPart {
 		});
 
 		m_bindingContext = initDataBinding();
+		if (element.getValue() != null)
+			setCheckedRoles();
 	}
 
 	private void initTableViewer(Composite composite) {
@@ -148,8 +149,7 @@ public class UserDataPart {
 		Table table = tableViewer.getTable();
 		table.setHeaderVisible(false);
 		table.setLinesVisible(false);
-
-		// initColumns(tableViewer);
+		table.setEnabled(true);
 
 		// xxxxxxxxxxx
 		// TableColumnLayout rolesColumnLayout = new TableColumnLayout();
@@ -168,45 +168,53 @@ public class UserDataPart {
 
 	}
 
-	private void initColumns(CheckboxTableViewer tv) {
-		TableViewerColumn tvc = new TableViewerColumn(tv, SWT.NONE);
-		tvc.getColumn().setWidth(100);
+	private void setCheckedRoles() {
+		User u = (User) element.getValue();
+		System.out.println("User in setCheckedRoles: " + u);
+		System.out.println("setCheckedRoles: "
+				+ tableViewer.getTable().getItems());
+		for (TableItem item : tableViewer.getTable().getItems()) {
+			System.out.println("----Item: " + item);
 
-		// bind the feature and setup a table column
-		// IObservableMap map = EMFProperties.value(path).observeDetail(
-		// cp.getKnownElements());
-		// tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
-
-		tvc.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				UserRole ur = (UserRole) element;
-				return ur.getLiteral();
-			}
-		});
+			if (u.getRole().contains((UserRole) item.getData())) {
+				item.setChecked(true);
+			} else
+				item.setChecked(false);
+		}
 	}
 
 	@Inject
 	void setSelection(
 			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) User user) {
+		System.out.println("User in setSelection: " + user);
 		if (user == null) {
 			element.setValue(null);
 		} else {
-			element.setValue(user.getRole());
+			element.setValue(user);
+			setCheckedRoles();
 		}
 	}
 
 	protected DataBindingContext initDataBinding() {
 		DataBindingContext bindingContext = new DataBindingContext();
 
-		// Bind description to txtDescription
-		IObservableValue descriptionObserveValue = EMFObservables
+		// Bind username to txtUsername
+		IObservableValue usernameObserveValue = EMFObservables
 				.observeDetailValue(Realm.getDefault(), element,
-						ModelPackage.Literals.ARTICLE__DESCRIPTION);
-		IObservableValue textTxtDescriptionObserveValue = WidgetProperties
-				.text(SWT.Modify).observe(txtPassword);
-		bindingContext.bindValue(textTxtDescriptionObserveValue,
-				descriptionObserveValue);
+						ApplicationPackage.Literals.USER__NAME);
+		IObservableValue textTxtUsernameObserveValue = WidgetProperties.text(
+				SWT.Modify).observe(txtUsername);
+		bindingContext.bindValue(textTxtUsernameObserveValue,
+				usernameObserveValue);
+
+		// Bind password to txtPassword
+		IObservableValue passwordObserveValue = EMFObservables
+				.observeDetailValue(Realm.getDefault(), element,
+						ApplicationPackage.Literals.USER__PASSWORD);
+		IObservableValue textTxtPasswordObserveValue = WidgetProperties.text(
+				SWT.Modify).observe(txtPassword);
+		bindingContext.bindValue(textTxtPasswordObserveValue,
+				passwordObserveValue);
 
 		return bindingContext;
 	}

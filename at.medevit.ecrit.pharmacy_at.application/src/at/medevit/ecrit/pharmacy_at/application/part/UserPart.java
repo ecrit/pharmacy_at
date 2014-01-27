@@ -2,15 +2,13 @@ package at.medevit.ecrit.pharmacy_at.application.part;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.observable.value.WritableValue;
 import org.eclipse.core.databinding.property.Properties;
-import org.eclipse.e4.core.di.annotations.Optional;
-import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -19,24 +17,31 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Text;
 
+import at.medevit.ecrit.pharmacy_at.application.ApplicationFactory;
 import at.medevit.ecrit.pharmacy_at.application.SampleApplication;
 import at.medevit.ecrit.pharmacy_at.application.User;
 import at.medevit.ecrit.pharmacy_at.model.Article;
-import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class UserPart {
+	static ApplicationFactory factory = ApplicationFactory.eINSTANCE;
+
 	private TableViewer tableViewer;
+	StructuredSelection userSelection;
 
 	private DataBindingContext m_bindingContext;
 	protected IObservableValue element = new WritableValue(null, Article.class);
-	private Text txtDescription;
+
+	@Inject
+	private ESelectionService selectionService;
 
 	@Inject
 	public UserPart() {
@@ -44,7 +49,13 @@ public class UserPart {
 	}
 
 	@PostConstruct
-	public void postConstruct(Composite parent) {
+	public void postConstruct(final Composite parent) {
+		//
+		final User newUser = factory.createUser();
+		newUser.setName("");
+		newUser.setPassword("");
+		newUser.getRole().add(null);
+
 		Composite composite = new Composite(parent, SWT.NONE);
 		// composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true,
 		// 1, 1));
@@ -54,12 +65,35 @@ public class UserPart {
 		lblUserpart.setText("User Management");
 		new Label(composite, SWT.NONE);
 
-		// description
-		Label lblDescription = new Label(composite, SWT.NONE);
-		GridData gd_lblDescription = new GridData(SWT.FILL, SWT.TOP, true,
-				false, 1, 1);
-		lblDescription.setLayoutData(gd_lblDescription);
-		lblDescription.setText("Choose User: ");
+		// indent
+		new Label(composite, SWT.NONE);
+
+		// New user button
+		Composite buttonComposite = new Composite(composite, SWT.NONE);
+		buttonComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
+				false, 1, 1));
+		buttonComposite.setLayout(new GridLayout(2, false));
+
+		Button btnNew = new Button(buttonComposite, SWT.PUSH);
+		btnNew.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
+				1, 1));
+		btnNew.setText("   New User   ");
+		btnNew.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				selectionService.setSelection(newUser);
+			}
+		});
+
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+
+		// Users
+		Label lblUsers = new Label(composite, SWT.NONE);
+		GridData gd_lblUsers = new GridData(SWT.FILL, SWT.TOP, true, false, 1,
+				1);
+		lblUsers.setLayoutData(gd_lblUsers);
+		lblUsers.setText("Choose User: ");
 
 		// final List userList = new List(composite, SWT.BORDER | SWT.MULTI
 		// | SWT.V_SCROLL);
@@ -98,8 +132,8 @@ public class UserPart {
 		tableViewer = new TableViewer(composite, SWT.BORDER
 				| SWT.FULL_SELECTION | SWT.V_SCROLL);
 		Table table = tableViewer.getTable();
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
+		table.setHeaderVisible(false);
+		table.setLinesVisible(false);
 
 		initColumns(tableViewer);
 
@@ -109,10 +143,10 @@ public class UserPart {
 
 					@Override
 					public void selectionChanged(SelectionChangedEvent event) {
-						StructuredSelection ss = (StructuredSelection) event
+						userSelection = (StructuredSelection) event
 								.getSelection();
-						User u = (User) ss.getFirstElement();
-						System.out.println(u);
+						User user = (User) userSelection.getFirstElement();
+						selectionService.setSelection(user);
 					}
 				});
 
@@ -139,16 +173,6 @@ public class UserPart {
 				return u.getName();
 			}
 		});
-	}
-
-	@Inject
-	void setSelection(
-			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) StockArticle article) {
-		if (article == null) {
-			element.setValue(null);
-		} else {
-			element.setValue(article.getArticle());
-		}
 	}
 
 	// protected DataBindingContext initDataBinding() {
