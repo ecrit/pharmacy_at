@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.handler.seller;
+package at.medevit.ecrit.pharmacy_at.application.part.handler;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,7 +18,7 @@ import at.medevit.ecrit.pharmacy_at.application.part.InvoicePart;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
-public class EditPrescriptionHandler {
+public class EditPrescriptionViewerHandler {
 	
 	@Inject
 	private ESelectionService selectionService;

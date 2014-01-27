@@ -176,7 +176,7 @@ public class SampleModel {
 		}
 	}
 	
-	public static List<Prescription> getAllPrescriptions(){
+	public static List<Prescription> getAllPrescriptionsForCurrentInvoice(){
 		return getInvoice().getPrescription();
 	}
 	
@@ -187,5 +187,23 @@ public class SampleModel {
 	
 	public static void deletePrescription(Prescription prescription){
 		getInvoice().getPrescription().remove(prescription);
+	}
+	
+	public static void removeArticleFromPrescription(Prescription prescription, Article a){
+		prescription.getArticle().remove(a);
+		
+	}
+	
+	public static void removeArticleFromInvoice(Article a){
+		getInvoice().getArticle().remove(a);
+		resetNumberOnStock(a);
+	}
+	
+	private static void resetNumberOnStock(Article a){
+		for (StockArticle sa : getStock().getArticles()) {
+			if (sa.getArticle().getName().equals(a.getName())) {
+				sa.setNumberOnStock(sa.getNumberOnStock() + 1);
+			}
+		}
 	}
 }

@@ -54,7 +54,6 @@ import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Invoice;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
-import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class InvoiceDataPart {
 	private Invoice invoice;
@@ -213,8 +212,7 @@ public class InvoiceDataPart {
 		ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
 		try {
 			Object stockArticle =
-				(StockArticle) selectionService.getSelection(Messages
-					.getString("ID_PART_ARTICLELIST"));
+				selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST"));
 			
 			// get parameters
 			IParameter iparam = cmd.getParameter("commandparameter.modelelement.Article");

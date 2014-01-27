@@ -45,7 +45,6 @@ public class PrescriptionDialog extends TitleAreaDialog {
 	private TableViewer tableViewer;
 	private Text txtNumber;
 	private Text txtIssuingPractitioner;
-	private boolean isSelectable = true;
 	
 	// protected IObservableValue element = new WritableValue(null,
 	// Prescription.class);
@@ -87,7 +86,6 @@ public class PrescriptionDialog extends TitleAreaDialog {
 				item.setChecked(true);
 			}
 		}
-		
 	}
 	
 	private void createPrescriptionNrPart(Composite container){
@@ -117,7 +115,7 @@ public class PrescriptionDialog extends TitleAreaDialog {
 		table.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1));
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
-		table.setEnabled(isSelectable);
+		table.setEnabled(true);
 		table.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event){
 				if (event.detail == SWT.CHECK) {
@@ -140,29 +138,6 @@ public class PrescriptionDialog extends TitleAreaDialog {
 		
 	}
 	
-	private void createArticleReviewPart(Composite container){
-		Label lblArticles = new Label(container, SWT.NONE);
-		GridData gd_lblArticles = new GridData(SWT.LEFT, SWT.TOP, false, false, 0, 0);
-		lblArticles.setLayoutData(gd_lblArticles);
-		lblArticles.setText("Prescription Articles");
-		
-		tableViewer = new TableViewer(container, SWT.BORDER);
-		Table table = tableViewer.getTable();
-		table.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1));
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
-		
-		TableViewerColumn tvc = new TableViewerColumn(tableViewer, SWT.NONE);
-		// set the column title & size
-		tvc.getColumn().setText("Article Name");
-		tvc.getColumn().setWidth(200);
-		tvc.getColumn().setResizable(false);
-	}
-	
-	public void disableSelection(){
-		isSelectable = false;
-	}
-	
 	@Override
 	protected void okPressed(){
 		p.setNumber(Integer.parseInt(txtNumber.getText()));
@@ -180,7 +155,6 @@ public class PrescriptionDialog extends TitleAreaDialog {
 	
 	public void setSelectedArticles(List<Article> selArticles){
 		this.selArticles = selArticles;
-// setCheckedArticles();
 	}
 	
 	protected DataBindingContext initDataBinding(){

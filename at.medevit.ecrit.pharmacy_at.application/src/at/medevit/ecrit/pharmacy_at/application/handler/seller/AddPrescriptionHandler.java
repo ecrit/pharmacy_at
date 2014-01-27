@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.part.handler;
+package at.medevit.ecrit.pharmacy_at.application.handler.seller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,6 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
-import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 
@@ -25,38 +24,25 @@ import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
-import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
-public class AddAsPrescriptionViewerHandler {
-	
-	@Inject
-	private ESelectionService selectionService;
+public class AddPrescriptionHandler {
 	@Inject
 	private EPartService partService;
 	
-	// ArtilceList TableViewer selection
-	private StockArticle selection;
-	// Invoice TableViewer selection
-	private List<Article> articles;
+	private List<Article> invoiceArticles;
 	
 	@Execute
 	public void execute(@Optional
-	@Named("commandparameter.addAsPrescriptionStockArticle")
-	String stockArticle, @Optional
 	@Named("commandparameter.addAsPrescriptionArticle")
-	String articleList, @Named(IServiceConstants.ACTIVE_SHELL)
+	String allInvoiceArticles, @Named(IServiceConstants.ACTIVE_SHELL)
 	Shell shell){
 		
 		Prescription p = ModelFactory.eINSTANCE.createPrescription();
-		PrescriptionDialog dlg = new PrescriptionDialog(shell, getNotYetPrescriptedArticle());
+		PrescriptionDialog dlg = new PrescriptionDialog(shell, invoiceArticles);
 		dlg.setPrescription(p);
 		
 		if (dlg.open() == IDialogConstants.OK_ID) {
 			if (p != null) {
-				if (p.getArticle().contains(selection.getArticle())) {
-					selection.setNumberOnStock(selection.getNumberOnStock() - 1);
-					SampleModel.addPrescriptionAndSync(p);
-				}
 				SampleModel.addPrescription(p);
 				
 				// assure tables are updated properly
@@ -78,65 +64,40 @@ public class AddAsPrescriptionViewerHandler {
 	}
 	
 	private List<Article> getNotYetPrescriptedArticle(){
-		if (articles == null || articles.isEmpty()) {
-			articles = new ArrayList<>();
-			articles.add(selection.getArticle());
-			return articles;
-		}
-		
 		List<Article> notPrescripted = new ArrayList<Article>();
 		List<Article> prescripted = new ArrayList<Article>();
 		
 		// get all articles that have a prescription
-		for (Prescription p : SampleModel.getInvoice().getPrescription()) {
+		for (Prescription p : SampleModel.getAllPrescriptionsForCurrentInvoice()) {
 			prescripted.addAll(p.getArticle());
 		}
 		
 		// add only articles that have no prescription yet
-		for (Article article : articles) {
+		for (Article article : invoiceArticles) {
 			if (!prescripted.contains(article)) {
 				notPrescripted.add(article);
 			}
-		}
-		
-		// add article selected on articlelist part
-		if (selection != null) {
-			notPrescripted.add(selection.getArticle());
 		}
 		return notPrescripted;
 	}
 	
 	@CanExecute
 	public boolean canExecute(){
-		initArticleListSelection();
-		initInvoiceSelection();
+		// get all articles placed on the invoice
+		invoiceArticles = SampleModel.getInvoice().getArticle();
 		
-		if (selection == null && articles == null) {
+		if (invoiceArticles != null && !invoiceArticles.isEmpty()) {
+			List<Article> notPrescripted = getNotYetPrescriptedArticle();
+			if (notPrescripted.isEmpty()) {
+				this.invoiceArticles = null;
+				return false;
+			} else {
+				this.invoiceArticles = notPrescripted;
+				return true;
+			}
+		} else {
+			this.invoiceArticles = null;
 			return false;
-		}
-		return true;
-	}
-	
-	private void initArticleListSelection(){
-		// is an article from the article list selected
-		Object selection = selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST"));
-		
-		if (selection != null && selection instanceof StockArticle) {
-			this.selection = (StockArticle) selection;
-		} else {
-			this.selection = null;
-		}
-	}
-	
-	private void initInvoiceSelection(){
-		// are there articles on the invoice data part
-		Object selection =
-			selectionService.getSelection(Messages.getString("ID_PART_INVOICE_DATA"));
-		
-		if (selection != null && selection instanceof List<?>) {
-			this.articles = (List<Article>) selection;
-		} else {
-			this.articles = null;
 		}
 	}
 }

@@ -240,7 +240,7 @@ public class PrescriptionPart {
 	
 	public void updateTable(){
 		if (tableViewer != null) {
-			prescriptions = SampleModel.getInvoice().getPrescription();
+			prescriptions = SampleModel.getAllPrescriptionsForCurrentInvoice();// .getInvoice().getPrescription();
 			selectionService.setSelection(null);
 			tableViewer.refresh();
 		}

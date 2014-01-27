@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.handler.seller;
+package at.medevit.ecrit.pharmacy_at.application.part.handler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
-public class DeleteFromInvoiceHandler {
+public class DeleteFromInvoiceViewerHandler {
 	
 	@Inject
 	private ESelectionService selectionService;
@@ -36,10 +36,40 @@ public class DeleteFromInvoiceHandler {
 	Shell shell){
 		Article a =
 			(Article) selectionService.getSelection(Messages.getString("ID_PART_INVOICE_DATA"));
-		SampleModel.getInvoice().getArticle().remove(a);
+		SampleModel.removeArticleFromInvoice(a);
 		
-		List<Prescription> prescriptions = SampleModel.getInvoice().getPrescription();
+		List<Prescription> relevantPrescriptions = getRelevantPrescriptions(a);
+		if (!relevantPrescriptions.isEmpty()) {
+			DeleteFromPrescriptionDialog dlg =
+				new DeleteFromPrescriptionDialog(shell, relevantPrescriptions);
+			
+			if (dlg.open() == IDialogConstants.OK_ID) {
+				if (!relevantPrescriptions.isEmpty()) {
+					Prescription selectedPrescription = relevantPrescriptions.get(0);
+					SampleModel.removeArticleFromPrescription(selectedPrescription, a);
+					
+					if (selectedPrescription.getArticle().isEmpty()) {
+						SampleModel.deletePrescription(selectedPrescription);
+					}
+				}
+			}
+			MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
+			PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
+			prescPart.updateTable();
+		}
+		MPart idataPart = partService.findPart(Messages.getString("ID_PART_INVOICE_DATA"));
+		InvoiceDataPart invoiceDataPart = (InvoiceDataPart) idataPart.getObject();
+		invoiceDataPart.updateTable();
+		
+		MPart iPart = partService.findPart(Messages.getString("ID_PART_INVOICE"));
+		InvoicePart invoicePart = (InvoicePart) iPart.getObject();
+		invoicePart.updateTable();
+	}
+	
+	private List<Prescription> getRelevantPrescriptions(Article a){
+		List<Prescription> prescriptions = SampleModel.getAllPrescriptionsForCurrentInvoice();
 		List<Prescription> relevantPrescriptions = new ArrayList<Prescription>();
+		
 		for (Prescription p : prescriptions) {
 			List<Article> articles = p.getArticle();
 			for (Article arti : articles) {
@@ -48,28 +78,7 @@ public class DeleteFromInvoiceHandler {
 				}
 			}
 		}
-		DeleteFromPrescriptionDialog dlg =
-			new DeleteFromPrescriptionDialog(shell, relevantPrescriptions);
-		int retVal = dlg.open();
-		if (retVal == IDialogConstants.OK_ID) {
-			if (!relevantPrescriptions.isEmpty()) {
-				relevantPrescriptions.get(0).getArticle().remove(a);
-			}
-			System.out.println(relevantPrescriptions.get(0));
-		}
-		
-		MPart idataPart = partService.findPart(Messages.getString("ID_PART_INVOICE_DATA"));
-		InvoiceDataPart invoiceDataPart = (InvoiceDataPart) idataPart.getObject();
-		invoiceDataPart.updateTable();
-		
-		// TODO also update prescriptions if article is on prescription as well
-		MPart iPart = partService.findPart(Messages.getString("ID_PART_INVOICE"));
-		InvoicePart invoicePart = (InvoicePart) iPart.getObject();
-		invoicePart.updateTable();
-		
-		MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
-		PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
-		prescPart.updateTable();
+		return relevantPrescriptions;
 	}
 	
 	@CanExecute

@@ -46,7 +46,7 @@ public class AddToPrescriptionViewerHandler {
 			}
 		} else {
 			List<Prescription> prescriptions = new ArrayList<Prescription>();
-			prescriptions.addAll(SampleModel.getAllPrescriptions());
+			prescriptions.addAll(SampleModel.getAllPrescriptionsForCurrentInvoice());
 			
 			Prescription selectedPrescription;
 			PrescriptionSelectionDialog dlg = new PrescriptionSelectionDialog(shell, prescriptions);
@@ -84,7 +84,7 @@ public class AddToPrescriptionViewerHandler {
 	}
 	
 	private boolean prescriptionsExist(){
-		List<Prescription> prescriptionList = SampleModel.getAllPrescriptions();
+		List<Prescription> prescriptionList = SampleModel.getAllPrescriptionsForCurrentInvoice();
 		
 		if (prescriptionList == null || prescriptionList.isEmpty()) {
 			return false;
