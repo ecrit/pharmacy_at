@@ -1,15 +1,12 @@
-package at.medevit.ecrit.pharmacy_at.application.handler.seller;
+package at.medevit.ecrit.pharmacy_at.application.handler.seller.tobereplaced;
 
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.part.PrescriptionPart;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
@@ -17,8 +14,6 @@ import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 public class AddToPrescriptionHandler {
 	@Inject
 	private ESelectionService selectionService;
-	@Inject
-	private EPartService partService;
 	
 	@Execute
 	public void execute(){
@@ -26,8 +21,6 @@ public class AddToPrescriptionHandler {
 			(StockArticle) selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST"));
 		a.setNumberOnStock(a.getNumberOnStock() - 1);
 		
-		MPart part = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
-		PrescriptionPart presPart = (PrescriptionPart) part.getObject();
 		Prescription p =
 			(Prescription) selectionService
 				.getSelection(Messages.getString("ID_PART_PRESCRIPTION"));

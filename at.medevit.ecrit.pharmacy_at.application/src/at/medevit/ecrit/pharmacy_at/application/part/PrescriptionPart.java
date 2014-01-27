@@ -46,6 +46,7 @@ import org.eclipse.swt.widgets.Table;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.AddAsPrescriptionViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToPrescriptionViewerHandler;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
@@ -124,7 +125,15 @@ public class PrescriptionPart {
 								.getString("ID_CMD_ADD_TO_PRESCRIPTION"));
 						ParameterizedCommand pCmd = prepareCommandWithParameters(cmd);
 						
-						// TODO set active handler and inject context
+						// tell the HandlerService which handler we're talking about
+						AddToPrescriptionViewerHandler addToPrescriptionHandler =
+							new AddToPrescriptionViewerHandler();
+						addToPrescriptionHandler.setPrescriptionSelected(true);
+						// manually inject as all the injected values are null otherwise
+						ContextInjectionFactory.inject(addToPrescriptionHandler, context);
+						handlerService.activateHandler(
+							Messages.getString("ID_CMD_ADD_TO_PRESCRIPTION"),
+							addToPrescriptionHandler);
 						
 						// only execute if command can be executed
 						if (handlerService.canExecute(pCmd)) {
@@ -144,7 +153,8 @@ public class PrescriptionPart {
 // invoiceDataPart.updateSelection(tmpArticleList);
 						
 						Command cmd =
-							commandService.getCommand(Messages.getString("ID_CMD_ADD_PRESCRIPTION"));
+							commandService.getCommand(Messages
+								.getString("ID_CMD_ADD_AS_PRESCRIPTION"));
 						ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
 						
 						// tell the HandlerService which handler we're talking about
@@ -153,7 +163,8 @@ public class PrescriptionPart {
 						// manually inject as all the injected values are null otherwise
 						ContextInjectionFactory.inject(addPrescriptionHandler, context);
 						handlerService.activateHandler(
-							Messages.getString("ID_CMD_ADD_PRESCRIPTION"), addPrescriptionHandler);
+							Messages.getString("ID_CMD_ADD_AS_PRESCRIPTION"),
+							addPrescriptionHandler);
 						
 						// only execute if command can be executed
 						if (handlerService.canExecute(pCmd)) {
@@ -189,6 +200,7 @@ public class PrescriptionPart {
 				if (p != null) {
 					tableViewer.getTable().setFocus();
 					selectionService.setSelection(p);
+					tableViewer.setSelection(null);
 				}
 			}
 		});
@@ -229,8 +241,13 @@ public class PrescriptionPart {
 	public void updateTable(){
 		if (tableViewer != null) {
 			prescriptions = SampleModel.getInvoice().getPrescription();
+			selectionService.setSelection(null);
 			tableViewer.refresh();
 		}
+	}
+	
+	public void deselectAll(){
+		selectionService.setPostSelection(null);
 	}
 	
 	public void clearPrescriptions(){

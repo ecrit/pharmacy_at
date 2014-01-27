@@ -21,7 +21,6 @@ import at.medevit.ecrit.pharmacy_at.application.part.InvoiceDataPart;
 import at.medevit.ecrit.pharmacy_at.application.part.InvoicePart;
 import at.medevit.ecrit.pharmacy_at.application.part.PrescriptionPart;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
-import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
@@ -33,29 +32,31 @@ public class AddToPrescriptionViewerHandler {
 	
 	// ArtilceList TableViewer selection
 	private StockArticle selection;
+	private boolean prescriptionSelected = false;
 	
 	@Execute
 	public void execute(@Named("commandparameter.addToPrescription")
 	String stockArticle, @Named(IServiceConstants.ACTIVE_SHELL)
 	Shell shell){
-		Article a = selection.getArticle();
 		
-		List<Prescription> prescriptions = new ArrayList<Prescription>();
-		prescriptions.addAll(SampleModel.getAllPrescriptions());
-		Prescription selectedPrescription;
-		PrescriptionSelectionDialog dlg = new PrescriptionSelectionDialog(shell, prescriptions);
-		int retVal = dlg.open();
-		if (retVal == IDialogConstants.OK_ID) {
-			if (!prescriptions.isEmpty()) {
-				selectedPrescription = prescriptions.get(0);
-				
-				SampleModel.addArticleToPrescription(selectedPrescription, selection);
-				SampleModel.addArticleToInvoice(selection);
-				selection.setNumberOnStock(selection.getNumberOnStock() - 1);
-				
+		if (prescriptionSelected) {
+			Object sel = selectionService.getSelection(Messages.getString("ID_PART_PRESCRIPTION"));
+			if (sel != null && sel instanceof Prescription) {
+				addArticleAndUpdate((Prescription) sel);
+			}
+		} else {
+			List<Prescription> prescriptions = new ArrayList<Prescription>();
+			prescriptions.addAll(SampleModel.getAllPrescriptions());
+			
+			Prescription selectedPrescription;
+			PrescriptionSelectionDialog dlg = new PrescriptionSelectionDialog(shell, prescriptions);
+			if (dlg.open() == IDialogConstants.OK_ID) {
+				if (!prescriptions.isEmpty()) {
+					selectedPrescription = prescriptions.get(0);
+					addArticleAndUpdate(selectedPrescription);
+				}
 			}
 		}
-		
 		MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
 		PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
 		prescPart.updateTable();
@@ -68,18 +69,48 @@ public class AddToPrescriptionViewerHandler {
 		InvoiceDataPart invoiceDataPart = (InvoiceDataPart) idPart.getObject();
 		invoiceDataPart.updateTable();
 		
+		prescriptionSelected = false;
 	}
 	
 	@CanExecute
 	public boolean canExecute(){
+		checkArticleListSelection();
+		
+		if (selection == null || !prescriptionsExist()) {
+			return false;
+		}
+		return true;
+		
+	}
+	
+	private boolean prescriptionsExist(){
+		List<Prescription> prescriptionList = SampleModel.getAllPrescriptions();
+		
+		if (prescriptionList == null || prescriptionList.isEmpty()) {
+			return false;
+		}
+		return true;
+		
+	}
+	
+	private void checkArticleListSelection(){
 		Object selection = selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST"));
 		if (selection != null && selection instanceof StockArticle) {
 			this.selection = (StockArticle) selection;
-			return true;
 		} else {
 			this.selection = null;
-			return false;
 		}
+		
+	}
+	
+	private void addArticleAndUpdate(Prescription p){
+		SampleModel.addArticleToPrescription(p, selection);
+		SampleModel.addArticleToInvoice(selection);
+		selection.setNumberOnStock(selection.getNumberOnStock() - 1);
+	}
+	
+	public void setPrescriptionSelected(boolean b){
+		prescriptionSelected = b;
 	}
 	
 }

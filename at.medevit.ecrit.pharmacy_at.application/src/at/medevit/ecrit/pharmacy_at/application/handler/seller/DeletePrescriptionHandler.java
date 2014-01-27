@@ -24,16 +24,18 @@ public class DeletePrescriptionHandler {
 	@Inject
 	private EPartService partService;
 	
+	// equivalent to wished commandparameter (only there for documentation reasons currently)
+	private Prescription selection;
+	
 	@Execute
-	public void execute(@Named(IServiceConstants.ACTIVE_SHELL)
+	public void execute(@Named("commandparameter.deletePrescription")
+	String prescription, @Named(IServiceConstants.ACTIVE_SHELL)
 	Shell shell){
-		Prescription p =
-			(Prescription) selectionService
-				.getSelection(Messages.getString("ID_PART_PRESCRIPTION"));
-		SampleModel.getInvoice().getPrescription().remove(p);
+		SampleModel.deletePrescription(selection);
 		
 		MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
 		PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
+		prescPart.deselectAll();
 		prescPart.updateTable();
 		
 		MPart iPart = partService.findPart(Messages.getString("ID_PART_INVOICE"));
@@ -46,8 +48,10 @@ public class DeletePrescriptionHandler {
 		Object selection =
 			selectionService.getSelection(Messages.getString("ID_PART_PRESCRIPTION"));
 		if (selection != null && selection instanceof Prescription) {
+			this.selection = (Prescription) selection;
 			return true;
 		} else {
+			this.selection = null;
 			return false;
 		}
 	}

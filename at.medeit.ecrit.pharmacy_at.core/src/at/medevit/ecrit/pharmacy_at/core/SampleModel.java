@@ -185,4 +185,7 @@ public class SampleModel {
 		prescription.getArticle().add(arti);
 	}
 	
+	public static void deletePrescription(Prescription prescription){
+		getInvoice().getPrescription().remove(prescription);
+	}
 }

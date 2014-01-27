@@ -27,6 +27,10 @@
             id="commandparameter.type.article"
             type="at.medevit.ecrit.pharmacy_at.model.Article">
       </commandParameterType>
+      <commandParameterType
+            id="commandparameter.type.prescription"
+            type="at.medevit.ecrit.pharmacy_at.model.Prescription">
+      </commandParameterType>
    </extension>
 
 </plugin>
