@@ -62,8 +62,7 @@ public class InvoicePart {
 	@Inject
 	public InvoicePart(){
 		invoice = SampleModel.getInvoice();
-		invoice.setPaidAmount(10.0f);
-		prescriptions = SampleModel.getInvoice().getPrescription();
+		prescriptions = SampleModel.getAllPrescriptionsForCurrentInvoice();
 		articleAmountMap = new HashMap<String, String>();
 		noDuplicateList = new ArrayList<Article>();
 	}
@@ -260,12 +259,14 @@ public class InvoicePart {
 	public void updateTable(){
 		if (presTableViewer != null && tableViewer != null) {
 			invoice = SampleModel.getInvoice();
-			prescriptions = SampleModel.getInvoice().getPrescription();
+			prescriptions = SampleModel.getAllPrescriptionsForCurrentInvoice();
 			extractInvoiceRelevantValues(invoice.getArticle());
 			calculateTotalCosts();
 			
-			presTableViewer.refresh();
 			tableViewer.refresh();
+			presTableViewer.refresh();
+			tableViewer.getTable().getParent().pack();
+			
 		}
 	}
 	

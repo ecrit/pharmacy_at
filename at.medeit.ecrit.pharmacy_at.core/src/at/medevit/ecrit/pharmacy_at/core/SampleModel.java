@@ -1,5 +1,6 @@
 package at.medevit.ecrit.pharmacy_at.core;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import at.medevit.ecrit.pharmacy_at.model.ArticleAvailability;
 import at.medevit.ecrit.pharmacy_at.model.Invoice;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
+import at.medevit.ecrit.pharmacy_at.model.Report;
 import at.medevit.ecrit.pharmacy_at.model.Stock;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 import at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl;
@@ -21,6 +23,7 @@ import at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl;
 public class SampleModel {
 	static ModelFactory factory = ModelFactory.eINSTANCE;
 	static Resource resource = null;
+	static List<Report> reports = new ArrayList<Report>();
 	
 	public static Resource getSampleModel(){
 		if (resource == null) {
@@ -38,6 +41,23 @@ public class SampleModel {
 	public static Invoice getInvoice(){
 		Resource s = getSampleModel();
 		return (Invoice) s.getContents().get(1);
+	}
+	
+	public static void addReport(Report report){
+		Resource s = getSampleModel();
+		s.getContents().add(report);
+		reports.add(report);
+	}
+	
+	public static Report getLatestReport(){
+		Report latestReport = reports.get(reports.size() - 1);
+		Resource s = getSampleModel();
+		return (Report) s.getContents().get(s.getContents().indexOf(latestReport));
+	}
+	
+	public static void revertReport(Report r){
+		reports.remove(r);
+		resource.getContents().remove(r);
 	}
 	
 	public static void revertInvoice(Invoice i){
@@ -211,4 +231,5 @@ public class SampleModel {
 			}
 		}
 	}
+	
 }

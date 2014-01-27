@@ -114,6 +114,10 @@ public class AddAsPrescriptionViewerHandler {
 		if (selection == null && articles == null) {
 			return false;
 		}
+		if (selection.getNumberOnStock() < 1) {
+			this.selection = null;
+			return false;
+		}
 		return true;
 	}
 	

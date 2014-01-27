@@ -7,7 +7,6 @@ import javax.inject.Inject;
 
 import org.eclipse.core.commands.Command;
 import org.eclipse.core.commands.IParameter;
-import org.eclipse.core.commands.ParameterValueConversionException;
 import org.eclipse.core.commands.Parameterization;
 import org.eclipse.core.commands.ParameterizedCommand;
 import org.eclipse.core.commands.common.NotDefinedException;
@@ -45,7 +44,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.converter.StockArticleConverter;
 import at.medevit.ecrit.pharmacy_at.application.filter.ArticleFilter;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
@@ -70,12 +68,13 @@ public class ArticleListPart {
 	@PostConstruct
 	public void postConstruct(Composite parent){
 		Composite composite = new Composite(parent, SWT.NONE);
+		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		composite.setLayout(new GridLayout(1, false));
 		
 		// search
 		final Text txtSearch = new Text(composite, SWT.BORDER | SWT.SEARCH);
 		txtSearch.setMessage("Search");
-		txtSearch.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		txtSearch.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		txtSearch.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent ke){
@@ -94,6 +93,7 @@ public class ArticleListPart {
 	private void initTableViewer(Composite composite){
 		tableViewer = new TableViewer(composite, SWT.BORDER | SWT.FULL_SELECTION);
 		Table table = tableViewer.getTable();
+		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 		
@@ -155,17 +155,23 @@ public class ArticleListPart {
 		
 	}
 	
+	/**
+	 * 
+	 * @param cmd
+	 * @return
+	 * @deprecated for demonstration purposes
+	 */
 	protected ParameterizedCommand prepareCommandWithParameters(Command cmd){
 		ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
 		try {
-			StockArticleConverter sac = StockArticleConverter.getInstance();
-			StockArticle stockArticle = (StockArticle) selectionService.getSelection();
-			sac.convertToString(stockArticle);
+// StockArticleConverter sac = StockArticleConverter.getInstance();
+// StockArticle stockArticle = (StockArticle) selectionService.getSelection();
+// sac.convertToString(stockArticle);
 			
 			// get parameters
 			IParameter iparam = cmd.getParameter("commandparameter.modelelement.Article");
 			ArrayList<Parameterization> parameters = new ArrayList<Parameterization>();
-			parameters.add(new Parameterization(iparam, stockArticle.getArticle().toString()));
+			parameters.add(new Parameterization(iparam, "a stock article"));
 			// would only be relevant if passing via converter would work properly
 // parameters.add(new Parameterization(iparam, stockArticle.hashCode() + ""));
 			
@@ -173,7 +179,7 @@ public class ArticleListPart {
 			pCmd =
 				new ParameterizedCommand(cmd, parameters.toArray(new Parameterization[parameters
 					.size()]));
-		} catch (ParameterValueConversionException | NotDefinedException e) {
+		} catch (NotDefinedException e) {
 			e.printStackTrace();
 		}
 		return pCmd;

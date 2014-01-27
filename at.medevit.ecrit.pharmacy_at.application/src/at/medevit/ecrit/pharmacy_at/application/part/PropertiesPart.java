@@ -27,61 +27,50 @@ public class PropertiesPart {
 	private DataBindingContext m_bindingContext;
 	protected IObservableValue element = new WritableValue(null, Article.class);
 	private Text txtDescription;
-
+	
 	@Inject
-	public PropertiesPart() {
-	}
-
+	public PropertiesPart(){}
+	
 	@PostConstruct
-	public void postConstruct(Composite parent) {
+	public void postConstruct(Composite parent){
 		Composite composite = new Composite(parent, SWT.NONE);
-		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1,
-				1));
-		composite.setLayout(new GridLayout(2, false));
-
+		composite.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		composite.setLayout(new GridLayout(1, false));
+		
 		Label lblPropertiespart = new Label(composite, SWT.NONE);
-		lblPropertiespart.setText("Properties");
-		new Label(composite, SWT.NONE);
-
-		// description
-		Label lblDescription = new Label(composite, SWT.NONE);
-		GridData gd_lblDescription = new GridData(SWT.LEFT, SWT.TOP, false,
-				false, 1, 1);
-		lblDescription.setLayoutData(gd_lblDescription);
-		lblDescription.setText("Further description: ");
-
+		lblPropertiespart.setText("Article details");
+		
 		txtDescription = new Text(composite, SWT.BORDER);
-		GridData gd_txtDescription = new GridData(SWT.FILL, SWT.TOP, true,
-				false, 1, 1);
+		GridData gd_txtDescription = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_txtDescription.heightHint = 100;
 		txtDescription.setLayoutData(gd_txtDescription);
-
+		
 		m_bindingContext = initDataBinding();
 	}
-
+	
 	@Inject
-	void setSelection(
-			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) StockArticle article) {
+	void setSelection(@Optional
+	@Named(IServiceConstants.ACTIVE_SELECTION)
+	StockArticle article){
 		if (article == null) {
 			element.setValue(null);
 		} else {
 			element.setValue(article.getArticle());
 		}
 	}
-
-	protected DataBindingContext initDataBinding() {
+	
+	protected DataBindingContext initDataBinding(){
 		DataBindingContext bindingContext = new DataBindingContext();
-
+		
 		// Bind description to txtDescription
-		IObservableValue descriptionObserveValue = EMFObservables
-				.observeDetailValue(Realm.getDefault(), element,
-						ModelPackage.Literals.ARTICLE__DESCRIPTION);
-		IObservableValue textTxtDescriptionObserveValue = WidgetProperties
-				.text(SWT.Modify).observe(txtDescription);
-		bindingContext.bindValue(textTxtDescriptionObserveValue,
-				descriptionObserveValue);
-
+		IObservableValue descriptionObserveValue =
+			EMFObservables.observeDetailValue(Realm.getDefault(), element,
+				ModelPackage.Literals.ARTICLE__DESCRIPTION);
+		IObservableValue textTxtDescriptionObserveValue =
+			WidgetProperties.text(SWT.Modify).observe(txtDescription);
+		bindingContext.bindValue(textTxtDescriptionObserveValue, descriptionObserveValue);
+		
 		return bindingContext;
 	}
-
+	
 }
