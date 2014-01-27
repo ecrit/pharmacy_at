@@ -76,6 +76,7 @@ public class DeleteFromInvoiceViewerHandler {
 			for (Article arti : articles) {
 				if (arti.getName().equals(a.getName())) {
 					relevantPrescriptions.add(p);
+					break;
 				}
 			}
 		}

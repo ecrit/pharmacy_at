@@ -5,12 +5,12 @@
       <children xsi:type="advanced:Perspective" xmi:id="_sfjSUEVJEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.perspective.seller" accessibilityPhrase="" label="Seller" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/user-gray.png">
         <children xsi:type="basic:PartSashContainer" xmi:id="_5YoZYEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.0" containerData="30,70" selectedElement="_nMVpgFEAEeOs7KUvDVp0Mg" horizontal="true">
           <children xsi:type="basic:PartSashContainer" xmi:id="_nMVpgFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.4" containerData="80,20">
-            <children xsi:type="advanced:Placeholder" xmi:id="_r_yxcFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.articlelist" ref="_K6LbcFEAEeOs7KUvDVp0Mg"/>
-            <children xsi:type="advanced:Placeholder" xmi:id="_wuKlEFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.properties" ref="_u11KcFEAEeOs7KUvDVp0Mg"/>
+            <children xsi:type="advanced:Placeholder" xmi:id="_r_yxcFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.articlelist" containerData="80" ref="_K6LbcFEAEeOs7KUvDVp0Mg"/>
+            <children xsi:type="advanced:Placeholder" xmi:id="_wuKlEFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.properties" containerData="20" ref="_u11KcFEAEeOs7KUvDVp0Mg"/>
           </children>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_oHm-8FEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.5">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_oHm-8FEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.5" containerData="">
             <children xsi:type="advanced:Placeholder" xmi:id="_51y38FEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.placeholder.2" ref="_0mzDgFEAEeOs7KUvDVp0Mg"/>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_7IMT8FEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.6" horizontal="true">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_7IMT8FEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.6" containerData="" horizontal="true">
               <children xsi:type="advanced:Placeholder" xmi:id="_8nzskFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.placeholder.3" ref="_2ptWcFEAEeOs7KUvDVp0Mg"/>
               <children xsi:type="advanced:Placeholder" xmi:id="_9xDMkFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.placeholder.4" ref="_4GxKUFEAEeOs7KUvDVp0Mg"/>
             </children>
@@ -35,7 +35,7 @@
       </children>
     </children>
     <mainMenu xmi:id="_FocnYIdLEeOHboXTCc9xHQ" elementId="at.medevit.ecrit.pharmacy_at.application.menu.0">
-      <children xsi:type="menu:DirectMenuItem" xmi:id="_HtyjQIdLEeOHboXTCc9xHQ" elementId="at.medevit.ecrit.pharmacy_at.application.directmenuitem.0" label="Report" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/fire-big.png" tooltip="Report an issue" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.CreateReportHandler"/>
+      <children xsi:type="menu:DirectMenuItem" xmi:id="_HtyjQIdLEeOHboXTCc9xHQ" elementId="at.medevit.ecrit.pharmacy_at.application.directmenuitem.0" label="Report" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/report.png" tooltip="Report an issue" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.CreateReportHandler"/>
     </mainMenu>
     <sharedElements xsi:type="basic:Part" xmi:id="_K6LbcFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.articlelist" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart" label="Article List">
       <handlers xmi:id="_47fnUIHeEeOzeOqq_Z5RBg" elementId="handler.addToInvoice" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.handler.AddToInvoiceViewerHandler" command="_SPCvQHw5EeOl7olWdGHeBA"/>
@@ -134,7 +134,7 @@
   <commands xmi:id="_zgnf0HxIEeOl7olWdGHeBA" elementId="command.addToPrescription" commandName="Add to Prescription" category="_4fQhEHeHEeOts5KVA_mezg">
     <parameters xmi:id="_gAErUITuEeOktYbaZ30rXw" elementId="commandparameter.addToPrescription" name="Prescripted Article" typeId="commandparameter.type.stockarticle" optional="false"/>
   </commands>
-  <commands xmi:id="_YAGyUHxiEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.editPrescription" commandName="Edit Prescription" category="_4fQhEHeHEeOts5KVA_mezg">
+  <commands xmi:id="_YAGyUHxiEeOl7olWdGHeBA" elementId="command.editPrescription" commandName="Edit Prescription" category="_4fQhEHeHEeOts5KVA_mezg">
     <parameters xmi:id="_ipBwIIUmEeOktYbaZ30rXw" elementId="commandparameter.editPrescription" name="Prescription to edit" typeId="commandparameter.type.prescription" optional="false"/>
   </commands>
   <commands xmi:id="_QGMyoHxpEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.deletePrescription" commandName="Delete Prescription" category="_4fQhEHeHEeOts5KVA_mezg">

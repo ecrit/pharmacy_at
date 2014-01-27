@@ -47,6 +47,7 @@ import org.eclipse.swt.widgets.Table;
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.AddAsPrescriptionViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToPrescriptionViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.part.handler.EditPrescriptionViewerHandler;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
@@ -123,7 +124,8 @@ public class PrescriptionPart {
 						Command cmd =
 							commandService.getCommand(Messages
 								.getString("ID_CMD_ADD_TO_PRESCRIPTION"));
-						ParameterizedCommand pCmd = prepareCommandWithParameters(cmd);
+						ParameterizedCommand pCmd =
+							prepareCommandWithParameters(cmd, "commandparameter.addToPrescription");
 						
 						// tell the HandlerService which handler we're talking about
 						AddToPrescriptionViewerHandler addToPrescriptionHandler =
@@ -181,8 +183,16 @@ public class PrescriptionPart {
 			@Override
 			public void doubleClick(DoubleClickEvent event){
 				Command cmd =
-					commandService.getCommand(Messages.getString("ID_CMD_OPEN_PRESCRIPTION"));
-				ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
+					commandService.getCommand(Messages.getString("ID_CMD_EDIT_PRESCRIPTION"));
+				ParameterizedCommand pCmd =
+					prepareCommandWithParameters(cmd, "commandparameter.editPrescription");
+				
+				EditPrescriptionViewerHandler editPrescriptionHandler =
+					new EditPrescriptionViewerHandler();
+				// manually inject as all the injected values are null otherwise
+				ContextInjectionFactory.inject(editPrescriptionHandler, context);
+				handlerService.activateHandler(Messages.getString("ID_CMD_EDIT_PRESCRIPTION"),
+					editPrescriptionHandler);
 				
 				// only execute if command can be executed
 				if (handlerService.canExecute(pCmd)) {
@@ -254,13 +264,13 @@ public class PrescriptionPart {
 		prescriptions.clear();
 	}
 	
-	protected ParameterizedCommand prepareCommandWithParameters(Command cmd){
+	protected ParameterizedCommand prepareCommandWithParameters(Command cmd, String cmdParameter){
 		ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
 		try {
 			// get parameters
-			IParameter iparam = cmd.getParameter("commandparameter.addToPrescription");
+			IParameter iparam = cmd.getParameter(cmdParameter);
 			ArrayList<Parameterization> parameters = new ArrayList<Parameterization>();
-			parameters.add(new Parameterization(iparam, "selected (stock)article"));
+			parameters.add(new Parameterization(iparam, "selection"));
 			
 			// create parameterized command
 			pCmd =

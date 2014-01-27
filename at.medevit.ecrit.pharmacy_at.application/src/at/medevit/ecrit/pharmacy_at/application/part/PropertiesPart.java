@@ -34,14 +34,14 @@ public class PropertiesPart {
 	@PostConstruct
 	public void postConstruct(Composite parent){
 		Composite composite = new Composite(parent, SWT.NONE);
-		composite.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		composite.setLayout(new GridLayout(1, false));
 		
 		Label lblPropertiespart = new Label(composite, SWT.NONE);
 		lblPropertiespart.setText("Article details");
 		
-		txtDescription = new Text(composite, SWT.BORDER);
-		GridData gd_txtDescription = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
+		txtDescription = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
+		GridData gd_txtDescription = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
 		gd_txtDescription.heightHint = 100;
 		txtDescription.setLayoutData(gd_txtDescription);
 		

@@ -90,7 +90,7 @@ public class ReportDialog extends TitleAreaDialog {
 		lblTextfield.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1));
 		lblTextfield.setText("Description");
 		
-		txtTextfield = new Text(container, SWT.BORDER);
+		txtTextfield = new Text(container, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
 		GridData gd_txtTextfield = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
 		gd_txtTextfield.heightHint = 110;
 		txtTextfield.setLayoutData(gd_txtTextfield);
