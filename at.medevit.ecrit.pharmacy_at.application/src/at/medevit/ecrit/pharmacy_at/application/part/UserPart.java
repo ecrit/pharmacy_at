@@ -5,17 +5,17 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.observable.value.WritableValue;
 import org.eclipse.core.databinding.property.Properties;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.emf.databinding.EMFObservables;
-import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
@@ -29,7 +29,6 @@ import org.eclipse.swt.widgets.Text;
 import at.medevit.ecrit.pharmacy_at.application.SampleApplication;
 import at.medevit.ecrit.pharmacy_at.application.User;
 import at.medevit.ecrit.pharmacy_at.model.Article;
-import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class UserPart {
@@ -92,7 +91,7 @@ public class UserPart {
 
 		initTableViewer(composite);
 
-		m_bindingContext = initDataBinding();
+		// m_bindingContext = initDataBinding();
 	}
 
 	private void initTableViewer(Composite composite) {
@@ -105,6 +104,17 @@ public class UserPart {
 		initColumns(tableViewer);
 
 		tableViewer.setContentProvider(ArrayContentProvider.getInstance());
+		tableViewer
+				.addSelectionChangedListener(new ISelectionChangedListener() {
+
+					@Override
+					public void selectionChanged(SelectionChangedEvent event) {
+						StructuredSelection ss = (StructuredSelection) event
+								.getSelection();
+						User u = (User) ss.getFirstElement();
+						System.out.println(u);
+					}
+				});
 
 		// set model
 		IObservableList input = Properties.selfList(User.class).observe(
@@ -141,19 +151,19 @@ public class UserPart {
 		}
 	}
 
-	protected DataBindingContext initDataBinding() {
-		DataBindingContext bindingContext = new DataBindingContext();
-
-		// Bind description to txtDescription
-		IObservableValue descriptionObserveValue = EMFObservables
-				.observeDetailValue(Realm.getDefault(), element,
-						ModelPackage.Literals.ARTICLE__DESCRIPTION);
-		IObservableValue textTxtDescriptionObserveValue = WidgetProperties
-				.text(SWT.Modify).observe(txtDescription);
-		bindingContext.bindValue(textTxtDescriptionObserveValue,
-				descriptionObserveValue);
-
-		return bindingContext;
-	}
+	// protected DataBindingContext initDataBinding() {
+	// DataBindingContext bindingContext = new DataBindingContext();
+	//
+	// // Bind description to txtDescription
+	// IObservableValue descriptionObserveValue = EMFObservables
+	// .observeDetailValue(Realm.getDefault(), element,
+	// ModelPackage.Literals.ARTICLE__DESCRIPTION);
+	// IObservableValue textTxtDescriptionObserveValue = WidgetProperties
+	// .text(SWT.Modify).observe(txtDescription);
+	// bindingContext.bindValue(textTxtDescriptionObserveValue,
+	// descriptionObserveValue);
+	//
+	// return bindingContext;
+	// }
 
 }

@@ -35,14 +35,12 @@ import org.eclipse.swt.widgets.Text;
 
 import at.medevit.ecrit.pharmacy_at.application.User;
 import at.medevit.ecrit.pharmacy_at.application.UserRole;
-import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
-import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class UserDataPart {
 	private CheckboxTableViewer tableViewer;
 	private DataBindingContext m_bindingContext;
-	protected IObservableValue element = new WritableValue(null, Article.class);
+	protected IObservableValue element = new WritableValue(null, User.class);
 
 	// InputDialog txtPassword;
 
@@ -151,20 +149,18 @@ public class UserDataPart {
 		table.setHeaderVisible(false);
 		table.setLinesVisible(false);
 
-		initColumns(tableViewer);
+		// initColumns(tableViewer);
 
 		// xxxxxxxxxxx
 		// TableColumnLayout rolesColumnLayout = new TableColumnLayout();
 		// composite.setLayout(rolesColumnLayout);
 		// TableColumn tc = new TableColumn(table, SWT.NONE);
-		//
+
 		// rolesColumnLayout.setColumnData(tc, new ColumnWeightData(1));
 
 		// xxxxxxxxxxx
 
 		tableViewer.setContentProvider(ArrayContentProvider.getInstance());
-
-		// set model
 
 		IObservableList input = Properties.selfList(User.class).observe(
 				new ArrayList<UserRole>(Arrays.asList(UserRole.values())));
@@ -192,11 +188,11 @@ public class UserDataPart {
 
 	@Inject
 	void setSelection(
-			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) StockArticle article) {
-		if (article == null) {
+			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) User user) {
+		if (user == null) {
 			element.setValue(null);
 		} else {
-			element.setValue(article.getArticle());
+			element.setValue(user.getRole());
 		}
 	}
 
