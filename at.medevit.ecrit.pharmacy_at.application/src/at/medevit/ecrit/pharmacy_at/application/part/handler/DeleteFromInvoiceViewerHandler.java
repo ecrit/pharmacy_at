@@ -32,7 +32,8 @@ public class DeleteFromInvoiceViewerHandler {
 	private EPartService partService;
 	
 	@Execute
-	public void execute(@Named(IServiceConstants.ACTIVE_SHELL)
+	public void execute(@Named("commandparameter.deleteFromInvocie")
+	String articleToDelete, @Named(IServiceConstants.ACTIVE_SHELL)
 	Shell shell){
 		Article a =
 			(Article) selectionService.getSelection(Messages.getString("ID_PART_INVOICE_DATA"));

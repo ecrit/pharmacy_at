@@ -63,7 +63,9 @@
         <children xsi:type="menu:HandledMenuItem" xmi:id="_gRjcYHxoEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.cancelInvoice" label="Cancel Invoice" command="_1u-2AHxiEeOl7olWdGHeBA"/>
       </menus>
       <menus xsi:type="menu:PopupMenu" xmi:id="_wnGHcHxoEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.invoiceData">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_w-qS4HxoEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.deleteFromInvoice" label="Delete from Invoice" command="_pSIwQHxhEeOl7olWdGHeBA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_w-qS4HxoEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.deleteFromInvoice" label="Delete from Invoice" command="_pSIwQHxhEeOl7olWdGHeBA">
+          <parameters xmi:id="_p_1DYIc7EeOHboXTCc9xHQ" elementId="popup.parameter.deletearticle" name="commandparameter.deleteFromInvocie" value="articleToDelete"/>
+        </children>
       </menus>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_2ptWcFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.prescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.PrescriptionPart" label="Prescription">

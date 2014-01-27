@@ -15,33 +15,31 @@ import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class AddToInvoiceViewerHandler {
-
+	
 	@Inject
 	private ESelectionService selectionService;
 	@Inject
 	private EPartService partService;
-
+	
 	// TableViewer selection
 	private StockArticle selection;
-
+	
 	@Execute
-	public void execute(
-			@Named("commandparameter.modelelement.Article") StockArticle article) {
+	public void execute(@Named("commandparameter.modelelement.Article")
+	String stockArticle){
 		selection.setNumberOnStock(selection.getNumberOnStock() - 1);
-
+		
 		// put a copy of this article on the invoice
 		SampleModel.addArticleToInvoice(selection);
-
-		MPart part = partService.findPart(Messages
-				.getString("ID_PART_INVOICE_DATA"));
+		
+		MPart part = partService.findPart(Messages.getString("ID_PART_INVOICE_DATA"));
 		InvoiceDataPart invoiceDataPart = (InvoiceDataPart) part.getObject();
 		invoiceDataPart.addArticleAndUpdate(selection.getArticle());
 	}
-
+	
 	@CanExecute
-	public boolean canExecute() {
-		Object selection = selectionService.getSelection(Messages
-				.getString("ID_PART_ARTICLELIST"));
+	public boolean canExecute(){
+		Object selection = selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST"));
 		if (selection != null && selection instanceof StockArticle) {
 			this.selection = (StockArticle) selection;
 			return true;

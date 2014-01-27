@@ -195,8 +195,13 @@ public class SampleModel {
 	}
 	
 	public static void removeArticleFromInvoice(Article a){
-		getInvoice().getArticle().remove(a);
-		resetNumberOnStock(a);
+		for (Article arti : getInvoice().getArticle()) {
+			if (arti.getName().equals(a.getName())) {
+				getInvoice().getArticle().remove(arti);
+				resetNumberOnStock(a);
+				break;
+			}
+		}
 	}
 	
 	private static void resetNumberOnStock(Article a){
