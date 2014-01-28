@@ -31,6 +31,10 @@
             id="commandparameter.type.prescription"
             type="at.medevit.ecrit.pharmacy_at.model.Prescription">
       </commandParameterType>
+      <commandParameterType
+            id="commandparameter.type.user"
+            type="at.medevit.ecrit.pharmacy_at.application.User">
+      </commandParameterType>
    </extension>
 
 </plugin>

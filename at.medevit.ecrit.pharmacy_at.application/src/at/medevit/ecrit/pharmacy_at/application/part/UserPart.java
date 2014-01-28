@@ -69,12 +69,12 @@ public class UserPart {
 		new Label(composite, SWT.NONE);
 
 		// New user button
-		Composite buttonComposite = new Composite(composite, SWT.NONE);
-		buttonComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
+		Composite newBComposite = new Composite(composite, SWT.NONE);
+		newBComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
 				false, 1, 1));
-		buttonComposite.setLayout(new GridLayout(2, false));
+		newBComposite.setLayout(new GridLayout(1, false));
 
-		Button btnNew = new Button(buttonComposite, SWT.PUSH);
+		Button btnNew = new Button(newBComposite, SWT.PUSH);
 		btnNew.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
 				1, 1));
 		btnNew.setText("   New User   ");
@@ -124,6 +124,28 @@ public class UserPart {
 		// });
 
 		initTableViewer(composite);
+
+		// new Label(composite, SWT.NONE);
+
+		// indent
+		new Label(composite, SWT.NONE);
+
+		// New user button
+		Composite delBComposite = new Composite(composite, SWT.NONE);
+		delBComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
+				false, 1, 1));
+		delBComposite.setLayout(new GridLayout(1, false));
+
+		Button btnDelete = new Button(delBComposite, SWT.PUSH);
+		btnDelete.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
+				false, 1, 1));
+		btnDelete.setText("  Delete User  ");
+		btnDelete.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				selectionService.setSelection(newUser);
+			}
+		});
 
 		// m_bindingContext = initDataBinding();
 	}
