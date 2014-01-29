@@ -8,15 +8,13 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.observable.value.WritableValue;
 import org.eclipse.core.databinding.property.Properties;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.emf.databinding.EMFObservables;
-import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
@@ -32,19 +30,24 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
-import at.medevit.ecrit.pharmacy_at.application.ApplicationPackage;
+import at.medevit.ecrit.pharmacy_at.application.SampleApplication;
 import at.medevit.ecrit.pharmacy_at.application.User;
 import at.medevit.ecrit.pharmacy_at.application.UserRole;
+import at.medevit.ecrit.pharmacy_at.application.Users;
 
 public class UserDataPart {
 	private CheckboxTableViewer tableViewer;
 	private DataBindingContext m_bindingContext;
 	protected IObservableValue selUser = new WritableValue(null, User.class);
+	Users users;
 
 	// InputDialog txtPassword;
 
 	private Text txtUsername;
 	private Text txtPassword;
+
+	@Inject
+	private ESelectionService selectionService;
 
 	@Inject
 	public UserDataPart() {
@@ -53,6 +56,8 @@ public class UserDataPart {
 
 	@PostConstruct
 	public void postConstruct(final Composite parent) {
+		users = SampleApplication.getUsers();
+
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1,
 				1));
@@ -69,10 +74,10 @@ public class UserDataPart {
 				1, 1);
 
 		txtUsername = new Text(composite, SWT.SINGLE | SWT.BORDER);
-		// txtUsername.setText("User1");
 		GridData gd_txtUsername = new GridData(SWT.FILL, SWT.TOP, true, false,
 				1, 1);
 		txtUsername.setLayoutData(gd_txtUsername);
+		// txtUsername.setEnabled(false);
 
 		// password
 		Label lblPassword = new Label(composite, SWT.NONE);
@@ -114,8 +119,10 @@ public class UserDataPart {
 		btnSave.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				saveUser();
 				MessageDialog.openInformation(parent.getShell(),
-						"Save User Data", "User data saved... TODO ");
+						"Save User Data", "User data saved");
+
 			}
 		});
 
@@ -129,10 +136,7 @@ public class UserDataPart {
 			public void widgetSelected(SelectionEvent e) {
 				if (MessageDialog.openConfirm(parent.getShell(),
 						"Discard Changes", "All changes will be lost!")) {
-					// SampleModel.revertInvoice(invoice);
-					// invoice = SampleModel.getInvoice();
-					// updateTable();
-					// updateConnectedParts();
+					resetFields();
 				}
 			}
 		});
@@ -151,15 +155,6 @@ public class UserDataPart {
 		table.setLinesVisible(false);
 		table.setEnabled(true);
 
-		// xxxxxxxxxxx
-		// TableColumnLayout rolesColumnLayout = new TableColumnLayout();
-		// composite.setLayout(rolesColumnLayout);
-		// TableColumn tc = new TableColumn(table, SWT.NONE);
-
-		// rolesColumnLayout.setColumnData(tc, new ColumnWeightData(1));
-
-		// xxxxxxxxxxx
-
 		tableViewer.setContentProvider(ArrayContentProvider.getInstance());
 
 		IObservableList input = Properties.selfList(User.class).observe(
@@ -169,28 +164,65 @@ public class UserDataPart {
 	}
 
 	private void setCheckedRoles() {
-		User u = (User) selUser.getValue();
-		// System.out.println("User in setCheckedRoles: " + u);
 		// System.out.println("setCheckedRoles: "
 		// + tableViewer.getTable().getItems());
 		for (TableItem item : tableViewer.getTable().getItems()) {
 			// System.out.println("----Item: " + item);
 
-			if (u.getRole().contains((UserRole) item.getData())) {
+			if (((User) selUser.getValue()).getRole().contains(
+					(UserRole) item.getData())) {
 				item.setChecked(true);
 			} else
 				item.setChecked(false);
 		}
 	}
 
+	public void saveUser() {
+		((User) selUser.getValue()).setName(txtUsername.getText());
+		((User) selUser.getValue()).setPassword(txtPassword.getText());
+		for (TableItem item : tableViewer.getTable().getItems()) {
+			System.out.println("----Item: " + item);
+
+			// if (!(((User) selUser.getValue()).getRole()
+			// .contains((UserRole) item.getData())) && item.getChecked()) {
+			// ((User) selUser.getValue()).getRole().add(
+			// (UserRole) item.getData());
+			// }
+			// if (((User) selUser.getValue()).getRole().contains(
+			// (UserRole) item.getData())
+			// && !item.getChecked()) {
+			// ((User) selUser.getValue()).getRole().remove(
+			// (UserRole) item.getData());
+			// }
+
+		}
+		Users myUsers = (Users) users;
+		if (users != null) {
+			for (User u : myUsers.getUsers()) {
+				System.out.println("############Current user: " + u);
+			}
+		}
+
+		selectionService.setSelection(myUsers);
+
+	}
+
+	public void resetFields() {
+		txtUsername.setText(((User) selUser.getValue()).getName());
+		txtPassword.setText(((User) selUser.getValue()).getPassword());
+		setCheckedRoles();
+	}
+
 	@Inject
 	void setSelection(
 			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) User user) {
-		// System.out.println("User in setSelection (User Data): " + user);
+		System.out.println("User in setSelection (User Data): " + user);
 		if (user == null) {
 			selUser.setValue(null);
 		} else {
 			selUser.setValue(user);
+			txtUsername.setText(((User) selUser.getValue()).getName());
+			txtPassword.setText(((User) selUser.getValue()).getPassword());
 			setCheckedRoles();
 		}
 	}
@@ -198,23 +230,23 @@ public class UserDataPart {
 	protected DataBindingContext initDataBinding() {
 		DataBindingContext bindingContext = new DataBindingContext();
 
-		// Bind username to txtUsername
-		IObservableValue usernameObserveValue = EMFObservables
-				.observeDetailValue(Realm.getDefault(), selUser,
-						ApplicationPackage.Literals.USER__NAME);
-		IObservableValue textTxtUsernameObserveValue = WidgetProperties.text(
-				SWT.Modify).observe(txtUsername);
-		bindingContext.bindValue(textTxtUsernameObserveValue,
-				usernameObserveValue);
-
-		// Bind password to txtPassword
-		IObservableValue passwordObserveValue = EMFObservables
-				.observeDetailValue(Realm.getDefault(), selUser,
-						ApplicationPackage.Literals.USER__PASSWORD);
-		IObservableValue textTxtPasswordObserveValue = WidgetProperties.text(
-				SWT.Modify).observe(txtPassword);
-		bindingContext.bindValue(textTxtPasswordObserveValue,
-				passwordObserveValue);
+		// // Bind username to txtUsername
+		// IObservableValue usernameObserveValue = EMFObservables
+		// .observeDetailValue(Realm.getDefault(), selUser,
+		// ApplicationPackage.Literals.USER__NAME);
+		// IObservableValue textTxtUsernameObserveValue = WidgetProperties.text(
+		// SWT.Modify).observe(txtUsername);
+		// bindingContext.bindValue(textTxtUsernameObserveValue,
+		// usernameObserveValue);
+		//
+		// // Bind password to txtPassword
+		// IObservableValue passwordObserveValue = EMFObservables
+		// .observeDetailValue(Realm.getDefault(), selUser,
+		// ApplicationPackage.Literals.USER__PASSWORD);
+		// IObservableValue textTxtPasswordObserveValue = WidgetProperties.text(
+		// SWT.Modify).observe(txtPassword);
+		// bindingContext.bindValue(textTxtPasswordObserveValue,
+		// passwordObserveValue);
 
 		return bindingContext;
 	}

@@ -2,10 +2,13 @@ package at.medevit.ecrit.pharmacy_at.application.part;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.property.Properties;
+import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -28,6 +31,7 @@ import org.eclipse.swt.widgets.Table;
 import at.medevit.ecrit.pharmacy_at.application.ApplicationFactory;
 import at.medevit.ecrit.pharmacy_at.application.SampleApplication;
 import at.medevit.ecrit.pharmacy_at.application.User;
+import at.medevit.ecrit.pharmacy_at.application.Users;
 
 public class UserPart {
 	static ApplicationFactory factory = ApplicationFactory.eINSTANCE;
@@ -117,7 +121,8 @@ public class UserPart {
 			public void widgetSelected(SelectionEvent e) {
 				if (selUser == null) {
 					System.out.println("No user selected");
-
+					MessageDialog.openInformation(parent.getShell(), "Info",
+							"No user selected");
 				} else {
 					if (MessageDialog.openConfirm(
 							parent.getShell(),
@@ -128,7 +133,7 @@ public class UserPart {
 						SampleApplication.deleteUser(selUser);
 						selectionService.setSelection(newUser);
 
-						updateTable();
+						updateUserList();
 					}
 				}
 			}
@@ -184,12 +189,26 @@ public class UserPart {
 		});
 	}
 
-	public void updateTable() {
+	public void updateUserList() {
 		if (tableViewer != null) {
 			// SampleApplication.getUsers().getUsers() not required, because
 			// users is observable
 			tableViewer.refresh();
 			tableViewer.getTable().getParent().pack();
+		}
+	}
+
+	@Inject
+	void setSelection(
+	// @Optional @Named(IServiceConstants.ACTIVE_CONTEXTS) Users allUsers) {
+			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) Users allUsers) {
+		System.out.println("User in setSelection (User): " + allUsers);
+		if (allUsers != null) {
+
+			for (User u : allUsers.getUsers()) {
+				System.out.println(">>>>+Current user: " + u);
+			}
+			updateUserList();
 		}
 	}
 
