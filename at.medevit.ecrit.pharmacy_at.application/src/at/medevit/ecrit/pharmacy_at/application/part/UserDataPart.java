@@ -39,7 +39,7 @@ import at.medevit.ecrit.pharmacy_at.application.UserRole;
 public class UserDataPart {
 	private CheckboxTableViewer tableViewer;
 	private DataBindingContext m_bindingContext;
-	protected IObservableValue element = new WritableValue(null, User.class);
+	protected IObservableValue selUser = new WritableValue(null, User.class);
 
 	// InputDialog txtPassword;
 
@@ -138,7 +138,7 @@ public class UserDataPart {
 		});
 
 		m_bindingContext = initDataBinding();
-		if (element.getValue() != null)
+		if (selUser.getValue() != null)
 			setCheckedRoles();
 	}
 
@@ -169,12 +169,12 @@ public class UserDataPart {
 	}
 
 	private void setCheckedRoles() {
-		User u = (User) element.getValue();
-		System.out.println("User in setCheckedRoles: " + u);
-		System.out.println("setCheckedRoles: "
-				+ tableViewer.getTable().getItems());
+		User u = (User) selUser.getValue();
+		// System.out.println("User in setCheckedRoles: " + u);
+		// System.out.println("setCheckedRoles: "
+		// + tableViewer.getTable().getItems());
 		for (TableItem item : tableViewer.getTable().getItems()) {
-			System.out.println("----Item: " + item);
+			// System.out.println("----Item: " + item);
 
 			if (u.getRole().contains((UserRole) item.getData())) {
 				item.setChecked(true);
@@ -186,11 +186,11 @@ public class UserDataPart {
 	@Inject
 	void setSelection(
 			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) User user) {
-		System.out.println("User in setSelection: " + user);
+		// System.out.println("User in setSelection (User Data): " + user);
 		if (user == null) {
-			element.setValue(null);
+			selUser.setValue(null);
 		} else {
-			element.setValue(user);
+			selUser.setValue(user);
 			setCheckedRoles();
 		}
 	}
@@ -200,7 +200,7 @@ public class UserDataPart {
 
 		// Bind username to txtUsername
 		IObservableValue usernameObserveValue = EMFObservables
-				.observeDetailValue(Realm.getDefault(), element,
+				.observeDetailValue(Realm.getDefault(), selUser,
 						ApplicationPackage.Literals.USER__NAME);
 		IObservableValue textTxtUsernameObserveValue = WidgetProperties.text(
 				SWT.Modify).observe(txtUsername);
@@ -209,7 +209,7 @@ public class UserDataPart {
 
 		// Bind password to txtPassword
 		IObservableValue passwordObserveValue = EMFObservables
-				.observeDetailValue(Realm.getDefault(), element,
+				.observeDetailValue(Realm.getDefault(), selUser,
 						ApplicationPackage.Literals.USER__PASSWORD);
 		IObservableValue textTxtPasswordObserveValue = WidgetProperties.text(
 				SWT.Modify).observe(txtPassword);

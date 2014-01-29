@@ -5,10 +5,9 @@ import javax.inject.Inject;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.list.IObservableList;
-import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.core.databinding.observable.value.WritableValue;
 import org.eclipse.core.databinding.property.Properties;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -29,16 +28,16 @@ import org.eclipse.swt.widgets.Table;
 import at.medevit.ecrit.pharmacy_at.application.ApplicationFactory;
 import at.medevit.ecrit.pharmacy_at.application.SampleApplication;
 import at.medevit.ecrit.pharmacy_at.application.User;
-import at.medevit.ecrit.pharmacy_at.model.Article;
 
 public class UserPart {
 	static ApplicationFactory factory = ApplicationFactory.eINSTANCE;
 
 	private TableViewer tableViewer;
 	StructuredSelection userSelection;
+	IObservableList users;
 
 	private DataBindingContext m_bindingContext;
-	protected IObservableValue element = new WritableValue(null, Article.class);
+	private User selUser = null;
 
 	@Inject
 	private ESelectionService selectionService;
@@ -68,7 +67,7 @@ public class UserPart {
 		// indent
 		new Label(composite, SWT.NONE);
 
-		// New user button
+		// New User button
 		Composite newBComposite = new Composite(composite, SWT.NONE);
 		newBComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
 				false, 1, 1));
@@ -95,34 +94,6 @@ public class UserPart {
 		lblUsers.setLayoutData(gd_lblUsers);
 		lblUsers.setText("Choose User: ");
 
-		// final List userList = new List(composite, SWT.BORDER | SWT.MULTI
-		// | SWT.V_SCROLL);
-		// // composite.setSize(300, 20);
-		//
-		// for (User user : SampleApplication.getUsers().getUsers()) {
-		// System.out.println("User: " + user);
-		// userList.add(user.getName());
-		// }
-		//
-		// userList.addSelectionListener(new SelectionListener() {
-		//
-		// public void widgetSelected(SelectionEvent event) {
-		// int[] selections = userList.getSelectionIndices();
-		// String outText = "";
-		// for (int loopIndex = 0; loopIndex < selections.length; loopIndex++)
-		// outText += selections[loopIndex] + " ";
-		// System.out.println("You selected: " + outText);
-		// }
-		//
-		// public void widgetDefaultSelected(SelectionEvent event) {
-		// int[] selections = userList.getSelectionIndices();
-		// String outText = "";
-		// for (int loopIndex = 0; loopIndex < selections.length; loopIndex++)
-		// outText += selections[loopIndex] + " ";
-		// System.out.println("You selected: " + outText);
-		// }
-		// });
-
 		initTableViewer(composite);
 
 		// new Label(composite, SWT.NONE);
@@ -130,7 +101,7 @@ public class UserPart {
 		// indent
 		new Label(composite, SWT.NONE);
 
-		// New user button
+		// Delete User button
 		Composite delBComposite = new Composite(composite, SWT.NONE);
 		delBComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
 				false, 1, 1));
@@ -140,10 +111,26 @@ public class UserPart {
 		btnDelete.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
 				false, 1, 1));
 		btnDelete.setText("  Delete User  ");
+
 		btnDelete.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				selectionService.setSelection(newUser);
+				if (selUser == null) {
+					System.out.println("No user selected");
+
+				} else {
+					if (MessageDialog.openConfirm(
+							parent.getShell(),
+							"Delete User",
+							"Are you sure you want to delete the selected user?\n"
+									+ selUser.getName()
+									+ "\n The correponding user data will be lost!")) {
+						SampleApplication.deleteUser(selUser);
+						selectionService.setSelection(newUser);
+
+						updateTable();
+					}
+				}
 			}
 		});
 
@@ -167,15 +154,15 @@ public class UserPart {
 					public void selectionChanged(SelectionChangedEvent event) {
 						userSelection = (StructuredSelection) event
 								.getSelection();
-						User user = (User) userSelection.getFirstElement();
-						selectionService.setSelection(user);
+						selUser = (User) userSelection.getFirstElement();
+						selectionService.setSelection(selUser);
 					}
 				});
 
 		// set model
-		IObservableList input = Properties.selfList(User.class).observe(
+		users = Properties.selfList(User.class).observe(
 				SampleApplication.getUsers().getUsers());
-		tableViewer.setInput(input);
+		tableViewer.setInput(users);
 
 	}
 
@@ -191,10 +178,19 @@ public class UserPart {
 		tvc.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				User u = (User) element;
-				return u.getName();
+				User user = (User) element;
+				return user.getName();
 			}
 		});
+	}
+
+	public void updateTable() {
+		if (tableViewer != null) {
+			// SampleApplication.getUsers().getUsers() not required, because
+			// users is observable
+			tableViewer.refresh();
+			tableViewer.getTable().getParent().pack();
+		}
 	}
 
 	// protected DataBindingContext initDataBinding() {

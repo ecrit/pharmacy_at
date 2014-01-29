@@ -78,4 +78,26 @@ public class SampleApplication {
 		return users;
 	}
 
+	public static void deleteUser(User user) {
+		Users users = SampleApplication.getUsers();
+		int index = 0;
+		int i = 0;
+		for (User u : users.getUsers()) {
+			if (u.getName().equals(user.getName())) {
+				// users.getUsers().remove(u); doesn't work here
+				index = i;
+			} else {
+				i++;
+			}
+		}
+		if (i < users.getUsers().size()) {
+			users.getUsers().remove(index);
+		}
+
+		// test
+		for (User u : users.getUsers()) {
+			System.out.println("+++++++++Current user: " + u);
+		}
+
+	}
 }
