@@ -31,7 +31,6 @@ import org.eclipse.swt.widgets.Table;
 import at.medevit.ecrit.pharmacy_at.application.ApplicationFactory;
 import at.medevit.ecrit.pharmacy_at.application.SampleApplication;
 import at.medevit.ecrit.pharmacy_at.application.User;
-import at.medevit.ecrit.pharmacy_at.application.Users;
 
 public class UserPart {
 	static ApplicationFactory factory = ApplicationFactory.eINSTANCE;
@@ -39,6 +38,9 @@ public class UserPart {
 	private TableViewer tableViewer;
 	StructuredSelection userSelection;
 	IObservableList users;
+
+	// sent to selUser for a new user entry
+	final User emptyUser = factory.createUser();
 
 	private DataBindingContext m_bindingContext;
 	private User selUser = null;
@@ -53,15 +55,12 @@ public class UserPart {
 
 	@PostConstruct
 	public void postConstruct(final Composite parent) {
-		//
-		final User newUser = factory.createUser();
-		newUser.setName("");
-		newUser.setPassword("");
-		newUser.getRole().add(null);
+		// sent to selUser for a new user entry
+		emptyUser.setName("");
+		emptyUser.setPassword("");
+		emptyUser.getRole().add(null);
 
 		Composite composite = new Composite(parent, SWT.NONE);
-		// composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true,
-		// 1, 1));
 		composite.setLayout(new GridLayout(2, false));
 
 		Label lblUserpart = new Label(composite, SWT.NONE);
@@ -82,9 +81,11 @@ public class UserPart {
 				1, 1));
 		btnNew.setText("   New User   ");
 		btnNew.addSelectionListener(new SelectionAdapter() {
+			// send emptyUser to selUser for a new user entry
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				selectionService.setSelection(newUser);
+				selUser = emptyUser;
+				selectionService.setSelection(emptyUser);
 			}
 		});
 
@@ -99,8 +100,6 @@ public class UserPart {
 		lblUsers.setText("Choose User: ");
 
 		initTableViewer(composite);
-
-		// new Label(composite, SWT.NONE);
 
 		// indent
 		new Label(composite, SWT.NONE);
@@ -119,7 +118,8 @@ public class UserPart {
 		btnDelete.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if (selUser == null) {
+				if ((selUser == null)
+						|| (selUser.getName().equals(emptyUser.getName()))) {
 					System.out.println("No user selected");
 					MessageDialog.openInformation(parent.getShell(), "Info",
 							"No user selected");
@@ -131,8 +131,8 @@ public class UserPart {
 									+ selUser.getName()
 									+ "\n The correponding user data will be lost!")) {
 						SampleApplication.deleteUser(selUser);
-						selectionService.setSelection(newUser);
-
+						selUser = emptyUser;
+						selectionService.setSelection(emptyUser);
 						updateUserList();
 					}
 				}
@@ -175,11 +175,6 @@ public class UserPart {
 		TableViewerColumn tvc = new TableViewerColumn(tableViewer, SWT.NONE);
 		tvc.getColumn().setWidth(100);
 
-		// bind the feature and setup a table column
-		// IObservableMap map = EMFProperties.value(path).observeDetail(
-		// cp.getKnownElements());
-		// tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
-
 		tvc.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
@@ -193,38 +188,42 @@ public class UserPart {
 		if (tableViewer != null) {
 			// SampleApplication.getUsers().getUsers() not required, because
 			// users is observable
+			// SampleApplication.getUsers().getUsers();
 			tableViewer.refresh();
 			tableViewer.getTable().getParent().pack();
 		}
 	}
 
+	// inject selected user from UserDataPart: the user that should be
+	// highlighted in user list
 	@Inject
 	void setSelection(
 	// @Optional @Named(IServiceConstants.ACTIVE_CONTEXTS) Users allUsers) {
-			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) Users allUsers) {
-		System.out.println("User in setSelection (User): " + allUsers);
-		if (allUsers != null) {
-
-			for (User u : allUsers.getUsers()) {
-				System.out.println(">>>>+Current user: " + u);
-			}
+			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) User dispUser) {
+		// no user should be selected, e.g. in case the previously selected user
+		// has been deleted
+		if (dispUser != null) {
 			updateUserList();
+			if (dispUser.getName().equals(emptyUser.getName())) {
+				Table table = tableViewer.getTable();
+				table.deselectAll();
+			}
+			// select a specific user, e.g. the one that has been worked on
+			// before
+			else {
+				// unfortunately the user list is not automatically updated if
+				// actions are restricted to UserDataPart
+				focusUser(dispUser);
+			}
+
 		}
 	}
 
-	// protected DataBindingContext initDataBinding() {
-	// DataBindingContext bindingContext = new DataBindingContext();
-	//
-	// // Bind description to txtDescription
-	// IObservableValue descriptionObserveValue = EMFObservables
-	// .observeDetailValue(Realm.getDefault(), element,
-	// ModelPackage.Literals.ARTICLE__DESCRIPTION);
-	// IObservableValue textTxtDescriptionObserveValue = WidgetProperties
-	// .text(SWT.Modify).observe(txtDescription);
-	// bindingContext.bindValue(textTxtDescriptionObserveValue,
-	// descriptionObserveValue);
-	//
-	// return bindingContext;
-	// }
+	// highlight the specified user in the user list
+	private void focusUser(User user) {
+		Table table = tableViewer.getTable();
+		table.setSelection(users.indexOf(user));
+		selectionService.setSelection(user);
+	}
 
 }

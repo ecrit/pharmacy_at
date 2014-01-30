@@ -30,18 +30,23 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
+import at.medevit.ecrit.pharmacy_at.application.ApplicationFactory;
 import at.medevit.ecrit.pharmacy_at.application.SampleApplication;
 import at.medevit.ecrit.pharmacy_at.application.User;
 import at.medevit.ecrit.pharmacy_at.application.UserRole;
 import at.medevit.ecrit.pharmacy_at.application.Users;
 
 public class UserDataPart {
+	static ApplicationFactory factory = ApplicationFactory.eINSTANCE;
+
 	private CheckboxTableViewer tableViewer;
 	private DataBindingContext m_bindingContext;
+
+	// represents the original data of the currently managed user without
+	// unsaved entries from form fields
 	protected IObservableValue selUser = new WritableValue(null, User.class);
 	Users users;
-
-	// InputDialog txtPassword;
+	final User emptyUser = factory.createUser();
 
 	private Text txtUsername;
 	private Text txtPassword;
@@ -57,6 +62,14 @@ public class UserDataPart {
 	@PostConstruct
 	public void postConstruct(final Composite parent) {
 		users = SampleApplication.getUsers();
+
+		emptyUser.setName("");
+		emptyUser.setPassword("");
+		emptyUser.getRole().add(null);
+
+		// intialize selUser for first usage if admin wants to create a new user
+		// without pressing the "new user" button
+		selUser.setValue(emptyUser);
 
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1,
@@ -119,9 +132,34 @@ public class UserDataPart {
 		btnSave.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				saveUser();
-				MessageDialog.openInformation(parent.getShell(),
-						"Save User Data", "User data saved");
+				// empty User Name
+				if (txtUsername.getText().equals("")) {
+					MessageDialog.openInformation(parent.getShell(),
+							"Error: Empty User Name",
+							"User name must not be empty");
+				} else {
+					// user name exists
+					Boolean exists = false;
+					for (User u : users.getUsers()) {
+						if (u.getName().equals(txtUsername.getText())) {
+							exists = true;
+						}
+					}
+					// check for existing user names only for new user entries
+					// (selUser empty)
+					if ((((User) selUser.getValue()).getName().equals(emptyUser
+							.getName())) && (exists == true)) {
+						MessageDialog.openInformation(parent.getShell(),
+								"Error: User Name Exists",
+								"User name must not be identical to an already exiting user name");
+					}
+					// everything alright: save data
+					else {
+						saveUser();
+						MessageDialog.openInformation(parent.getShell(),
+								"Save User Data", "User data saved");
+					}
+				}
 
 			}
 		});
@@ -147,7 +185,6 @@ public class UserDataPart {
 	}
 
 	private void initTableViewer(Composite composite) {
-
 		tableViewer = CheckboxTableViewer.newCheckList(composite, SWT.SINGLE
 				| SWT.BORDER | SWT.FULL_SELECTION);
 		Table table = tableViewer.getTable();
@@ -163,12 +200,9 @@ public class UserDataPart {
 
 	}
 
+	// set check boxes for role fields
 	private void setCheckedRoles() {
-		// System.out.println("setCheckedRoles: "
-		// + tableViewer.getTable().getItems());
 		for (TableItem item : tableViewer.getTable().getItems()) {
-			// System.out.println("----Item: " + item);
-
 			if (((User) selUser.getValue()).getRole().contains(
 					(UserRole) item.getData())) {
 				item.setChecked(true);
@@ -177,53 +211,83 @@ public class UserDataPart {
 		}
 	}
 
+	// Save user data to data store
 	public void saveUser() {
-		((User) selUser.getValue()).setName(txtUsername.getText());
-		((User) selUser.getValue()).setPassword(txtPassword.getText());
-		for (TableItem item : tableViewer.getTable().getItems()) {
-			System.out.println("----Item: " + item);
+		System.out.println("saveUser: " + selUser);
+		// save new user (add new user to Users List)
+		if ((selUser == null)
+				|| (((User) selUser.getValue()).getName().equals(emptyUser
+						.getName()))) {
+			User newUser = factory.createUser();
+			newUser.setName(txtUsername.getText());
+			newUser.setPassword(txtPassword.getText());
+			for (TableItem item : tableViewer.getTable().getItems()) {
+				if (item.getChecked()) {
+					newUser.getRole().add((UserRole) item.getData());
+				}
+			}
+			users.getUsers().add(newUser);
+			selUser.setValue(newUser);
 
-			// if (!(((User) selUser.getValue()).getRole()
-			// .contains((UserRole) item.getData())) && item.getChecked()) {
-			// ((User) selUser.getValue()).getRole().add(
-			// (UserRole) item.getData());
-			// }
-			// if (((User) selUser.getValue()).getRole().contains(
-			// (UserRole) item.getData())
-			// && !item.getChecked()) {
-			// ((User) selUser.getValue()).getRole().remove(
-			// (UserRole) item.getData());
-			// }
+			// test
+			for (User u : users.getUsers()) {
+				System.out.println("---------Current user: " + u);
+			}
 
 		}
-		Users myUsers = (Users) users;
-		if (users != null) {
-			for (User u : myUsers.getUsers()) {
-				System.out.println("############Current user: " + u);
+		// save existing user (overwrite user's data)
+		else {
+			((User) selUser.getValue()).setName(txtUsername.getText());
+			((User) selUser.getValue()).setPassword(txtPassword.getText());
+			for (TableItem item : tableViewer.getTable().getItems()) {
+				if (!(((User) selUser.getValue()).getRole()
+						.contains((UserRole) item.getData()))
+						&& item.getChecked()) {
+					((User) selUser.getValue()).getRole().add(
+							(UserRole) item.getData());
+				}
+				if (((User) selUser.getValue()).getRole().contains(
+						(UserRole) item.getData())
+						&& !item.getChecked()) {
+					((User) selUser.getValue()).getRole().remove(
+							(UserRole) item.getData());
+				}
+
 			}
 		}
 
-		selectionService.setSelection(myUsers);
+		selectionService.setSelection(selUser);
 
 	}
 
+	// set back form fields to original data (last save or new user)
 	public void resetFields() {
 		txtUsername.setText(((User) selUser.getValue()).getName());
 		txtPassword.setText(((User) selUser.getValue()).getPassword());
 		setCheckedRoles();
 	}
 
+	// inject selected user from UserPart: selection from user list
 	@Inject
 	void setSelection(
 			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) User user) {
-		System.out.println("User in setSelection (User Data): " + user);
-		if (user == null) {
-			selUser.setValue(null);
-		} else {
-			selUser.setValue(user);
-			txtUsername.setText(((User) selUser.getValue()).getName());
-			txtPassword.setText(((User) selUser.getValue()).getPassword());
-			setCheckedRoles();
+		// no user selected: no data displayed
+		if (user != null) {
+			if (user.getName().equals(emptyUser.getName())) {
+				selUser.setValue(user);
+				txtUsername.setText("");
+				txtPassword.setText("");
+				for (TableItem item : tableViewer.getTable().getItems()) {
+					item.setChecked(false);
+				}
+			}
+			// display data of selected user
+			else {
+				selUser.setValue(user);
+				txtUsername.setText(((User) selUser.getValue()).getName());
+				txtPassword.setText(((User) selUser.getValue()).getPassword());
+				setCheckedRoles();
+			}
 		}
 	}
 
