@@ -60,7 +60,17 @@ public class SampleModel {
 		resource.getContents().remove(r);
 	}
 	
-	public static void revertInvoice(Invoice i){
+	public static void revertCurrentInvoice(){
+		Invoice i = getInvoice();
+		
+		for (Article article : i.getArticle()) {
+			for (StockArticle stockArticle : getStock().getArticles()) {
+				// find stock article on list and reset number on stock
+				if (stockArticle.getArticle().getName().equals(article.getName())) {
+					stockArticle.setNumberOnStock(stockArticle.getNumberOnStock() + 1);
+				}
+			}
+		}
 		resource.getContents().remove(i);
 		resource.getContents().add(initInvoice());
 	}
@@ -232,4 +242,39 @@ public class SampleModel {
 		}
 	}
 	
+	public static boolean isSingleInvoiceArticle(Article a){
+		int counter = 0;
+		for (Article arti : getInvoice().getArticle()) {
+			if (arti.getName().equals(a.getName())) {
+				counter++;
+			}
+		}
+		if (counter == 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * compares all invoice articles with all prescripted articles
+	 * 
+	 * @return only unprescripted articles (empty list if all are prescripted)
+	 */
+	public static List<Article> getNotYetPrescriptedArticle(){
+		List<Article> notPrescripted = new ArrayList<Article>();
+		List<Article> prescripted = new ArrayList<Article>();
+		
+		// get all articles that have a prescription
+		for (Prescription p : SampleModel.getAllPrescriptionsForCurrentInvoice()) {
+			prescripted.addAll(p.getArticle());
+		}
+		
+		// add only articles that have no prescription yet
+		for (Article article : getInvoice().getArticle()) {
+			if (!prescripted.contains(article)) {
+				notPrescripted.add(article);
+			}
+		}
+		return notPrescripted;
+	}
 }

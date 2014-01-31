@@ -19,7 +19,6 @@ import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
@@ -49,6 +48,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.handler.seller.CancelInvoiceHandler;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToInvoiceViewerHandler;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
@@ -125,28 +125,27 @@ public class InvoiceDataPart {
 			public void widgetSelected(SelectionEvent e){
 				if (MessageDialog.openConfirm(parent.getShell(), "Cancle selling",
 					"Are you sure you want to cancle this selling process?\n All changes will be lost!")) {
-					SampleModel.revertInvoice(invoice);
-					invoice = SampleModel.getInvoice();
-					updateTable();
-					updateConnectedParts();
+					
+					Command cmd =
+						commandService.getCommand(Messages.getString("ID_CMD_CANCEL_INVOICE"));
+					ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
+					
+					// tell the HandlerService which handler we're talking about
+					CancelInvoiceHandler cancelInvoiceHandler = new CancelInvoiceHandler();
+					// manually inject as all the injected values are null otherwise
+					ContextInjectionFactory.inject(cancelInvoiceHandler, context);
+					handlerService.activateHandler(Messages.getString("ID_CMD_CANCEL_INVOICE"),
+						cancelInvoiceHandler);
+					
+					if (handlerService.canExecute(pCmd)) {
+						handlerService.executeHandler(pCmd);
+					}
 				}
 			}
 		});
 		
 		menuService.registerContextMenu(tableViewer.getTable(),
 			Messages.getString("ID_POPUP_INVOICE_DATA"));
-	}
-	
-	protected void updateConnectedParts(){
-		MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
-		PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
-		prescPart.clearPrescriptions();
-		prescPart.updateTable();
-		
-		MPart iPart = partService.findPart(Messages.getString("ID_PART_INVOICE"));
-		InvoicePart invoicePart = (InvoicePart) iPart.getObject();
-		invoicePart.updateTable();
-		
 	}
 	
 	private void initTableViewer(Composite composite){
@@ -309,6 +308,7 @@ public class InvoiceDataPart {
 	
 	public void updateTable(){
 		if (tableViewer != null) {
+			invoice = SampleModel.getInvoice();
 			noDuplicateArticles.clear();
 			assureNoDuplicates(invoice.getArticle());
 			selectionService.setSelection(invoice.getArticle());

@@ -72,7 +72,7 @@ public class PrescriptionPart {
 	
 	@Inject
 	public PrescriptionPart(){
-		prescriptions = SampleModel.getInvoice().getPrescription();
+		prescriptions = new ArrayList<Prescription>();
 	}
 	
 	@PostConstruct
@@ -250,7 +250,8 @@ public class PrescriptionPart {
 	
 	public void updateTable(){
 		if (tableViewer != null) {
-			prescriptions = SampleModel.getAllPrescriptionsForCurrentInvoice();// .getInvoice().getPrescription();
+			prescriptions.clear();
+			prescriptions.addAll(SampleModel.getAllPrescriptionsForCurrentInvoice());
 			selectionService.setSelection(null);
 			tableViewer.refresh();
 		}
@@ -258,10 +259,6 @@ public class PrescriptionPart {
 	
 	public void deselectAll(){
 		selectionService.setPostSelection(null);
-	}
-	
-	public void clearPrescriptions(){
-		prescriptions.clear();
 	}
 	
 	protected ParameterizedCommand prepareCommandWithParameters(Command cmd, String cmdParameter){

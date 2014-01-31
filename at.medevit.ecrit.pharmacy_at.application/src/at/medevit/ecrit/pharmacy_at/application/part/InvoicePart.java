@@ -62,7 +62,7 @@ public class InvoicePart {
 	@Inject
 	public InvoicePart(){
 		invoice = SampleModel.getInvoice();
-		prescriptions = SampleModel.getAllPrescriptionsForCurrentInvoice();
+		prescriptions = new ArrayList<Prescription>();
 		articleAmountMap = new HashMap<String, String>();
 		noDuplicateList = new ArrayList<Article>();
 	}
@@ -211,7 +211,6 @@ public class InvoicePart {
 			EMFProperties.value(ModelPackage.Literals.PRESCRIPTION__NUMBER).observeDetail(
 				cp.getKnownElements());
 		tvc.setLabelProvider(new ObservableMapCellLabelProvider(nrObserveMap));
-		
 // tvc = new TableViewerColumn(presTableViewer, SWT.NONE);
 // tvc.getColumn().setText(columnNames[1]);
 // tvc.getColumn().setWidth(columnWidths[1]);
@@ -259,14 +258,14 @@ public class InvoicePart {
 	public void updateTable(){
 		if (presTableViewer != null && tableViewer != null) {
 			invoice = SampleModel.getInvoice();
-			prescriptions = SampleModel.getAllPrescriptionsForCurrentInvoice();
+			prescriptions.clear();
+			prescriptions.addAll(SampleModel.getAllPrescriptionsForCurrentInvoice());
 			extractInvoiceRelevantValues(invoice.getArticle());
 			calculateTotalCosts();
 			
 			tableViewer.refresh();
 			presTableViewer.refresh();
 			tableViewer.getTable().getParent().pack();
-			
 		}
 	}
 	
@@ -307,6 +306,7 @@ public class InvoicePart {
 		}
 		totalAmount = totalAmount - refundAmount;
 		invoice.setPaidAmount(totalAmount);
+		txtTotalCosts.setText(Float.toString(totalAmount));
 	}
 	
 	/**
