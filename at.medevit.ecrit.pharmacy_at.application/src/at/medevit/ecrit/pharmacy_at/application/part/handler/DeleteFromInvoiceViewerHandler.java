@@ -13,6 +13,7 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
@@ -37,27 +38,46 @@ public class DeleteFromInvoiceViewerHandler {
 	Shell shell){
 		Article a =
 			(Article) selectionService.getSelection(Messages.getString("ID_PART_INVOICE_DATA"));
-		SampleModel.removeArticleFromInvoice(a);
 		
 		List<Prescription> relevantPrescriptions = getRelevantPrescriptions(a);
 		if (!relevantPrescriptions.isEmpty()) {
+			boolean isSingleInvoiceArticle = SampleModel.isSingleInvoiceArticle(a);
+			
 			DeleteFromPrescriptionDialog dlg =
-				new DeleteFromPrescriptionDialog(shell, relevantPrescriptions);
+				new DeleteFromPrescriptionDialog(shell, relevantPrescriptions,
+					isSingleInvoiceArticle);
 			
 			if (dlg.open() == IDialogConstants.OK_ID) {
-				if (!relevantPrescriptions.isEmpty()) {
+				// nothing was selected in the dialog
+				if (relevantPrescriptions.isEmpty()) {
+					// if article only exists once as prescription return and show a warning it
+					// wasn't deleted as nothing was selected
+					if (isSingleInvoiceArticle) {
+						MessageDialog
+							.openWarning(shell, "Not deleted",
+								"The article only exists on prescription and therefore must be deleted from there too!");
+						return;
+					}
+				} else {
 					Prescription selectedPrescription = relevantPrescriptions.get(0);
 					SampleModel.removeArticleFromPrescription(selectedPrescription, a);
 					
 					if (selectedPrescription.getArticle().isEmpty()) {
 						SampleModel.deletePrescription(selectedPrescription);
 					}
+					
+					MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
+					PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
+					prescPart.updateTable();
 				}
 			}
-			MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
-			PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
-			prescPart.updateTable();
 		}
+		SampleModel.removeArticleFromInvoice(a);
+		
+		MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
+		PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
+		prescPart.updateTable();
+		
 		MPart idataPart = partService.findPart(Messages.getString("ID_PART_INVOICE_DATA"));
 		InvoiceDataPart invoiceDataPart = (InvoiceDataPart) idataPart.getObject();
 		invoiceDataPart.updateTable();

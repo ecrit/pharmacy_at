@@ -1,6 +1,5 @@
 package at.medevit.ecrit.pharmacy_at.application.handler.seller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -63,31 +62,13 @@ public class AddPrescriptionHandler {
 		}
 	}
 	
-	private List<Article> getNotYetPrescriptedArticle(){
-		List<Article> notPrescripted = new ArrayList<Article>();
-		List<Article> prescripted = new ArrayList<Article>();
-		
-		// get all articles that have a prescription
-		for (Prescription p : SampleModel.getAllPrescriptionsForCurrentInvoice()) {
-			prescripted.addAll(p.getArticle());
-		}
-		
-		// add only articles that have no prescription yet
-		for (Article article : invoiceArticles) {
-			if (!prescripted.contains(article)) {
-				notPrescripted.add(article);
-			}
-		}
-		return notPrescripted;
-	}
-	
 	@CanExecute
 	public boolean canExecute(){
 		// get all articles placed on the invoice
 		invoiceArticles = SampleModel.getInvoice().getArticle();
 		
 		if (invoiceArticles != null && !invoiceArticles.isEmpty()) {
-			List<Article> notPrescripted = getNotYetPrescriptedArticle();
+			List<Article> notPrescripted = SampleModel.getNotYetPrescriptedArticle();
 			if (notPrescripted.isEmpty()) {
 				this.invoiceArticles = null;
 				return false;

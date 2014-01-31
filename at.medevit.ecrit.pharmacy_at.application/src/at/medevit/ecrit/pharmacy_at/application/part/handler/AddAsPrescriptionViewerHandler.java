@@ -35,9 +35,9 @@ public class AddAsPrescriptionViewerHandler {
 	private EPartService partService;
 	
 	// ArtilceList TableViewer selection
-	private StockArticle selection;
+	private StockArticle stockArticleSelection;
 	// Invoice TableViewer selection
-	private List<Article> articles;
+	private List<Article> invoiceArticles;
 	
 	@Execute
 	public void execute(@Optional
@@ -48,13 +48,14 @@ public class AddAsPrescriptionViewerHandler {
 	Shell shell){
 		
 		Prescription p = ModelFactory.eINSTANCE.createPrescription();
-		PrescriptionDialog dlg = new PrescriptionDialog(shell, getNotYetPrescriptedArticle());
+		PrescriptionDialog dlg = new PrescriptionDialog(shell, getAvailableArticles());
 		dlg.setPrescription(p);
 		
 		if (dlg.open() == IDialogConstants.OK_ID) {
 			if (p != null) {
-				if (p.getArticle().contains(selection.getArticle())) {
-					selection.setNumberOnStock(selection.getNumberOnStock() - 1);
+				if (p.getArticle().contains(stockArticleSelection.getArticle())) {
+					stockArticleSelection
+						.setNumberOnStock(stockArticleSelection.getNumberOnStock() - 1);
 					SampleModel.addPrescriptionAndSync(p);
 				}
 				SampleModel.addPrescription(p);
@@ -77,70 +78,56 @@ public class AddAsPrescriptionViewerHandler {
 		}
 	}
 	
-	private List<Article> getNotYetPrescriptedArticle(){
-		if (articles == null || articles.isEmpty()) {
-			articles = new ArrayList<>();
-			articles.add(selection.getArticle());
-			return articles;
-		}
+	private List<Article> getAvailableArticles(){
+		List<Article> availableArticles = new ArrayList<Article>();
 		
-		List<Article> notPrescripted = new ArrayList<Article>();
-		List<Article> prescripted = new ArrayList<Article>();
-		
-		// get all articles that have a prescription
-		for (Prescription p : SampleModel.getInvoice().getPrescription()) {
-			prescripted.addAll(p.getArticle());
+		if (invoiceArticles != null && !invoiceArticles.isEmpty()) {
+			availableArticles.addAll(invoiceArticles);
 		}
-		
-		// add only articles that have no prescription yet
-		for (Article article : articles) {
-			if (!prescripted.contains(article)) {
-				notPrescripted.add(article);
-			}
+		if (stockArticleSelection != null) {
+			availableArticles.add(stockArticleSelection.getArticle());
 		}
-		
-		// add article selected on articlelist part
-		if (selection != null) {
-			notPrescripted.add(selection.getArticle());
-		}
-		return notPrescripted;
+		return availableArticles;
 	}
 	
 	@CanExecute
 	public boolean canExecute(){
-		initArticleListSelection();
-		initInvoiceSelection();
+		setupArticleListSelection();
+		setupAvailableInvoiceArticles();
 		
-		if (selection == null && articles == null) {
+		if (stockArticleSelection == null && invoiceArticles == null) {
 			return false;
 		}
-		if (selection.getNumberOnStock() < 1) {
-			this.selection = null;
+		if (stockArticleSelection.getNumberOnStock() < 1) {
+			this.stockArticleSelection = null;
 			return false;
 		}
 		return true;
 	}
 	
-	private void initArticleListSelection(){
+	private void setupArticleListSelection(){
 		// is an article from the article list selected
 		Object selection = selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST"));
 		
 		if (selection != null && selection instanceof StockArticle) {
-			this.selection = (StockArticle) selection;
+			this.stockArticleSelection = (StockArticle) selection;
 		} else {
-			this.selection = null;
+			this.stockArticleSelection = null;
 		}
 	}
 	
-	private void initInvoiceSelection(){
-		// are there articles on the invoice data part
-		Object selection =
-			selectionService.getSelection(Messages.getString("ID_PART_INVOICE_DATA"));
+	private void setupAvailableInvoiceArticles(){
+		invoiceArticles = SampleModel.getInvoice().getArticle();
 		
-		if (selection != null && selection instanceof List<?>) {
-			this.articles = (List<Article>) selection;
+		if (invoiceArticles != null && !invoiceArticles.isEmpty()) {
+			List<Article> notPrescripted = SampleModel.getNotYetPrescriptedArticle();
+			if (notPrescripted.isEmpty()) {
+				this.invoiceArticles = null;
+			} else {
+				this.invoiceArticles = notPrescripted;
+			}
 		} else {
-			this.articles = null;
+			this.invoiceArticles = null;
 		}
 	}
 }
