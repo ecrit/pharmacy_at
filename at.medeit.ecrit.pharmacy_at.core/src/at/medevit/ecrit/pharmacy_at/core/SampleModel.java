@@ -3,6 +3,7 @@ package at.medevit.ecrit.pharmacy_at.core;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -18,12 +19,15 @@ import at.medevit.ecrit.pharmacy_at.model.Prescription;
 import at.medevit.ecrit.pharmacy_at.model.Report;
 import at.medevit.ecrit.pharmacy_at.model.Stock;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
+import at.medevit.ecrit.pharmacy_at.model.StockOrder;
 import at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl;
 
 public class SampleModel {
 	static ModelFactory factory = ModelFactory.eINSTANCE;
 	static Resource resource = null;
 	static List<Report> reports = new ArrayList<Report>();
+	static List<Invoice> invoices = new ArrayList<Invoice>();
+	static List<StockOrder> orders = new ArrayList<StockOrder>();
 	
 	public static Resource getSampleModel(){
 		if (resource == null) {
@@ -38,9 +42,28 @@ public class SampleModel {
 		return (Stock) s.getContents().get(0);
 	}
 	
-	public static Invoice getInvoice(){
+	public static void saveInvoice(){
+		Invoice newInvoice = initInvoice();
 		Resource s = getSampleModel();
-		return (Invoice) s.getContents().get(1);
+		s.getContents().add(newInvoice);
+	}
+	
+	public static Invoice getCurrentInvoice(){
+		Resource s = getSampleModel();
+		// get index of latest invoice
+		Invoice current = invoices.get(invoices.size() - 1);
+		int idx = s.getContents().indexOf(current);
+		return (Invoice) s.getContents().get(idx);
+	}
+	
+	public static void addStockOrder(StockOrder order){
+		Resource s = getSampleModel();
+		s.getContents().add(order);
+		orders.add(order);
+	}
+	
+	public static List<StockOrder> getAllStockOrders(){
+		return orders;
 	}
 	
 	public static void addReport(Report report){
@@ -61,7 +84,7 @@ public class SampleModel {
 	}
 	
 	public static void revertCurrentInvoice(){
-		Invoice i = getInvoice();
+		Invoice i = getCurrentInvoice();
 		
 		for (Article article : i.getArticle()) {
 			for (StockArticle stockArticle : getStock().getArticles()) {
@@ -71,13 +94,14 @@ public class SampleModel {
 				}
 			}
 		}
+		invoices.remove(i);
 		resource.getContents().remove(i);
 		resource.getContents().add(initInvoice());
 	}
 	
 	public static void addArticleToInvoice(StockArticle stockArticle){
 		Article arti = EcoreUtil.copy(stockArticle.getArticle());
-		getInvoice().getArticle().add(arti);
+		getCurrentInvoice().getArticle().add(arti);
 	}
 	
 	private static void initSampleModel(){
@@ -86,10 +110,10 @@ public class SampleModel {
 		resource = resSet.createResource(URI.createURI("pharmacy_at/my.model"));
 		
 		Stock stock = initStock();
-		Invoice i1 = initInvoice();
+		Invoice invoice = initInvoice();
 		
 		resource.getContents().add(stock);
-		resource.getContents().add(i1);
+		resource.getContents().add(invoice);
 		
 		// try {
 		// resource.save(Collections.EMPTY_MAP);
@@ -169,13 +193,15 @@ public class SampleModel {
 	private static Invoice initInvoice(){
 		Invoice i1 = factory.createInvoice();
 		i1.setDate(Calendar.getInstance().getTime());
-		i1.setId(0001);
+		Random rnd = new Random();
+		i1.setId(rnd.nextInt(Integer.MAX_VALUE));
 		
+		invoices.add(i1);
 		return i1;
 	}
 	
 	public static void addPrescription(Prescription p){
-		getInvoice().getPrescription().add(p);
+		getCurrentInvoice().getPrescription().add(p);
 	}
 	
 	/**
@@ -185,7 +211,7 @@ public class SampleModel {
 	 *            Prescription to add
 	 */
 	public static void addPrescriptionAndSync(Prescription p){
-		getInvoice().getPrescription().add(p);
+		getCurrentInvoice().getPrescription().add(p);
 		synchPrescriptedArticlesWithInvoice(p);
 	}
 	
@@ -196,18 +222,18 @@ public class SampleModel {
 	 *            Prescription that was added
 	 */
 	private static void synchPrescriptedArticlesWithInvoice(Prescription p){
-		List<Article> onInvoice = getInvoice().getArticle();
+		List<Article> onInvoice = getCurrentInvoice().getArticle();
 		List<Article> onPrescription = p.getArticle();
 		
 		for (Article a : onPrescription) {
 			if (!onInvoice.contains(a)) {
-				getInvoice().getArticle().add(a);
+				getCurrentInvoice().getArticle().add(a);
 			}
 		}
 	}
 	
 	public static List<Prescription> getAllPrescriptionsForCurrentInvoice(){
-		return getInvoice().getPrescription();
+		return getCurrentInvoice().getPrescription();
 	}
 	
 	public static void addArticleToPrescription(Prescription prescription, StockArticle stockArticle){
@@ -216,7 +242,7 @@ public class SampleModel {
 	}
 	
 	public static void deletePrescription(Prescription prescription){
-		getInvoice().getPrescription().remove(prescription);
+		getCurrentInvoice().getPrescription().remove(prescription);
 	}
 	
 	public static void removeArticleFromPrescription(Prescription prescription, Article a){
@@ -225,9 +251,9 @@ public class SampleModel {
 	}
 	
 	public static void removeArticleFromInvoice(Article a){
-		for (Article arti : getInvoice().getArticle()) {
+		for (Article arti : getCurrentInvoice().getArticle()) {
 			if (arti.getName().equals(a.getName())) {
-				getInvoice().getArticle().remove(arti);
+				getCurrentInvoice().getArticle().remove(arti);
 				resetNumberOnStock(a);
 				break;
 			}
@@ -244,7 +270,7 @@ public class SampleModel {
 	
 	public static boolean isSingleInvoiceArticle(Article a){
 		int counter = 0;
-		for (Article arti : getInvoice().getArticle()) {
+		for (Article arti : getCurrentInvoice().getArticle()) {
 			if (arti.getName().equals(a.getName())) {
 				counter++;
 			}
@@ -270,11 +296,12 @@ public class SampleModel {
 		}
 		
 		// add only articles that have no prescription yet
-		for (Article article : getInvoice().getArticle()) {
+		for (Article article : getCurrentInvoice().getArticle()) {
 			if (!prescripted.contains(article)) {
 				notPrescripted.add(article);
 			}
 		}
 		return notPrescripted;
 	}
+	
 }

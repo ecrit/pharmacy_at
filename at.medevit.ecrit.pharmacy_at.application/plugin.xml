@@ -36,5 +36,17 @@
             type="at.medevit.ecrit.pharmacy_at.application.User">
       </commandParameterType>
    </extension>
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="expression.definition.addToInvoice">
+         <with
+               variable="activeWorkbenchWindow.activePerspective">
+            <equals
+                  value="perspective.seller">
+            </equals>
+         </with>
+      </definition>
+   </extension>
 
 </plugin>
