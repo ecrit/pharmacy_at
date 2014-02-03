@@ -1,6 +1,7 @@
 package at.medevit.ecrit.pharmacy_at.application.part;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -37,21 +38,27 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.filter.ArticleFilter;
+import at.medevit.ecrit.pharmacy_at.application.filter.CriticalLevelFilter;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class ArticleListPart {
 	private TableViewer tableViewer;
+	private List<StockArticle> stockArticles;
 	private ArticleFilter filter;
+	private CriticalLevelFilter criticalLevelFilter;
 	
 	@Inject
 	private EMenuService menuService;
@@ -63,7 +70,9 @@ public class ArticleListPart {
 	private EHandlerService handlerService;
 	
 	@Inject
-	public ArticleListPart(){}
+	public ArticleListPart(){
+		stockArticles = SampleModel.getStock().getArticles();
+	}
 	
 	@PostConstruct
 	public void postConstruct(Composite parent){
@@ -71,14 +80,35 @@ public class ArticleListPart {
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		composite.setLayout(new GridLayout(1, false));
 		
+		// set critical stock level reached filter
+		criticalLevelFilter = new CriticalLevelFilter();
+		
 		// search
-		final Text txtSearch = new Text(composite, SWT.BORDER | SWT.SEARCH);
+		Composite filterComposite = new Composite(composite, SWT.NONE);
+		filterComposite.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1));
+		filterComposite.setLayout(new GridLayout(2, false));
+		
+		final Text txtSearch = new Text(filterComposite, SWT.BORDER | SWT.SEARCH);
 		txtSearch.setMessage("Search");
 		txtSearch.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		txtSearch.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent ke){
 				filter.setSearchText(txtSearch.getText());
+				tableViewer.refresh();
+			}
+		});
+		
+		Button btnFilterCritical = new Button(filterComposite, SWT.TOGGLE);
+		btnFilterCritical.setText("Only Critical");
+		btnFilterCritical.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e){
+				if (((Button) e.widget).getSelection()) {
+					tableViewer.addFilter(criticalLevelFilter);
+				} else {
+					tableViewer.removeFilter(criticalLevelFilter);
+				}
 				tableViewer.refresh();
 			}
 		});
@@ -148,8 +178,7 @@ public class ArticleListPart {
 		});
 		
 		// set model
-		IObservableList input =
-			Properties.selfList(StockArticle.class).observe(SampleModel.getStock().getArticles());
+		IObservableList input = Properties.selfList(StockArticle.class).observe(stockArticles);
 		tableViewer.setInput(input);
 		
 	}
@@ -213,21 +242,34 @@ public class ArticleListPart {
 			tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
 		}
 		
-		TableViewerColumn tvc = new TableViewerColumn(tableViewer, SWT.NONE);
-		tvc.getColumn().setText("OnStock");
-		tvc.getColumn().setWidth(80);
+		TableViewerColumn tvcOnStock = new TableViewerColumn(tableViewer, SWT.NONE);
+		tvcOnStock.getColumn().setText("OnStock");
+		tvcOnStock.getColumn().setWidth(80);
 		IObservableMap stockMap =
 			EMFProperties.value(ModelPackage.Literals.STOCK_ARTICLE__NUMBER_ON_STOCK)
 				.observeDetail(cp.getKnownElements());
-		tvc.setLabelProvider(new ObservableMapCellLabelProvider(stockMap));
+		tvcOnStock.setLabelProvider(new ObservableMapCellLabelProvider(stockMap));
 		
-		TableViewerColumn tvc2 = new TableViewerColumn(tableViewer, SWT.NONE);
-		tvc2.getColumn().setText("LowerBound");
-		tvc2.getColumn().setWidth(80);
+		TableViewerColumn tvcLowerBound = new TableViewerColumn(tableViewer, SWT.NONE);
+		tvcLowerBound.getColumn().setText("LowerBound");
+		tvcLowerBound.getColumn().setWidth(80);
 		IObservableMap lowerBoundMap =
 			EMFProperties.value(ModelPackage.Literals.STOCK_ARTICLE__LOWER_BOUND).observeDetail(
 				cp.getKnownElements());
-		tvc2.setLabelProvider(new ObservableMapCellLabelProvider(lowerBoundMap));
+		tvcLowerBound.setLabelProvider(new ObservableMapCellLabelProvider(lowerBoundMap));
+		
+		TableViewerColumn tvcOrdered = new TableViewerColumn(tableViewer, SWT.NONE);
+		tvcOrdered.getColumn().setText("Ordered");
+		tvcOrdered.getColumn().setWidth(80);
+		IObservableMap orderedMap =
+			EMFProperties.value(ModelPackage.Literals.STOCK_ARTICLE__NUMBER_ORDERED).observeDetail(
+				cp.getKnownElements());
+		tvcOrdered.setLabelProvider(new ObservableMapCellLabelProvider(orderedMap));
+	}
+	
+	public void updatePart(){
+		stockArticles = SampleModel.getStock().getArticles();
+		tableViewer.refresh();
 	}
 	
 }
