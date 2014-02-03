@@ -43,7 +43,7 @@
          <with
                variable="activeWorkbenchWindow.activePerspective">
             <equals
-                  value="perspective.seller">
+                  value="perspective.sellers">
             </equals>
          </with>
       </definition>
