@@ -50,6 +50,7 @@ import org.eclipse.swt.widgets.Text;
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToStockOrderViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.OrderArticlesViewerHandler;
+import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
@@ -92,7 +93,7 @@ public class StockOrderPart {
 		
 		Label lblTo = new Label(grpStockOrder_1, SWT.NONE);
 		lblTo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
-		lblTo.setText("To");
+		lblTo.setText("Aimed Issuer");
 		new Label(grpStockOrder_1, SWT.NONE);
 		
 		txtTo = new Text(grpStockOrder_1, SWT.BORDER | SWT.V_SCROLL | SWT.MULTI);
@@ -100,6 +101,7 @@ public class StockOrderPart {
 		gd_txtTo.minimumWidth = 200;
 		gd_txtTo.heightHint = 100;
 		txtTo.setLayoutData(gd_txtTo);
+		txtTo.setText("Pharma-Enterprise GmbH \nPharmacy_AT-Sample");
 		
 		initTableViewer(grpStockOrder_1);
 		new Label(grpStockOrder_1, SWT.NONE);
@@ -112,6 +114,7 @@ public class StockOrderPart {
 		btnPlaceOrder.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e){
+				SampleModel.getStockOrderInstance().setIssuer(txtTo.getText());
 				selectionService.setSelection(articleToOrder);
 				Command cmd =
 					commandService.getCommand(Messages.getString("ID_CMD_ORDER_ARTICLES"));
@@ -207,7 +210,7 @@ public class StockOrderPart {
 		colName.setText("Name");
 	}
 	
-	public void updatePart(){
+	public void cleanPart(){
 		articleToOrder.clear();
 		tableViewer.refresh();
 	}
@@ -283,6 +286,7 @@ public class StockOrderPart {
 			StockArticle sa = (StockArticle) element;
 			int userInput = Integer.parseInt((String) userInputValue);
 			if (userInput < 1) {
+				articleToOrder.remove(sa);
 				userInput = 1;
 			}
 			sa.setNumberOrdered(userInput);

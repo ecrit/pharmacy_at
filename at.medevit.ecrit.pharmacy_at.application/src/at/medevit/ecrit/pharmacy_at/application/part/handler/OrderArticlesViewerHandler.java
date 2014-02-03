@@ -1,7 +1,6 @@
 package at.medevit.ecrit.pharmacy_at.application.part.handler;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,13 +10,11 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.part.StockOrderOverviewPart;
 import at.medevit.ecrit.pharmacy_at.application.part.StockOrderPart;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
-import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 import at.medevit.ecrit.pharmacy_at.model.StockOrder;
 import at.medevit.ecrit.pharmacy_at.model.StockOrderStatus;
@@ -34,7 +31,7 @@ public class OrderArticlesViewerHandler {
 	@Execute
 	public void execute(@Named("commandparameter.modelelement.articlesToOrder")
 	String articlesToOrder){
-		StockOrder order = setupStockOrder();
+		StockOrder order = setOrderValues();
 		SampleModel.addStockOrder(order);
 		
 		for (StockOrder so : SampleModel.getAllStockOrders()) {
@@ -43,25 +40,23 @@ public class OrderArticlesViewerHandler {
 		
 		MPart part1 = partService.findPart(Messages.getString("ID_PART_STOCKORDER"));
 		StockOrderPart stockOrderPart = (StockOrderPart) part1.getObject();
-		stockOrderPart.updatePart();
+		stockOrderPart.cleanPart();
 		
 		MPart part2 = partService.findPart(Messages.getString("ID_PART_STOCKORDER_OVERVIEW"));
 		StockOrderOverviewPart sooPart = (StockOrderOverviewPart) part2.getObject();
-// sooPart.update();
+		sooPart.updatePart();
+		
 	}
 	
-	private StockOrder setupStockOrder(){
-		StockOrder stockOrder = ModelFactory.eINSTANCE.createStockOrder();
-		
-		Random rnd = new Random();
-		stockOrder.setNumber(rnd.nextInt(Integer.MAX_VALUE));
+	private StockOrder setOrderValues(){
+		StockOrder stockOrder = SampleModel.getCurrentStockOrder();
 		stockOrder.setBoundFor(SampleModel.getStock());
-		stockOrder.setIssuer("TestIssuer");
 		stockOrder.setStatus(StockOrderStatus.ORDERED);
 		
 		for (StockArticle sa : articlesToOrder) {
 			for (int i = 0; i < sa.getNumberOrdered(); i++) {
-				stockOrder.getArticle().add(EcoreUtil.copy(sa.getArticle()));
+				// stockOrder.getArticle().add(EcoreUtil.copy(sa.getArticle()));
+				stockOrder.getArticle().add(sa.getArticle());
 			}
 		}
 		return stockOrder;

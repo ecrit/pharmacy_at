@@ -8,7 +8,6 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.part.StockOrderPart;
@@ -28,8 +27,7 @@ public class AddToStockOrderViewerHandler {
 	String stockArticle){
 		MPart part = partService.findPart(Messages.getString("ID_PART_STOCKORDER"));
 		StockOrderPart stockOrderPart = (StockOrderPart) part.getObject();
-		stockOrderPart.addArticle(EcoreUtil.copy(selection));
-		
+		stockOrderPart.addArticle(selection);
 	}
 	
 	@CanExecute
