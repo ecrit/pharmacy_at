@@ -28,6 +28,7 @@ public class SampleModel {
 	static List<Report> reports = new ArrayList<Report>();
 	static List<Invoice> invoices = new ArrayList<Invoice>();
 	static List<StockOrder> orders = new ArrayList<StockOrder>();
+	static StockOrder currOrder;
 	
 	public static Resource getSampleModel(){
 		if (resource == null) {
@@ -54,6 +55,18 @@ public class SampleModel {
 		Invoice current = invoices.get(invoices.size() - 1);
 		int idx = s.getContents().indexOf(current);
 		return (Invoice) s.getContents().get(idx);
+	}
+	
+	public static StockOrder getStockOrderInstance(){
+		currOrder = factory.createStockOrder();
+		Random rnd = new Random();
+		currOrder.setNumber(rnd.nextInt(Integer.MAX_VALUE));
+		
+		return currOrder;
+	}
+	
+	public static StockOrder getCurrentStockOrder(){
+		return currOrder;
 	}
 	
 	public static void addStockOrder(StockOrder order){
@@ -133,7 +146,7 @@ public class SampleModel {
 		a1.setPrice(3.0f);
 		StockArticle sa1 = factory.createStockArticle();
 		sa1.setArticle(a1);
-		sa1.setLowerBound(5);
+		sa1.setLowerBound(10);
 		sa1.setNumberOnStock(40);
 		
 		Article a2 = factory.createArticle();
@@ -145,7 +158,7 @@ public class SampleModel {
 		a2.setPrice(4.0f);
 		StockArticle sa2 = factory.createStockArticle();
 		sa2.setArticle(a2);
-		sa2.setLowerBound(0);
+		sa2.setLowerBound(10);
 		sa2.setNumberOnStock(20);
 		
 		Article a3 = factory.createArticle();
@@ -156,7 +169,7 @@ public class SampleModel {
 		a3.setPrice(8.0f);
 		StockArticle sa3 = factory.createStockArticle();
 		sa3.setArticle(a3);
-		sa3.setLowerBound(0);
+		sa3.setLowerBound(10);
 		sa3.setNumberOnStock(20);
 		
 		Article a4 = factory.createArticle();
@@ -167,7 +180,7 @@ public class SampleModel {
 		a4.setPrice(3.0f);
 		StockArticle sa4 = factory.createStockArticle();
 		sa4.setArticle(a4);
-		sa4.setLowerBound(0);
+		sa4.setLowerBound(8);
 		sa4.setNumberOnStock(8);
 		
 		Article a5 = factory.createArticle();
@@ -178,7 +191,7 @@ public class SampleModel {
 		a5.setPrice(4.0f);
 		StockArticle sa5 = factory.createStockArticle();
 		sa5.setArticle(a5);
-		sa5.setLowerBound(0);
+		sa5.setLowerBound(30);
 		sa5.setNumberOnStock(77);
 		
 		stock.getArticles().add(sa1);
@@ -188,6 +201,19 @@ public class SampleModel {
 		stock.getArticles().add(sa5);
 		
 		return stock;
+	}
+	
+	public static boolean addToStock(StockArticle newStockArticle){
+		for (StockArticle sa : getStock().getArticles()) {
+			if (sa.getArticle().getName().equals(newStockArticle.getArticle().getName())) {
+				if (sa.getArticle().getAdmissionNumber() == newStockArticle.getArticle()
+					.getAdmissionNumber()) {
+					return false;
+				}
+			}
+		}
+		getStock().getArticles().add(newStockArticle);
+		return true;
 	}
 	
 	private static Invoice initInvoice(){
