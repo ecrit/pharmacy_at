@@ -33,6 +33,7 @@ public class CancelInvoiceHandler {
 		MPart iPart = partService.findPart(Messages.getString("ID_PART_INVOICE"));
 		InvoicePart invoicePart = (InvoicePart) iPart.getObject();
 		invoicePart.updateTable();
+		invoicePart.updateBinding();
 	}
 	
 	@CanExecute

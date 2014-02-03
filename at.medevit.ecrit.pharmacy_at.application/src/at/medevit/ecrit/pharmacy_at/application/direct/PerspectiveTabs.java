@@ -28,9 +28,9 @@ import org.eclipse.swt.widgets.TabItem;
 public class PerspectiveTabs {
 	private MPerspectiveStack mStack;
 	private TabFolder mFolder;
-
+	
 	@PostConstruct
-	public void createUI(Composite parent, MWindow window, EModelService service) {
+	public void createUI(Composite parent, MWindow window, EModelService service){
 		mFolder = new TabFolder(parent, SWT.TOP);
 		findStack(window);
 		if (mStack == null)
@@ -38,13 +38,13 @@ public class PerspectiveTabs {
 		updateTabs();
 		mFolder.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e){
 				doTabClick();
 			}
 		});
 	}
-
-	private void updateTabs() {
+	
+	private void updateTabs(){
 		for (MPerspective perspective : mStack.getChildren()) {
 			TabItem ti = new TabItem(mFolder, SWT.NULL);
 			ti.setText(perspective.getLabel());
@@ -52,9 +52,8 @@ public class PerspectiveTabs {
 			if (ti.getImage() == null) {
 				try {
 					if (perspective.getIconURI() != null)
-						ti.setImage(ImageDescriptor.createFromURL(
-								new URL(perspective.getIconURI()))
-								.createImage());
+						ti.setImage(ImageDescriptor
+							.createFromURL(new URL(perspective.getIconURI())).createImage());
 				} catch (MalformedURLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -62,14 +61,14 @@ public class PerspectiveTabs {
 			}
 		}
 	}
-
-	private void doTabClick() {
+	
+	private void doTabClick(){
 		TabItem ti = mFolder.getSelection()[0];
 		MPerspective perspective = (MPerspective) ti.getData("perspective");
 		mStack.setSelectedElement(perspective);
 	}
-
-	private void findStack(MWindow window) {
+	
+	private void findStack(MWindow window){
 		for (MWindowElement elem : window.getChildren())
 			if (elem instanceof MPerspectiveStack) {
 				mStack = (MPerspectiveStack) elem;

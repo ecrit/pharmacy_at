@@ -117,7 +117,7 @@ public class AddAsPrescriptionViewerHandler {
 	}
 	
 	private void setupAvailableInvoiceArticles(){
-		invoiceArticles = SampleModel.getInvoice().getArticle();
+		invoiceArticles = SampleModel.getCurrentInvoice().getArticle();
 		
 		if (invoiceArticles != null && !invoiceArticles.isEmpty()) {
 			List<Article> notPrescripted = SampleModel.getNotYetPrescriptedArticle();

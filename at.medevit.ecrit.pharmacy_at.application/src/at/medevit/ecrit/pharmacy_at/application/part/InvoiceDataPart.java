@@ -19,6 +19,7 @@ import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
@@ -79,7 +80,7 @@ public class InvoiceDataPart {
 	
 	@Inject
 	public InvoiceDataPart(){
-		invoice = SampleModel.getInvoice();
+		invoice = SampleModel.getCurrentInvoice();
 		noDuplicateArticles = new ArrayList<Article>();
 		// amountMap = new HashMap<String, Integer>();
 	}
@@ -113,6 +114,19 @@ public class InvoiceDataPart {
 			public void widgetSelected(SelectionEvent e){
 				MessageDialog.openInformation(parent.getShell(), "Receipt",
 					"Receipt printed... TODO ");
+				SampleModel.saveInvoice();
+				MPart idPart = partService.findPart(Messages.getString("ID_PART_INVOICE_DATA"));
+				InvoiceDataPart invoiceDataPart = (InvoiceDataPart) idPart.getObject();
+				invoiceDataPart.updateTable();
+				
+				MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
+				PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
+				prescPart.updateTable();
+				
+				MPart iPart = partService.findPart(Messages.getString("ID_PART_INVOICE"));
+				InvoicePart invoicePart = (InvoicePart) iPart.getObject();
+				invoicePart.updateTable();
+				invoicePart.updateBinding();
 			}
 		});
 		
@@ -308,7 +322,7 @@ public class InvoiceDataPart {
 	
 	public void updateTable(){
 		if (tableViewer != null) {
-			invoice = SampleModel.getInvoice();
+			invoice = SampleModel.getCurrentInvoice();
 			noDuplicateArticles.clear();
 			assureNoDuplicates(invoice.getArticle());
 			selectionService.setSelection(invoice.getArticle());

@@ -84,7 +84,6 @@ public class ArticleListPart {
 		});
 		
 		initTableViewer(composite);
-		
 		menuService.registerContextMenu(tableViewer.getTable(),
 			Messages.getString("ID_POPUP_ARTICLELIST"));
 		
@@ -221,6 +220,14 @@ public class ArticleListPart {
 			EMFProperties.value(ModelPackage.Literals.STOCK_ARTICLE__NUMBER_ON_STOCK)
 				.observeDetail(cp.getKnownElements());
 		tvc.setLabelProvider(new ObservableMapCellLabelProvider(stockMap));
+		
+		TableViewerColumn tvc2 = new TableViewerColumn(tableViewer, SWT.NONE);
+		tvc2.getColumn().setText("LowerBound");
+		tvc2.getColumn().setWidth(80);
+		IObservableMap lowerBoundMap =
+			EMFProperties.value(ModelPackage.Literals.STOCK_ARTICLE__LOWER_BOUND).observeDetail(
+				cp.getKnownElements());
+		tvc2.setLabelProvider(new ObservableMapCellLabelProvider(lowerBoundMap));
 	}
 	
 }

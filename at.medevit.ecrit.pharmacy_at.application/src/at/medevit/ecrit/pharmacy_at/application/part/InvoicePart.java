@@ -61,7 +61,7 @@ public class InvoicePart {
 	
 	@Inject
 	public InvoicePart(){
-		invoice = SampleModel.getInvoice();
+		invoice = SampleModel.getCurrentInvoice();
 		prescriptions = new ArrayList<Prescription>();
 		articleAmountMap = new HashMap<String, String>();
 		noDuplicateList = new ArrayList<Article>();
@@ -257,7 +257,7 @@ public class InvoicePart {
 	
 	public void updateTable(){
 		if (presTableViewer != null && tableViewer != null) {
-			invoice = SampleModel.getInvoice();
+			invoice = SampleModel.getCurrentInvoice();
 			prescriptions.clear();
 			prescriptions.addAll(SampleModel.getAllPrescriptionsForCurrentInvoice());
 			extractInvoiceRelevantValues(invoice.getArticle());
@@ -306,7 +306,6 @@ public class InvoicePart {
 		}
 		totalAmount = totalAmount - refundAmount;
 		invoice.setPaidAmount(totalAmount);
-		txtTotalCosts.setText(Float.toString(totalAmount));
 	}
 	
 	/**
@@ -359,5 +358,10 @@ public class InvoicePart {
 		//
 		
 		return bindingContext;
+	}
+	
+	public void updateBinding(){
+		m_bindingContext = initDataBinding();
+		
 	}
 }

@@ -1,5 +1,8 @@
 package at.medevit.ecrit.pharmacy_at.application.part.handler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -16,6 +19,7 @@ import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.dialog.PrescriptionDialog;
 import at.medevit.ecrit.pharmacy_at.application.part.InvoicePart;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
+import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
 public class EditPrescriptionViewerHandler {
@@ -31,8 +35,7 @@ public class EditPrescriptionViewerHandler {
 	public void execute(@Named("commandparameter.editPrescription")
 	String prescription, @Named(IServiceConstants.ACTIVE_SHELL)
 	Shell shell){
-		PrescriptionDialog dlg =
-			new PrescriptionDialog(shell, SampleModel.getInvoice().getArticle());
+		PrescriptionDialog dlg = new PrescriptionDialog(shell, getAvailableArticles());
 		dlg.setPrescription(selection);
 		dlg.setSelectedArticles(selection.getArticle());
 		
@@ -54,6 +57,14 @@ public class EditPrescriptionViewerHandler {
 			this.selection = null;
 			return false;
 		}
+	}
+	
+	private List<Article> getAvailableArticles(){
+		List<Article> availableArticles = new ArrayList<Article>();
+		availableArticles.addAll(selection.getArticle());
+		availableArticles.addAll(SampleModel.getNotYetPrescriptedArticle());
+		
+		return availableArticles;
 	}
 	
 }

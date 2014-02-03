@@ -65,7 +65,7 @@ public class AddPrescriptionHandler {
 	@CanExecute
 	public boolean canExecute(){
 		// get all articles placed on the invoice
-		invoiceArticles = SampleModel.getInvoice().getArticle();
+		invoiceArticles = SampleModel.getCurrentInvoice().getArticle();
 		
 		if (invoiceArticles != null && !invoiceArticles.isEmpty()) {
 			List<Article> notPrescripted = SampleModel.getNotYetPrescriptedArticle();
