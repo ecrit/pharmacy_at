@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.StockArticleImpl#getArticle <em>Article</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.StockArticleImpl#getNumberOnStock <em>Number On Stock</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.StockArticleImpl#getLowerBound <em>Lower Bound</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.StockArticleImpl#getNumberOrdered <em>Number Ordered</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,6 +80,26 @@ public class StockArticleImpl extends MinimalEObjectImpl.Container implements St
 	 * @ordered
 	 */
 	protected int lowerBound = LOWER_BOUND_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getNumberOrdered() <em>Number Ordered</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNumberOrdered()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int NUMBER_ORDERED_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getNumberOrdered() <em>Number Ordered</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNumberOrdered()
+	 * @generated
+	 * @ordered
+	 */
+	protected int numberOrdered = NUMBER_ORDERED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -184,6 +205,27 @@ public class StockArticleImpl extends MinimalEObjectImpl.Container implements St
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getNumberOrdered() {
+		return numberOrdered;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNumberOrdered(int newNumberOrdered) {
+		int oldNumberOrdered = numberOrdered;
+		numberOrdered = newNumberOrdered;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.STOCK_ARTICLE__NUMBER_ORDERED, oldNumberOrdered, numberOrdered));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -194,6 +236,8 @@ public class StockArticleImpl extends MinimalEObjectImpl.Container implements St
 				return getNumberOnStock();
 			case ModelPackage.STOCK_ARTICLE__LOWER_BOUND:
 				return getLowerBound();
+			case ModelPackage.STOCK_ARTICLE__NUMBER_ORDERED:
+				return getNumberOrdered();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -214,6 +258,9 @@ public class StockArticleImpl extends MinimalEObjectImpl.Container implements St
 				return;
 			case ModelPackage.STOCK_ARTICLE__LOWER_BOUND:
 				setLowerBound((Integer)newValue);
+				return;
+			case ModelPackage.STOCK_ARTICLE__NUMBER_ORDERED:
+				setNumberOrdered((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -236,6 +283,9 @@ public class StockArticleImpl extends MinimalEObjectImpl.Container implements St
 			case ModelPackage.STOCK_ARTICLE__LOWER_BOUND:
 				setLowerBound(LOWER_BOUND_EDEFAULT);
 				return;
+			case ModelPackage.STOCK_ARTICLE__NUMBER_ORDERED:
+				setNumberOrdered(NUMBER_ORDERED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -254,6 +304,8 @@ public class StockArticleImpl extends MinimalEObjectImpl.Container implements St
 				return numberOnStock != NUMBER_ON_STOCK_EDEFAULT;
 			case ModelPackage.STOCK_ARTICLE__LOWER_BOUND:
 				return lowerBound != LOWER_BOUND_EDEFAULT;
+			case ModelPackage.STOCK_ARTICLE__NUMBER_ORDERED:
+				return numberOrdered != NUMBER_ORDERED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -272,6 +324,8 @@ public class StockArticleImpl extends MinimalEObjectImpl.Container implements St
 		result.append(numberOnStock);
 		result.append(", lowerBound: ");
 		result.append(lowerBound);
+		result.append(", numberOrdered: ");
+		result.append(numberOrdered);
 		result.append(')');
 		return result.toString();
 	}

@@ -425,6 +425,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getStockArticle_NumberOrdered() {
+		return (EAttribute)stockArticleEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getStockOrder() {
 		return stockOrderEClass;
 	}
@@ -702,6 +711,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(stockArticleEClass, STOCK_ARTICLE__ARTICLE);
 		createEAttribute(stockArticleEClass, STOCK_ARTICLE__NUMBER_ON_STOCK);
 		createEAttribute(stockArticleEClass, STOCK_ARTICLE__LOWER_BOUND);
+		createEAttribute(stockArticleEClass, STOCK_ARTICLE__NUMBER_ORDERED);
 
 		stockOrderEClass = createEClass(STOCK_ORDER);
 		createEReference(stockOrderEClass, STOCK_ORDER__ARTICLE);
@@ -805,6 +815,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getStockArticle_Article(), this.getArticle(), null, "article", null, 1, 1, StockArticle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStockArticle_NumberOnStock(), ecorePackage.getEInt(), "numberOnStock", null, 0, 1, StockArticle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStockArticle_LowerBound(), ecorePackage.getEInt(), "lowerBound", null, 0, 1, StockArticle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStockArticle_NumberOrdered(), ecorePackage.getEInt(), "numberOrdered", null, 0, 1, StockArticle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stockOrderEClass, StockOrder.class, "StockOrder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getStockOrder_Article(), this.getArticle(), null, "article", null, 0, -1, StockOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

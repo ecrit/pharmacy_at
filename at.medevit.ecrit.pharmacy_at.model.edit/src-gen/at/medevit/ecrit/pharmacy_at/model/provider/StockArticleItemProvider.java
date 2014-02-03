@@ -60,6 +60,7 @@ public class StockArticleItemProvider
 			addArticlePropertyDescriptor(object);
 			addNumberOnStockPropertyDescriptor(object);
 			addLowerBoundPropertyDescriptor(object);
+			addNumberOrderedPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -131,6 +132,28 @@ public class StockArticleItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Number Ordered feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNumberOrderedPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_StockArticle_numberOrdered_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StockArticle_numberOrdered_feature", "_UI_StockArticle_type"),
+				 ModelPackage.Literals.STOCK_ARTICLE__NUMBER_ORDERED,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns StockArticle.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -167,6 +190,7 @@ public class StockArticleItemProvider
 		switch (notification.getFeatureID(StockArticle.class)) {
 			case ModelPackage.STOCK_ARTICLE__NUMBER_ON_STOCK:
 			case ModelPackage.STOCK_ARTICLE__LOWER_BOUND:
+			case ModelPackage.STOCK_ARTICLE__NUMBER_ORDERED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

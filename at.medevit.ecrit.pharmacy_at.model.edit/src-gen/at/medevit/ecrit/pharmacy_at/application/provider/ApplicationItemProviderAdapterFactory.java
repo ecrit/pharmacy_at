@@ -97,6 +97,29 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link at.medevit.ecrit.pharmacy_at.application.Users} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected UsersItemProvider usersItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link at.medevit.ecrit.pharmacy_at.application.Users}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createUsersAdapter() {
+		if (usersItemProvider == null) {
+			usersItemProvider = new UsersItemProvider(this);
+		}
+
+		return usersItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -196,6 +219,7 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 	 */
 	public void dispose() {
 		if (userItemProvider != null) userItemProvider.dispose();
+		if (usersItemProvider != null) usersItemProvider.dispose();
 	}
 
 }

@@ -49,6 +49,7 @@
           eType="#//model/Article"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOnStock" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="lowerBound" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOrdered" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="StockOrder">
       <eStructuralFeatures xsi:type="ecore:EReference" name="article" upperBound="-1"

@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.StockArticle#getArticle <em>Article</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.StockArticle#getNumberOnStock <em>Number On Stock</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.StockArticle#getLowerBound <em>Lower Bound</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.StockArticle#getNumberOrdered <em>Number Ordered</em>}</li>
  * </ul>
  * </p>
  *
@@ -100,5 +101,31 @@ public interface StockArticle extends EObject {
 	 * @generated
 	 */
 	void setLowerBound(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Number Ordered</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Number Ordered</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Number Ordered</em>' attribute.
+	 * @see #setNumberOrdered(int)
+	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getStockArticle_NumberOrdered()
+	 * @model
+	 * @generated
+	 */
+	int getNumberOrdered();
+
+	/**
+	 * Sets the value of the '{@link at.medevit.ecrit.pharmacy_at.model.StockArticle#getNumberOrdered <em>Number Ordered</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Number Ordered</em>' attribute.
+	 * @see #getNumberOrdered()
+	 * @generated
+	 */
+	void setNumberOrdered(int value);
 
 } // StockArticle

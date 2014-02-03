@@ -361,13 +361,22 @@ public interface ModelPackage extends EPackage {
 	int STOCK_ARTICLE__LOWER_BOUND = 2;
 
 	/**
+	 * The feature id for the '<em><b>Number Ordered</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STOCK_ARTICLE__NUMBER_ORDERED = 3;
+
+	/**
 	 * The number of structural features of the '<em>Stock Article</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STOCK_ARTICLE_FEATURE_COUNT = 3;
+	int STOCK_ARTICLE_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Stock Article</em>' class.
@@ -954,6 +963,17 @@ public interface ModelPackage extends EPackage {
 	EAttribute getStockArticle_LowerBound();
 
 	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.StockArticle#getNumberOrdered <em>Number Ordered</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Number Ordered</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.StockArticle#getNumberOrdered()
+	 * @see #getStockArticle()
+	 * @generated
+	 */
+	EAttribute getStockArticle_NumberOrdered();
+
+	/**
 	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.StockOrder <em>Stock Order</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1453,6 +1473,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute STOCK_ARTICLE__LOWER_BOUND = eINSTANCE.getStockArticle_LowerBound();
+
+		/**
+		 * The meta object literal for the '<em><b>Number Ordered</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STOCK_ARTICLE__NUMBER_ORDERED = eINSTANCE.getStockArticle_NumberOrdered();
 
 		/**
 		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.StockOrderImpl <em>Stock Order</em>}' class.
