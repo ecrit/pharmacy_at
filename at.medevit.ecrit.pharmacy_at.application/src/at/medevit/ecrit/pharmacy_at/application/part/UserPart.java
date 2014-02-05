@@ -226,4 +226,27 @@ public class UserPart {
 		selectionService.setSelection(user);
 	}
 
+	// Use Command-Handler for Delete User in the following way
+	// @Override
+	// public void drop(DropTargetEvent event){
+	// if (TextTransfer.getInstance().isSupportedType(event.currentDataType)) {
+	// Command cmd =
+	// commandService.getCommand(Messages.getString("ID_CMD_ADD_TO_INVOICE"));
+	// ParameterizedCommand pCmd = prepareCommandWithParameters(cmd);
+	// // ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
+	//
+	// // tell the HandlerService which handler we're talking about
+	// AddToInvoiceViewerHandler addToInvoiceViewerHandler =
+	// new AddToInvoiceViewerHandler();
+	// // manually inject as all the injected values are null otherwise
+	// ContextInjectionFactory.inject(addToInvoiceViewerHandler, context);
+	// handlerService.activateHandler(Messages.getString("ID_CMD_ADD_TO_INVOICE"),
+	// addToInvoiceViewerHandler);
+	//
+	// if (handlerService.canExecute(pCmd)) {
+	// handlerService.executeHandler(pCmd);
+	// }
+	// }
+	// }
+
 }

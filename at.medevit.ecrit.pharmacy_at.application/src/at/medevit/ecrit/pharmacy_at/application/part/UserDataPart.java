@@ -147,8 +147,14 @@ public class UserDataPart {
 					}
 					// check for existing user names only for new user entries
 					// (selUser empty)
-					if ((((User) selUser.getValue()).getName().equals(emptyUser
-							.getName())) && (exists == true)) {
+					// or if the Username of an existing user has been altered
+					// to the Username of another existing user (selUser !=
+					// txtUsername) --> the name of the user can be left
+					// unchanged, of course
+					if (((((User) selUser.getValue()).getName()
+							.equals(emptyUser.getName())) || !(((User) selUser
+							.getValue()).getName().equals(txtUsername.getText())))
+							&& (exists == true)) {
 						MessageDialog.openInformation(parent.getShell(),
 								"Error: User Name Exists",
 								"User name must not be identical to an already exiting user name");
