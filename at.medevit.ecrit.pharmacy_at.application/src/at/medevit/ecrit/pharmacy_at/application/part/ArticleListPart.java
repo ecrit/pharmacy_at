@@ -1,5 +1,6 @@
 package at.medevit.ecrit.pharmacy_at.application.part;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.property.Properties;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
@@ -23,7 +26,12 @@ import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -40,12 +48,15 @@ import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.filter.ArticleFilter;
@@ -55,6 +66,10 @@ import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class ArticleListPart {
+	private final Image GREEN = getImage("boxGreen.png");
+	private final Image YELLOW = getImage("boxYellow.png");
+	private final Image RED = getImage("boxRed.png");
+	private final Image GREY = getImage("boxGrey.png");
 	private TableViewer tableViewer;
 	private List<StockArticle> stockArticles;
 	private ArticleFilter filter;
@@ -261,10 +276,32 @@ public class ArticleListPart {
 		TableViewerColumn tvcOrdered = new TableViewerColumn(tableViewer, SWT.NONE);
 		tvcOrdered.getColumn().setText("Ordered");
 		tvcOrdered.getColumn().setWidth(80);
-		IObservableMap orderedMap =
-			EMFProperties.value(ModelPackage.Literals.STOCK_ARTICLE__NUMBER_ORDERED).observeDetail(
-				cp.getKnownElements());
-		tvcOrdered.setLabelProvider(new ObservableMapCellLabelProvider(orderedMap));
+		EMFProperties.value(ModelPackage.Literals.STOCK_ARTICLE__NUMBER_ORDERED).observeDetail(
+			cp.getKnownElements());
+		tvcOrdered.setLabelProvider(new ColumnLabelProvider() {
+			
+			@Override
+			public String getText(Object element){
+				return null;
+			}
+			
+			@Override
+			public Image getImage(Object element){
+				StockArticle stockArticle = (StockArticle) element;
+				int value = stockArticle.getNumberOnStock() - stockArticle.getLowerBound();
+				
+				if (stockArticle.getNumberOrdered() > 0) {
+					return GREEN;
+				}
+				if (stockArticle.getNumberOnStock() < 1) {
+					return RED;
+				}
+				if (value < 1 && stockArticle.getNumberOrdered() == 0) {
+					return YELLOW;
+				}
+				return GREY;
+			}
+		});
 	}
 	
 	public void updatePart(){
@@ -272,4 +309,10 @@ public class ArticleListPart {
 		tableViewer.refresh();
 	}
 	
+	private static Image getImage(String file){
+		Bundle bundle = FrameworkUtil.getBundle(ArticleListPart.class);
+		URL url = FileLocator.find(bundle, new Path("icons/" + file), null);
+		ImageDescriptor image = ImageDescriptor.createFromURL(url);
+		return image.createImage();
+	}	
 }
