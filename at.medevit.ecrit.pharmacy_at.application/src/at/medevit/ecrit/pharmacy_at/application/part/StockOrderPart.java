@@ -6,17 +6,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.eclipse.core.commands.Command;
-import org.eclipse.core.commands.IParameter;
-import org.eclipse.core.commands.Parameterization;
-import org.eclipse.core.commands.ParameterizedCommand;
-import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.property.Properties;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
@@ -48,6 +42,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.handler.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToStockOrderViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.OrderArticlesViewerHandler;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
@@ -115,25 +110,14 @@ public class StockOrderPart {
 			@Override
 			public void widgetSelected(SelectionEvent e){
 				SampleModel.getStockOrderInstance().setIssuer(txtTo.getText());
-				
 				selectionService.setSelection(articleToOrder);
-				Command cmd =
-					commandService.getCommand(Messages.getString("ID_CMD_ORDER_ARTICLES"));
-				ParameterizedCommand pCmd =
-					prepareCommandWithParameters(cmd,
-						"commandparameter.modelelement.articlesToOrder");
 				
-				OrderArticlesViewerHandler orderArticlesHandler = new OrderArticlesViewerHandler();
-				ContextInjectionFactory.inject(orderArticlesHandler, context);
-				handlerService.activateHandler(Messages.getString("ID_CMD_ORDER_ARTICLES"),
-					orderArticlesHandler);
-				
-				if (handlerService.canExecute(pCmd)) {
-					handlerService.executeHandler(pCmd);
-				}
+				CommandUtil.setContextAndServices(context, commandService, handlerService);
+				CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_ORDER_ARTICLES"),
+					"commandparameter.modelelement.articlesToOrder", "stockOrder",
+					new OrderArticlesViewerHandler());
 			}
 		});
-		
 	}
 	
 	private void initTableViewer(Group grpStockOrder){
@@ -161,21 +145,10 @@ public class StockOrderPart {
 			@Override
 			public void drop(DropTargetEvent event){
 				if (TextTransfer.getInstance().isSupportedType(event.currentDataType)) {
-					Command cmd =
-						commandService.getCommand(Messages.getString("ID_CMD_ADD_TO_STOCKORDER"));
-					ParameterizedCommand pCmd =
-						prepareCommandWithParameters(cmd,
-							"commandparameter.modelelement.addToStockOrder");
-					
-					AddToStockOrderViewerHandler addToStockOrderHandler =
-						new AddToStockOrderViewerHandler();
-					ContextInjectionFactory.inject(addToStockOrderHandler, context);
-					handlerService.activateHandler(Messages.getString("ID_CMD_ADD_TO_STOCKORDER"),
-						addToStockOrderHandler);
-					
-					if (handlerService.canExecute(pCmd)) {
-						handlerService.executeHandler(pCmd);
-					}
+					CommandUtil.setContextAndServices(context, commandService, handlerService);
+					CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_ADD_TO_STOCKORDER"),
+						"commandparameter.modelelement.addToStockOrder", "article for order",
+						new AddToStockOrderViewerHandler());
 				}
 			}
 		});
@@ -232,24 +205,6 @@ public class StockOrderPart {
 			}
 		}
 		return true;
-	}
-	
-	protected ParameterizedCommand prepareCommandWithParameters(Command cmd, String parameter){
-		ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
-		try {
-			// get parameters
-			IParameter iparam = cmd.getParameter(parameter);
-			ArrayList<Parameterization> parameters = new ArrayList<Parameterization>();
-			parameters.add(new Parameterization(iparam, "articleForOrder"));
-			
-			// create parameterized command
-			pCmd =
-				new ParameterizedCommand(cmd, parameters.toArray(new Parameterization[parameters
-					.size()]));
-		} catch (NotDefinedException e) {
-			e.printStackTrace();
-		}
-		return pCmd;
 	}
 	
 	class UnitsEditingSupport extends EditingSupport {

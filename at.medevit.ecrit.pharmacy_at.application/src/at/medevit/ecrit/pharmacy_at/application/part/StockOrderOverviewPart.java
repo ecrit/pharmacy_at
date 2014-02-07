@@ -1,22 +1,15 @@
 package at.medevit.ecrit.pharmacy_at.application.part;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.eclipse.core.commands.Command;
-import org.eclipse.core.commands.IParameter;
-import org.eclipse.core.commands.Parameterization;
-import org.eclipse.core.commands.ParameterizedCommand;
-import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.property.Properties;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
@@ -43,6 +36,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.handler.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.EditStockOrderStatusViewerHandler;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
@@ -94,7 +88,6 @@ public class StockOrderOverviewPart {
 			public void selectionChanged(SelectionChangedEvent event){
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				StockOrder order = (StockOrder) selection.getFirstElement();
-				
 			}
 		});
 		// set model
@@ -178,45 +171,13 @@ public class StockOrderOverviewPart {
 				if (!data.getStatus().equals(newStatus)) {
 					data.setStatus(newStatus);
 					selectionService.setSelection(data);
-					callEditStockOrderStatusViewerHandler();
+					CommandUtil.setContextAndServices(context, commandService, handlerService);
+					CommandUtil.manuallyCallCommand(
+						Messages.getString("ID_CMD_EDIT_STOCKORDER_STATUS"),
+						"commandparameter.editStockOrderStatus", "change orders status",
+						new EditStockOrderStatusViewerHandler());
 				}
 			}
 		}
-		
-		private void callEditStockOrderStatusViewerHandler(){
-			Command cmd =
-				commandService.getCommand(Messages.getString("ID_CMD_EDIT_STOCKORDER_STATUS"));
-			ParameterizedCommand pCmd =
-				prepareCommandWithParameters(cmd, "commandparameter.editStockOrderStatus");
-			
-			EditStockOrderStatusViewerHandler editSOStatusHandler =
-				new EditStockOrderStatusViewerHandler();
-			ContextInjectionFactory.inject(editSOStatusHandler, context);
-			handlerService.activateHandler(Messages.getString("ID_CMD_EDIT_STOCKORDER_STATUS"),
-				editSOStatusHandler);
-			
-			if (handlerService.canExecute(pCmd)) {
-				handlerService.executeHandler(pCmd);
-			}
-		}
-		
-		protected ParameterizedCommand prepareCommandWithParameters(Command cmd, String parameter){
-			ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
-			try {
-				// get parameters
-				IParameter iparam = cmd.getParameter(parameter);
-				ArrayList<Parameterization> parameters = new ArrayList<Parameterization>();
-				parameters.add(new Parameterization(iparam, "order to change status from"));
-				
-				// create parameterized command
-				pCmd =
-					new ParameterizedCommand(cmd,
-						parameters.toArray(new Parameterization[parameters.size()]));
-			} catch (NotDefinedException e) {
-				e.printStackTrace();
-			}
-			return pCmd;
-		}
-		
 	}
 }

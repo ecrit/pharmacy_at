@@ -7,17 +7,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.eclipse.core.commands.Command;
-import org.eclipse.core.commands.IParameter;
-import org.eclipse.core.commands.Parameterization;
-import org.eclipse.core.commands.ParameterizedCommand;
-import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.property.Properties;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
@@ -49,6 +43,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.handler.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.handler.seller.CancelInvoiceHandler;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToInvoiceViewerHandler;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
@@ -140,20 +135,9 @@ public class InvoiceDataPart {
 				if (MessageDialog.openConfirm(parent.getShell(), "Cancle selling",
 					"Are you sure you want to cancle this selling process?\n All changes will be lost!")) {
 					
-					Command cmd =
-						commandService.getCommand(Messages.getString("ID_CMD_CANCEL_INVOICE"));
-					ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
-					
-					// tell the HandlerService which handler we're talking about
-					CancelInvoiceHandler cancelInvoiceHandler = new CancelInvoiceHandler();
-					// manually inject as all the injected values are null otherwise
-					ContextInjectionFactory.inject(cancelInvoiceHandler, context);
-					handlerService.activateHandler(Messages.getString("ID_CMD_CANCEL_INVOICE"),
-						cancelInvoiceHandler);
-					
-					if (handlerService.canExecute(pCmd)) {
-						handlerService.executeHandler(pCmd);
-					}
+					CommandUtil.setContextAndServices(context, commandService, handlerService);
+					CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_CANCEL_INVOICE"),
+						null, null, new CancelInvoiceHandler());
 				}
 			}
 		});
@@ -188,21 +172,11 @@ public class InvoiceDataPart {
 			@Override
 			public void drop(DropTargetEvent event){
 				if (TextTransfer.getInstance().isSupportedType(event.currentDataType)) {
-					Command cmd =
-						commandService.getCommand(Messages.getString("ID_CMD_ADD_TO_INVOICE"));
-					ParameterizedCommand pCmd = prepareCommandWithParameters(cmd);
+					CommandUtil.setContextAndServices(context, commandService, handlerService);
+					CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_ADD_TO_INVOICE"),
+						"commandparameter.modelelement.Article", "put article on invoice",
+						new AddToInvoiceViewerHandler());
 					
-					// tell the HandlerService which handler we're talking about
-					AddToInvoiceViewerHandler addToInvoiceViewerHandler =
-						new AddToInvoiceViewerHandler();
-					// manually inject as all the injected values are null otherwise
-					ContextInjectionFactory.inject(addToInvoiceViewerHandler, context);
-					handlerService.activateHandler(Messages.getString("ID_CMD_ADD_TO_INVOICE"),
-						addToInvoiceViewerHandler);
-					
-					if (handlerService.canExecute(pCmd)) {
-						handlerService.executeHandler(pCmd);
-					}
 				}
 			}
 		});
@@ -219,27 +193,6 @@ public class InvoiceDataPart {
 		// set model
 		input = Properties.selfList(Article.class).observe(noDuplicateArticles);
 		tableViewer.setInput(input);
-	}
-	
-	protected ParameterizedCommand prepareCommandWithParameters(Command cmd){
-		ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
-		try {
-			Object stockArticle =
-				selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST"));
-			
-			// get parameters
-			IParameter iparam = cmd.getParameter("commandparameter.modelelement.Article");
-			ArrayList<Parameterization> parameters = new ArrayList<Parameterization>();
-			parameters.add(new Parameterization(iparam, stockArticle.toString()));
-			
-			// create parameterized command
-			pCmd =
-				new ParameterizedCommand(cmd, parameters.toArray(new Parameterization[parameters
-					.size()]));
-		} catch (NotDefinedException e) {
-			e.printStackTrace();
-		}
-		return pCmd;
 	}
 	
 	/**

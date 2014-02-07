@@ -148,10 +148,6 @@ public class NewArticleDialog extends TitleAreaDialog {
 		stockArticle.setLowerBound(spinLowerBound.getSelection());
 		stockArticle.setNumberOnStock(spinOnStock.getSelection());
 		stockArticle.setNumberOrdered(spinOrdered.getSelection());
-// stockArticle.getArticle().setName(txtName.getText());
-// stockArticle.getArticle().setAdmissionNumber(Integer.parseInt(txtAdmissionNr.getText()));
-// stockArticle.getArticle().setPrice(Float.parseFloat(txtPrice.getText()));
-// stockArticle.getArticle().setDescription(txtDescription.getText());
 		stockArticle.getArticle().setAvailability(ArticleAvailability.AVAILABLE);
 		if (isNewArticle) {
 			boolean success = SampleModel.addToStock(stockArticle);

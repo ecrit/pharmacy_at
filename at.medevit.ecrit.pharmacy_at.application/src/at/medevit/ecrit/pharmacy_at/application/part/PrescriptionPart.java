@@ -6,17 +6,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.eclipse.core.commands.Command;
-import org.eclipse.core.commands.IParameter;
-import org.eclipse.core.commands.Parameterization;
-import org.eclipse.core.commands.ParameterizedCommand;
-import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.property.Properties;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
@@ -45,6 +39,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.handler.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.AddAsPrescriptionViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToPrescriptionViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.EditPrescriptionViewerHandler;
@@ -121,58 +116,18 @@ public class PrescriptionPart {
 					if (event.item != null) {
 						selectionService.setSelection((Prescription) event.item.getData());
 						
-						Command cmd =
-							commandService.getCommand(Messages
-								.getString("ID_CMD_ADD_TO_PRESCRIPTION"));
-						ParameterizedCommand pCmd =
-							prepareCommandWithParameters(cmd, "commandparameter.addToPrescription");
-						
-						// tell the HandlerService which handler we're talking about
-						AddToPrescriptionViewerHandler addToPrescriptionHandler =
-							new AddToPrescriptionViewerHandler();
-						addToPrescriptionHandler.setPrescriptionSelected(true);
-						// manually inject as all the injected values are null otherwise
-						ContextInjectionFactory.inject(addToPrescriptionHandler, context);
-						handlerService.activateHandler(
+						CommandUtil.setContextAndServices(context, commandService, handlerService);
+						CommandUtil.manuallyCallCommand(
 							Messages.getString("ID_CMD_ADD_TO_PRESCRIPTION"),
-							addToPrescriptionHandler);
-						
-						// only execute if command can be executed
-						if (handlerService.canExecute(pCmd)) {
-							handlerService.executeHandler(pCmd);
-						}
-						// p.getArticle().add(a);
-						// SampleModel.getInvoice().getArticle().add(a);
+							"commandparameter.addToPrescription", "selected article",
+							new AddToPrescriptionViewerHandler());
 						
 					} else {
 						// dropped article from ARTICLE_LIST_PART
-// StockArticle sa =
-// (StockArticle) selectionService.getSelection(Messages
-// .getString("ID_PART_ARTICLELIST"));
-// List<Article> tmpArticleList = new ArrayList<Article>();
-// tmpArticleList.add(sa.getArticle());
-						
-// invoiceDataPart.updateSelection(tmpArticleList);
-						
-						Command cmd =
-							commandService.getCommand(Messages
-								.getString("ID_CMD_ADD_AS_PRESCRIPTION"));
-						ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
-						
-						// tell the HandlerService which handler we're talking about
-						AddAsPrescriptionViewerHandler addPrescriptionHandler =
-							new AddAsPrescriptionViewerHandler();
-						// manually inject as all the injected values are null otherwise
-						ContextInjectionFactory.inject(addPrescriptionHandler, context);
-						handlerService.activateHandler(
-							Messages.getString("ID_CMD_ADD_AS_PRESCRIPTION"),
-							addPrescriptionHandler);
-						
-						// only execute if command can be executed
-						if (handlerService.canExecute(pCmd)) {
-							handlerService.executeHandler(pCmd);
-						}
-// sa.setNumberOnStock(sa.getNumberOnStock() - 1);
+						CommandUtil.setContextAndServices(context, commandService, handlerService);
+						CommandUtil.manuallyCallCommand(
+							Messages.getString("ID_CMD_ADD_AS_PRESCRIPTION"), null, null,
+							new AddAsPrescriptionViewerHandler());
 					}
 					invoiceDataPart.updateTable();
 				}
@@ -182,22 +137,10 @@ public class PrescriptionPart {
 		tableViewer.addDoubleClickListener(new IDoubleClickListener() {
 			@Override
 			public void doubleClick(DoubleClickEvent event){
-				Command cmd =
-					commandService.getCommand(Messages.getString("ID_CMD_EDIT_PRESCRIPTION"));
-				ParameterizedCommand pCmd =
-					prepareCommandWithParameters(cmd, "commandparameter.editPrescription");
-				
-				EditPrescriptionViewerHandler editPrescriptionHandler =
-					new EditPrescriptionViewerHandler();
-				// manually inject as all the injected values are null otherwise
-				ContextInjectionFactory.inject(editPrescriptionHandler, context);
-				handlerService.activateHandler(Messages.getString("ID_CMD_EDIT_PRESCRIPTION"),
-					editPrescriptionHandler);
-				
-				// only execute if command can be executed
-				if (handlerService.canExecute(pCmd)) {
-					handlerService.executeHandler(pCmd);
-				}
+				CommandUtil.setContextAndServices(context, commandService, handlerService);
+				CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_EDIT_PRESCRIPTION"),
+					"commandparameter.editPrescription", "prescription to edit",
+					new EditPrescriptionViewerHandler());
 			}
 		});
 		
@@ -259,23 +202,5 @@ public class PrescriptionPart {
 	
 	public void deselectAll(){
 		selectionService.setPostSelection(null);
-	}
-	
-	protected ParameterizedCommand prepareCommandWithParameters(Command cmd, String cmdParameter){
-		ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
-		try {
-			// get parameters
-			IParameter iparam = cmd.getParameter(cmdParameter);
-			ArrayList<Parameterization> parameters = new ArrayList<Parameterization>();
-			parameters.add(new Parameterization(iparam, "selection"));
-			
-			// create parameterized command
-			pCmd =
-				new ParameterizedCommand(cmd, parameters.toArray(new Parameterization[parameters
-					.size()]));
-		} catch (NotDefinedException e) {
-			e.printStackTrace();
-		}
-		return pCmd;
 	}
 }

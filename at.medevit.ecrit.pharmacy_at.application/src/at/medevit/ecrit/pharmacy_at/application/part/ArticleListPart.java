@@ -1,17 +1,11 @@
 package at.medevit.ecrit.pharmacy_at.application.part;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.eclipse.core.commands.Command;
-import org.eclipse.core.commands.IParameter;
-import org.eclipse.core.commands.Parameterization;
-import org.eclipse.core.commands.ParameterizedCommand;
-import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.property.Properties;
@@ -19,6 +13,7 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.emf.databinding.EMFProperties;
@@ -27,11 +22,8 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.DoubleClickEvent;
-import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -61,6 +53,8 @@ import org.osgi.framework.FrameworkUtil;
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.filter.ArticleFilter;
 import at.medevit.ecrit.pharmacy_at.application.filter.CriticalLevelFilter;
+import at.medevit.ecrit.pharmacy_at.application.handler.CommandUtil;
+import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToInvoiceViewerHandler;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
@@ -75,6 +69,8 @@ public class ArticleListPart {
 	private ArticleFilter filter;
 	private CriticalLevelFilter criticalLevelFilter;
 	
+	@Inject
+	private IEclipseContext context;
 	@Inject
 	private EMenuService menuService;
 	@Inject
@@ -91,15 +87,14 @@ public class ArticleListPart {
 	
 	@PostConstruct
 	public void postConstruct(Composite parent){
-		Composite composite = new Composite(parent, SWT.NONE);
-		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		composite.setLayout(new GridLayout(1, false));
+		parent.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		parent.setLayout(new GridLayout(1, false));
 		
 		// set critical stock level reached filter
 		criticalLevelFilter = new CriticalLevelFilter();
 		
 		// search
-		Composite filterComposite = new Composite(composite, SWT.NONE);
+		Composite filterComposite = new Composite(parent, SWT.NONE);
 		filterComposite.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1));
 		filterComposite.setLayout(new GridLayout(2, false));
 		
@@ -128,7 +123,7 @@ public class ArticleListPart {
 			}
 		});
 		
-		initTableViewer(composite);
+		initTableViewer(parent);
 		menuService.registerContextMenu(tableViewer.getTable(),
 			Messages.getString("ID_POPUP_ARTICLELIST"));
 		
@@ -181,14 +176,10 @@ public class ArticleListPart {
 			
 			@Override
 			public void doubleClick(DoubleClickEvent event){
-				Command cmd =
-					commandService.getCommand(Messages.getString("ID_CMD_ADD_TO_INVOICE"));
-				// ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
-				ParameterizedCommand pCmd = prepareCommandWithParameters(cmd);
-				
-				// only execute if command can be executed
-				System.out.println(handlerService.canExecute(pCmd));
-				handlerService.executeHandler(pCmd);
+				CommandUtil.setContextAndServices(context, commandService, handlerService);
+				CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_ADD_TO_INVOICE"),
+					"commandparameter.modelelement.Article", "a stock article",
+					new AddToInvoiceViewerHandler());
 			}
 		});
 		
@@ -196,36 +187,6 @@ public class ArticleListPart {
 		IObservableList input = Properties.selfList(StockArticle.class).observe(stockArticles);
 		tableViewer.setInput(input);
 		
-	}
-	
-	/**
-	 * 
-	 * @param cmd
-	 * @return
-	 * @deprecated for demonstration purposes
-	 */
-	protected ParameterizedCommand prepareCommandWithParameters(Command cmd){
-		ParameterizedCommand pCmd = new ParameterizedCommand(cmd, null);
-		try {
-// StockArticleConverter sac = StockArticleConverter.getInstance();
-// StockArticle stockArticle = (StockArticle) selectionService.getSelection();
-// sac.convertToString(stockArticle);
-			
-			// get parameters
-			IParameter iparam = cmd.getParameter("commandparameter.modelelement.Article");
-			ArrayList<Parameterization> parameters = new ArrayList<Parameterization>();
-			parameters.add(new Parameterization(iparam, "a stock article"));
-			// would only be relevant if passing via converter would work properly
-// parameters.add(new Parameterization(iparam, stockArticle.hashCode() + ""));
-			
-			// create parameterized command
-			pCmd =
-				new ParameterizedCommand(cmd, parameters.toArray(new Parameterization[parameters
-					.size()]));
-		} catch (NotDefinedException e) {
-			e.printStackTrace();
-		}
-		return pCmd;
 	}
 	
 	private void initColumns(ObservableListContentProvider cp){
@@ -314,5 +275,5 @@ public class ArticleListPart {
 		URL url = FileLocator.find(bundle, new Path("icons/" + file), null);
 		ImageDescriptor image = ImageDescriptor.createFromURL(url);
 		return image.createImage();
-	}	
+	}
 }
