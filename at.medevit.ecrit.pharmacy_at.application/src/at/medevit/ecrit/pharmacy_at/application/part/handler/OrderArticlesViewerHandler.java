@@ -10,8 +10,10 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart;
 import at.medevit.ecrit.pharmacy_at.application.part.StockOrderOverviewPart;
 import at.medevit.ecrit.pharmacy_at.application.part.StockOrderPart;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
@@ -46,6 +48,10 @@ public class OrderArticlesViewerHandler {
 		StockOrderOverviewPart sooPart = (StockOrderOverviewPart) part2.getObject();
 		sooPart.updatePart();
 		
+		MPart part = partService.findPart(Messages.getString("ID_PART_ARTICLELIST"));
+		ArticleListPart alPart = (ArticleListPart) part.getObject();
+		alPart.updatePart();
+		
 	}
 	
 	private StockOrder setOrderValues(){
@@ -56,7 +62,7 @@ public class OrderArticlesViewerHandler {
 		for (StockArticle sa : articlesToOrder) {
 			for (int i = 0; i < sa.getNumberOrdered(); i++) {
 				// stockOrder.getArticle().add(EcoreUtil.copy(sa.getArticle()));
-				stockOrder.getArticle().add(sa.getArticle());
+				stockOrder.getArticle().add(EcoreUtil.copy(sa.getArticle()));
 			}
 		}
 		return stockOrder;

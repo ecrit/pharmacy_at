@@ -65,7 +65,7 @@
       <eLiterals name="ORDERED" value="1"/>
       <eLiterals name="AWAITING_DELIVERY" value="2"/>
       <eLiterals name="RECEIVED" value="3"/>
-      <eLiterals name="ARTICLE_REPLACED" value="98" literal=""/>
+      <eLiterals name="ARTICLE_REPLACED" value="98" literal="ARTICLE_REPLACED"/>
       <eLiterals name="NOT_AVAILABLE" value="99"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="ArticleAvailability">

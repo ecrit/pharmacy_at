@@ -3,6 +3,7 @@ package at.medevit.ecrit.pharmacy_at.application.handler.stockist;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -15,7 +16,8 @@ import at.medevit.ecrit.pharmacy_at.application.dialog.NewArticleDialog;
 import at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart;
 
 public class AddNewArticleHandler {
-	
+	@Inject
+	private IEclipseContext context;
 	@Inject
 	private EPartService partService;
 	
@@ -23,7 +25,7 @@ public class AddNewArticleHandler {
 	public void execute(@Named(IServiceConstants.ACTIVE_SHELL)
 	Shell shell){
 		
-		NewArticleDialog dlg = new NewArticleDialog(shell);
+		NewArticleDialog dlg = new NewArticleDialog(shell, null);
 		dlg.open();
 		
 		MPart part = partService.findPart(Messages.getString("ID_PART_ARTICLELIST"));

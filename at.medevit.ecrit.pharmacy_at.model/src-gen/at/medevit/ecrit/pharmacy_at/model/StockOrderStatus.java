@@ -66,7 +66,7 @@ public enum StockOrderStatus implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ARTICLE_REPLACED(98, "ARTICLE_REPLACED", ""),
+	ARTICLE_REPLACED(98, "ARTICLE_REPLACED", "ARTICLE_REPLACED"),
 
 	/**
 	 * The '<em><b>NOT AVAILABLE</b></em>' literal object.
@@ -147,7 +147,7 @@ public enum StockOrderStatus implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ARTICLE_REPLACED
-	 * @model literal=""
+	 * @model
 	 * @generated
 	 * @ordered
 	 */

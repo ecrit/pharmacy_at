@@ -35,13 +35,17 @@
             id="commandparameter.type.user"
             type="at.medevit.ecrit.pharmacy_at.application.User">
       </commandParameterType>
+      <commandParameterType
+            id="commandparameter.type.stockorder"
+            type="at.medevit.ecrit.pharmacy_at.model.StockOrder">
+      </commandParameterType>
    </extension>
    <extension
          point="org.eclipse.core.expressions.definitions">
       <definition
             id="expression.definition.addToInvoice">
          <with
-               variable="activeWorkbenchWindow.activePerspective">
+               variable="activePerspective">
             <equals
                   value="perspective.seller">
             </equals>

@@ -1,5 +1,11 @@
 package at.medevit.ecrit.pharmacy_at.application.dialog;
 
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.UpdateValueStrategy;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.emf.databinding.EMFProperties;
+import org.eclipse.emf.databinding.FeaturePath;
+import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -15,13 +21,19 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 
+import at.medevit.ecrit.pharmacy_at.application.converter.FloatToStringConverter;
+import at.medevit.ecrit.pharmacy_at.application.converter.IntToStringConverter;
+import at.medevit.ecrit.pharmacy_at.application.converter.StringToIntConverter;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ArticleAvailability;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
+import at.medevit.ecrit.pharmacy_at.model.ModelPackage.Literals;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class NewArticleDialog extends TitleAreaDialog {
+	private DataBindingContext m_bindingContext;
+	
 	private Text txtName;
 	private Text txtAdmissionNr;
 	private Text txtDescription;
@@ -30,28 +42,31 @@ public class NewArticleDialog extends TitleAreaDialog {
 	private Spinner spinLowerBound;
 	private Spinner spinOrdered;
 	private StockArticle stockArticle;
+	private boolean isNewArticle = false;
 	
-	public NewArticleDialog(Shell parentShell){
+	public NewArticleDialog(Shell parentShell, StockArticle stockArticle){
 		super(parentShell);
-		stockArticle = ModelFactory.eINSTANCE.createStockArticle();
-		Article a = ModelFactory.eINSTANCE.createArticle();
-		stockArticle.setArticle(a);
+		
+		if (stockArticle == null) {
+			this.stockArticle = ModelFactory.eINSTANCE.createStockArticle();
+			Article a = ModelFactory.eINSTANCE.createArticle();
+			this.stockArticle.setArticle(a);
+			this.isNewArticle = true;
+		} else {
+			this.stockArticle = stockArticle;
+			this.isNewArticle = false;
+		}
 	}
 	
 	@Override
 	protected Control createDialogArea(Composite parent){
-		setTitle("New Article");
-		setMessage("Insert article details below in order to add a new article");
+		setTitle("Article");
+		setMessage("Set the article details below!");
 		
 		Composite area = (Composite) super.createDialogArea(parent);
 		GridLayout gridLayout = (GridLayout) area.getLayout();
 		gridLayout.marginRight = 10;
 		gridLayout.marginLeft = 10;
-// Composite container = new Composite(area, SWT.NONE);
-// container.setLayout(new GridLayout(2, false));
-// GridData gd_container = new GridData(GridData.FILL_BOTH);
-// gd_container.heightHint = 174;
-// container.setLayoutData(gd_container);
 		
 		Group grpBasicInformation = new Group(area, SWT.NONE);
 		grpBasicInformation.setLayout(new GridLayout(2, false));
@@ -85,7 +100,7 @@ public class NewArticleDialog extends TitleAreaDialog {
 		lblDescription.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblDescription.setText("Description");
 		
-		txtDescription = new Text(grpBasicInformation, SWT.BORDER);
+		txtDescription = new Text(grpBasicInformation, SWT.BORDER | SWT.V_SCROLL | SWT.MULTI);
 		txtDescription.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		Group grpUnits = new Group(area, SWT.NONE);
@@ -124,6 +139,7 @@ public class NewArticleDialog extends TitleAreaDialog {
 	@Override
 	protected void createButtonsForButtonBar(Composite parent){
 		createButton(parent, IDialogConstants.OK_ID, "Save", true);
+		m_bindingContext = initDataBindings();
 		
 	}
 	
@@ -132,16 +148,17 @@ public class NewArticleDialog extends TitleAreaDialog {
 		stockArticle.setLowerBound(spinLowerBound.getSelection());
 		stockArticle.setNumberOnStock(spinOnStock.getSelection());
 		stockArticle.setNumberOrdered(spinOrdered.getSelection());
-		stockArticle.getArticle().setName(txtName.getText());
-		stockArticle.getArticle().setAdmissionNumber(Integer.parseInt(txtAdmissionNr.getText()));
-		stockArticle.getArticle().setPrice(Float.parseFloat(txtPrice.getText()));
-		stockArticle.getArticle().setDescription(txtDescription.getText());
+// stockArticle.getArticle().setName(txtName.getText());
+// stockArticle.getArticle().setAdmissionNumber(Integer.parseInt(txtAdmissionNr.getText()));
+// stockArticle.getArticle().setPrice(Float.parseFloat(txtPrice.getText()));
+// stockArticle.getArticle().setDescription(txtDescription.getText());
 		stockArticle.getArticle().setAvailability(ArticleAvailability.AVAILABLE);
-		boolean success = SampleModel.addToStock(stockArticle);
-		
-		if (success == false) {
-			MessageDialog.openInformation(getShell(), "Article exists",
-				"Article already exists. You can not add the same article twice!");
+		if (isNewArticle) {
+			boolean success = SampleModel.addToStock(stockArticle);
+			if (success == false) {
+				MessageDialog.openInformation(this.getParentShell(), "Article exists",
+					"Article already exists. You can not add the same article twice!");
+			}
 		}
 		super.okPressed();
 	}
@@ -149,5 +166,56 @@ public class NewArticleDialog extends TitleAreaDialog {
 	@Override
 	protected Point getInitialSize(){
 		return new Point(480, 350);
+	}
+	
+	protected DataBindingContext initDataBindings(){
+		DataBindingContext bindingContext = new DataBindingContext();
+		//
+		IObservableValue observeTextTxtNameObserveWidget =
+			WidgetProperties.text(SWT.Modify).observe(txtName);
+		IObservableValue stockArticleNameObserveValue =
+			EMFProperties.value(
+				FeaturePath.fromList(Literals.STOCK_ARTICLE__ARTICLE, Literals.ARTICLE__NAME))
+				.observe(stockArticle);
+		bindingContext.bindValue(observeTextTxtNameObserveWidget, stockArticleNameObserveValue,
+			null, null);
+		//
+		IObservableValue observeTextTxtAdmissionNrObserveWidget =
+			WidgetProperties.text(SWT.Modify).observe(txtAdmissionNr);
+		IObservableValue stockArticleAdmissionNumberObserveValue =
+			EMFProperties.value(
+				FeaturePath.fromList(Literals.STOCK_ARTICLE__ARTICLE,
+					Literals.ARTICLE__ADMISSION_NUMBER)).observe(stockArticle);
+		UpdateValueStrategy strategy_2 = new UpdateValueStrategy();
+		strategy_2.setConverter(new StringToIntConverter());
+		UpdateValueStrategy strategy_3 = new UpdateValueStrategy();
+		strategy_3.setConverter(new IntToStringConverter());
+		bindingContext.bindValue(observeTextTxtAdmissionNrObserveWidget,
+			stockArticleAdmissionNumberObserveValue, strategy_2, strategy_3);
+		//
+		IObservableValue observeTextTxtPriceObserveWidget =
+			WidgetProperties.text(SWT.Modify).observe(txtPrice);
+		IObservableValue stockArticlePriceObserveValue =
+			EMFProperties.value(
+				FeaturePath.fromList(Literals.STOCK_ARTICLE__ARTICLE, Literals.ARTICLE__PRICE))
+				.observe(stockArticle);
+		UpdateValueStrategy strategy = new UpdateValueStrategy();
+		strategy.setConverter(new FloatToStringConverter());
+		UpdateValueStrategy strategy_1 = new UpdateValueStrategy();
+		strategy_1.setConverter(new FloatToStringConverter());
+		bindingContext.bindValue(observeTextTxtPriceObserveWidget, stockArticlePriceObserveValue,
+			strategy, strategy_1);
+		//
+		IObservableValue observeTextTxtDescriptionObserveWidget =
+			WidgetProperties.text(SWT.Modify).observe(txtDescription);
+		IObservableValue stockArticleDescriptionObserveValue =
+			EMFProperties.value(
+				FeaturePath
+					.fromList(Literals.STOCK_ARTICLE__ARTICLE, Literals.ARTICLE__DESCRIPTION))
+				.observe(stockArticle);
+		bindingContext.bindValue(observeTextTxtDescriptionObserveWidget,
+			stockArticleDescriptionObserveValue, null, null);
+		//
+		return bindingContext;
 	}
 }

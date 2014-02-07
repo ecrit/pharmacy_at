@@ -330,4 +330,8 @@ public class SampleModel {
 		return notPrescripted;
 	}
 	
+	public static void deleteFromStock(StockArticle selection){
+		getStock().getArticles().remove(selection);
+	}
+	
 }

@@ -115,6 +115,7 @@ public class StockOrderPart {
 			@Override
 			public void widgetSelected(SelectionEvent e){
 				SampleModel.getStockOrderInstance().setIssuer(txtTo.getText());
+				
 				selectionService.setSelection(articleToOrder);
 				Command cmd =
 					commandService.getCommand(Messages.getString("ID_CMD_ORDER_ARTICLES"));
@@ -290,8 +291,6 @@ public class StockOrderPart {
 				userInput = 1;
 			}
 			sa.setNumberOrdered(userInput);
-			
-			viewer.update(element, null);
 		}
 	}
 	
