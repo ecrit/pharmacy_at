@@ -1,6 +1,5 @@
 package at.medevit.ecrit.pharmacy_at.application.control;
 
-import java.util.Date;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -28,6 +27,7 @@ import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
 public class PrescriptionOverviewComposite extends Composite {
 	private static CheckboxTreeViewer viewerTree;
+	private PrescriptionTreeContentProvider contentProvider = new PrescriptionTreeContentProvider();
 	
 	public PrescriptionOverviewComposite(Composite parent, int style){
 		super(parent, SWT.NONE);
@@ -87,15 +87,31 @@ public class PrescriptionOverviewComposite extends Composite {
 				if (event.getChecked()) {
 					if (event.getElement() instanceof Prescription) {
 						Prescription p = (Prescription) event.getElement();
-						for (Article a : p.getArticle()) {
-							viewerTree.setChecked(a, true);
-						}
+						viewerTree.setSubtreeChecked(p, true);
+					} else {
+						Article a = (Article) event.getElement();
+						Prescription p = (Prescription) contentProvider.getParent(a);
+						viewerTree.setChecked(p, true);
 					}
 				} else {
 					if (event.getElement() instanceof Prescription) {
 						Prescription p = (Prescription) event.getElement();
+						viewerTree.setSubtreeChecked(p, false);
+					} else {
+						Prescription p =
+							(Prescription) contentProvider.getParent((Article) event.getElement());
+						boolean hasCheckedChildren = false;
 						for (Article a : p.getArticle()) {
-							viewerTree.setChecked(a, false);
+							if (viewerTree.getChecked(a)) {
+								hasCheckedChildren = true;
+							}
+							// TODO implement isChecked properly
+							// if (contentProvider.isChecked(a)) {
+							// hasCheckedChildren = true;
+							// }
+						}
+						if (!hasCheckedChildren) {
+							viewerTree.setChecked(p, false);
 						}
 					}
 				}
@@ -103,7 +119,6 @@ public class PrescriptionOverviewComposite extends Composite {
 			}
 		});
 		
-		PrescriptionTreeContentProvider contentProvider = new PrescriptionTreeContentProvider();
 		viewerTree.setCheckStateProvider(contentProvider);
 		viewerTree.setContentProvider(contentProvider);
 		viewerTree.setLabelProvider(new PrescriptionTreeLabelProvider());
@@ -119,7 +134,7 @@ public class PrescriptionOverviewComposite extends Composite {
 				totalRefund = totalRefund + ((Article) obj).getPrice();
 			}
 		}
-		InvoicePrescriptionOverviewPart.updateTotalPrescription(totalRefund);
+		InvoicePrescriptionOverviewPart.updateBalance(0.0f, false, totalRefund, true);
 	}
 	
 	public static void selectPrescription(List<Prescription> prescriptions){
@@ -134,11 +149,6 @@ public class PrescriptionOverviewComposite extends Composite {
 	
 	public static void deselectAll(){
 		viewerTree.setAllChecked(false);
-	}
-	
-	public void filterPrescriptions(Date dFrom, Date dTo){
-		// TODO Auto-generated method stub
-		
 	}
 	
 	public Object[] getCheckedElements(){
@@ -161,5 +171,9 @@ public class PrescriptionOverviewComposite extends Composite {
 	public static void loseFocus(){
 		viewerTree.getTree().deselectAll();
 		
+	}
+	
+	public void removeFilter(){
+		viewerTree.setInput(SampleModel.getAllPrescriptions());
 	}
 }

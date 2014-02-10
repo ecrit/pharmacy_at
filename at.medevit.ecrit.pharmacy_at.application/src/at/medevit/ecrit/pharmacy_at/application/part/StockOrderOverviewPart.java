@@ -75,6 +75,7 @@ public class StockOrderOverviewPart {
 		
 		final Text txtSearch = new Text(composite, SWT.BORDER);
 		txtSearch.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		txtSearch.setMessage("Search");
 		txtSearch.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent ke){
 				filter.setSearchText(txtSearch.getText());

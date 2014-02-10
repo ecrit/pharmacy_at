@@ -13,7 +13,6 @@ import at.medevit.ecrit.pharmacy_at.model.Prescription;
 public class PrescriptionTreeContentProvider implements ITreeContentProvider, ICheckStateProvider {
 	
 	Collection<Prescription> prescriptions;
-	
 	HashMap<String, Article> article;
 	
 	@Override
@@ -41,7 +40,13 @@ public class PrescriptionTreeContentProvider implements ITreeContentProvider, IC
 	
 	@Override
 	public Object getParent(Object element){
-		// TODO Auto-generated method stub
+		if (element instanceof Article) {
+			for (Prescription p : prescriptions) {
+				if (p.getArticle().contains((Article) element)) {
+					return p;
+				}
+			}
+		}
 		return null;
 	}
 	
@@ -58,35 +63,21 @@ public class PrescriptionTreeContentProvider implements ITreeContentProvider, IC
 		if (element instanceof Prescription) {
 			Object[] children = getChildren(element);
 			for (Object object : children) {
-				Article featureElement = (Article) object;
-				if (article.containsKey(featureElement.getName())) {
+				Article a = (Article) object;
+				if (article.containsKey(a.getName())) {
 					return true;
 				}
 			}
 		} else if (element instanceof Article) {
-			Article featureElement = (Article) element;
-			return article.containsKey(featureElement.getName());
+			Article a = (Article) element;
+			return article.containsKey(a.getName());
 		}
 		return false;
 	}
 	
 	@Override
 	public boolean isGrayed(Object element){
-		if (element instanceof Prescription) {
-			Object[] children = getChildren(element);
-			boolean checked = false;
-			boolean notchecked = false;
-			for (Object object : children) {
-				Article a = (Article) object;
-				
-				if (article.containsKey(a.getName())) {
-					checked = true;
-				} else if (!article.containsKey(a.getName())) {
-					notchecked = true;
-				}
-			}
-			return (checked && notchecked);
-		}
+		// TODO Auto-generated method stub
 		return false;
 	}
 }

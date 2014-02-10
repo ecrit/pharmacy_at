@@ -51,6 +51,9 @@ public class InvoiceOverviewComposite extends Composite {
 				invSelection = invoice;
 				if (invoice.getPrescription() != null && !invoice.getPrescription().isEmpty()) {
 					PrescriptionOverviewComposite.focusRelated(invoice.getPrescription());
+				} else {
+					invSelection = null;
+					PrescriptionOverviewComposite.loseFocus();
 				}
 			}
 		});
@@ -86,7 +89,7 @@ public class InvoiceOverviewComposite extends Composite {
 				total = total + a.getPrice();
 			}
 		}
-		InvoicePrescriptionOverviewPart.updateTotalInvoice(total);
+		InvoicePrescriptionOverviewPart.updateBalance(total, true, 0.0f, false);
 	}
 	
 	public void filterInvoices(Date dFrom, Date dTo){
@@ -97,5 +100,9 @@ public class InvoiceOverviewComposite extends Composite {
 			}
 		}
 		treeViewer.setInput(matching);
+	}
+	
+	public void removeFilter(){
+		treeViewer.setInput(invoices);
 	}
 }

@@ -228,7 +228,7 @@
   </commands>
   <commands xmi:id="_N2HgAHxhEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.saveInvoice" commandName="Save Invoice" category="_wdrJ4HxhEeOl7olWdGHeBA"/>
   <commands xmi:id="_SPCvQHw5EeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.addToInvoice" commandName="Add to Invoice" category="_3hHt4HiEEeOBFOXoaudQpg">
-    <persistedState key="description" value="Add an Article of the available article list to the Invoice. &amp;#xA;By adding it to the Invoice the amount the customer is required to pay will increase. &amp;#xA;The open invoice amount can be settled by either providing a receipt or paying the open amount."/>
+    <persistedState key="description" value="Add an Article of the available article list to the Invoice. ;By adding it to the Invoice the amount the customer is required to pay will increase&#xD;&#xA;The open invoice amount can be settled by either providing a receipt or paying the open amount."/>
     <persistedState key="postcondition" value="The article(s) selected are now part of the invoice."/>
     <parameters xmi:id="_f4WqEH9ZEeOmhJDSY3ZNUw" elementId="commandparameter.modelelement.Article" name="Article to Add" typeId="commandparameter.type.stockarticle" optional="false"/>
   </commands>
