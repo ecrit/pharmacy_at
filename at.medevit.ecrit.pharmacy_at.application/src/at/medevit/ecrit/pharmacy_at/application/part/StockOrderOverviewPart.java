@@ -28,6 +28,8 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -36,6 +38,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.filter.StockOrderFilter;
 import at.medevit.ecrit.pharmacy_at.application.handler.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.EditStockOrderStatusViewerHandler;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
@@ -44,9 +47,9 @@ import at.medevit.ecrit.pharmacy_at.model.StockOrder;
 import at.medevit.ecrit.pharmacy_at.model.StockOrderStatus;
 
 public class StockOrderOverviewPart {
-	private Text txtSearch;
 	private TableViewer tableViewer;
 	private List<StockOrder> stockOrders;
+	private StockOrderFilter filter;
 	
 	@Inject
 	private IEclipseContext context;
@@ -70,8 +73,14 @@ public class StockOrderOverviewPart {
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
 		
-		txtSearch = new Text(composite, SWT.BORDER);
+		final Text txtSearch = new Text(composite, SWT.BORDER);
 		txtSearch.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		txtSearch.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent ke){
+				filter.setSearchText(txtSearch.getText());
+				tableViewer.refresh();
+			}
+		});
 		
 		tableViewer = new TableViewer(composite, SWT.BORDER | SWT.FULL_SELECTION);
 		Table table = tableViewer.getTable();
@@ -83,13 +92,17 @@ public class StockOrderOverviewPart {
 		initColumns(cp);
 		tableViewer.setContentProvider(cp);
 		tableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			
 			@Override
 			public void selectionChanged(SelectionChangedEvent event){
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				StockOrder order = (StockOrder) selection.getFirstElement();
 			}
 		});
+		
+		// add filter
+		filter = new StockOrderFilter();
+		tableViewer.addFilter(filter);
+		
 		// set model
 		IObservableList input = Properties.selfList(StockOrder.class).observe(stockOrders);
 		tableViewer.setInput(input);

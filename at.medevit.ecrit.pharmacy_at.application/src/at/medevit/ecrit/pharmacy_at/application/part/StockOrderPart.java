@@ -87,16 +87,15 @@ public class StockOrderPart {
 		grpStockOrder_1.setText("Stock Order");
 		
 		Label lblTo = new Label(grpStockOrder_1, SWT.NONE);
-		lblTo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
-		lblTo.setText("Aimed Issuer");
+		lblTo.setText("Issuing Enterprise");
 		new Label(grpStockOrder_1, SWT.NONE);
 		
 		txtTo = new Text(grpStockOrder_1, SWT.BORDER | SWT.V_SCROLL | SWT.MULTI);
-		GridData gd_txtTo = new GridData(SWT.LEFT, SWT.TOP, true, false, 1, 1);
+		GridData gd_txtTo = new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1);
 		gd_txtTo.minimumWidth = 200;
-		gd_txtTo.heightHint = 100;
+		gd_txtTo.heightHint = 91;
 		txtTo.setLayoutData(gd_txtTo);
-		txtTo.setText("Pharma-Enterprise GmbH \nPharmacy_AT-Sample");
+		txtTo.setText("Bayer HealthCare Pharmaceuticals\r\nMüllerstr. 178\r\n13353 Berlin");
 		
 		initTableViewer(grpStockOrder_1);
 		new Label(grpStockOrder_1, SWT.NONE);

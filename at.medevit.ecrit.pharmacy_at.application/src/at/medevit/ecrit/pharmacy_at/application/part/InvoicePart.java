@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 import at.medevit.ecrit.pharmacy_at.application.converter.DateToStringConverter;
 import at.medevit.ecrit.pharmacy_at.application.converter.FloatToStringConverter;
@@ -69,47 +70,46 @@ public class InvoicePart {
 	
 	@PostConstruct
 	public void postConstruct(Composite parent){
-		Composite composite = new Composite(parent, SWT.NONE);
-		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		composite.setLayout(new GridLayout(2, false));
+		parent.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		parent.setLayout(new GridLayout(2, false));
 		
-		Label lblInvoicepart = new Label(composite, SWT.NONE);
-		lblInvoicepart.setText("Invoice");
-		new Label(composite, SWT.NONE);
+		Label lblInvoicepart = new Label(parent, SWT.NONE);
+		lblInvoicepart.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false, 2, 1));
+		lblInvoicepart.setText("Invoice Preview");
 		
 		// set invoice date
-		Label lblDate = new Label(composite, SWT.NONE);
-		GridData gd_lblDate = new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1);
-		lblDate.setLayoutData(gd_lblDate);
+		Label lblDate = new Label(parent, SWT.NONE);
+		lblDate.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.NORMAL));
+		lblDate.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1));
 		lblDate.setText("Date: ");
 		
-		txtDate = new Text(composite, SWT.NONE);
+		txtDate = new Text(parent, SWT.NONE);
 		txtDate.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1));
 		txtDate.setEnabled(false);
 		
 		// set invoice number
-		Label lblID = new Label(composite, SWT.NONE);
-		GridData gd_ID = new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1);
-		lblID.setLayoutData(gd_ID);
+		Label lblID = new Label(parent, SWT.NONE);
+		lblID.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1));
 		lblID.setText("InvoiceNumber: ");
 		
-		txtID = new Text(composite, SWT.NONE);
+		txtID = new Text(parent, SWT.NONE);
 		txtID.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1));
 		txtID.setEnabled(false);
 		
 		// set invoice line items
-		initCostsTableViewer(composite);
+		initCostsTableViewer(parent);
 		
 		// set prescription voucher lines
-		initPrescriptionTableViewer(composite);
+		initPrescriptionTableViewer(parent);
 		
 		// set total costs
-		Label lblTotalCosts = new Label(composite, SWT.NONE);
-		GridData gd_lblTotalCosts = new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1);
-		lblTotalCosts.setLayoutData(gd_lblTotalCosts);
+		Label lblTotalCosts = new Label(parent, SWT.NONE);
+		lblTotalCosts.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
+		lblTotalCosts.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1));
 		lblTotalCosts.setText("Total Costs (€): ");
 		
-		txtTotalCosts = new Text(composite, SWT.NONE);
+		txtTotalCosts = new Text(parent, SWT.NONE);
+		txtTotalCosts.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
 		txtTotalCosts.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1));
 		txtTotalCosts.setEnabled(false);
 		
@@ -117,6 +117,8 @@ public class InvoicePart {
 	}
 	
 	private void initCostsTableViewer(Composite composite){
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
 		tableViewer = new TableViewer(composite, SWT.NONE);
 		Table table = tableViewer.getTable();
 		table.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, true, false, 2, 1));
@@ -265,7 +267,7 @@ public class InvoicePart {
 			
 			tableViewer.refresh();
 			presTableViewer.refresh();
-			tableViewer.getTable().getParent().pack();
+			tableViewer.getControl().getParent().pack();
 		}
 	}
 	

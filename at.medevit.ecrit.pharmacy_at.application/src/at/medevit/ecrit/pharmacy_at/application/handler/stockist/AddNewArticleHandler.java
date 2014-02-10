@@ -12,7 +12,7 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.swt.widgets.Shell;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.dialog.NewArticleDialog;
+import at.medevit.ecrit.pharmacy_at.application.dialog.StockArticleDialog;
 import at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart;
 
 public class AddNewArticleHandler {
@@ -25,7 +25,7 @@ public class AddNewArticleHandler {
 	public void execute(@Named(IServiceConstants.ACTIVE_SHELL)
 	Shell shell){
 		
-		NewArticleDialog dlg = new NewArticleDialog(shell, null);
+		StockArticleDialog dlg = new StockArticleDialog(shell, null);
 		dlg.open();
 		
 		MPart part = partService.findPart(Messages.getString("ID_PART_ARTICLELIST"));

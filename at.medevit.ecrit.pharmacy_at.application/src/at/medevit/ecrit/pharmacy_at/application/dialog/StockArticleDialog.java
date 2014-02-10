@@ -31,7 +31,7 @@ import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage.Literals;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
-public class NewArticleDialog extends TitleAreaDialog {
+public class StockArticleDialog extends TitleAreaDialog {
 	private DataBindingContext m_bindingContext;
 	
 	private Text txtName;
@@ -44,7 +44,7 @@ public class NewArticleDialog extends TitleAreaDialog {
 	private StockArticle stockArticle;
 	private boolean isNewArticle = false;
 	
-	public NewArticleDialog(Shell parentShell, StockArticle stockArticle){
+	public StockArticleDialog(Shell parentShell, StockArticle stockArticle){
 		super(parentShell);
 		
 		if (stockArticle == null) {

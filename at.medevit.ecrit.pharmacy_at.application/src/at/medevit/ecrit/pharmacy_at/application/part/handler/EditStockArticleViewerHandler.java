@@ -11,7 +11,7 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.swt.widgets.Shell;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.dialog.NewArticleDialog;
+import at.medevit.ecrit.pharmacy_at.application.dialog.StockArticleDialog;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class EditStockArticleViewerHandler {
@@ -28,7 +28,7 @@ public class EditStockArticleViewerHandler {
 	String stockArticleToEdit, @Named(IServiceConstants.ACTIVE_SHELL)
 	Shell shell){
 		System.out.println(selection.getNumberOnStock());
-		NewArticleDialog dlg = new NewArticleDialog(shell, selection);
+		StockArticleDialog dlg = new StockArticleDialog(shell, selection);
 		int retval = dlg.open();
 		
 		System.out.println(selection.getNumberOnStock());

@@ -41,6 +41,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.handler.CommandUtil;
@@ -82,22 +83,23 @@ public class InvoiceDataPart {
 	
 	@PostConstruct
 	public void postConstruct(final Composite parent){
-		Composite composite = new Composite(parent, SWT.NONE);
-		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		composite.setLayout(new GridLayout(1, false));
+		parent.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.NORMAL));
+		parent.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		parent.setLayout(new GridLayout(1, false));
 		
-		Label lblBillpart = new Label(composite, SWT.NONE);
+		Label lblBillpart = new Label(parent, SWT.NONE);
+		lblBillpart.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.NORMAL));
 		GridData gd_lblBillpart = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_lblBillpart.widthHint = 400;
 		lblBillpart.setLayoutData(gd_lblBillpart);
-		lblBillpart.setText("Invoice Form");
+		lblBillpart.setText("Create Invoice");
 		
 		// initialize tableviewer
-		initTableViewer(composite);
+		initTableViewer(parent);
 		
 		// Buttons
-		Composite buttonComposite = new Composite(composite, SWT.NONE);
-		buttonComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
+		Composite buttonComposite = new Composite(parent, SWT.NONE);
+		buttonComposite.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false, 1, 1));
 		buttonComposite.setLayout(new GridLayout(2, false));
 		
 		// payment button
