@@ -50,9 +50,13 @@
       <children xsi:type="menu:DirectMenuItem" xmi:id="_HtyjQIdLEeOHboXTCc9xHQ" elementId="at.medevit.ecrit.pharmacy_at.application.directmenuitem.0" label="Report" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/report.png" tooltip="Report an issue" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.CreateReportHandler"/>
     </mainMenu>
     <sharedElements xsi:type="basic:Part" xmi:id="_K6LbcFEAEeOs7KUvDVp0Mg" elementId="part.articlelist" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart" label="Article List">
+<<<<<<< HEAD
       <persistedState key="description" value="In this part you see the various articles. &#xD;&#xA;The displayed table gives an overview about the units (per article) on stock and if there is currently an order existent.&#xD;&#xA;The box in the ordered column gives information about whether the article is ordered or not and if - which state it is in.&#xD;&#xA;- grey box: normal state, enough units on stock&#xD;&#xA;- green box: article is ordered (though can be out of stock)&#xD;&#xA;- yellow box: not ordered, but lower bound on stock is already reached&#xD;&#xA;- red box: not ordered and no more articles on stock"/>
       <persistedState key="precondition" value="In order to add an article to any other part, an article has to be selected when the popup menu is called."/>
       <persistedState key="postcondition" value="The article you performed the command on will be visible on the other part."/>
+=======
+      <persistedState key="description" value="The article list provides an overview of all available articles in the pharmacy. &amp;#xA;In the viewer the Admission Number, the Article Name, its Availability and the number on stock can be seen. &amp;#xA;On the top of the part a text input field is available, which allows for filtering the elements according to the &amp;#xA;inserted string."/>
+>>>>>>> branch 'master' of https://github.com/ecrit/pharmacy_at.git
       <handlers xmi:id="_47fnUIHeEeOzeOqq_Z5RBg" elementId="handler.addToInvoice" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.handler.AddToInvoiceViewerHandler" command="_SPCvQHw5EeOl7olWdGHeBA"/>
       <handlers xmi:id="_SpRHoIUBEeOktYbaZ30rXw" elementId="handler.addToPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.handler.AddToPrescriptionViewerHandler" command="_zgnf0HxIEeOl7olWdGHeBA"/>
       <handlers xmi:id="_yqSMsIcoEeOHboXTCc9xHQ" elementId="handler.addAsPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.handler.AddAsPrescriptionViewerHandler" command="_KeYD8HeGEeOts5KVA_mezg"/>
@@ -228,6 +232,8 @@
   </commands>
   <commands xmi:id="_N2HgAHxhEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.saveInvoice" commandName="Save Invoice" category="_wdrJ4HxhEeOl7olWdGHeBA"/>
   <commands xmi:id="_SPCvQHw5EeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.addToInvoice" commandName="Add to Invoice" category="_3hHt4HiEEeOBFOXoaudQpg">
+    <persistedState key="description" value="Add an Article of the available article list to the Invoice. &amp;#xA;By adding it to the Invoice the amount the customer is required to pay will increase. &amp;#xA;The open invoice amount can be settled by either providing a receipt or paying the open amount."/>
+    <persistedState key="postcondition" value="The article(s) selected are now part of the invoice."/>
     <parameters xmi:id="_f4WqEH9ZEeOmhJDSY3ZNUw" elementId="commandparameter.modelelement.Article" name="Article to Add" typeId="commandparameter.type.stockarticle" optional="false"/>
   </commands>
   <commands xmi:id="_pSIwQHxhEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.deleteFromInvoice" commandName="Delete from Invoice" category="_wdrJ4HxhEeOl7olWdGHeBA">
