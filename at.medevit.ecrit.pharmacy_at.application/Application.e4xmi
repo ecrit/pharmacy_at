@@ -30,7 +30,10 @@
         </children>
       </children>
       <children xsi:type="advanced:Perspective" xmi:id="_jztKQEVOEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.perspective.clerk" label="Clerk" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/tie.png">
-        <children xsi:type="basic:PartSashContainer" xmi:id="_6cj7kEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.2" horizontal="true"/>
+        <children xsi:type="basic:PartSashContainer" xmi:id="_6cj7kEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.2" containerData="" horizontal="true">
+          <children xsi:type="advanced:Placeholder" xmi:id="_0jmkMJA7EeOWIIjTdYbWKw" elementId="at.medevit.ecrit.pharmacy_at.application.part.articlelist" visible="false" containerData="30" ref="_K6LbcFEAEeOs7KUvDVp0Mg" closeable="true"/>
+          <children xsi:type="advanced:Placeholder" xmi:id="_5Gs78JA7EeOWIIjTdYbWKw" elementId="part.InvoicePrescriptionOverview" containerData="" ref="_Vxh-IJA7EeOWIIjTdYbWKw"/>
+        </children>
       </children>
       <children xsi:type="advanced:Perspective" xmi:id="_lbwGIEVOEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.perspective.admin" label="Admin" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/equalizer.png">
         <children xsi:type="basic:PartSashContainer" xmi:id="_6yCcUEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.3" containerData="30,70" selectedElement="_tUei4IHIEeONWogwVWLEeA" horizontal="true">
@@ -47,6 +50,7 @@
       <children xsi:type="menu:DirectMenuItem" xmi:id="_HtyjQIdLEeOHboXTCc9xHQ" elementId="at.medevit.ecrit.pharmacy_at.application.directmenuitem.0" label="Report" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/report.png" tooltip="Report an issue" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.CreateReportHandler"/>
     </mainMenu>
     <sharedElements xsi:type="basic:Part" xmi:id="_K6LbcFEAEeOs7KUvDVp0Mg" elementId="part.articlelist" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart" label="Article List">
+      <persistedState key="description" value="asdasd"/>
       <handlers xmi:id="_47fnUIHeEeOzeOqq_Z5RBg" elementId="handler.addToInvoice" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.handler.AddToInvoiceViewerHandler" command="_SPCvQHw5EeOl7olWdGHeBA"/>
       <handlers xmi:id="_SpRHoIUBEeOktYbaZ30rXw" elementId="handler.addToPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.handler.AddToPrescriptionViewerHandler" command="_zgnf0HxIEeOl7olWdGHeBA"/>
       <handlers xmi:id="_yqSMsIcoEeOHboXTCc9xHQ" elementId="handler.addAsPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.handler.AddAsPrescriptionViewerHandler" command="_KeYD8HeGEeOts5KVA_mezg"/>
@@ -134,6 +138,7 @@
         </children>
       </menus>
     </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_Vxh-IJA7EeOWIIjTdYbWKw" elementId="part.InvoicePrescriptionOverview" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.InvoicePrescriptionOverviewPart" label="Invoice Prescription Overview"/>
     <trimBars xmi:id="_lC8W0EVJEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.trimbar.0">
       <children xsi:type="menu:ToolBar" xmi:id="_lvbpYEVJEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.toolbar.0">
         <children xsi:type="menu:ToolControl" xmi:id="_zhQlEEVKEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.perspectiveSwitcher" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.direct.PerspectiveTabs"/>

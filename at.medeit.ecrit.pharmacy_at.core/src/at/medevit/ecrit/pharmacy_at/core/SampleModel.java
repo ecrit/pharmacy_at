@@ -20,6 +20,7 @@ import at.medevit.ecrit.pharmacy_at.model.Report;
 import at.medevit.ecrit.pharmacy_at.model.Stock;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 import at.medevit.ecrit.pharmacy_at.model.StockOrder;
+import at.medevit.ecrit.pharmacy_at.model.StockOrderStatus;
 import at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl;
 
 public class SampleModel {
@@ -55,6 +56,10 @@ public class SampleModel {
 		Invoice current = invoices.get(invoices.size() - 1);
 		int idx = s.getContents().indexOf(current);
 		return (Invoice) s.getContents().get(idx);
+	}
+	
+	public static List<Invoice> getAllInvoices(){
+		return invoices.subList(0, invoices.size() - 1);
 	}
 	
 	public static StockOrder getStockOrderInstance(){
@@ -124,15 +129,29 @@ public class SampleModel {
 		
 		Stock stock = initStock();
 		Invoice invoice = initInvoice();
+		StockOrder stockOrder = initStockOrder(stock);
 		
 		resource.getContents().add(stock);
 		resource.getContents().add(invoice);
+		resource.getContents().add(stockOrder);
 		
 		// try {
 		// resource.save(Collections.EMPTY_MAP);
 		// } catch (IOException e) {
 		// e.printStackTrace();
 		// }
+	}
+	
+	private static StockOrder initStockOrder(Stock stock){
+		StockOrder stockOrder = getStockOrderInstance();
+		stockOrder
+			.setIssuer("Novartis Austria GmbH \nCorporate & Pharma Communications \nStella-Klein-Löw-Weg 17 \n1020 Wien");
+		stockOrder.setStatus(StockOrderStatus.ORDERED);
+		stockOrder.setBoundFor(stock);
+		stockOrder.getArticle().add(stock.getArticles().get(0).getArticle());
+		stockOrder.getArticle().add(stock.getArticles().get(1).getArticle());
+		orders.add(stockOrder);
+		return stockOrder;
 	}
 	
 	private static Stock initStock(){
@@ -332,6 +351,14 @@ public class SampleModel {
 	
 	public static void deleteFromStock(StockArticle selection){
 		getStock().getArticles().remove(selection);
+	}
+	
+	public static List<Prescription> getAllPrescriptions(){
+		List<Prescription> prescriptions = new ArrayList<>();
+		for (int i = 0; i < invoices.size(); i++) {
+			prescriptions.addAll(invoices.get(i).getPrescription());
+		}
+		return prescriptions;
 	}
 	
 }
