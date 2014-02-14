@@ -21,12 +21,15 @@ import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 
 import at.medevit.ecrit.pharmacy_at.application.part.InvoicePrescriptionOverviewPart;
+import at.medevit.ecrit.pharmacy_at.application.util.Images;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
 public class PrescriptionOverviewComposite extends Composite {
 	private static CheckboxTreeViewer viewerTree;
+	private Button btnSelectAll;
+	private Button btnDeselectAll;
 	private PrescriptionTreeContentProvider contentProvider = new PrescriptionTreeContentProvider();
 	
 	public PrescriptionOverviewComposite(Composite parent, int style){
@@ -61,8 +64,9 @@ public class PrescriptionOverviewComposite extends Composite {
 		gd_compositeSelect.heightHint = 30;
 		compositeSelect.setLayoutData(gd_compositeSelect);
 		
-		Button btnDeselectAll = new Button(compositeSelect, SWT.CHECK);
+		btnDeselectAll = new Button(compositeSelect, SWT.NONE);
 		btnDeselectAll.setText("Deselect All");
+		btnDeselectAll.setImage(Images.DESELECT);
 		btnDeselectAll.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e){
@@ -71,8 +75,9 @@ public class PrescriptionOverviewComposite extends Composite {
 			}
 		});
 		
-		Button btnSelectAll = new Button(compositeSelect, SWT.CHECK);
+		btnSelectAll = new Button(compositeSelect, SWT.PUSH);
 		btnSelectAll.setText("Select All");
+		btnSelectAll.setImage(Images.SELECT);
 		btnSelectAll.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e){
@@ -84,46 +89,41 @@ public class PrescriptionOverviewComposite extends Composite {
 		viewerTree.addCheckStateListener(new ICheckStateListener() {
 			@Override
 			public void checkStateChanged(CheckStateChangedEvent event){
-				if (event.getChecked()) {
-					if (event.getElement() instanceof Prescription) {
-						Prescription p = (Prescription) event.getElement();
-						viewerTree.setSubtreeChecked(p, true);
-					} else {
-						Article a = (Article) event.getElement();
-						Prescription p = (Prescription) contentProvider.getParent(a);
-						viewerTree.setChecked(p, true);
-					}
+				if (event.getElement() instanceof Prescription) {
+					viewerTree.setSubtreeChecked((Prescription) event.getElement(),
+						event.getChecked());
 				} else {
-					if (event.getElement() instanceof Prescription) {
-						Prescription p = (Prescription) event.getElement();
-						viewerTree.setSubtreeChecked(p, false);
-					} else {
-						Prescription p =
-							(Prescription) contentProvider.getParent((Article) event.getElement());
-						boolean hasCheckedChildren = false;
-						for (Article a : p.getArticle()) {
-							if (viewerTree.getChecked(a)) {
-								hasCheckedChildren = true;
-							}
-							// TODO implement isChecked properly
-							// if (contentProvider.isChecked(a)) {
-							// hasCheckedChildren = true;
-							// }
-						}
-						if (!hasCheckedChildren) {
-							viewerTree.setChecked(p, false);
-						}
-					}
+					processCheckedState(event.getChecked(), (Article) event.getElement());
 				}
 				calcTotalRefund();
 			}
 		});
 		
-		viewerTree.setCheckStateProvider(contentProvider);
 		viewerTree.setContentProvider(contentProvider);
 		viewerTree.setLabelProvider(new PrescriptionTreeLabelProvider());
 		viewerTree.setInput(SampleModel.getAllPrescriptions());
 		viewerTree.expandAll();
+		viewerTree.setAllChecked(true);
+		
+	}
+	
+	protected void processCheckedState(boolean checked, Article article){
+		Prescription p = (Prescription) contentProvider.getParent(article);
+		
+		if (checked) {
+			viewerTree.setChecked(p, true);
+		} else {
+			boolean hasCheckedSiblings = false;
+			for (Article a : p.getArticle()) {
+				if (viewerTree.getChecked(a)) {
+					hasCheckedSiblings = true;
+					continue;
+				}
+			}
+			if (!hasCheckedSiblings) {
+				viewerTree.setChecked(p, false);
+			}
+		}
 	}
 	
 	private static void calcTotalRefund(){
@@ -155,7 +155,7 @@ public class PrescriptionOverviewComposite extends Composite {
 		return viewerTree.getCheckedElements();
 	}
 	
-	public static void focusRelated(EList<Prescription> prescriptions){
+	public static void focusInvoiceRelated(EList<Prescription> prescriptions){
 		TreeItem[] items = new TreeItem[prescriptions.size()];
 		for (int i = 0; i < prescriptions.size(); i++) {
 			for (TreeItem item : viewerTree.getTree().getItems()) {
@@ -170,7 +170,6 @@ public class PrescriptionOverviewComposite extends Composite {
 	
 	public static void loseFocus(){
 		viewerTree.getTree().deselectAll();
-		
 	}
 	
 	public void removeFilter(){

@@ -18,7 +18,6 @@ public class InvoiceTreeContentProvider implements ITreeContentProvider {
 	@Override
 	public void dispose(){}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput){
 		invoices = (Collection<Invoice>) newInput;

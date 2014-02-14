@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.part;
+package at.medevit.ecrit.pharmacy_at.application.validator;
 
 import org.eclipse.jface.dialogs.IInputValidator;
 

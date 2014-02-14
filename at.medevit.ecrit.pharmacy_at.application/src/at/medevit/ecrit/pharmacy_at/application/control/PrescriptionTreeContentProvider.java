@@ -3,14 +3,13 @@ package at.medevit.ecrit.pharmacy_at.application.control;
 import java.util.Collection;
 import java.util.HashMap;
 
-import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
-public class PrescriptionTreeContentProvider implements ITreeContentProvider, ICheckStateProvider {
+public class PrescriptionTreeContentProvider implements ITreeContentProvider {
 	
 	Collection<Prescription> prescriptions;
 	HashMap<String, Article> article;
@@ -55,29 +54,6 @@ public class PrescriptionTreeContentProvider implements ITreeContentProvider, IC
 		if (element instanceof Prescription) {
 			return true;
 		}
-		return false;
-	}
-	
-	@Override
-	public boolean isChecked(Object element){
-		if (element instanceof Prescription) {
-			Object[] children = getChildren(element);
-			for (Object object : children) {
-				Article a = (Article) object;
-				if (article.containsKey(a.getName())) {
-					return true;
-				}
-			}
-		} else if (element instanceof Article) {
-			Article a = (Article) element;
-			return article.containsKey(a.getName());
-		}
-		return false;
-	}
-	
-	@Override
-	public boolean isGrayed(Object element){
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

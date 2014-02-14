@@ -21,12 +21,13 @@ import at.medevit.ecrit.pharmacy_at.application.part.InvoicePrescriptionOverview
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Invoice;
+import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 
 public class InvoiceOverviewComposite extends Composite {
 	private List<Invoice> invoices;
 	private TreeViewer treeViewer;
 	private Text txtTotal;
-	private Invoice invSelection;
+	private Invoice invSelection = ModelFactory.eINSTANCE.createInvoice();
 	
 	public InvoiceOverviewComposite(Composite parent, int style){
 		super(parent, style);
@@ -39,21 +40,21 @@ public class InvoiceOverviewComposite extends Composite {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event){
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-				Invoice invoice = (Invoice) selection.getFirstElement();
-				if (invSelection != null && invSelection.equals(invoice)) {
-					if (invoice.getPrescription() != null && !invoice.getPrescription().isEmpty()) {
-						invSelection = null;
-						treeViewer.setSelection(null);
+				if (selection != null && selection.getFirstElement() instanceof Invoice) {
+					Invoice invoice = (Invoice) selection.getFirstElement();
+					if (invSelection.equals(invoice)) {
 						PrescriptionOverviewComposite.loseFocus();
+						treeViewer.setSelection(null);
+					} else {
+						invSelection = invoice;
+						if (invoice.getPrescription() == null
+							|| invoice.getPrescription().isEmpty()) {
+							PrescriptionOverviewComposite.loseFocus();
+						} else {
+							PrescriptionOverviewComposite.focusInvoiceRelated(invoice
+								.getPrescription());
+						}
 					}
-					return;
-				}
-				invSelection = invoice;
-				if (invoice.getPrescription() != null && !invoice.getPrescription().isEmpty()) {
-					PrescriptionOverviewComposite.focusRelated(invoice.getPrescription());
-				} else {
-					invSelection = null;
-					PrescriptionOverviewComposite.loseFocus();
 				}
 			}
 		});
