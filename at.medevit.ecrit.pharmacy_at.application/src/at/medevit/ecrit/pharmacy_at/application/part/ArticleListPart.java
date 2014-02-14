@@ -1,6 +1,5 @@
 package at.medevit.ecrit.pharmacy_at.application.part;
 
-import java.net.URL;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,8 +8,6 @@ import javax.inject.Inject;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.property.Properties;
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -21,7 +18,6 @@ import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
@@ -47,23 +43,18 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.filter.ArticleFilter;
 import at.medevit.ecrit.pharmacy_at.application.filter.CriticalLevelFilter;
 import at.medevit.ecrit.pharmacy_at.application.handler.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToInvoiceViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.util.Images;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class ArticleListPart {
-	private final Image GREEN = getImage("boxGreen.png");
-	private final Image YELLOW = getImage("boxYellow.png");
-	private final Image RED = getImage("boxRed.png");
-	private final Image GREY = getImage("boxGrey.png");
 	private TableViewer tableViewer;
 	private List<StockArticle> stockArticles;
 	private ArticleFilter filter;
@@ -252,15 +243,15 @@ public class ArticleListPart {
 				int value = stockArticle.getNumberOnStock() - stockArticle.getLowerBound();
 				
 				if (stockArticle.getNumberOrdered() > 0) {
-					return GREEN;
+					return Images.GREEN;
 				}
 				if (stockArticle.getNumberOnStock() < 1) {
-					return RED;
+					return Images.RED;
 				}
 				if (value < 1 && stockArticle.getNumberOrdered() == 0) {
-					return YELLOW;
+					return Images.YELLOW;
 				}
-				return GREY;
+				return Images.GREY;
 			}
 		});
 	}
@@ -268,12 +259,5 @@ public class ArticleListPart {
 	public void updatePart(){
 		stockArticles = SampleModel.getStock().getArticles();
 		tableViewer.refresh();
-	}
-	
-	private static Image getImage(String file){
-		Bundle bundle = FrameworkUtil.getBundle(ArticleListPart.class);
-		URL url = FileLocator.find(bundle, new Path("icons/" + file), null);
-		ImageDescriptor image = ImageDescriptor.createFromURL(url);
-		return image.createImage();
 	}
 }

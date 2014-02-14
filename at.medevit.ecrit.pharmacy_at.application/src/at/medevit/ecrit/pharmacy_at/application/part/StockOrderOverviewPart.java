@@ -20,7 +20,9 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
+import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.EditingSupport;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -38,6 +40,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.dialog.StockOrderDialog;
 import at.medevit.ecrit.pharmacy_at.application.filter.StockOrderFilter;
 import at.medevit.ecrit.pharmacy_at.application.handler.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.EditStockOrderStatusViewerHandler;
@@ -68,7 +71,7 @@ public class StockOrderOverviewPart {
 	}
 	
 	@PostConstruct
-	public void postConstruct(Composite parent){
+	public void postConstruct(final Composite parent){
 		
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
@@ -96,7 +99,16 @@ public class StockOrderOverviewPart {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event){
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-				StockOrder order = (StockOrder) selection.getFirstElement();
+				selectionService.setSelection((StockOrder) selection.getFirstElement());
+			}
+		});
+		tableViewer.addDoubleClickListener(new IDoubleClickListener() {
+			
+			@Override
+			public void doubleClick(DoubleClickEvent event){
+				StockOrder stockOrder = (StockOrder) selectionService.getSelection();
+				StockOrderDialog dlg = new StockOrderDialog(parent.getShell(), stockOrder);
+				dlg.open();
 			}
 		});
 		
@@ -164,6 +176,11 @@ public class StockOrderOverviewPart {
 		
 		@Override
 		protected boolean canEdit(Object element){
+			if (element instanceof StockOrder) {
+				if (((StockOrder) element).getStatus().equals(StockOrderStatus.RECEIVED)) {
+					return false;
+				}
+			}
 			return true;
 		}
 		
@@ -181,15 +198,19 @@ public class StockOrderOverviewPart {
 			if (element instanceof StockOrder && value instanceof StockOrderStatus) {
 				StockOrder data = (StockOrder) element;
 				StockOrderStatus newStatus = (StockOrderStatus) value;
+				
 				// only set new value if it differs from old one
 				if (!data.getStatus().equals(newStatus)) {
 					data.setStatus(newStatus);
 					selectionService.setSelection(data);
-					CommandUtil.setContextAndServices(context, commandService, handlerService);
-					CommandUtil.manuallyCallCommand(
-						Messages.getString("ID_CMD_EDIT_STOCKORDER_STATUS"),
-						"commandparameter.editStockOrderStatus", "change orders status",
-						new EditStockOrderStatusViewerHandler());
+					
+					if (data.getStatus().equals(StockOrderStatus.RECEIVED)) {
+						CommandUtil.setContextAndServices(context, commandService, handlerService);
+						CommandUtil.manuallyCallCommand(
+							Messages.getString("ID_CMD_EDIT_STOCKORDER_STATUS"),
+							"commandparameter.editStockOrderStatus", "change orders status",
+							new EditStockOrderStatusViewerHandler());
+					}
 				}
 			}
 		}
