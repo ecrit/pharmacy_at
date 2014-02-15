@@ -26,7 +26,7 @@ public class ReportDialog extends TitleAreaDialog {
 	private Text txtIssuer;
 	private Combo comboPrio;
 	private Text txtConcern;
-	private Text txtTextfield;
+	private Text txtDescription;
 	
 	private DataBindingContext m_bindingContext;
 	private Report report;
@@ -90,10 +90,10 @@ public class ReportDialog extends TitleAreaDialog {
 		lblTextfield.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1));
 		lblTextfield.setText("Description");
 		
-		txtTextfield = new Text(container, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
+		txtDescription = new Text(container, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
 		GridData gd_txtTextfield = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
 		gd_txtTextfield.heightHint = 110;
-		txtTextfield.setLayoutData(gd_txtTextfield);
+		txtDescription.setLayoutData(gd_txtTextfield);
 		
 		m_bindingContext = initDataBinding();
 		return area;
@@ -120,7 +120,7 @@ public class ReportDialog extends TitleAreaDialog {
 		IObservableValue textfieldObserve =
 			EMFProperties.value(ModelPackage.Literals.REPORT__TEXT).observe(report);
 		IObservableValue txtTextfieldObserve =
-			WidgetProperties.text(SWT.Modify).observe(txtTextfield);
+			WidgetProperties.text(SWT.Modify).observe(txtDescription);
 		bindingContext.bindValue(txtTextfieldObserve, textfieldObserve);
 		//
 		

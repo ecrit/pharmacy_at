@@ -40,8 +40,8 @@
         <persistedState key="description" value="This is the clerk specific perspective. It supports the clerk in his/her usual business."/>
         <persistedState key="precondition" value="Logged in as clerk."/>
         <children xsi:type="basic:PartSashContainer" xmi:id="_6cj7kEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.2" containerData="" horizontal="true">
-          <children xsi:type="advanced:Placeholder" xmi:id="_0jmkMJA7EeOWIIjTdYbWKw" elementId="at.medevit.ecrit.pharmacy_at.application.part.articlelist" containerData="30" ref="_K6LbcFEAEeOs7KUvDVp0Mg" closeable="true"/>
-          <children xsi:type="advanced:Placeholder" xmi:id="_5Gs78JA7EeOWIIjTdYbWKw" elementId="part.InvoicePrescriptionOverview" containerData="70" ref="_Vxh-IJA7EeOWIIjTdYbWKw"/>
+          <children xsi:type="advanced:Placeholder" xmi:id="_0jmkMJA7EeOWIIjTdYbWKw" elementId="part.inventory" containerData="25" ref="_5aP1QJYpEeO0oaI6xhkvrA" closeable="true"/>
+          <children xsi:type="advanced:Placeholder" xmi:id="_5Gs78JA7EeOWIIjTdYbWKw" elementId="part.InvoicePrescriptionOverview" containerData="75" ref="_Vxh-IJA7EeOWIIjTdYbWKw"/>
         </children>
       </children>
       <children xsi:type="advanced:Perspective" xmi:id="_lbwGIEVOEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.perspective.admin" label="Admin" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/equalizer.png">
@@ -182,6 +182,17 @@
       <persistedState key="description" value="This part shows all the saved invoices and relating prescriptions.&#xD;&#xA;By applying the date filters only the invoices (and prescriptions) in between this timespan will be shown."/>
       <persistedState key="precondition" value="At least one invoice (otherwise it will be empty)."/>
     </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_5aP1QJYpEeO0oaI6xhkvrA" elementId="part.inventory" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.InventoryPart" label="Inventory" closeable="true">
+      <persistedState key="description" value="This part support the clerk the evaluation of the inventory."/>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_OtJmoJY0EeO0oaI6xhkvrA" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.0">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_PZyDIJY0EeO0oaI6xhkvrA" elementId="handledmenuitem.checkInventory" label="Check Inventory" command="_s2EpsHxkEeOl7olWdGHeBA">
+          <persistedState key="description" value="This menu calls the Check Inventory command. &#xD;&#xA;There will either be a success message or a question if you'd like to create a report about the discrepancies."/>
+          <persistedState key="postcondition" value="Any discrepancies should be registered in the system (-> report)."/>
+          <persistedState key="precondition" value="A list with all articles has been printed out, for each article the units on stock have been written down.&#xD;&#xA;The clerk now needs to compare this list with the table on the screen an check the appropriate article if there is no inconsistence."/>
+          <parameters xmi:id="_Ux9owJY0EeO0oaI6xhkvrA" elementId="popupmenu.parameter.checked.stockarticle" name="commandparameter.checkInventory" value="consistent stockarticle"/>
+        </children>
+      </menus>
+    </sharedElements>
     <trimBars xmi:id="_lC8W0EVJEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.trimbar.0">
       <children xsi:type="menu:ToolBar" xmi:id="_lvbpYEVJEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.toolbar.0">
         <children xsi:type="menu:ToolControl" xmi:id="_zhQlEEVKEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.perspectiveSwitcher" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.direct.PerspectiveTabs"/>
@@ -291,8 +302,11 @@
     <persistedState key="description" value="This command will highlight the prescriptions related to the selected invoice. "/>
     <persistedState key="precondition" value="An invoice selection. "/>
   </commands>
-  <commands xmi:id="_s2EpsHxkEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.checkInventory" commandName="Check Inventory" category="_3hHt4HiEEeOBFOXoaudQpg">
-    <persistedState key="description" value="This command supports the clerk in performing the inventory."/>
+  <commands xmi:id="_s2EpsHxkEeOl7olWdGHeBA" elementId="command.checkInventory" commandName="Check Inventory" category="_3hHt4HiEEeOBFOXoaudQpg">
+    <persistedState key="description" value="This command supports the clerk in performing the inventory.&#xD;&#xA;If the inventory resulted in any inconsistence of some articles the clerk will be asked if he/she would like to create a report about it.&#xD;&#xA;In case there have not been any inconsistency a success message will appear and you can continue with your daily routine.&#xD;&#xA;"/>
+    <persistedState key="precondition" value="A list with all articles has been printed out, for each article the units on stock have been written down.&#xD;&#xA;The clerk now needs to compare this list with the table on the screen an check the appropriate article if there is no inconsistence."/>
+    <persistedState key="postcondition" value="Any discrepancies of the inventory should be documented."/>
+    <parameters xmi:id="_9OUYQJYzEeO0oaI6xhkvrA" elementId="commandparameter.checkInventory" name="Cmd Parameter CheckInventory" typeId="commandparameter.type.stockarticle" optional="false"/>
   </commands>
   <commands xmi:id="_J6QKkHxlEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.command.deleteUser" commandName="Delete User" description="Delete User" category="_34iY8HxhEeOl7olWdGHeBA">
     <persistedState key="description" value="Using this command a user can be deleted from the system."/>
