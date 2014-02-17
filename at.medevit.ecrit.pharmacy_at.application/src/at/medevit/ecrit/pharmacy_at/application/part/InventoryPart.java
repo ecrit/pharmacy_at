@@ -25,6 +25,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -61,26 +62,34 @@ public class InventoryPart {
 		parent.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		parent.setLayout(new GridLayout(1, false));
 		
-		Label label = new Label(parent, SWT.NONE);
+		Group grpInventory = new Group(parent, SWT.NONE);
+		grpInventory.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		GridLayout gl_grpStockOrder_1 = new GridLayout(1, false);
+		gl_grpStockOrder_1.marginLeft = 10;
+		gl_grpStockOrder_1.marginRight = 10;
+		grpInventory.setLayout(gl_grpStockOrder_1);
+		grpInventory.setText("Inventory Helper");
+		
+		Label label = new Label(grpInventory, SWT.NONE);
 		GridData gd_label = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_label.heightHint = 6;
 		gd_label.minimumHeight = 6;
 		label.setLayoutData(gd_label);
 		
-		Label lblInventory = new Label(parent, SWT.NONE);
-		GridData gd_lblInventory = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_lblInventory.heightHint = 30;
-		gd_lblInventory.minimumHeight = 30;
-		lblInventory.setLayoutData(gd_lblInventory);
-		lblInventory.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.NORMAL));
-		lblInventory.setText("Inventory Helper");
+		Label lblInventory = new Label(grpInventory, SWT.NONE);
+		lblInventory.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.ITALIC));
+		lblInventory
+			.setText("Only check the articles below if the units on stock \nmatch your inventory notes!");
 		
-		tableViewer = CheckboxTableViewer.newCheckList(parent, SWT.BORDER | SWT.FULL_SELECTION);
+		new Label(grpInventory, SWT.NONE);
+		
+		tableViewer =
+			CheckboxTableViewer.newCheckList(grpInventory, SWT.BORDER | SWT.FULL_SELECTION);
 		table = tableViewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
-		Button btnInventoryChecked = new Button(parent, SWT.NONE);
+		Button btnInventoryChecked = new Button(grpInventory, SWT.NONE);
 		btnInventoryChecked.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		btnInventoryChecked.setText("Finish Inventory");
 		btnInventoryChecked.addSelectionListener(new SelectionAdapter() {
@@ -111,7 +120,7 @@ public class InventoryPart {
 				.observeDetail(cp.getKnownElements());
 		tvcOnStock.setLabelProvider(new ObservableMapCellLabelProvider(stockMap));
 		TableColumn colOnstock = tvcOnStock.getColumn();
-		colOnstock.setWidth(100);
+		colOnstock.setWidth(80);
 		colOnstock.setText("OnStock");
 		
 		TableViewerColumn tvcName = new TableViewerColumn(tableViewer, SWT.NONE);
@@ -121,7 +130,7 @@ public class InventoryPart {
 		IObservableMap nameMap = EMFProperties.value(pathName).observeDetail(cp.getKnownElements());
 		tvcName.setLabelProvider(new ObservableMapCellLabelProvider(nameMap));
 		TableColumn colName = tvcName.getColumn();
-		colName.setWidth(100);
+		colName.setWidth(150);
 		colName.setText("Name");
 		
 		TableViewerColumn tvcAdmNr = new TableViewerColumn(tableViewer, SWT.NONE);

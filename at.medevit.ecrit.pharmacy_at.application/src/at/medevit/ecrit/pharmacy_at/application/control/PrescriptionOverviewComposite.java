@@ -27,15 +27,18 @@ import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
 public class PrescriptionOverviewComposite extends Composite {
+	private List<Prescription> prescriptions;
 	private static CheckboxTreeViewer viewerTree;
 	private Button btnSelectAll;
 	private Button btnDeselectAll;
 	private PrescriptionTreeContentProvider contentProvider = new PrescriptionTreeContentProvider();
 	
-	public PrescriptionOverviewComposite(Composite parent, int style){
+	public PrescriptionOverviewComposite(Composite parent, int style,
+		List<Prescription> prescriptions){
 		super(parent, SWT.NONE);
 		setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true, 1, 1));
 		setLayout(new GridLayout(2, false));
+		this.prescriptions = prescriptions;
 		
 		viewerTree = new CheckboxTreeViewer(this, SWT.BORDER | SWT.MULTI);
 		Tree tree = viewerTree.getTree();
@@ -101,10 +104,9 @@ public class PrescriptionOverviewComposite extends Composite {
 		
 		viewerTree.setContentProvider(contentProvider);
 		viewerTree.setLabelProvider(new PrescriptionTreeLabelProvider());
-		viewerTree.setInput(SampleModel.getAllPrescriptions());
+		viewerTree.setInput(this.prescriptions);
 		viewerTree.expandAll();
 		viewerTree.setAllChecked(true);
-		
 	}
 	
 	protected void processCheckedState(boolean checked, Article article){
@@ -126,7 +128,7 @@ public class PrescriptionOverviewComposite extends Composite {
 		}
 	}
 	
-	private static void calcTotalRefund(){
+	public static void calcTotalRefund(){
 		float totalRefund = 0.0f;
 		Object[] checked = viewerTree.getCheckedElements();
 		for (Object obj : checked) {
@@ -174,5 +176,15 @@ public class PrescriptionOverviewComposite extends Composite {
 	
 	public void removeFilter(){
 		viewerTree.setInput(SampleModel.getAllPrescriptions());
+	}
+	
+	public void updateTree(List<Prescription> pList){
+		prescriptions = pList;
+		if (viewerTree != null) {
+			viewerTree.setInput(prescriptions);
+			viewerTree.expandAll();
+			viewerTree.setAllChecked(true);
+			viewerTree.refresh();
+		}
 	}
 }

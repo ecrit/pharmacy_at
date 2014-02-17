@@ -14,6 +14,8 @@ import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
+import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
@@ -61,6 +63,10 @@ public class InvoiceDataPart {
 	private TableViewer tableViewer;
 	private Table table;
 	
+	@Inject
+	private MWindow window;
+	@Inject
+	private EModelService modelService;
 	@Inject
 	private IEclipseContext context;
 	@Inject
@@ -124,6 +130,8 @@ public class InvoiceDataPart {
 				InvoicePart invoicePart = (InvoicePart) iPart.getObject();
 				invoicePart.updateTable();
 				invoicePart.updateBinding();
+				
+				InvoicePrescriptionOverviewPart.updateInput();
 			}
 		});
 		

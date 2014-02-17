@@ -36,10 +36,10 @@
           </children>
         </children>
       </children>
-      <children xsi:type="advanced:Perspective" xmi:id="_jztKQEVOEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.perspective.clerk" label="Clerk" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/tie.png">
+      <children xsi:type="advanced:Perspective" xmi:id="_jztKQEVOEeOaYLXjRggZbw" elementId="perspective.clerk" label="Clerk" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/tie.png">
         <persistedState key="description" value="This is the clerk specific perspective. It supports the clerk in his/her usual business."/>
         <persistedState key="precondition" value="Logged in as clerk."/>
-        <children xsi:type="basic:PartSashContainer" xmi:id="_6cj7kEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.2" containerData="" horizontal="true">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_6cj7kEVQEeOaYLXjRggZbw" elementId="partsashcontainer.clerk" containerData="" horizontal="true">
           <children xsi:type="advanced:Placeholder" xmi:id="_0jmkMJA7EeOWIIjTdYbWKw" elementId="part.inventory" containerData="25" ref="_5aP1QJYpEeO0oaI6xhkvrA" closeable="true"/>
           <children xsi:type="advanced:Placeholder" xmi:id="_5Gs78JA7EeOWIIjTdYbWKw" elementId="part.InvoicePrescriptionOverview" containerData="75" ref="_Vxh-IJA7EeOWIIjTdYbWKw"/>
         </children>

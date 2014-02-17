@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -26,6 +27,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.window.ToolTip;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSourceAdapter;
@@ -102,6 +104,7 @@ public class ArticleListPart {
 		
 		Button btnFilterCritical = new Button(filterComposite, SWT.TOGGLE);
 		btnFilterCritical.setText("Only Critical");
+		btnFilterCritical.setImage(Images.FILTER);
 		btnFilterCritical.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e){
@@ -217,16 +220,9 @@ public class ArticleListPart {
 				.observeDetail(cp.getKnownElements());
 		tvcOnStock.setLabelProvider(new ObservableMapCellLabelProvider(stockMap));
 		
-		TableViewerColumn tvcLowerBound = new TableViewerColumn(tableViewer, SWT.NONE);
-		tvcLowerBound.getColumn().setText("LowerBound");
-		tvcLowerBound.getColumn().setWidth(80);
-		IObservableMap lowerBoundMap =
-			EMFProperties.value(ModelPackage.Literals.STOCK_ARTICLE__LOWER_BOUND).observeDetail(
-				cp.getKnownElements());
-		tvcLowerBound.setLabelProvider(new ObservableMapCellLabelProvider(lowerBoundMap));
-		
+		ColumnViewerToolTipSupport.enableFor(tableViewer, ToolTip.NO_RECREATE);
 		TableViewerColumn tvcOrdered = new TableViewerColumn(tableViewer, SWT.NONE);
-		tvcOrdered.getColumn().setText("Ordered");
+		tvcOrdered.getColumn().setText("OrderStatus");
 		tvcOrdered.getColumn().setWidth(80);
 		EMFProperties.value(ModelPackage.Literals.STOCK_ARTICLE__NUMBER_ORDERED).observeDetail(
 			cp.getKnownElements());
@@ -235,6 +231,12 @@ public class ArticleListPart {
 			@Override
 			public String getText(Object element){
 				return null;
+			}
+			
+			@Override
+			public String getToolTipText(Object element){
+				StockArticle stockArticle = (StockArticle) element;
+				return "LowerBound: " + stockArticle.getLowerBound();
 			}
 			
 			@Override
@@ -248,7 +250,7 @@ public class ArticleListPart {
 				if (stockArticle.getNumberOnStock() < 1) {
 					return Images.RED;
 				}
-				if (value < 1 && stockArticle.getNumberOrdered() == 0) {
+				if (value < 1 && stockArticle.getNumberOrdered() <= 0) {
 					return Images.YELLOW;
 				}
 				return Images.GREY;

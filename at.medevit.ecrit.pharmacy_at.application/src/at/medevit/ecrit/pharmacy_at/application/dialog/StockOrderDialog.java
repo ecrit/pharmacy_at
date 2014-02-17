@@ -36,7 +36,6 @@ public class StockOrderDialog extends TitleAreaDialog {
 	private String message;
 	private Text txtId;
 	private Text txtStatus;
-	private Table table;
 	private HashMap<String, Integer> articleUnits = new HashMap<String, Integer>();
 	
 	public StockOrderDialog(Shell parentShell, StockOrder stockOrder){
@@ -93,8 +92,7 @@ public class StockOrderDialog extends TitleAreaDialog {
 	}
 	
 	private void initTableViewer(Composite area){
-		TableViewer tableViewer =
-			new TableViewer(area, SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL);
+		TableViewer tableViewer = new TableViewer(area, SWT.BORDER | SWT.V_SCROLL);
 		Table table = tableViewer.getTable();
 		table.setFocus();
 		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));

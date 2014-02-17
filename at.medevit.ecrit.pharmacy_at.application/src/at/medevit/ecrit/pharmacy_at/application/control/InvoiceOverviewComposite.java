@@ -18,22 +18,21 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 
 import at.medevit.ecrit.pharmacy_at.application.part.InvoicePrescriptionOverviewPart;
-import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Invoice;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 
 public class InvoiceOverviewComposite extends Composite {
-	private List<Invoice> invoices;
-	private TreeViewer treeViewer;
+	private static List<Invoice> invoices;
+	private static TreeViewer treeViewer;
 	private Text txtTotal;
 	private Invoice invSelection = ModelFactory.eINSTANCE.createInvoice();
 	
-	public InvoiceOverviewComposite(Composite parent, int style){
+	public InvoiceOverviewComposite(Composite parent, int style, List<Invoice> invoices){
 		super(parent, style);
 		setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true, 1, 1));
 		setLayout(new GridLayout(2, false));
-		invoices = SampleModel.getAllInvoices();
+		this.invoices = invoices;
 		
 		treeViewer = new TreeViewer(this, SWT.BORDER);
 		treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
@@ -80,7 +79,7 @@ public class InvoiceOverviewComposite extends Composite {
 		InvoiceTreeContentProvider contentProvider = new InvoiceTreeContentProvider();
 		treeViewer.setContentProvider(contentProvider);
 		treeViewer.setLabelProvider(new InvoiceTreeLabelProvider());
-		treeViewer.setInput(SampleModel.getAllInvoices());
+		treeViewer.setInput(this.invoices);
 	}
 	
 	public void calcTotalCosts(){
@@ -105,5 +104,14 @@ public class InvoiceOverviewComposite extends Composite {
 	
 	public void removeFilter(){
 		treeViewer.setInput(invoices);
+	}
+	
+	public void updateTree(List<Invoice> iList){
+		invoices = iList;
+		if (treeViewer != null) {
+			treeViewer.setInput(invoices);
+			treeViewer.refresh();
+		}
+		
 	}
 }

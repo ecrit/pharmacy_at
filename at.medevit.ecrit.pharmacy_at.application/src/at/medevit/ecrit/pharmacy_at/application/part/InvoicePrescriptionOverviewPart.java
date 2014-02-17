@@ -14,16 +14,19 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DateTime;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import at.medevit.ecrit.pharmacy_at.application.control.InvoiceOverviewComposite;
 import at.medevit.ecrit.pharmacy_at.application.control.PrescriptionOverviewComposite;
+import at.medevit.ecrit.pharmacy_at.application.util.Images;
+import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 
 public class InvoicePrescriptionOverviewPart {
-	private InvoiceOverviewComposite ioc;
-	private PrescriptionOverviewComposite poc;
+	private static InvoiceOverviewComposite ioc;
+	private static PrescriptionOverviewComposite poc;
 	private static Text txtTotalInvoice;
 	private static float totalInvoice;
 	private static Text txtTotalPrescription;
@@ -36,14 +39,21 @@ public class InvoicePrescriptionOverviewPart {
 	
 	@PostConstruct
 	public void postConstruct(Composite parent){
-		parent.setLayout(new GridLayout(2, false));
+		parent.setLayout(new GridLayout(1, false));
 		
-		Composite composite = new Composite(parent, SWT.NONE);
+		Group grpInvPrescOverview = new Group(parent, SWT.NONE);
+		grpInvPrescOverview.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 12, 1));
+		GridLayout gl_grpStockOrder_1 = new GridLayout(2, false);
+		gl_grpStockOrder_1.marginLeft = 10;
+		gl_grpStockOrder_1.marginRight = 10;
+		grpInvPrescOverview.setLayout(gl_grpStockOrder_1);
+		grpInvPrescOverview.setText("Invoice/Prescription Overview");
+		
+		Composite composite = new Composite(grpInvPrescOverview, SWT.NONE);
 		composite.setLayout(new GridLayout(5, false));
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
 		
 		Label lblFrom = new Label(composite, SWT.NONE);
-		lblFrom.setBounds(0, 0, 55, 15);
 		lblFrom.setText("From ");
 		
 		final DateTime dateFrom = new DateTime(composite, SWT.BORDER);
@@ -63,10 +73,9 @@ public class InvoicePrescriptionOverviewPart {
 		
 		Button btnFilter = new Button(composite, SWT.TOGGLE);
 		GridData gd_btnFilter = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_btnFilter.widthHint = 50;
-		gd_btnFilter.minimumWidth = 50;
 		btnFilter.setLayoutData(gd_btnFilter);
 		btnFilter.setText("Filter");
+		btnFilter.setImage(Images.FILTER);
 		btnFilter.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e){
@@ -93,10 +102,14 @@ public class InvoicePrescriptionOverviewPart {
 			}
 		});
 		
-		ioc = new InvoiceOverviewComposite(parent, SWT.NONE);
-		poc = new PrescriptionOverviewComposite(parent, SWT.NONE);
+		ioc =
+			new InvoiceOverviewComposite(grpInvPrescOverview, SWT.NONE,
+				SampleModel.getAllInvoices());
+		poc =
+			new PrescriptionOverviewComposite(grpInvPrescOverview, SWT.NONE,
+				SampleModel.getAllPrescriptions());
 		
-		Composite compositeTotal = new Composite(parent, SWT.NONE);
+		Composite compositeTotal = new Composite(grpInvPrescOverview, SWT.NONE);
 		compositeTotal.setLayout(new GridLayout(2, false));
 		compositeTotal.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
 		
@@ -140,9 +153,8 @@ public class InvoicePrescriptionOverviewPart {
 				}
 			}
 		});
-		new Label(compositeTotal, SWT.NONE);
-		new Label(compositeTotal, SWT.NONE);
 		ioc.calcTotalCosts();
+		poc.calcTotalRefund();
 	}
 	
 	/**
@@ -167,5 +179,15 @@ public class InvoicePrescriptionOverviewPart {
 		txtTotalInvoice.setText(totalInvoice + " €");
 		txtTotalPrescription.setText(totalPrescription + " €");
 		txtTotal.setText(total + " €");
+	}
+	
+	public static void updateInput(){
+		if (ioc != null && poc != null) {
+			ioc.updateTree(SampleModel.getAllInvoices());
+			poc.updateTree(SampleModel.getAllPrescriptions());
+			
+			ioc.calcTotalCosts();
+			poc.calcTotalRefund();
+		}
 	}
 }

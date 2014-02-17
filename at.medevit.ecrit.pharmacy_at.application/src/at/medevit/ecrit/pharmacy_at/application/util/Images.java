@@ -13,14 +13,20 @@ import at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart;
 
 public class Images {
 	// ArticleList Ordered-Cell images
-	public static final Image GREEN = getImage("boxGreen.png");
-	public static final Image YELLOW = getImage("boxYellow.png");
-	public static final Image RED = getImage("boxRed.png");
-	public static final Image GREY = getImage("boxGrey.png");
+	public static final Image GREEN = getImage("boxGreen_tbl.png");
+	public static final Image YELLOW = getImage("boxYellow_tbl.png");
+	public static final Image RED = getImage("boxRed_tbl.png");
+	public static final Image GREY = getImage("boxGrey_tbl.png");
 	
-	// clerk select/deselect button
+	// clerk part button
 	public static final Image SELECT = getImage("select_all.png");
 	public static final Image DESELECT = getImage("deselect_all.png");
+	public static final Image INVOICE = getImage("invoice.png");
+	
+	public static final Image FILTER = getImage("filter.png");
+	public static final Image CRITICAL = getImage("critical.png");
+	
+	public static final Image MEDICINE = getImage("pill.png");
 	
 	private static Image getImage(String file){
 		Bundle bundle = FrameworkUtil.getBundle(ArticleListPart.class);
