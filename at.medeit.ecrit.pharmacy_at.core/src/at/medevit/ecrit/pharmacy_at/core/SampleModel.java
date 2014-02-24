@@ -145,6 +145,7 @@ public class SampleModel {
 			}
 		}
 		getStock().getArticles().add(newStockArticle);
+		loader.save();
 		return true;
 	}
 	
@@ -267,5 +268,14 @@ public class SampleModel {
 		Article copy = EcoreUtil.copy(a);
 		pharmacy.getLineItems().getArticle().add(copy);
 		return copy;
+	}
+	
+	public static List<Article> getAllLineItems(){
+		return pharmacy.getLineItems().getArticle();
+	}
+	
+	public static void updateArticleList(){
+		loader.save();
+		
 	}
 }
