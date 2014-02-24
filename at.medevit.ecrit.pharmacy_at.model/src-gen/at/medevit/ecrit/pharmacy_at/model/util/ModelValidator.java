@@ -93,6 +93,8 @@ public class ModelValidator extends EObjectValidator {
 	@Override
 	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		switch (classifierID) {
+			case ModelPackage.PHARMACY:
+				return validatePharmacy((Pharmacy)value, diagnostics, context);
 			case ModelPackage.PRESCRIPTION:
 				return validatePrescription((Prescription)value, diagnostics, context);
 			case ModelPackage.ARTICLE:
@@ -111,6 +113,8 @@ public class ModelValidator extends EObjectValidator {
 				return validateAddress((Address)value, diagnostics, context);
 			case ModelPackage.CUSTOMER:
 				return validateCustomer((Customer)value, diagnostics, context);
+			case ModelPackage.LINE_ITEMS:
+				return validateLineItems((LineItems)value, diagnostics, context);
 			case ModelPackage.STOCK_ORDER_STATUS:
 				return validateStockOrderStatus((StockOrderStatus)value, diagnostics, context);
 			case ModelPackage.ARTICLE_AVAILABILITY:
@@ -120,6 +124,15 @@ public class ModelValidator extends EObjectValidator {
 			default:
 				return true;
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validatePharmacy(Pharmacy pharmacy, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(pharmacy, diagnostics, context);
 	}
 
 	/**
@@ -221,6 +234,15 @@ public class ModelValidator extends EObjectValidator {
 	 */
 	public boolean validateCustomer(Customer customer, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(customer, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLineItems(LineItems lineItems, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(lineItems, diagnostics, context);
 	}
 
 	/**

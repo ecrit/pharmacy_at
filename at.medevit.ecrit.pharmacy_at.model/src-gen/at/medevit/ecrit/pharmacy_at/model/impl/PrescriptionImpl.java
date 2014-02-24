@@ -6,20 +6,16 @@ import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Customer;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
-
 import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -79,7 +75,7 @@ public class PrescriptionImpl extends MinimalEObjectImpl.Container implements Pr
 	protected int number = NUMBER_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getArticle() <em>Article</em>}' reference list.
+	 * The cached value of the '{@link #getArticle() <em>Article</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getArticle()
@@ -166,7 +162,7 @@ public class PrescriptionImpl extends MinimalEObjectImpl.Container implements Pr
 	 */
 	public EList<Article> getArticle() {
 		if (article == null) {
-			article = new EObjectResolvingEList<Article>(Article.class, this, ModelPackage.PRESCRIPTION__ARTICLE);
+			article = new EObjectContainmentEList<Article>(Article.class, this, ModelPackage.PRESCRIPTION__ARTICLE);
 		}
 		return article;
 	}
@@ -207,6 +203,20 @@ public class PrescriptionImpl extends MinimalEObjectImpl.Container implements Pr
 		prescriptionCustomer = newPrescriptionCustomer;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.PRESCRIPTION__PRESCRIPTION_CUSTOMER, oldPrescriptionCustomer, prescriptionCustomer));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ModelPackage.PRESCRIPTION__ARTICLE:
+				return ((InternalEList<?>)getArticle()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

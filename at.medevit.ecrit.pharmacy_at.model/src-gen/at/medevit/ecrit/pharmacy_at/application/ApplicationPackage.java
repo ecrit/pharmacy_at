@@ -123,7 +123,7 @@ public interface ApplicationPackage extends EPackage {
 	int USERS = 1;
 
 	/**
-	 * The feature id for the '<em><b>Users</b></em>' reference list.
+	 * The feature id for the '<em><b>Users</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -214,10 +214,10 @@ public interface ApplicationPackage extends EPackage {
 	EClass getUsers();
 
 	/**
-	 * Returns the meta object for the reference list '{@link at.medevit.ecrit.pharmacy_at.application.Users#getUsers <em>Users</em>}'.
+	 * Returns the meta object for the containment reference list '{@link at.medevit.ecrit.pharmacy_at.application.Users#getUsers <em>Users</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Users</em>'.
+	 * @return the meta object for the containment reference list '<em>Users</em>'.
 	 * @see at.medevit.ecrit.pharmacy_at.application.Users#getUsers()
 	 * @see #getUsers()
 	 * @generated
@@ -302,7 +302,7 @@ public interface ApplicationPackage extends EPackage {
 		EClass USERS = eINSTANCE.getUsers();
 
 		/**
-		 * The meta object literal for the '<em><b>Users</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Users</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

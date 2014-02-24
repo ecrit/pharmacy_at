@@ -7,21 +7,20 @@ import at.medevit.ecrit.pharmacy_at.model.Customer;
 import at.medevit.ecrit.pharmacy_at.model.Invoice;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
-
 import java.util.Collection;
 import java.util.Date;
-
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -73,7 +72,7 @@ public class InvoiceImpl extends MinimalEObjectImpl.Container implements Invoice
 	protected EList<Article> article;
 
 	/**
-	 * The cached value of the '{@link #getPrescription() <em>Prescription</em>}' reference list.
+	 * The cached value of the '{@link #getPrescription() <em>Prescription</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getPrescription()
@@ -110,7 +109,7 @@ public class InvoiceImpl extends MinimalEObjectImpl.Container implements Invoice
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Date DATE_EDEFAULT = null;
+	protected static final Date DATE_EDEFAULT = (Date)EcoreFactory.eINSTANCE.createFromString(EcorePackage.eINSTANCE.getEDate(), "2014-02-17");
 
 	/**
 	 * The cached value of the '{@link #getDate() <em>Date</em>}' attribute.
@@ -191,7 +190,7 @@ public class InvoiceImpl extends MinimalEObjectImpl.Container implements Invoice
 	 */
 	public EList<Prescription> getPrescription() {
 		if (prescription == null) {
-			prescription = new EObjectResolvingEList<Prescription>(Prescription.class, this, ModelPackage.INVOICE__PRESCRIPTION);
+			prescription = new EObjectContainmentEList<Prescription>(Prescription.class, this, ModelPackage.INVOICE__PRESCRIPTION);
 		}
 		return prescription;
 	}
@@ -274,6 +273,20 @@ public class InvoiceImpl extends MinimalEObjectImpl.Container implements Invoice
 		invoiceCustomer = newInvoiceCustomer;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.INVOICE__INVOICE_CUSTOMER, oldInvoiceCustomer, invoiceCustomer));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ModelPackage.INVOICE__PRESCRIPTION:
+				return ((InternalEList<?>)getPrescription()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

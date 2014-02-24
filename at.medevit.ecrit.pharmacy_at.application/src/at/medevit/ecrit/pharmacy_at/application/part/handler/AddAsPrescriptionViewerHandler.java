@@ -13,6 +13,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 
@@ -52,30 +53,41 @@ public class AddAsPrescriptionViewerHandler {
 		dlg.setPrescription(p);
 		
 		if (dlg.open() == IDialogConstants.OK_ID) {
-			if (p != null) {
-				if (p.getArticle().contains(stockArticleSelection.getArticle())) {
-					stockArticleSelection
-						.setNumberOnStock(stockArticleSelection.getNumberOnStock() - 1);
-					SampleModel.addPrescriptionAndSync(p);
-				}
-				SampleModel.addPrescription(p);
-				
-				// assure tables are updated properly
-				// TODO check if this can be solved via injection as well (selection inj. didn't
-				// work as expected)
-				MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
-				PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
-				prescPart.updateTable();
-				
-				MPart iPart = partService.findPart(Messages.getString("ID_PART_INVOICE"));
-				InvoicePart invoicePart = (InvoicePart) iPart.getObject();
-				invoicePart.updateTable();
-				
-				MPart idPart = partService.findPart(Messages.getString("ID_PART_INVOICE_DATA"));
-				InvoiceDataPart invoiceDataPart = (InvoiceDataPart) idPart.getObject();
-				invoiceDataPart.updateTable();
+			Article arti = includedSelection(p);
+			if (arti != null) {
+				int articleIdx = p.getArticle().indexOf(arti);
+				p.getArticle().set(articleIdx, SampleModel.getValidArticleCopy(arti));
+				stockArticleSelection
+					.setNumberOnStock(stockArticleSelection.getNumberOnStock() - 1);
+				SampleModel.addPrescriptionAndSync(p);
+			}
+			SampleModel.addPrescription(p);
+			
+			// assure tables are updated properly
+			// TODO check if this can be solved via injection as well (selection inj. didn't
+			// work as expected)
+			MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
+			PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
+			prescPart.updateTable();
+			
+			MPart iPart = partService.findPart(Messages.getString("ID_PART_INVOICE"));
+			InvoicePart invoicePart = (InvoicePart) iPart.getObject();
+			invoicePart.updateTable();
+			
+			MPart idPart = partService.findPart(Messages.getString("ID_PART_INVOICE_DATA"));
+			InvoiceDataPart invoiceDataPart = (InvoiceDataPart) idPart.getObject();
+			invoiceDataPart.updateTable();
+		}
+	}
+	
+	private Article includedSelection(Prescription p){
+		Article selArticle = stockArticleSelection.getArticle();
+		for (Article a : p.getArticle()) {
+			if (selArticle.getName().equals(a.getName())) {
+				return a;
 			}
 		}
+		return null;
 	}
 	
 	private List<Article> getAvailableArticles(){
@@ -85,7 +97,7 @@ public class AddAsPrescriptionViewerHandler {
 			availableArticles.addAll(invoiceArticles);
 		}
 		if (stockArticleSelection != null) {
-			availableArticles.add(stockArticleSelection.getArticle());
+			availableArticles.add(EcoreUtil.copy(stockArticleSelection.getArticle()));
 		}
 		return availableArticles;
 	}
@@ -118,6 +130,7 @@ public class AddAsPrescriptionViewerHandler {
 	
 	private void setupAvailableInvoiceArticles(){
 		invoiceArticles = SampleModel.getCurrentInvoice().getArticle();
+// Collections.copy(invoiceArticles, SampleModel.getCurrentInvoice().getArticle());
 		
 		if (invoiceArticles != null && !invoiceArticles.isEmpty()) {
 			List<Article> notPrescripted = SampleModel.getNotYetPrescriptedArticle();

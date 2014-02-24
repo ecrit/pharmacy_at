@@ -105,7 +105,7 @@ public interface Customer extends EObject {
 	void setPhoneNumber(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Address</b></em>' reference list.
+	 * Returns the value of the '<em><b>Address</b></em>' containment reference list.
 	 * The list contents are of type {@link at.medevit.ecrit.pharmacy_at.model.Address}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -113,9 +113,9 @@ public interface Customer extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Address</em>' reference list.
+	 * @return the value of the '<em>Address</em>' containment reference list.
 	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getCustomer_Address()
-	 * @model required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	EList<Address> getAddress();

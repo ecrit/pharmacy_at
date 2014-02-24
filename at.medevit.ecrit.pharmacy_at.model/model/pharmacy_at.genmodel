@@ -28,10 +28,26 @@
         <genEnumLiterals ecoreEnumLiteral="pharmacy_at.ecore#//model/Priority/LOW"/>
         <genEnumLiterals ecoreEnumLiteral="pharmacy_at.ecore#//model/Priority/CRITICAL"/>
       </genEnums>
-      <genClasses ecoreClass="pharmacy_at.ecore#//model/Prescription">
+      <genClasses ecoreClass="pharmacy_at.ecore#//model/Pharmacy">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/Pharmacy/name"/>
+        <genFeatures children="true" createChild="true" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Pharmacy/address"/>
+        <genFeatures children="true" createChild="true" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Pharmacy/stock"/>
+        <genFeatures children="true" createChild="true" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Pharmacy/invoices"/>
+        <genFeatures children="true" createChild="true" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Pharmacy/reports"/>
+        <genFeatures children="true" createChild="true" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Pharmacy/customers"/>
+        <genFeatures children="true" createChild="true" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Pharmacy/stockOrders"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/Pharmacy/lineItems"/>
+      </genClasses>
+      <genClasses ecoreClass="pharmacy_at.ecore#//model/Prescription" labelFeature="#//pharmacy_at/model/Prescription/number">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/Prescription/issuingPractitioner"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/Prescription/number"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+        <genFeatures notify="false" children="true" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Prescription/article"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Prescription/prescriptionCustomer"/>
@@ -41,31 +57,33 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/Article/description"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/Article/admissionNumber"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/Article/availability"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/Article/price"/>
         <genOperations ecoreOperation="pharmacy_at.ecore#//model/Article/hasName">
           <genParameters ecoreParameter="pharmacy_at.ecore#//model/Article/hasName/chain"/>
           <genParameters ecoreParameter="pharmacy_at.ecore#//model/Article/hasName/context"/>
         </genOperations>
       </genClasses>
-      <genClasses ecoreClass="pharmacy_at.ecore#//model/Bill">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/Bill/number"/>
+      <genClasses ecoreClass="pharmacy_at.ecore#//model/Invoice">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/Invoice/id"/>
+        <genFeatures notify="false" children="true" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Invoice/article"/>
+        <genFeatures children="true" createChild="true" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Invoice/prescription"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/Invoice/paidAmount"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/Invoice/date"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Bill/article"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Bill/prescription"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/Bill/paidAmount"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/Bill/date"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Bill/billCustomer"/>
+            ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Invoice/invoiceCustomer"/>
       </genClasses>
       <genClasses ecoreClass="pharmacy_at.ecore#//model/Stock">
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Stock/articles"/>
+        <genFeatures children="true" createChild="true" propertyCategory="" propertyDescription=""
+            propertySortChoices="true" ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/Stock/articles"/>
       </genClasses>
       <genClasses ecoreClass="pharmacy_at.ecore#//model/StockArticle">
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+        <genFeatures children="true" createChild="true" propertySortChoices="true"
             ecoreFeature="ecore:EReference pharmacy_at.ecore#//model/StockArticle/article"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/StockArticle/numberOnStock"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/StockArticle/lowerBound"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//model/StockArticle/numberOrdered"/>
       </genClasses>
       <genClasses ecoreClass="pharmacy_at.ecore#//model/StockOrder">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -110,6 +128,10 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//application/User/name"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//application/User/role"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pharmacy_at.ecore#//application/User/password"/>
+      </genClasses>
+      <genClasses ecoreClass="pharmacy_at.ecore#//application/Users">
+        <genFeatures children="true" createChild="true" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pharmacy_at.ecore#//application/Users/users"/>
       </genClasses>
     </nestedGenPackages>
   </genPackages>

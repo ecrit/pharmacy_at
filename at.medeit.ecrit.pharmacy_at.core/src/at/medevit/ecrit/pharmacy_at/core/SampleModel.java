@@ -5,16 +5,12 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import at.medevit.ecrit.pharmacy_at.model.Article;
-import at.medevit.ecrit.pharmacy_at.model.ArticleAvailability;
 import at.medevit.ecrit.pharmacy_at.model.Invoice;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
+import at.medevit.ecrit.pharmacy_at.model.Pharmacy;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 import at.medevit.ecrit.pharmacy_at.model.Report;
 import at.medevit.ecrit.pharmacy_at.model.Stock;
@@ -25,41 +21,72 @@ import at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl;
 
 public class SampleModel {
 	static ModelFactory factory = ModelFactory.eINSTANCE;
-	static Resource resource = null;
-	static List<Report> reports = new ArrayList<Report>();
-	static List<Invoice> invoices = new ArrayList<Invoice>();
-	static List<StockOrder> orders = new ArrayList<StockOrder>();
-	static StockOrder currOrder;
+	static EMFModelLoad loader = new EMFModelLoad();
+// static Resource resource = null;
+	static Pharmacy pharmacy = null;
 	
-	public static Resource getSampleModel(){
-		if (resource == null) {
-			ModelPackageImpl.init();
+	static StockOrder currOrder;
+	private static Invoice curInvoice;
+	
+	public static void initSampleModel(){
+		ModelPackageImpl.init();
+		pharmacy = loader.load();
+	}
+	
+	private static Pharmacy getPharmacy(){
+		if (pharmacy == null) {
 			initSampleModel();
 		}
-		return resource;
+		return pharmacy;
 	}
 	
 	public static Stock getStock(){
-		Resource s = getSampleModel();
-		return (Stock) s.getContents().get(0);
-	}
-	
-	public static void saveInvoice(){
-		Invoice newInvoice = initInvoice();
-		Resource s = getSampleModel();
-		s.getContents().add(newInvoice);
-	}
-	
-	public static Invoice getCurrentInvoice(){
-		Resource s = getSampleModel();
-		// get index of latest invoice
-		Invoice current = invoices.get(invoices.size() - 1);
-		int idx = s.getContents().indexOf(current);
-		return (Invoice) s.getContents().get(idx);
+		return getPharmacy().getStock();
 	}
 	
 	public static List<Invoice> getAllInvoices(){
-		return invoices.subList(0, invoices.size() - 1);
+		return pharmacy.getInvoices();
+	}
+	
+	public static void saveInvoice(Invoice invoice){
+		pharmacy.getInvoices().add(invoice);
+		curInvoice = null;
+		loader.save();
+	}
+	
+	public static Invoice getCurrentInvoice(){
+		if (curInvoice == null) {
+			initNewInvoice();
+		}
+		return curInvoice;
+	}
+	
+	private static void initNewInvoice(){
+		Invoice i1 = factory.createInvoice();
+		i1.setDate(Calendar.getInstance().getTime());
+		Random rnd = new Random();
+		i1.setId(rnd.nextInt(Integer.MAX_VALUE));
+		
+		curInvoice = i1;
+	}
+	
+	public static void revertCurrentInvoice(){
+		Invoice i = getCurrentInvoice();
+		
+		for (Article article : i.getArticle()) {
+			for (StockArticle stockArticle : getStock().getArticles()) {
+				// find stock article on list and reset number on stock
+				if (stockArticle.getArticle().getName().equals(article.getName())) {
+					stockArticle.setNumberOnStock(stockArticle.getNumberOnStock() + 1);
+				}
+			}
+		}
+		pharmacy.getInvoices().remove(i);
+		loader.save();
+	}
+	
+	public static void addArticleToInvoice(StockArticle stockArticle){
+		getCurrentInvoice().getArticle().add(getValidArticleCopy(stockArticle.getArticle()));
 	}
 	
 	public static StockOrder getStockOrderInstance(){
@@ -75,151 +102,37 @@ public class SampleModel {
 	}
 	
 	public static void addStockOrder(StockOrder order){
-		Resource s = getSampleModel();
-		s.getContents().add(order);
-		orders.add(order);
+		pharmacy.getStockOrders().add(order);
+		
+		loader.save();
 	}
 	
 	public static List<StockOrder> getAllStockOrders(){
-		return orders;
+		return pharmacy.getStockOrders();
+	}
+	
+	public static void stockOrderReceived(StockOrder order){
+		int orderIdx = pharmacy.getStockOrders().indexOf(order);
+		pharmacy.getStockOrders().get(orderIdx).setStatus(StockOrderStatus.RECEIVED);
+		
+		loader.save();
 	}
 	
 	public static void addReport(Report report){
-		Resource s = getSampleModel();
-		s.getContents().add(report);
-		reports.add(report);
+		pharmacy.getReports().add(report);
+		
+		loader.save();
 	}
 	
 	public static Report getLatestReport(){
-		Report latestReport = reports.get(reports.size() - 1);
-		Resource s = getSampleModel();
-		return (Report) s.getContents().get(s.getContents().indexOf(latestReport));
-	}
-	
-	public static void revertReport(Report r){
-		reports.remove(r);
-		resource.getContents().remove(r);
-	}
-	
-	public static void revertCurrentInvoice(){
-		Invoice i = getCurrentInvoice();
-		
-		for (Article article : i.getArticle()) {
-			for (StockArticle stockArticle : getStock().getArticles()) {
-				// find stock article on list and reset number on stock
-				if (stockArticle.getArticle().getName().equals(article.getName())) {
-					stockArticle.setNumberOnStock(stockArticle.getNumberOnStock() + 1);
-				}
-			}
+		if (pharmacy.getReports().size() == 0) {
+			return null;
 		}
-		invoices.remove(i);
-		resource.getContents().remove(i);
-		resource.getContents().add(initInvoice());
+		return pharmacy.getReports().get(pharmacy.getReports().size() - 1);
 	}
 	
-	public static void addArticleToInvoice(StockArticle stockArticle){
-		Article arti = EcoreUtil.copy(stockArticle.getArticle());
-		getCurrentInvoice().getArticle().add(arti);
-	}
-	
-	private static void initSampleModel(){
-		ResourceSet resSet = new ResourceSetImpl();
-		// Create a resource
-		resource = resSet.createResource(URI.createURI("pharmacy_at/my.model"));
-		
-		Stock stock = initStock();
-		Invoice invoice = initInvoice();
-		StockOrder stockOrder = initStockOrder(stock);
-		
-		resource.getContents().add(stock);
-		resource.getContents().add(invoice);
-		resource.getContents().add(stockOrder);
-		
-		// try {
-		// resource.save(Collections.EMPTY_MAP);
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
-	}
-	
-	private static StockOrder initStockOrder(Stock stock){
-		StockOrder stockOrder = getStockOrderInstance();
-		stockOrder
-			.setIssuer("Novartis Austria GmbH \nCorporate & Pharma Communications \nStella-Klein-Löw-Weg 17 \n1020 Wien");
-		stockOrder.setStatus(StockOrderStatus.ORDERED);
-		stockOrder.setBoundFor(stock);
-		stockOrder.getArticle().add(stock.getArticles().get(0).getArticle());
-		stockOrder.getArticle().add(stock.getArticles().get(1).getArticle());
-		orders.add(stockOrder);
-		return stockOrder;
-	}
-	
-	private static Stock initStock(){
-		Stock stock = factory.createStock();
-		
-		Article a1 = factory.createArticle();
-		a1.setAdmissionNumber(012345);
-		a1.setAvailability(ArticleAvailability.AVAILABLE);
-		a1.setDescription("This medicin has multiple usage cases but be careful and don't take all at once");
-		a1.setName("Aspirin");
-		a1.setPrice(3.0f);
-		StockArticle sa1 = factory.createStockArticle();
-		sa1.setArticle(a1);
-		sa1.setLowerBound(10);
-		sa1.setNumberOnStock(40);
-		
-		Article a2 = factory.createArticle();
-		a2.setAdmissionNumber(012346);
-		a2.setAvailability(ArticleAvailability.AVAILABLE);
-		a2.setDescription("This is an advanced form of the normal aspirin. \n"
-			+ "It has multiple usage cases but be careful and don't take all at once");
-		a2.setName("Aspirin Complex");
-		a2.setPrice(4.0f);
-		StockArticle sa2 = factory.createStockArticle();
-		sa2.setArticle(a2);
-		sa2.setLowerBound(10);
-		sa2.setNumberOnStock(20);
-		
-		Article a3 = factory.createArticle();
-		a3.setAdmissionNumber(034343);
-		a3.setAvailability(ArticleAvailability.AVAILABLE);
-		a3.setDescription("Adviced dose per day: 2 pieces a day (i.e. one in the morning, one in the evening)");
-		a3.setName("MagicPainkiller");
-		a3.setPrice(8.0f);
-		StockArticle sa3 = factory.createStockArticle();
-		sa3.setArticle(a3);
-		sa3.setLowerBound(10);
-		sa3.setNumberOnStock(20);
-		
-		Article a4 = factory.createArticle();
-		a4.setAdmissionNumber(001122);
-		a4.setAvailability(ArticleAvailability.BLACKLISTED);
-		a4.setDescription("Be careful, as it can cause insomnia");
-		a4.setName("Coffedrops");
-		a4.setPrice(3.0f);
-		StockArticle sa4 = factory.createStockArticle();
-		sa4.setArticle(a4);
-		sa4.setLowerBound(8);
-		sa4.setNumberOnStock(8);
-		
-		Article a5 = factory.createArticle();
-		a5.setAdmissionNumber(010203);
-		a5.setAvailability(ArticleAvailability.AVAILABLE);
-		a5.setDescription("Usually to use once a week. Can be used more often if adviced by issuing practitioner");
-		a5.setName("Elmex Zahngel");
-		a5.setPrice(4.0f);
-		StockArticle sa5 = factory.createStockArticle();
-		sa5.setArticle(a5);
-		sa5.setLowerBound(30);
-		sa5.setNumberOnStock(77);
-		
-		stock.getArticles().add(sa1);
-		stock.getArticles().add(sa2);
-		stock.getArticles().add(sa3);
-		stock.getArticles().add(sa4);
-		stock.getArticles().add(sa5);
-		
-		return stock;
+	public static void revertReport(Report report){
+		pharmacy.getReports().remove(report);
 	}
 	
 	public static boolean addToStock(StockArticle newStockArticle){
@@ -233,16 +146,6 @@ public class SampleModel {
 		}
 		getStock().getArticles().add(newStockArticle);
 		return true;
-	}
-	
-	private static Invoice initInvoice(){
-		Invoice i1 = factory.createInvoice();
-		i1.setDate(Calendar.getInstance().getTime());
-		Random rnd = new Random();
-		i1.setId(rnd.nextInt(Integer.MAX_VALUE));
-		
-		invoices.add(i1);
-		return i1;
 	}
 	
 	public static void addPrescription(Prescription p){
@@ -282,8 +185,7 @@ public class SampleModel {
 	}
 	
 	public static void addArticleToPrescription(Prescription prescription, StockArticle stockArticle){
-		Article arti = EcoreUtil.copy(stockArticle.getArticle());
-		prescription.getArticle().add(arti);
+		prescription.getArticle().add(getValidArticleCopy(stockArticle.getArticle()));
 	}
 	
 	public static void deletePrescription(Prescription prescription){
@@ -355,10 +257,15 @@ public class SampleModel {
 	
 	public static List<Prescription> getAllPrescriptions(){
 		List<Prescription> prescriptions = new ArrayList<>();
-		for (int i = 0; i < invoices.size(); i++) {
-			prescriptions.addAll(invoices.get(i).getPrescription());
+		for (int i = 0; i < pharmacy.getInvoices().size(); i++) {
+			prescriptions.addAll(pharmacy.getInvoices().get(i).getPrescription());
 		}
 		return prescriptions;
 	}
 	
+	public static Article getValidArticleCopy(Article a){
+		Article copy = EcoreUtil.copy(a);
+		pharmacy.getLineItems().getArticle().add(copy);
+		return copy;
+	}
 }

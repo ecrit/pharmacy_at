@@ -6,21 +6,17 @@ import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.Stock;
 import at.medevit.ecrit.pharmacy_at.model.StockOrder;
-
 import at.medevit.ecrit.pharmacy_at.model.StockOrderStatus;
 import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -41,7 +37,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class StockOrderImpl extends MinimalEObjectImpl.Container implements StockOrder {
 	/**
-	 * The cached value of the '{@link #getArticle() <em>Article</em>}' reference list.
+	 * The cached value of the '{@link #getArticle() <em>Article</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getArticle()
@@ -91,7 +87,7 @@ public class StockOrderImpl extends MinimalEObjectImpl.Container implements Stoc
 	protected int number = NUMBER_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getBoundFor() <em>Bound For</em>}' reference.
+	 * The cached value of the '{@link #getBoundFor() <em>Bound For</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getBoundFor()
@@ -146,7 +142,7 @@ public class StockOrderImpl extends MinimalEObjectImpl.Container implements Stoc
 	 */
 	public EList<Article> getArticle() {
 		if (article == null) {
-			article = new EObjectResolvingEList<Article>(Article.class, this, ModelPackage.STOCK_ORDER__ARTICLE);
+			article = new EObjectContainmentEList<Article>(Article.class, this, ModelPackage.STOCK_ORDER__ARTICLE);
 		}
 		return article;
 	}
@@ -199,14 +195,6 @@ public class StockOrderImpl extends MinimalEObjectImpl.Container implements Stoc
 	 * @generated
 	 */
 	public Stock getBoundFor() {
-		if (boundFor != null && boundFor.eIsProxy()) {
-			InternalEObject oldBoundFor = (InternalEObject)boundFor;
-			boundFor = (Stock)eResolveProxy(oldBoundFor);
-			if (boundFor != oldBoundFor) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.STOCK_ORDER__BOUND_FOR, oldBoundFor, boundFor));
-			}
-		}
 		return boundFor;
 	}
 
@@ -215,8 +203,14 @@ public class StockOrderImpl extends MinimalEObjectImpl.Container implements Stoc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Stock basicGetBoundFor() {
-		return boundFor;
+	public NotificationChain basicSetBoundFor(Stock newBoundFor, NotificationChain msgs) {
+		Stock oldBoundFor = boundFor;
+		boundFor = newBoundFor;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.STOCK_ORDER__BOUND_FOR, oldBoundFor, newBoundFor);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -225,10 +219,17 @@ public class StockOrderImpl extends MinimalEObjectImpl.Container implements Stoc
 	 * @generated
 	 */
 	public void setBoundFor(Stock newBoundFor) {
-		Stock oldBoundFor = boundFor;
-		boundFor = newBoundFor;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.STOCK_ORDER__BOUND_FOR, oldBoundFor, boundFor));
+		if (newBoundFor != boundFor) {
+			NotificationChain msgs = null;
+			if (boundFor != null)
+				msgs = ((InternalEObject)boundFor).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.STOCK_ORDER__BOUND_FOR, null, msgs);
+			if (newBoundFor != null)
+				msgs = ((InternalEObject)newBoundFor).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.STOCK_ORDER__BOUND_FOR, null, msgs);
+			msgs = basicSetBoundFor(newBoundFor, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.STOCK_ORDER__BOUND_FOR, newBoundFor, newBoundFor));
 	}
 
 	/**
@@ -258,6 +259,22 @@ public class StockOrderImpl extends MinimalEObjectImpl.Container implements Stoc
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ModelPackage.STOCK_ORDER__ARTICLE:
+				return ((InternalEList<?>)getArticle()).basicRemove(otherEnd, msgs);
+			case ModelPackage.STOCK_ORDER__BOUND_FOR:
+				return basicSetBoundFor(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ModelPackage.STOCK_ORDER__ARTICLE:
@@ -267,8 +284,7 @@ public class StockOrderImpl extends MinimalEObjectImpl.Container implements Stoc
 			case ModelPackage.STOCK_ORDER__NUMBER:
 				return getNumber();
 			case ModelPackage.STOCK_ORDER__BOUND_FOR:
-				if (resolve) return getBoundFor();
-				return basicGetBoundFor();
+				return getBoundFor();
 			case ModelPackage.STOCK_ORDER__STATUS:
 				return getStatus();
 		}

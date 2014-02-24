@@ -25,26 +25,26 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface StockArticle extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Article</b></em>' reference.
+	 * Returns the value of the '<em><b>Article</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Article</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Article</em>' reference.
+	 * @return the value of the '<em>Article</em>' containment reference.
 	 * @see #setArticle(Article)
 	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getStockArticle_Article()
-	 * @model required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Article getArticle();
 
 	/**
-	 * Sets the value of the '{@link at.medevit.ecrit.pharmacy_at.model.StockArticle#getArticle <em>Article</em>}' reference.
+	 * Sets the value of the '{@link at.medevit.ecrit.pharmacy_at.model.StockArticle#getArticle <em>Article</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Article</em>' reference.
+	 * @param value the new value of the '<em>Article</em>' containment reference.
 	 * @see #getArticle()
 	 * @generated
 	 */

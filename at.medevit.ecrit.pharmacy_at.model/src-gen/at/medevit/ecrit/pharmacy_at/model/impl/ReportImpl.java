@@ -10,6 +10,7 @@ import at.medevit.ecrit.pharmacy_at.model.Report;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -55,7 +56,7 @@ public class ReportImpl extends MinimalEObjectImpl.Container implements Report {
 	protected String title = TITLE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getIssuer() <em>Issuer</em>}' reference.
+	 * The cached value of the '{@link #getIssuer() <em>Issuer</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getIssuer()
@@ -170,14 +171,6 @@ public class ReportImpl extends MinimalEObjectImpl.Container implements Report {
 	 * @generated
 	 */
 	public User getIssuer() {
-		if (issuer != null && issuer.eIsProxy()) {
-			InternalEObject oldIssuer = (InternalEObject)issuer;
-			issuer = (User)eResolveProxy(oldIssuer);
-			if (issuer != oldIssuer) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.REPORT__ISSUER, oldIssuer, issuer));
-			}
-		}
 		return issuer;
 	}
 
@@ -186,8 +179,14 @@ public class ReportImpl extends MinimalEObjectImpl.Container implements Report {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public User basicGetIssuer() {
-		return issuer;
+	public NotificationChain basicSetIssuer(User newIssuer, NotificationChain msgs) {
+		User oldIssuer = issuer;
+		issuer = newIssuer;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.REPORT__ISSUER, oldIssuer, newIssuer);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -196,10 +195,17 @@ public class ReportImpl extends MinimalEObjectImpl.Container implements Report {
 	 * @generated
 	 */
 	public void setIssuer(User newIssuer) {
-		User oldIssuer = issuer;
-		issuer = newIssuer;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.REPORT__ISSUER, oldIssuer, issuer));
+		if (newIssuer != issuer) {
+			NotificationChain msgs = null;
+			if (issuer != null)
+				msgs = ((InternalEObject)issuer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.REPORT__ISSUER, null, msgs);
+			if (newIssuer != null)
+				msgs = ((InternalEObject)newIssuer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.REPORT__ISSUER, null, msgs);
+			msgs = basicSetIssuer(newIssuer, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.REPORT__ISSUER, newIssuer, newIssuer));
 	}
 
 	/**
@@ -271,13 +277,26 @@ public class ReportImpl extends MinimalEObjectImpl.Container implements Report {
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ModelPackage.REPORT__ISSUER:
+				return basicSetIssuer(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ModelPackage.REPORT__TITLE:
 				return getTitle();
 			case ModelPackage.REPORT__ISSUER:
-				if (resolve) return getIssuer();
-				return basicGetIssuer();
+				return getIssuer();
 			case ModelPackage.REPORT__PRIORITY:
 				return getPriority();
 			case ModelPackage.REPORT__CONCERNS:

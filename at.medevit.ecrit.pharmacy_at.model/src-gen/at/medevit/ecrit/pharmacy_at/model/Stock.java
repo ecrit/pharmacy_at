@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Stock extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Articles</b></em>' reference list.
+	 * Returns the value of the '<em><b>Articles</b></em>' containment reference list.
 	 * The list contents are of type {@link at.medevit.ecrit.pharmacy_at.model.StockArticle}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -32,9 +32,9 @@ public interface Stock extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Articles</em>' reference list.
+	 * @return the value of the '<em>Articles</em>' containment reference list.
 	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getStock_Articles()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<StockArticle> getArticles();

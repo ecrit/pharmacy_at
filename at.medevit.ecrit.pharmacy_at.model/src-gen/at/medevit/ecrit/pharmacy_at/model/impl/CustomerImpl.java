@@ -5,19 +5,16 @@ package at.medevit.ecrit.pharmacy_at.model.impl;
 import at.medevit.ecrit.pharmacy_at.model.Address;
 import at.medevit.ecrit.pharmacy_at.model.Customer;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
-
 import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -97,7 +94,7 @@ public class CustomerImpl extends MinimalEObjectImpl.Container implements Custom
 	protected String phoneNumber = PHONE_NUMBER_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getAddress() <em>Address</em>}' reference list.
+	 * The cached value of the '{@link #getAddress() <em>Address</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getAddress()
@@ -195,9 +192,23 @@ public class CustomerImpl extends MinimalEObjectImpl.Container implements Custom
 	 */
 	public EList<Address> getAddress() {
 		if (address == null) {
-			address = new EObjectResolvingEList<Address>(Address.class, this, ModelPackage.CUSTOMER__ADDRESS);
+			address = new EObjectContainmentEList<Address>(Address.class, this, ModelPackage.CUSTOMER__ADDRESS);
 		}
 		return address;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ModelPackage.CUSTOMER__ADDRESS:
+				return ((InternalEList<?>)getAddress()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

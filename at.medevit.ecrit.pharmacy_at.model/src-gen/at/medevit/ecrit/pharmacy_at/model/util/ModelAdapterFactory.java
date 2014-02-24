@@ -68,6 +68,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	protected ModelSwitch<Adapter> modelSwitch =
 		new ModelSwitch<Adapter>() {
 			@Override
+			public Adapter casePharmacy(Pharmacy object) {
+				return createPharmacyAdapter();
+			}
+			@Override
 			public Adapter casePrescription(Prescription object) {
 				return createPrescriptionAdapter();
 			}
@@ -104,6 +108,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createCustomerAdapter();
 			}
 			@Override
+			public Adapter caseLineItems(LineItems object) {
+				return createLineItemsAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -122,6 +130,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
+
+	/**
+	 * Creates a new adapter for an object of class '{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy <em>Pharmacy</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Pharmacy
+	 * @generated
+	 */
+	public Adapter createPharmacyAdapter() {
+		return null;
+	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link at.medevit.ecrit.pharmacy_at.model.Prescription <em>Prescription</em>}'.
@@ -246,6 +268,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCustomerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link at.medevit.ecrit.pharmacy_at.model.LineItems <em>Line Items</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see at.medevit.ecrit.pharmacy_at.model.LineItems
+	 * @generated
+	 */
+	public Adapter createLineItemsAdapter() {
 		return null;
 	}
 

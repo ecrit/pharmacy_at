@@ -117,7 +117,7 @@ public class InvoiceDataPart {
 			public void widgetSelected(SelectionEvent e){
 				MessageDialog.openInformation(parent.getShell(), "Receipt",
 					"Receipt printed... TODO ");
-				SampleModel.saveInvoice();
+				SampleModel.saveInvoice(invoice);
 				MPart idPart = partService.findPart(Messages.getString("ID_PART_INVOICE_DATA"));
 				InvoiceDataPart invoiceDataPart = (InvoiceDataPart) idPart.getObject();
 				invoiceDataPart.updateTable();

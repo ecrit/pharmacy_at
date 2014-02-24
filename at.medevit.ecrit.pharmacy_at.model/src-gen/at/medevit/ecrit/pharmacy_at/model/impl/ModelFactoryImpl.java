@@ -57,6 +57,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case ModelPackage.PHARMACY: return createPharmacy();
 			case ModelPackage.PRESCRIPTION: return createPrescription();
 			case ModelPackage.ARTICLE: return createArticle();
 			case ModelPackage.INVOICE: return createInvoice();
@@ -66,6 +67,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.REPORT: return createReport();
 			case ModelPackage.ADDRESS: return createAddress();
 			case ModelPackage.CUSTOMER: return createCustomer();
+			case ModelPackage.LINE_ITEMS: return createLineItems();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -107,6 +109,16 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Pharmacy createPharmacy() {
+		PharmacyImpl pharmacy = new PharmacyImpl();
+		return pharmacy;
 	}
 
 	/**
@@ -197,6 +209,16 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public Customer createCustomer() {
 		CustomerImpl customer = new CustomerImpl();
 		return customer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LineItems createLineItems() {
+		LineItemsImpl lineItems = new LineItemsImpl();
+		return lineItems;
 	}
 
 	/**

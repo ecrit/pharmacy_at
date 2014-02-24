@@ -8,6 +8,7 @@ import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -32,7 +33,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  */
 public class StockArticleImpl extends MinimalEObjectImpl.Container implements StockArticle {
 	/**
-	 * The cached value of the '{@link #getArticle() <em>Article</em>}' reference.
+	 * The cached value of the '{@link #getArticle() <em>Article</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getArticle()
@@ -126,14 +127,6 @@ public class StockArticleImpl extends MinimalEObjectImpl.Container implements St
 	 * @generated
 	 */
 	public Article getArticle() {
-		if (article != null && article.eIsProxy()) {
-			InternalEObject oldArticle = (InternalEObject)article;
-			article = (Article)eResolveProxy(oldArticle);
-			if (article != oldArticle) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.STOCK_ARTICLE__ARTICLE, oldArticle, article));
-			}
-		}
 		return article;
 	}
 
@@ -142,8 +135,14 @@ public class StockArticleImpl extends MinimalEObjectImpl.Container implements St
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Article basicGetArticle() {
-		return article;
+	public NotificationChain basicSetArticle(Article newArticle, NotificationChain msgs) {
+		Article oldArticle = article;
+		article = newArticle;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.STOCK_ARTICLE__ARTICLE, oldArticle, newArticle);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -152,10 +151,17 @@ public class StockArticleImpl extends MinimalEObjectImpl.Container implements St
 	 * @generated
 	 */
 	public void setArticle(Article newArticle) {
-		Article oldArticle = article;
-		article = newArticle;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.STOCK_ARTICLE__ARTICLE, oldArticle, article));
+		if (newArticle != article) {
+			NotificationChain msgs = null;
+			if (article != null)
+				msgs = ((InternalEObject)article).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.STOCK_ARTICLE__ARTICLE, null, msgs);
+			if (newArticle != null)
+				msgs = ((InternalEObject)newArticle).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.STOCK_ARTICLE__ARTICLE, null, msgs);
+			msgs = basicSetArticle(newArticle, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.STOCK_ARTICLE__ARTICLE, newArticle, newArticle));
 	}
 
 	/**
@@ -227,11 +233,24 @@ public class StockArticleImpl extends MinimalEObjectImpl.Container implements St
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ModelPackage.STOCK_ARTICLE__ARTICLE:
+				return basicSetArticle(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ModelPackage.STOCK_ARTICLE__ARTICLE:
-				if (resolve) return getArticle();
-				return basicGetArticle();
+				return getArticle();
 			case ModelPackage.STOCK_ARTICLE__NUMBER_ON_STOCK:
 				return getNumberOnStock();
 			case ModelPackage.STOCK_ARTICLE__LOWER_BOUND:

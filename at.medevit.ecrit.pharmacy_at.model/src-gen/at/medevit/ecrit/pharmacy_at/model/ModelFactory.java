@@ -22,6 +22,15 @@ public interface ModelFactory extends EFactory {
 	ModelFactory eINSTANCE = at.medevit.ecrit.pharmacy_at.model.impl.ModelFactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Pharmacy</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Pharmacy</em>'.
+	 * @generated
+	 */
+	Pharmacy createPharmacy();
+
+	/**
 	 * Returns a new object of class '<em>Prescription</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -101,6 +110,15 @@ public interface ModelFactory extends EFactory {
 	 * @generated
 	 */
 	Customer createCustomer();
+
+	/**
+	 * Returns a new object of class '<em>Line Items</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Line Items</em>'.
+	 * @generated
+	 */
+	LineItems createLineItems();
 
 	/**
 	 * Returns the package supported by this factory.

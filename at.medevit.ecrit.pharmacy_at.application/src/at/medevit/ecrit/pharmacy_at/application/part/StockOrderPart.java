@@ -144,6 +144,7 @@ public class StockOrderPart {
 			@Override
 			public void drop(DropTargetEvent event){
 				if (TextTransfer.getInstance().isSupportedType(event.currentDataType)) {
+					selectionService.setSelection(articleToOrder);
 					CommandUtil.setContextAndServices(context, commandService, handlerService);
 					CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_ADD_TO_STOCKORDER"),
 						"commandparameter.modelelement.addToStockOrder", "article for order",
@@ -188,22 +189,27 @@ public class StockOrderPart {
 		tableViewer.refresh();
 	}
 	
-	public void addArticle(StockArticle stockArticle){
-		if (isNoDuplicate(stockArticle)) {
-			stockArticle.setNumberOrdered(1);
-			articleToOrder.add(stockArticle);
-		}
-		tableViewer.refresh();
-	}
+// public void addArticle(StockArticle stockArticle){
+// if (isNoDuplicate(stockArticle)) {
+// stockArticle.setNumberOrdered(1);
+// articleToOrder.add(stockArticle);
+// }
+// tableViewer.refresh();
+// }
+//
+// private boolean isNoDuplicate(StockArticle stockArticle){
+// String articleName = stockArticle.getArticle().getName();
+// for (StockArticle sa : articleToOrder) {
+// if (articleName.equals(sa.getArticle().getName())) {
+// return false;
+// }
+// }
+// return true;
+// }
 	
-	private boolean isNoDuplicate(StockArticle stockArticle){
-		String articleName = stockArticle.getArticle().getName();
-		for (StockArticle sa : articleToOrder) {
-			if (articleName.equals(sa.getArticle().getName())) {
-				return false;
-			}
-		}
-		return true;
+	public void updateArticlesToOrder(List<StockArticle> articleToOrder){
+		this.articleToOrder = articleToOrder;
+		tableViewer.refresh();
 	}
 	
 	class UnitsEditingSupport extends EditingSupport {

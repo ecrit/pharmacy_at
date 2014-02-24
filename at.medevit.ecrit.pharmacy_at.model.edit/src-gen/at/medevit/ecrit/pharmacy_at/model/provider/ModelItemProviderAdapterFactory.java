@@ -74,6 +74,29 @@ public class ModelItemProviderAdapterFactory extends ModelAdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link at.medevit.ecrit.pharmacy_at.model.Pharmacy} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PharmacyItemProvider pharmacyItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link at.medevit.ecrit.pharmacy_at.model.Pharmacy}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPharmacyAdapter() {
+		if (pharmacyItemProvider == null) {
+			pharmacyItemProvider = new PharmacyItemProvider(this);
+		}
+
+		return pharmacyItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link at.medevit.ecrit.pharmacy_at.model.Prescription} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -281,6 +304,29 @@ public class ModelItemProviderAdapterFactory extends ModelAdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link at.medevit.ecrit.pharmacy_at.model.LineItems} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LineItemsItemProvider lineItemsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link at.medevit.ecrit.pharmacy_at.model.LineItems}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLineItemsAdapter() {
+		if (lineItemsItemProvider == null) {
+			lineItemsItemProvider = new LineItemsItemProvider(this);
+		}
+
+		return lineItemsItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -379,6 +425,7 @@ public class ModelItemProviderAdapterFactory extends ModelAdapterFactory impleme
 	 * @generated
 	 */
 	public void dispose() {
+		if (pharmacyItemProvider != null) pharmacyItemProvider.dispose();
 		if (prescriptionItemProvider != null) prescriptionItemProvider.dispose();
 		if (articleItemProvider != null) articleItemProvider.dispose();
 		if (invoiceItemProvider != null) invoiceItemProvider.dispose();
@@ -388,6 +435,7 @@ public class ModelItemProviderAdapterFactory extends ModelAdapterFactory impleme
 		if (reportItemProvider != null) reportItemProvider.dispose();
 		if (addressItemProvider != null) addressItemProvider.dispose();
 		if (customerItemProvider != null) customerItemProvider.dispose();
+		if (lineItemsItemProvider != null) lineItemsItemProvider.dispose();
 	}
 
 }

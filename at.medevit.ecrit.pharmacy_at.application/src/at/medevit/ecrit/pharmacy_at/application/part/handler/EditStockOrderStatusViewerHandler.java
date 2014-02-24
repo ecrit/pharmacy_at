@@ -30,16 +30,7 @@ public class EditStockOrderStatusViewerHandler {
 	@Execute
 	public void execute(@Named("commandparameter.editStockOrderStatus")
 	String stockOrder){
-		HashMap<String, Integer> articleAmountMap = new HashMap<>();
-		for (Article a : selection.getArticle()) {
-			if (articleAmountMap.containsKey(a.getName())) {
-				int newAmount = articleAmountMap.get(a.getName()) + 1;
-				articleAmountMap.put(a.getName(), newAmount);
-			} else {
-				articleAmountMap.put(a.getName(), 1);
-			}
-			System.out.println(a.getName());
-		}
+		HashMap<String, Integer> articleAmountMap = calcUnitsPerArticle();
 		
 		for (String name : articleAmountMap.keySet()) {
 			for (StockArticle sa : SampleModel.getStock().getArticles()) {
@@ -51,10 +42,23 @@ public class EditStockOrderStatusViewerHandler {
 				}
 			}
 		}
-		
+		SampleModel.stockOrderReceived(selection);
 		MPart part = partService.findPart(Messages.getString("ID_PART_ARTICLELIST"));
 		ArticleListPart alPart = (ArticleListPart) part.getObject();
 		alPart.updatePart();
+	}
+	
+	private HashMap<String, Integer> calcUnitsPerArticle(){
+		HashMap<String, Integer> articleAmountMap = new HashMap<>();
+		for (Article a : selection.getArticle()) {
+			if (articleAmountMap.containsKey(a.getName())) {
+				int newAmount = articleAmountMap.get(a.getName()) + 1;
+				articleAmountMap.put(a.getName(), newAmount);
+			} else {
+				articleAmountMap.put(a.getName(), 1);
+			}
+		}
+		return articleAmountMap;
 	}
 	
 	@CanExecute

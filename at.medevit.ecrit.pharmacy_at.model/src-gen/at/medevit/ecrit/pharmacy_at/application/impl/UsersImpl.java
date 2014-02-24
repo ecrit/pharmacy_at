@@ -5,16 +5,14 @@ package at.medevit.ecrit.pharmacy_at.application.impl;
 import at.medevit.ecrit.pharmacy_at.application.ApplicationPackage;
 import at.medevit.ecrit.pharmacy_at.application.User;
 import at.medevit.ecrit.pharmacy_at.application.Users;
-
 import java.util.Collection;
-
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +29,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class UsersImpl extends MinimalEObjectImpl.Container implements Users {
 	/**
-	 * The cached value of the '{@link #getUsers() <em>Users</em>}' reference list.
+	 * The cached value of the '{@link #getUsers() <em>Users</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getUsers()
@@ -66,9 +64,23 @@ public class UsersImpl extends MinimalEObjectImpl.Container implements Users {
 	 */
 	public EList<User> getUsers() {
 		if (users == null) {
-			users = new EObjectResolvingEList<User>(User.class, this, ApplicationPackage.USERS__USERS);
+			users = new EObjectContainmentEList<User>(User.class, this, ApplicationPackage.USERS__USERS);
 		}
 		return users;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ApplicationPackage.USERS__USERS:
+				return ((InternalEList<?>)getUsers()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

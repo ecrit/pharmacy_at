@@ -254,7 +254,9 @@ public class InvoicePart {
 	void setSelection(@Optional
 	@Named(IServiceConstants.ACTIVE_SELECTION)
 	Object o){
-		updateTable();
+		if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
+			updateTable();
+		}
 	}
 	
 	public void updateTable(){

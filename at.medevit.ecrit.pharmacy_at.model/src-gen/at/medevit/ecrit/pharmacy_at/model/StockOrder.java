@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface StockOrder extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Article</b></em>' reference list.
+	 * Returns the value of the '<em><b>Article</b></em>' containment reference list.
 	 * The list contents are of type {@link at.medevit.ecrit.pharmacy_at.model.Article}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -36,9 +36,9 @@ public interface StockOrder extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Article</em>' reference list.
+	 * @return the value of the '<em>Article</em>' containment reference list.
 	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getStockOrder_Article()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Article> getArticle();
@@ -96,26 +96,26 @@ public interface StockOrder extends EObject {
 	void setNumber(int value);
 
 	/**
-	 * Returns the value of the '<em><b>Bound For</b></em>' reference.
+	 * Returns the value of the '<em><b>Bound For</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Bound For</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Bound For</em>' reference.
+	 * @return the value of the '<em>Bound For</em>' containment reference.
 	 * @see #setBoundFor(Stock)
 	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getStockOrder_BoundFor()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Stock getBoundFor();
 
 	/**
-	 * Sets the value of the '{@link at.medevit.ecrit.pharmacy_at.model.StockOrder#getBoundFor <em>Bound For</em>}' reference.
+	 * Sets the value of the '{@link at.medevit.ecrit.pharmacy_at.model.StockOrder#getBoundFor <em>Bound For</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Bound For</em>' reference.
+	 * @param value the new value of the '<em>Bound For</em>' containment reference.
 	 * @see #getBoundFor()
 	 * @generated
 	 */

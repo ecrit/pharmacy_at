@@ -67,13 +67,13 @@ public interface Invoice extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Article</em>' reference list.
 	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getInvoice_Article()
-	 * @model
+	 * @model derived="true"
 	 * @generated
 	 */
 	EList<Article> getArticle();
 
 	/**
-	 * Returns the value of the '<em><b>Prescription</b></em>' reference list.
+	 * Returns the value of the '<em><b>Prescription</b></em>' containment reference list.
 	 * The list contents are of type {@link at.medevit.ecrit.pharmacy_at.model.Prescription}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -81,9 +81,9 @@ public interface Invoice extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Prescription</em>' reference list.
+	 * @return the value of the '<em>Prescription</em>' containment reference list.
 	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getInvoice_Prescription()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Prescription> getPrescription();
@@ -116,6 +116,7 @@ public interface Invoice extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Date</b></em>' attribute.
+	 * The default value is <code>"2014-02-17"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Date</em>' attribute isn't clear,
@@ -125,7 +126,7 @@ public interface Invoice extends EObject {
 	 * @return the value of the '<em>Date</em>' attribute.
 	 * @see #setDate(Date)
 	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getInvoice_Date()
-	 * @model required="true"
+	 * @model default="2014-02-17" required="true"
 	 * @generated
 	 */
 	Date getDate();

@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Users extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Users</b></em>' reference list.
+	 * Returns the value of the '<em><b>Users</b></em>' containment reference list.
 	 * The list contents are of type {@link at.medevit.ecrit.pharmacy_at.application.User}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -32,9 +32,9 @@ public interface Users extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Users</em>' reference list.
+	 * @return the value of the '<em>Users</em>' containment reference list.
 	 * @see at.medevit.ecrit.pharmacy_at.application.ApplicationPackage#getUsers_Users()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<User> getUsers();

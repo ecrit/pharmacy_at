@@ -79,7 +79,7 @@ public interface Prescription extends EObject {
 	void setNumber(int value);
 
 	/**
-	 * Returns the value of the '<em><b>Article</b></em>' reference list.
+	 * Returns the value of the '<em><b>Article</b></em>' containment reference list.
 	 * The list contents are of type {@link at.medevit.ecrit.pharmacy_at.model.Article}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -87,9 +87,9 @@ public interface Prescription extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Article</em>' reference list.
+	 * @return the value of the '<em>Article</em>' containment reference list.
 	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getPrescription_Article()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Article> getArticle();

@@ -59,6 +59,9 @@
     </children>
     <mainMenu xmi:id="_FocnYIdLEeOHboXTCc9xHQ" elementId="at.medevit.ecrit.pharmacy_at.application.menu.0">
       <children xsi:type="menu:DirectMenuItem" xmi:id="_HtyjQIdLEeOHboXTCc9xHQ" elementId="at.medevit.ecrit.pharmacy_at.application.directmenuitem.0" label="Report" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/report.png" tooltip="Report an issue" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.CreateReportHandler"/>
+      <children xsi:type="menu:Menu" xmi:id="_-CfkMJs2EeOxW9tmjsgl9w" elementId="mainmenu.maintenance" label="Maintenance" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/maintenance.png">
+        <children xsi:type="menu:DirectMenuItem" xmi:id="_HrpPwJs3EeOxW9tmjsgl9w" elementId="mainmenu.maintenance.menu.update.articles" label="Update Articles" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/update_articlelist.png"/>
+      </children>
     </mainMenu>
     <sharedElements xsi:type="basic:Part" xmi:id="_K6LbcFEAEeOs7KUvDVp0Mg" elementId="part.articlelist" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart" label="Article List">
       <persistedState key="description" value="In this part you see the various articles. &#xD;&#xA;The displayed table gives an overview about the units (per article) on stock and if there is currently an order existent.&#xD;&#xA;The box in the ordered column gives information about whether the article is ordered or not and if - which state it is in.&#xD;&#xA;- grey box: normal state, enough units on stock&#xD;&#xA;- green box: article is ordered (though can be out of stock)&#xD;&#xA;- yellow box: not ordered, but lower bound on stock is already reached&#xD;&#xA;- red box: not ordered and no more articles on stock"/>

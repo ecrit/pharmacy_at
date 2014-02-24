@@ -54,26 +54,26 @@ public interface Report extends EObject {
 	void setTitle(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Issuer</b></em>' reference.
+	 * Returns the value of the '<em><b>Issuer</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Issuer</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Issuer</em>' reference.
+	 * @return the value of the '<em>Issuer</em>' containment reference.
 	 * @see #setIssuer(User)
 	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getReport_Issuer()
-	 * @model required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	User getIssuer();
 
 	/**
-	 * Sets the value of the '{@link at.medevit.ecrit.pharmacy_at.model.Report#getIssuer <em>Issuer</em>}' reference.
+	 * Sets the value of the '{@link at.medevit.ecrit.pharmacy_at.model.Report#getIssuer <em>Issuer</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Issuer</em>' reference.
+	 * @param value the new value of the '<em>Issuer</em>' containment reference.
 	 * @see #getIssuer()
 	 * @generated
 	 */

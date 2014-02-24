@@ -59,6 +59,106 @@ public interface ModelPackage extends EPackage {
 	ModelPackage eINSTANCE = at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl.init();
 
 	/**
+	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.PharmacyImpl <em>Pharmacy</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.PharmacyImpl
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getPharmacy()
+	 * @generated
+	 */
+	int PHARMACY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PHARMACY__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Address</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PHARMACY__ADDRESS = 1;
+
+	/**
+	 * The feature id for the '<em><b>Stock</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PHARMACY__STOCK = 2;
+
+	/**
+	 * The feature id for the '<em><b>Invoices</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PHARMACY__INVOICES = 3;
+
+	/**
+	 * The feature id for the '<em><b>Reports</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PHARMACY__REPORTS = 4;
+
+	/**
+	 * The feature id for the '<em><b>Customers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PHARMACY__CUSTOMERS = 5;
+
+	/**
+	 * The feature id for the '<em><b>Stock Orders</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PHARMACY__STOCK_ORDERS = 6;
+
+	/**
+	 * The feature id for the '<em><b>Line Items</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PHARMACY__LINE_ITEMS = 7;
+
+	/**
+	 * The number of structural features of the '<em>Pharmacy</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PHARMACY_FEATURE_COUNT = 8;
+
+	/**
+	 * The number of operations of the '<em>Pharmacy</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PHARMACY_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.PrescriptionImpl <em>Prescription</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -66,7 +166,7 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getPrescription()
 	 * @generated
 	 */
-	int PRESCRIPTION = 0;
+	int PRESCRIPTION = 1;
 
 	/**
 	 * The feature id for the '<em><b>Issuing Practitioner</b></em>' attribute.
@@ -87,7 +187,7 @@ public interface ModelPackage extends EPackage {
 	int PRESCRIPTION__NUMBER = 1;
 
 	/**
-	 * The feature id for the '<em><b>Article</b></em>' reference list.
+	 * The feature id for the '<em><b>Article</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -130,7 +230,7 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getArticle()
 	 * @generated
 	 */
-	int ARTICLE = 1;
+	int ARTICLE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -212,7 +312,7 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getInvoice()
 	 * @generated
 	 */
-	int INVOICE = 2;
+	int INVOICE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -233,7 +333,7 @@ public interface ModelPackage extends EPackage {
 	int INVOICE__ARTICLE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Prescription</b></em>' reference list.
+	 * The feature id for the '<em><b>Prescription</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -294,10 +394,10 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getStock()
 	 * @generated
 	 */
-	int STOCK = 3;
+	int STOCK = 4;
 
 	/**
-	 * The feature id for the '<em><b>Articles</b></em>' reference list.
+	 * The feature id for the '<em><b>Articles</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -331,10 +431,10 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getStockArticle()
 	 * @generated
 	 */
-	int STOCK_ARTICLE = 4;
+	int STOCK_ARTICLE = 5;
 
 	/**
-	 * The feature id for the '<em><b>Article</b></em>' reference.
+	 * The feature id for the '<em><b>Article</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -395,10 +495,10 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getStockOrder()
 	 * @generated
 	 */
-	int STOCK_ORDER = 5;
+	int STOCK_ORDER = 6;
 
 	/**
-	 * The feature id for the '<em><b>Article</b></em>' reference list.
+	 * The feature id for the '<em><b>Article</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -425,7 +525,7 @@ public interface ModelPackage extends EPackage {
 	int STOCK_ORDER__NUMBER = 2;
 
 	/**
-	 * The feature id for the '<em><b>Bound For</b></em>' reference.
+	 * The feature id for the '<em><b>Bound For</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -468,7 +568,7 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getReport()
 	 * @generated
 	 */
-	int REPORT = 6;
+	int REPORT = 7;
 
 	/**
 	 * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -480,7 +580,7 @@ public interface ModelPackage extends EPackage {
 	int REPORT__TITLE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Issuer</b></em>' reference.
+	 * The feature id for the '<em><b>Issuer</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -541,7 +641,7 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getAddress()
 	 * @generated
 	 */
-	int ADDRESS = 7;
+	int ADDRESS = 8;
 
 	/**
 	 * The feature id for the '<em><b>Street</b></em>' attribute.
@@ -605,7 +705,7 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getCustomer()
 	 * @generated
 	 */
-	int CUSTOMER = 8;
+	int CUSTOMER = 9;
 
 	/**
 	 * The feature id for the '<em><b>Insurance Number</b></em>' attribute.
@@ -635,7 +735,7 @@ public interface ModelPackage extends EPackage {
 	int CUSTOMER__PHONE_NUMBER = 2;
 
 	/**
-	 * The feature id for the '<em><b>Address</b></em>' reference list.
+	 * The feature id for the '<em><b>Address</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -662,6 +762,43 @@ public interface ModelPackage extends EPackage {
 	int CUSTOMER_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.LineItemsImpl <em>Line Items</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.LineItemsImpl
+	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getLineItems()
+	 * @generated
+	 */
+	int LINE_ITEMS = 10;
+
+	/**
+	 * The feature id for the '<em><b>Article</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINE_ITEMS__ARTICLE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Line Items</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINE_ITEMS_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Line Items</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINE_ITEMS_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.StockOrderStatus <em>Stock Order Status</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -669,7 +806,7 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getStockOrderStatus()
 	 * @generated
 	 */
-	int STOCK_ORDER_STATUS = 9;
+	int STOCK_ORDER_STATUS = 11;
 
 
 	/**
@@ -680,7 +817,7 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getArticleAvailability()
 	 * @generated
 	 */
-	int ARTICLE_AVAILABILITY = 10;
+	int ARTICLE_AVAILABILITY = 12;
 
 	/**
 	 * The meta object id for the '{@link at.medevit.ecrit.pharmacy_at.model.Priority <em>Priority</em>}' enum.
@@ -690,8 +827,106 @@ public interface ModelPackage extends EPackage {
 	 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getPriority()
 	 * @generated
 	 */
-	int PRIORITY = 11;
+	int PRIORITY = 13;
 
+
+	/**
+	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy <em>Pharmacy</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Pharmacy</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Pharmacy
+	 * @generated
+	 */
+	EClass getPharmacy();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Pharmacy#getName()
+	 * @see #getPharmacy()
+	 * @generated
+	 */
+	EAttribute getPharmacy_Name();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getAddress <em>Address</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Address</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Pharmacy#getAddress()
+	 * @see #getPharmacy()
+	 * @generated
+	 */
+	EReference getPharmacy_Address();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getStock <em>Stock</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Stock</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Pharmacy#getStock()
+	 * @see #getPharmacy()
+	 * @generated
+	 */
+	EReference getPharmacy_Stock();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getInvoices <em>Invoices</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Invoices</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Pharmacy#getInvoices()
+	 * @see #getPharmacy()
+	 * @generated
+	 */
+	EReference getPharmacy_Invoices();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getReports <em>Reports</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Reports</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Pharmacy#getReports()
+	 * @see #getPharmacy()
+	 * @generated
+	 */
+	EReference getPharmacy_Reports();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getCustomers <em>Customers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Customers</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Pharmacy#getCustomers()
+	 * @see #getPharmacy()
+	 * @generated
+	 */
+	EReference getPharmacy_Customers();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getStockOrders <em>Stock Orders</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Stock Orders</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Pharmacy#getStockOrders()
+	 * @see #getPharmacy()
+	 * @generated
+	 */
+	EReference getPharmacy_StockOrders();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getLineItems <em>Line Items</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Line Items</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Pharmacy#getLineItems()
+	 * @see #getPharmacy()
+	 * @generated
+	 */
+	EReference getPharmacy_LineItems();
 
 	/**
 	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.Prescription <em>Prescription</em>}'.
@@ -726,10 +961,10 @@ public interface ModelPackage extends EPackage {
 	EAttribute getPrescription_Number();
 
 	/**
-	 * Returns the meta object for the reference list '{@link at.medevit.ecrit.pharmacy_at.model.Prescription#getArticle <em>Article</em>}'.
+	 * Returns the meta object for the containment reference list '{@link at.medevit.ecrit.pharmacy_at.model.Prescription#getArticle <em>Article</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Article</em>'.
+	 * @return the meta object for the containment reference list '<em>Article</em>'.
 	 * @see at.medevit.ecrit.pharmacy_at.model.Prescription#getArticle()
 	 * @see #getPrescription()
 	 * @generated
@@ -855,10 +1090,10 @@ public interface ModelPackage extends EPackage {
 	EReference getInvoice_Article();
 
 	/**
-	 * Returns the meta object for the reference list '{@link at.medevit.ecrit.pharmacy_at.model.Invoice#getPrescription <em>Prescription</em>}'.
+	 * Returns the meta object for the containment reference list '{@link at.medevit.ecrit.pharmacy_at.model.Invoice#getPrescription <em>Prescription</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Prescription</em>'.
+	 * @return the meta object for the containment reference list '<em>Prescription</em>'.
 	 * @see at.medevit.ecrit.pharmacy_at.model.Invoice#getPrescription()
 	 * @see #getInvoice()
 	 * @generated
@@ -909,10 +1144,10 @@ public interface ModelPackage extends EPackage {
 	EClass getStock();
 
 	/**
-	 * Returns the meta object for the reference list '{@link at.medevit.ecrit.pharmacy_at.model.Stock#getArticles <em>Articles</em>}'.
+	 * Returns the meta object for the containment reference list '{@link at.medevit.ecrit.pharmacy_at.model.Stock#getArticles <em>Articles</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Articles</em>'.
+	 * @return the meta object for the containment reference list '<em>Articles</em>'.
 	 * @see at.medevit.ecrit.pharmacy_at.model.Stock#getArticles()
 	 * @see #getStock()
 	 * @generated
@@ -930,10 +1165,10 @@ public interface ModelPackage extends EPackage {
 	EClass getStockArticle();
 
 	/**
-	 * Returns the meta object for the reference '{@link at.medevit.ecrit.pharmacy_at.model.StockArticle#getArticle <em>Article</em>}'.
+	 * Returns the meta object for the containment reference '{@link at.medevit.ecrit.pharmacy_at.model.StockArticle#getArticle <em>Article</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Article</em>'.
+	 * @return the meta object for the containment reference '<em>Article</em>'.
 	 * @see at.medevit.ecrit.pharmacy_at.model.StockArticle#getArticle()
 	 * @see #getStockArticle()
 	 * @generated
@@ -984,10 +1219,10 @@ public interface ModelPackage extends EPackage {
 	EClass getStockOrder();
 
 	/**
-	 * Returns the meta object for the reference list '{@link at.medevit.ecrit.pharmacy_at.model.StockOrder#getArticle <em>Article</em>}'.
+	 * Returns the meta object for the containment reference list '{@link at.medevit.ecrit.pharmacy_at.model.StockOrder#getArticle <em>Article</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Article</em>'.
+	 * @return the meta object for the containment reference list '<em>Article</em>'.
 	 * @see at.medevit.ecrit.pharmacy_at.model.StockOrder#getArticle()
 	 * @see #getStockOrder()
 	 * @generated
@@ -1017,10 +1252,10 @@ public interface ModelPackage extends EPackage {
 	EAttribute getStockOrder_Number();
 
 	/**
-	 * Returns the meta object for the reference '{@link at.medevit.ecrit.pharmacy_at.model.StockOrder#getBoundFor <em>Bound For</em>}'.
+	 * Returns the meta object for the containment reference '{@link at.medevit.ecrit.pharmacy_at.model.StockOrder#getBoundFor <em>Bound For</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Bound For</em>'.
+	 * @return the meta object for the containment reference '<em>Bound For</em>'.
 	 * @see at.medevit.ecrit.pharmacy_at.model.StockOrder#getBoundFor()
 	 * @see #getStockOrder()
 	 * @generated
@@ -1060,10 +1295,10 @@ public interface ModelPackage extends EPackage {
 	EAttribute getReport_Title();
 
 	/**
-	 * Returns the meta object for the reference '{@link at.medevit.ecrit.pharmacy_at.model.Report#getIssuer <em>Issuer</em>}'.
+	 * Returns the meta object for the containment reference '{@link at.medevit.ecrit.pharmacy_at.model.Report#getIssuer <em>Issuer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Issuer</em>'.
+	 * @return the meta object for the containment reference '<em>Issuer</em>'.
 	 * @see at.medevit.ecrit.pharmacy_at.model.Report#getIssuer()
 	 * @see #getReport()
 	 * @generated
@@ -1201,15 +1436,36 @@ public interface ModelPackage extends EPackage {
 	EAttribute getCustomer_PhoneNumber();
 
 	/**
-	 * Returns the meta object for the reference list '{@link at.medevit.ecrit.pharmacy_at.model.Customer#getAddress <em>Address</em>}'.
+	 * Returns the meta object for the containment reference list '{@link at.medevit.ecrit.pharmacy_at.model.Customer#getAddress <em>Address</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Address</em>'.
+	 * @return the meta object for the containment reference list '<em>Address</em>'.
 	 * @see at.medevit.ecrit.pharmacy_at.model.Customer#getAddress()
 	 * @see #getCustomer()
 	 * @generated
 	 */
 	EReference getCustomer_Address();
+
+	/**
+	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.LineItems <em>Line Items</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Line Items</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.LineItems
+	 * @generated
+	 */
+	EClass getLineItems();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link at.medevit.ecrit.pharmacy_at.model.LineItems#getArticle <em>Article</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Article</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.LineItems#getArticle()
+	 * @see #getLineItems()
+	 * @generated
+	 */
+	EReference getLineItems_Article();
 
 	/**
 	 * Returns the meta object for enum '{@link at.medevit.ecrit.pharmacy_at.model.StockOrderStatus <em>Stock Order Status</em>}'.
@@ -1265,6 +1521,80 @@ public interface ModelPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
+		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.PharmacyImpl <em>Pharmacy</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.PharmacyImpl
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getPharmacy()
+		 * @generated
+		 */
+		EClass PHARMACY = eINSTANCE.getPharmacy();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PHARMACY__NAME = eINSTANCE.getPharmacy_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Address</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PHARMACY__ADDRESS = eINSTANCE.getPharmacy_Address();
+
+		/**
+		 * The meta object literal for the '<em><b>Stock</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PHARMACY__STOCK = eINSTANCE.getPharmacy_Stock();
+
+		/**
+		 * The meta object literal for the '<em><b>Invoices</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PHARMACY__INVOICES = eINSTANCE.getPharmacy_Invoices();
+
+		/**
+		 * The meta object literal for the '<em><b>Reports</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PHARMACY__REPORTS = eINSTANCE.getPharmacy_Reports();
+
+		/**
+		 * The meta object literal for the '<em><b>Customers</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PHARMACY__CUSTOMERS = eINSTANCE.getPharmacy_Customers();
+
+		/**
+		 * The meta object literal for the '<em><b>Stock Orders</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PHARMACY__STOCK_ORDERS = eINSTANCE.getPharmacy_StockOrders();
+
+		/**
+		 * The meta object literal for the '<em><b>Line Items</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PHARMACY__LINE_ITEMS = eINSTANCE.getPharmacy_LineItems();
+
+		/**
 		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.PrescriptionImpl <em>Prescription</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1291,7 +1621,7 @@ public interface ModelPackage extends EPackage {
 		EAttribute PRESCRIPTION__NUMBER = eINSTANCE.getPrescription_Number();
 
 		/**
-		 * The meta object literal for the '<em><b>Article</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Article</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1391,7 +1721,7 @@ public interface ModelPackage extends EPackage {
 		EReference INVOICE__ARTICLE = eINSTANCE.getInvoice_Article();
 
 		/**
-		 * The meta object literal for the '<em><b>Prescription</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Prescription</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1433,7 +1763,7 @@ public interface ModelPackage extends EPackage {
 		EClass STOCK = eINSTANCE.getStock();
 
 		/**
-		 * The meta object literal for the '<em><b>Articles</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Articles</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1451,7 +1781,7 @@ public interface ModelPackage extends EPackage {
 		EClass STOCK_ARTICLE = eINSTANCE.getStockArticle();
 
 		/**
-		 * The meta object literal for the '<em><b>Article</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Article</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1493,7 +1823,7 @@ public interface ModelPackage extends EPackage {
 		EClass STOCK_ORDER = eINSTANCE.getStockOrder();
 
 		/**
-		 * The meta object literal for the '<em><b>Article</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Article</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1517,7 +1847,7 @@ public interface ModelPackage extends EPackage {
 		EAttribute STOCK_ORDER__NUMBER = eINSTANCE.getStockOrder_Number();
 
 		/**
-		 * The meta object literal for the '<em><b>Bound For</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Bound For</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1551,7 +1881,7 @@ public interface ModelPackage extends EPackage {
 		EAttribute REPORT__TITLE = eINSTANCE.getReport_Title();
 
 		/**
-		 * The meta object literal for the '<em><b>Issuer</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Issuer</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1659,12 +1989,30 @@ public interface ModelPackage extends EPackage {
 		EAttribute CUSTOMER__PHONE_NUMBER = eINSTANCE.getCustomer_PhoneNumber();
 
 		/**
-		 * The meta object literal for the '<em><b>Address</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Address</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference CUSTOMER__ADDRESS = eINSTANCE.getCustomer_Address();
+
+		/**
+		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.LineItemsImpl <em>Line Items</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.LineItemsImpl
+		 * @see at.medevit.ecrit.pharmacy_at.model.impl.ModelPackageImpl#getLineItems()
+		 * @generated
+		 */
+		EClass LINE_ITEMS = eINSTANCE.getLineItems();
+
+		/**
+		 * The meta object literal for the '<em><b>Article</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LINE_ITEMS__ARTICLE = eINSTANCE.getLineItems_Article();
 
 		/**
 		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.StockOrderStatus <em>Stock Order Status</em>}' enum.

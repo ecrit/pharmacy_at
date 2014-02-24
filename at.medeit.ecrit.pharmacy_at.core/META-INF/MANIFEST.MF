@@ -6,5 +6,9 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-Vendor: ecrit.at
 Require-Bundle: at.medevit.ecrit.pharmacy_at.model,
- org.eclipse.emf.ecore
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.emf.edit,
+ org.eclipse.equinox.common,
+ org.eclipse.osgi
 Export-Package: at.medevit.ecrit.pharmacy_at.core

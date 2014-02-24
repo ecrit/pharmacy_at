@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ASCII"?>
+<www.ecrit.at:Users
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:www.ecrit.at="pharmacy_at/application"
+    xsi:schemaLocation="pharmacy_at/application pharmacy_at.ecore#//application">
+  <users name="superuser"
+      password="passwd#1">
+    <role>SELLER</role>
+    <role>CLERK</role>
+    <role>STOCKIST</role>
+    <role>SYSADMIN</role>
+  </users>
+  <users name="marco"
+      password="passwd#2">
+    <role>CLERK</role>
+    <role>STOCKIST</role>
+  </users>
+  <users name="lucia"
+      password="passwd#6">
+    <role>SELLER</role>
+    <role>STOCKIST</role>
+  </users>
+  <users name="tom"
+      password="passwd#3">
+    <role>SYSADMIN</role>
+  </users>
+  <users name="james"
+      password="passwd#4">
+    <role>CLERK</role>
+    <role>STOCKIST</role>
+  </users>
+  <users name="rumpelstilzchen"
+      password="passwd#5">
+    <role>SELLER</role>
+    <role>CLERK</role>
+  </users>
+  <users name="testuser"
+      password="passwd#7">
+    <role>SELLER</role>
+  </users>
+</www.ecrit.at:Users>
