@@ -92,7 +92,7 @@ public class InvoiceOverviewComposite extends Composite {
 		InvoicePrescriptionOverviewPart.updateBalance(total, true, 0.0f, false);
 	}
 	
-	public void filterInvoices(Date dFrom, Date dTo){
+	public List<Invoice> filterInvoices(Date dFrom, Date dTo){
 		List<Invoice> matching = new ArrayList<>();
 		for (Invoice i : invoices) {
 			if (i.getDate().after(dFrom) && i.getDate().before(dTo)) {
@@ -100,6 +100,7 @@ public class InvoiceOverviewComposite extends Composite {
 			}
 		}
 		treeViewer.setInput(matching);
+		return matching;
 	}
 	
 	public void removeFilter(){

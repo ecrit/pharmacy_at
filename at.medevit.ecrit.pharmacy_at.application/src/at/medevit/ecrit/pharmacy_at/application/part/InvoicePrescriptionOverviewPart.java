@@ -96,8 +96,10 @@ public class InvoicePrescriptionOverviewPart {
 					to.set(Calendar.MINUTE, 59);
 					Date dTo = to.getTime();
 					ioc.filterInvoices(dFrom, dTo);
+					poc.filterPrescriptions(ioc.filterInvoices(dFrom, dTo));
 				} else {
 					ioc.removeFilter();
+					poc.removeFilter();
 				}
 			}
 		});

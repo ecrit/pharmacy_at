@@ -1,5 +1,6 @@
 package at.medevit.ecrit.pharmacy_at.application.control;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -24,6 +25,7 @@ import at.medevit.ecrit.pharmacy_at.application.part.InvoicePrescriptionOverview
 import at.medevit.ecrit.pharmacy_at.application.util.Images;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
+import at.medevit.ecrit.pharmacy_at.model.Invoice;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
 public class PrescriptionOverviewComposite extends Composite {
@@ -172,6 +174,14 @@ public class PrescriptionOverviewComposite extends Composite {
 	
 	public static void loseFocus(){
 		viewerTree.getTree().deselectAll();
+	}
+	
+	public void filterPrescriptions(List<Invoice> invoices){
+		List<Prescription> matching = new ArrayList<>();
+		for (Invoice i : invoices) {
+			matching.addAll(i.getPrescription());
+		}
+		viewerTree.setInput(matching);
 	}
 	
 	public void removeFilter(){
