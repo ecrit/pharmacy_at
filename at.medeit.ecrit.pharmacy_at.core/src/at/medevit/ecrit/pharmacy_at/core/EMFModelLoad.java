@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -52,9 +53,12 @@ public class EMFModelLoad {
 	
 	private String loadPath(){
 		URL url = EMFModelLoad.class.getResource("/rsc/pharmacy.xmi");
-		System.out.println(url.getPath());
-// return url.getPath();
-		// FIXME
-		return "C:/Users/Lucia/git/pharmacy_at/at.medeit.ecrit.pharmacy_at.core/rsc/pharmacy.xmi";
+		try {
+			url = FileLocator.toFileURL(url);
+			System.out.println(url.getPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return url.getPath();
 	}
 }
