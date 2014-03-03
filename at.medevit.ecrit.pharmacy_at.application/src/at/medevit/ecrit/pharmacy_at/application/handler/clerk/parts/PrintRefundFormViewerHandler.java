@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.part.handler;
+package at.medevit.ecrit.pharmacy_at.application.handler.clerk.parts;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +30,7 @@ public class PrintRefundFormViewerHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
+		// TODO only allow in clerk tab/ for clerk user
 		Object selection =
 			selectionService.getSelection(Messages
 				.getString("ID_PART_INVOICE_PRESCRIPTION_OVERVIEW"));

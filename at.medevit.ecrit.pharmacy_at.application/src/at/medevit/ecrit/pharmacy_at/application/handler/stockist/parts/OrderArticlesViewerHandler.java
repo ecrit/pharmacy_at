@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.part.handler;
+package at.medevit.ecrit.pharmacy_at.application.handler.stockist.parts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +64,7 @@ public class OrderArticlesViewerHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
+		// TODO only allow in stockist tab/ for stockist user
 		articlesToOrder =
 			CommandUtil.getSelectionOfType(List.class,
 				selectionService.getSelection(Messages.getString("ID_PART_STOCKORDER")));

@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.part.handler;
+package at.medevit.ecrit.pharmacy_at.application.handler.seller.parts;
 
 import java.util.ArrayList;
 import java.util.List;

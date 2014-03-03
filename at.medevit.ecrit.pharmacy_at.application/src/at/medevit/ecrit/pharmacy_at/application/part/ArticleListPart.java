@@ -49,7 +49,7 @@ import org.eclipse.swt.widgets.Text;
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.filter.ArticleFilter;
 import at.medevit.ecrit.pharmacy_at.application.filter.CriticalLevelFilter;
-import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToInvoiceViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.AddToInvoiceViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.util.Images;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;

@@ -264,8 +264,6 @@ public class InvoicePart implements IPart {
 			tableViewer.refresh();
 			presTableViewer.refresh();
 			tableViewer.getControl().getParent().pack();
-			
-			System.out.println("....updated invoice part");
 		}
 	}
 	

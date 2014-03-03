@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.handler.clerk;
+package at.medevit.ecrit.pharmacy_at.application.handler.clerk.parts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +22,7 @@ import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 import at.medevit.ecrit.pharmacy_at.model.Report;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
-public class CheckInventoryHandler {
+public class CheckInventoryViewerHandler {
 	
 	@Inject
 	private ESelectionService selectionService;
@@ -51,26 +51,31 @@ public class CheckInventoryHandler {
 					"Would you like to report the inconsistency in the inventory?");
 			
 			if (agreed) {
-				Report report = ModelFactory.eINSTANCE.createReport();
-				ReportDialog dlg = new ReportDialog(shell, report);
-				report.setTitle("Inventory inconsistency");
-				
-				StringBuilder sb = new StringBuilder();
-				for (StockArticle sa : inconsitentArticle) {
-					sb.append(sa.getArticle().getName());
-					sb.append("\n");
-				}
-				report.setText(sb.toString());
-				
-				if (dlg.open() == IDialogConstants.OK_ID) {
-					SampleModel.addReport(report);
-				}
+				openReportDialog(shell);
 			}
+		}
+	}
+	
+	private void openReportDialog(Shell shell){
+		Report report = ModelFactory.eINSTANCE.createReport();
+		ReportDialog dlg = new ReportDialog(shell, report);
+		report.setTitle("Inventory inconsistency");
+		
+		StringBuilder sb = new StringBuilder();
+		for (StockArticle sa : inconsitentArticle) {
+			sb.append(sa.getArticle().getName());
+			sb.append("\n");
+		}
+		report.setText(sb.toString());
+		
+		if (dlg.open() == IDialogConstants.OK_ID) {
+			SampleModel.addReport(report);
 		}
 	}
 	
 	@CanExecute
 	public boolean canExecute(){
+		// TODO only allow in clerk tab/ for clerk user
 		Object selection = selectionService.getSelection(Messages.getString("ID_PART_INVENTORY"));
 		if (selection != null && selection instanceof Object[]) {
 			this.checked = Arrays.asList((Object[]) selection);

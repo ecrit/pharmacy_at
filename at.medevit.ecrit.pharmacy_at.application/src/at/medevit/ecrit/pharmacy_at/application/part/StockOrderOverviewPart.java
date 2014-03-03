@@ -42,7 +42,7 @@ import org.eclipse.swt.widgets.Text;
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.dialog.StockOrderDialog;
 import at.medevit.ecrit.pharmacy_at.application.filter.StockOrderFilter;
-import at.medevit.ecrit.pharmacy_at.application.part.handler.EditStockOrderStatusViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.handler.stockist.parts.EditStockOrderStatusViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;

@@ -32,6 +32,7 @@ public class AddNewArticleHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
+		// TODO only allow in stockist tab/ for stockist user
 		return true;
 	}
 	

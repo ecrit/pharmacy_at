@@ -39,9 +39,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.part.handler.AddAsPrescriptionViewerHandler;
-import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToPrescriptionViewerHandler;
-import at.medevit.ecrit.pharmacy_at.application.part.handler.EditPrescriptionViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.AddAsPrescriptionViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.AddToPrescriptionViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.EditPrescriptionViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
@@ -202,8 +202,6 @@ public class PrescriptionPart implements IPart {
 			prescriptions.addAll(SampleModel.getInvoice().getPrescription());
 			selectionService.setSelection(null);
 			tableViewer.refresh();
-			
-			System.out.println("....updated prescription part");
 		}
 		
 	}

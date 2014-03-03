@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.part.handler;
+package at.medevit.ecrit.pharmacy_at.application.handler.stockist.parts;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -62,6 +62,7 @@ public class EditStockOrderStatusViewerHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
+		// TODO only allow in stockist tab/ for stockist user
 		Object selection =
 			selectionService.getSelection(Messages.getString("ID_PART_STOCKORDER_OVERVIEW"));
 		if (selection != null && selection instanceof StockOrder) {

@@ -53,21 +53,14 @@ public class AddPrescriptionHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
-		// get all articles placed on the invoice
-		invoiceArticles = SampleModel.getInvoice().getArticle();
-		
-		if (invoiceArticles != null && !invoiceArticles.isEmpty()) {
-			List<Article> notPrescripted = SampleModel.getNotYetPrescriptedArticle();
-			if (notPrescripted.isEmpty()) {
-				this.invoiceArticles = null;
-				return false;
-			} else {
-				this.invoiceArticles = notPrescripted;
-				return true;
-			}
-		} else {
+		// TODO only allow in seller tab/ for seller user
+		List<Article> notPrescripted = SampleModel.getNotYetPrescriptedArticle();
+		if (notPrescripted.isEmpty()) {
 			this.invoiceArticles = null;
 			return false;
+		} else {
+			this.invoiceArticles = notPrescripted;
+			return true;
 		}
 	}
 }

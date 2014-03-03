@@ -46,8 +46,8 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.handler.seller.CancelInvoiceHandler;
-import at.medevit.ecrit.pharmacy_at.application.handler.seller.PrintInvoiceHandler;
-import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToInvoiceViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.AddToInvoiceViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.PrintInvoiceViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
@@ -119,7 +119,7 @@ public class InvoiceDataPart implements IPart {
 				CommandUtil.setContextAndServices(context, commandService, handlerService);
 				CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_PRINT_INVOICE"),
 					"commandparameter.printInvoice", "article-amount map",
-					new PrintInvoiceHandler());
+					new PrintInvoiceViewerHandler());
 			}
 		});
 		
@@ -287,8 +287,6 @@ public class InvoiceDataPart implements IPart {
 			assureNoDuplicates(invoice.getArticle());
 			selectionService.setSelection(invoice.getArticle());
 			tableViewer.refresh();
-			
-			System.out.println("...updated invoice data part");
 		}
 	}
 }

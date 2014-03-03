@@ -33,6 +33,7 @@ public class CancelInvoiceHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
+		// TODO only allow in seller tab/ for seller user
 		return true;
 	}
 	

@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.part.handler;
+package at.medevit.ecrit.pharmacy_at.application.handler.seller.parts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +33,7 @@ public class AddAsPrescriptionViewerHandler {
 	@Inject
 	private EPartService partService;
 	
-	// ArtilceList TableViewer selection
 	private StockArticle stockArticleSelection;
-	// Invoice TableViewer selection
 	private List<Article> prescribables;
 	
 	@Execute
@@ -81,12 +79,13 @@ public class AddAsPrescriptionViewerHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
+		// TODO only allow in seller tab/ for seller user
 		stockArticleSelection =
 			CommandUtil.getSelectionOfType(StockArticle.class,
 				selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST")));
 		setPrescribableArticles();
 		
-		if (stockArticleSelection == null && prescribables == null) {
+		if (stockArticleSelection == null && prescribables.isEmpty()) {
 			return false;
 		}
 		if (stockArticleSelection.getNumberOnStock() < 1) {
@@ -98,25 +97,14 @@ public class AddAsPrescriptionViewerHandler {
 	}
 	
 	private void setPrescribableArticles(){
-		List<Article> artilces = SampleModel.getInvoice().getArticle();
-		if (artilces != null && !artilces.isEmpty()) {
-			List<Article> notPrescripted = SampleModel.getNotYetPrescriptedArticle();
-			if (notPrescripted.isEmpty()) {
-				prescribables = null;
-			} else {
-				prescribables = notPrescripted;
-			}
+		List<Article> notPrescripted = SampleModel.getNotYetPrescriptedArticle();
+		if (notPrescripted.isEmpty()) {
+			prescribables = new ArrayList<Article>();
 		} else {
-			prescribables = null;
+			prescribables = notPrescripted;
 		}
 	}
 	
-	/**
-	 * in case article was added to prescription directly -> add to invoice articles as well
-	 * 
-	 * @param p
-	 *            Prescription that was added
-	 */
 	private void synchPrescriptedArticlesWithInvoice(Prescription p){
 		List<Article> onInvoice = SampleModel.getInvoice().getArticle();
 		List<Article> onPrescription = p.getArticle();

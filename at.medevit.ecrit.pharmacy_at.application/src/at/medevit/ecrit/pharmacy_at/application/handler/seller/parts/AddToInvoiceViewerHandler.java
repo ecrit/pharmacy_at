@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.part.handler;
+package at.medevit.ecrit.pharmacy_at.application.handler.seller.parts;
 
 import java.util.Collections;
 
@@ -32,7 +32,7 @@ public class AddToInvoiceViewerHandler {
 	private ESelectionService selectionService;
 	@Inject
 	private EPartService partService;
-	// TableViewer selection
+	
 	private StockArticle selection;
 	
 	@Execute

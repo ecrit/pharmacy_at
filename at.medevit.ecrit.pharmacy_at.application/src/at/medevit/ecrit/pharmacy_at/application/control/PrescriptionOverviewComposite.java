@@ -49,7 +49,7 @@ public class PrescriptionOverviewComposite extends Composite {
 		
 		TreeViewerColumn treeViewerColumn = new TreeViewerColumn(viewerTree, SWT.NONE);
 		TreeColumn trclmnPrescription = treeViewerColumn.getColumn();
-		trclmnPrescription.setWidth(200);
+		trclmnPrescription.setWidth(250);
 		trclmnPrescription.setText("Prescription");
 		
 		TreeViewerColumn treeViewerColumn_1 = new TreeViewerColumn(viewerTree, SWT.NONE);

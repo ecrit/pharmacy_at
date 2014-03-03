@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.handler.seller;
+package at.medevit.ecrit.pharmacy_at.application.handler.seller.parts;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ import at.medevit.ecrit.pharmacy_at.application.util.PrintInvoicePDF;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 
-public class PrintInvoiceHandler {
+public class PrintInvoiceViewerHandler {
 	
 	@Inject
 	private ESelectionService selectionService;
@@ -51,6 +51,7 @@ public class PrintInvoiceHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
+		// TODO only allow in seller tab/ for seller user
 		amountMap =
 			CommandUtil.getSelectionOfType(HashMap.class,
 				selectionService.getSelection(Messages.getString("ID_PART_INVOICE_DATA")));

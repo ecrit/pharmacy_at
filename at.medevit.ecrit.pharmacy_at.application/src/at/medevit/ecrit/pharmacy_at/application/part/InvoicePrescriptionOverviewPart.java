@@ -26,7 +26,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.control.InvoiceOverviewComposite;
 import at.medevit.ecrit.pharmacy_at.application.control.PrescriptionOverviewComposite;
-import at.medevit.ecrit.pharmacy_at.application.part.handler.PrintRefundFormViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.handler.clerk.parts.PrintRefundFormViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.util.Images;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;

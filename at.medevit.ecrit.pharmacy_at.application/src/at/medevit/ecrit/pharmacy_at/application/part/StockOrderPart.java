@@ -42,8 +42,8 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToStockOrderViewerHandler;
-import at.medevit.ecrit.pharmacy_at.application.part.handler.OrderArticlesViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.handler.stockist.parts.AddToStockOrderViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.handler.stockist.parts.OrderArticlesViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
@@ -197,7 +197,6 @@ public class StockOrderPart implements IPart {
 	@Override
 	public void updatePart(){
 		// TODO Auto-generated method stub
-		
 	}
 	
 	class UnitsEditingSupport extends EditingSupport {

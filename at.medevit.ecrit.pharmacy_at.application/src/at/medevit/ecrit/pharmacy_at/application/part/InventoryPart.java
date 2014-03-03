@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.handler.clerk.CheckInventoryHandler;
+import at.medevit.ecrit.pharmacy_at.application.handler.clerk.parts.CheckInventoryViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
@@ -99,7 +99,7 @@ public class InventoryPart implements IPart {
 				CommandUtil.setContextAndServices(context, commandService, handlerService);
 				CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_CHECK_INVENTORY"),
 					"commandparameter.checkInventory", "consistent articles",
-					new CheckInventoryHandler());
+					new CheckInventoryViewerHandler());
 			}
 		});
 		

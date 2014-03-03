@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.part.handler;
+package at.medevit.ecrit.pharmacy_at.application.handler.seller.parts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,44 +11,43 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.dialog.PrescriptionDialog;
+import at.medevit.ecrit.pharmacy_at.application.part.PrescriptionPart;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
-import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
-public class EditPrescriptionViewerHandler {
+public class DeletePrescriptionViewerHandler {
 	
 	@Inject
 	private ESelectionService selectionService;
 	@Inject
 	private EPartService partService;
 	
+	// equivalent to wished commandparameter (only there for documentation reasons currently)
 	private Prescription selection;
 	
 	@Execute
-	public void execute(@Named("commandparameter.editPrescription")
+	public void execute(@Named("commandparameter.deletePrescription")
 	String prescription, @Named(IServiceConstants.ACTIVE_SHELL)
 	Shell shell){
-		PrescriptionDialog dlg = new PrescriptionDialog(shell, getAvailableArticles());
-		dlg.setPrescription(selection);
-		dlg.setSelectedArticles(selection.getArticle());
+		SampleModel.getInvoice().getPrescription().remove(selection);
 		
-		if (dlg.open() == IDialogConstants.OK_ID) {
-			List<String> partIds = new ArrayList<String>();
-			partIds.add(Messages.getString("ID_PART_INVOICE"));
-			PartUpdater.updatePart(partService, partIds);
-			
-		}
+		((PrescriptionPart) PartUpdater.findPart(Messages.getString("ID_PART_PRESCRIPTION")))
+			.deselectAll();
+		List<String> partIds = new ArrayList<String>();
+		partIds.add(Messages.getString("ID_PART_PRESCRIPTION"));
+		partIds.add(Messages.getString("ID_PART_INVOICE_DATA"));
+		partIds.add(Messages.getString("ID_PART_INVOICE"));
+		PartUpdater.updatePart(partService, partIds);
 	}
 	
 	@CanExecute
 	public boolean canExecute(){
+		// TODO only allow in seller tab/ for seller user
 		selection =
 			CommandUtil.getSelectionOfType(Prescription.class,
 				selectionService.getSelection(Messages.getString("ID_PART_PRESCRIPTION")));
@@ -58,13 +57,4 @@ public class EditPrescriptionViewerHandler {
 			return false;
 		}
 	}
-	
-	private List<Article> getAvailableArticles(){
-		List<Article> availableArticles = new ArrayList<Article>();
-		availableArticles.addAll(selection.getArticle());
-		availableArticles.addAll(SampleModel.getNotYetPrescriptedArticle());
-		
-		return availableArticles;
-	}
-	
 }

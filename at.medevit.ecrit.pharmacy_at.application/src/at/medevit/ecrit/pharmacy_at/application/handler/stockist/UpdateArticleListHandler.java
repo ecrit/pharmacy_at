@@ -29,7 +29,6 @@ import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class UpdateArticleListHandler {
 	
-	private static String DELIMITER = "|";
 	private static int NAME_IDX = 0;
 	private static int ADM_NR_IDX = 1;
 	private static int DESCRIPTION_IDX = 2;
@@ -47,6 +46,7 @@ public class UpdateArticleListHandler {
 	@Execute
 	public void execute(@Named(IServiceConstants.ACTIVE_SHELL)
 	Shell shell){
+		// TODO only allow in stockist tab/ for stockist user
 		FileDialog fileDialog = new FileDialog(shell, SWT.OPEN);
 		fileDialog.setText("Load");
 		fileDialog.setFilterPath("C:/");
@@ -127,6 +127,24 @@ public class UpdateArticleListHandler {
 		return false;
 	}
 	
+	private StockArticle createStockArticle(String line){
+		StockArticle sa = ModelFactory.eINSTANCE.createStockArticle();
+		Article a = ModelFactory.eINSTANCE.createArticle();
+		String[] splitLine = line.split("\\|");
+		
+		a.setName(splitLine[NAME_IDX]);
+		a.setAdmissionNumber(Integer.parseInt(splitLine[ADM_NR_IDX]));
+		a.setDescription(splitLine[DESCRIPTION_IDX]);
+		a.setPrice(Float.parseFloat(splitLine[PRICE_IDX]));
+		a.setAvailability(ArticleAvailability.AVAILABLE);
+		
+		sa.setNumberOnStock(0);
+		sa.setNumberOrdered(0);
+		sa.setLowerBound(0);
+		sa.setArticle(a);
+		return sa;
+	}
+	
 	private List<StockArticle> loadCatalog(File catalogFile){
 		List<StockArticle> catalog = new ArrayList<StockArticle>();
 		
@@ -146,23 +164,4 @@ public class UpdateArticleListHandler {
 		}
 		return catalog;
 	}
-	
-	private StockArticle createStockArticle(String line){
-		StockArticle sa = ModelFactory.eINSTANCE.createStockArticle();
-		Article a = ModelFactory.eINSTANCE.createArticle();
-		String[] splitLine = line.split("\\|");
-		
-		a.setName(splitLine[NAME_IDX]);
-		a.setAdmissionNumber(Integer.parseInt(splitLine[ADM_NR_IDX]));
-		a.setDescription(splitLine[DESCRIPTION_IDX]);
-		a.setPrice(Float.parseFloat(splitLine[PRICE_IDX]));
-		a.setAvailability(ArticleAvailability.AVAILABLE);
-		
-		sa.setNumberOnStock(0);
-		sa.setNumberOrdered(0);
-		sa.setLowerBound(0);
-		sa.setArticle(a);
-		return sa;
-	}
-	
 }
