@@ -70,7 +70,9 @@
           <persistedState key="description" value="By clicking on update articles the article list can be updated.&#xD;&#xA;A file dialog will open up so you can select the up to date article catalog (in CSV format).+&#xD;&#xA;This catalog will be loaded, compared to your local article list and used to update the local list."/>
           <persistedState key="postcondition" value="A up to date local article list.&#xD;&#xA;Articles that,...&#xD;&#xA;* are not available any more will be deleted.&#xD;&#xA;* in case they are still used in the system (for invoices, some units left on stock), they will be blacklisted&#xD;&#xA;* are new willl be added.&#xD;&#xA;"/>
         </children>
-        <children xsi:type="menu:DirectMenuItem" xmi:id="_45tHYKDGEeOoudDAbXzmGA" elementId="mainmenu.maintenance.menu.print.inventory" label="Print Inventory Form" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/printer.png" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.PrintInventoryHandler"/>
+        <children xsi:type="menu:DirectMenuItem" xmi:id="_45tHYKDGEeOoudDAbXzmGA" elementId="mainmenu.maintenance.menu.print.inventory" label="Print Inventory Form" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/printer.png" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.PrintInventoryHandler">
+          <persistedState key="description" value="This menu prints an inventory form, which supports the pharamcy staff in performing the inventory."/>
+        </children>
       </children>
     </mainMenu>
     <sharedElements xsi:type="basic:Part" xmi:id="_K6LbcFEAEeOs7KUvDVp0Mg" elementId="part.articlelist" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart" label="Article List">
@@ -134,6 +136,7 @@
           <parameters xmi:id="_p_1DYIc7EeOHboXTCc9xHQ" elementId="popup.parameter.deletearticle" name="commandparameter.deleteFromInvocie" value="articleToDelete"/>
         </children>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_UJNdgKKnEeOTRs0pqibxVQ" elementId="handledmenuitem.printInvoice" label="Print Invoice" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/printer.png" command="_zN_ZoKKmEeOTRs0pqibxVQ">
+          <persistedState key="description" value="By this command the invoice can be completed and a PDF file will be created. &#xD;&#xA;In the next step this PDF can than be printed out if needed."/>
           <parameters xmi:id="_Y6MgQKKnEeOTRs0pqibxVQ" elementId="popup.parameter.printInvoice" name="commandparameter.printInvoice" value="amount-article map"/>
         </children>
       </menus>
@@ -199,6 +202,7 @@
       <persistedState key="precondition" value="At least one invoice (otherwise it will be empty)."/>
       <menus xsi:type="menu:PopupMenu" xmi:id="_7Sp7kKChEeOwTIKbo73Sog" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.1">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_8GJOAKChEeOwTIKbo73Sog" elementId="handledmenuitem.printRefundForm" label="Print Refund Form" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/printer.png" command="_J1xcMKChEeOwTIKbo73Sog">
+          <persistedState key="description" value="By this menu a PDF File, which contains all the selected prescriptions/prescription articles and the total amount of refunds the pharmacy will get out of them.&#xD;&#xA;The created PDF File can be sent to the appropriate authority by e-mail or printed out and sent via the traditional way. "/>
           <parameters xmi:id="_E-gV0KCiEeOwTIKbo73Sog" elementId="popupmenu.parameter.printRefund" name="commandparameter.printRefund" value="marked prescriptions"/>
         </children>
       </menus>
@@ -333,10 +337,14 @@
     <parameters xmi:id="_gS1TYIgcEeOZcL17UErZVw" elementId="commandparameter.commandparameter.User" name="Command Parameter User" typeId="commandparameter.type.user" optional="false"/>
   </commands>
   <commands xmi:id="_J1xcMKChEeOwTIKbo73Sog" elementId="command.printRefundForm" commandName="Print Refund Form">
+    <persistedState key="description" value="By this command a refund form will be printed as PDF."/>
     <parameters xmi:id="_f52XYKChEeOwTIKbo73Sog" elementId="commandparameter.printRefund" name="Prescriptions for refund form" typeId="commandparameter.type.prescription" optional="false"/>
   </commands>
-  <commands xmi:id="_ljLXkKDGEeOoudDAbXzmGA" elementId="command.printInventory" commandName="Print Inventory"/>
+  <commands xmi:id="_ljLXkKDGEeOoudDAbXzmGA" elementId="command.printInventory" commandName="Print Inventory">
+    <persistedState key="description" value="This command offers a plain inventory form.&#xD;&#xA;It writes the entire inventory to a PDF but leaves out the number on stock. At this place there are empty fields that can be filled out by the staff."/>
+  </commands>
   <commands xmi:id="_zN_ZoKKmEeOTRs0pqibxVQ" elementId="command.printInvoice" commandName="Print Invoice">
+    <persistedState key="description" value="Prints the customers invoice."/>
     <parameters xmi:id="_2yOVYKKmEeOTRs0pqibxVQ" elementId="commandparameter.printInvoice" name="Amount-Aricle map" typeId="commandParameterType.hashmap" optional="false"/>
   </commands>
   <addons xmi:id="_4Ip44kVIEeOaYLXjRggZbw" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
