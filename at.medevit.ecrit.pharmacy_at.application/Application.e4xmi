@@ -70,7 +70,7 @@
           <persistedState key="description" value="By clicking on update articles the article list can be updated.&#xD;&#xA;A file dialog will open up so you can select the up to date article catalog (in CSV format).+&#xD;&#xA;This catalog will be loaded, compared to your local article list and used to update the local list."/>
           <persistedState key="postcondition" value="A up to date local article list.&#xD;&#xA;Articles that,...&#xD;&#xA;* are not available any more will be deleted.&#xD;&#xA;* in case they are still used in the system (for invoices, some units left on stock), they will be blacklisted&#xD;&#xA;* are new willl be added.&#xD;&#xA;"/>
         </children>
-        <children xsi:type="menu:DirectMenuItem" xmi:id="_45tHYKDGEeOoudDAbXzmGA" elementId="mainmenu.maintenance.menu.print.inventory" label="Print Inventory Form" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.util.PrintInventoryPDF"/>
+        <children xsi:type="menu:DirectMenuItem" xmi:id="_45tHYKDGEeOoudDAbXzmGA" elementId="mainmenu.maintenance.menu.print.inventory" label="Print Inventory Form" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.PrintInventoryHandler"/>
       </children>
     </mainMenu>
     <sharedElements xsi:type="basic:Part" xmi:id="_K6LbcFEAEeOs7KUvDVp0Mg" elementId="part.articlelist" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart" label="Article List">

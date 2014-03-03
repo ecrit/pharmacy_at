@@ -37,7 +37,7 @@ public class PrintInventoryPDF {
 		try {
 			DirectoryDialog dirDialog = new DirectoryDialog(shell);
 			dirDialog.setFilterPath("c:\\");
-			dirDialog.setText("Select a directory to save the invoice");
+			dirDialog.setText("Select a directory to save the inventory list");
 			FILE = dirDialog.open() + "/Inventory.pdf";
 			
 			Document document = new Document();
