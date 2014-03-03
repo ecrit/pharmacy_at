@@ -1,5 +1,6 @@
 package at.medevit.ecrit.pharmacy_at.application.util;
 
+import java.awt.Color;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -7,33 +8,38 @@ import java.net.URL;
 import java.util.Date;
 
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.swt.widgets.DirectoryDialog;
+import org.eclipse.swt.widgets.Shell;
 
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Pharmacy;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.Image;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 
 public class PrintInventoryPDF {
 	private static String FILE = "C:/Users/Lucia/Desktop/Inventory.pdf";
-	private static Font catFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
-	private static Font smallBold = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
-	private static Font tinyBold = new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD);
-	private static Font tableHeaderFont = new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD,
-		BaseColor.GRAY);
+	private static Font catFont = new Font(Font.HELVETICA, 18, Font.BOLD);
+	private static Font smallBold = new Font(Font.HELVETICA, 12, Font.BOLD);
+	private static Font tinyBold = new Font(Font.HELVETICA, 11, Font.BOLD);
+	private static Font tableHeaderFont = new Font(Font.HELVETICA, 11, Font.BOLD, Color.GRAY);
 	
-	public PrintInventoryPDF(){
+	public PrintInventoryPDF(Shell shell){
 		try {
+			DirectoryDialog dirDialog = new DirectoryDialog(shell);
+			dirDialog.setFilterPath("c:\\");
+			dirDialog.setText("Select a directory to save the invoice");
+			FILE = dirDialog.open() + "/Inventory.pdf";
+			
 			Document document = new Document();
 			PdfWriter.getInstance(document, new FileOutputStream(FILE));
 			document.open();

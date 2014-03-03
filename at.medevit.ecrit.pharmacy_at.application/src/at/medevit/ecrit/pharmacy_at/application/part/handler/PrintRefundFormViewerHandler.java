@@ -25,7 +25,7 @@ public class PrintRefundFormViewerHandler {
 	public void execute(@Named("commandparameter.printRefund")
 	String selectedPrescriptions, @Named(IServiceConstants.ACTIVE_SHELL)
 	Shell shell){
-		new PrintRefundPDF(checked);
+		new PrintRefundPDF(shell, checked);
 	}
 	
 	@CanExecute

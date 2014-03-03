@@ -13,7 +13,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 
@@ -25,7 +24,6 @@ import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
 public class InvoiceOverviewComposite extends Composite {
 	private static List<Invoice> invoices;
 	private static TreeViewer treeViewer;
-	private Text txtTotal;
 	private Invoice invSelection = ModelFactory.eINSTANCE.createInvoice();
 	
 	public InvoiceOverviewComposite(Composite parent, int style, List<Invoice> invoices){

@@ -1,5 +1,6 @@
 package at.medevit.ecrit.pharmacy_at.application.util;
 
+import java.awt.Color;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -17,26 +18,24 @@ import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Pharmacy;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.Image;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 
 public class PrintInvoicePDF {
 	private static String FILE = "C:/Users/" + System.getProperty("user.name")
 		+ "/Desktop/Invoice.pdf";
-	private static Font catFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
-	private static Font smallBold = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
-	private static Font tinyBold = new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD);
-	private static Font tableHeaderFont = new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD,
-		BaseColor.GRAY);
+	private static Font catFont = new Font(Font.HELVETICA, 18, Font.BOLD);
+	private static Font smallBold = new Font(Font.HELVETICA, 12, Font.BOLD);
+	private static Font tinyBold = new Font(Font.HELVETICA, 11, Font.BOLD);
+	private static Font tableHeaderFont = new Font(Font.HELVETICA, 11, Font.BOLD, Color.GRAY);
 	
 	static HashMap<String, Integer> amountMap;
 	static List<Article> noDuplicateArticles;
