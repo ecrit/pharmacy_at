@@ -32,13 +32,13 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.handler.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.handler.clerk.CheckInventoryHandler;
+import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
-public class InventoryPart {
+public class InventoryPart implements IPart {
 	private CheckboxTableViewer tableViewer;
 	private List<StockArticle> stockArticles;
 	
@@ -143,6 +143,12 @@ public class InventoryPart {
 		TableColumn colAdmnr = tvcAdmNr.getColumn();
 		colAdmnr.setWidth(100);
 		colAdmnr.setText("AdmNr");
+		
+	}
+	
+	@Override
+	public void updatePart(){
+		// TODO Auto-generated method stub
 		
 	}
 }

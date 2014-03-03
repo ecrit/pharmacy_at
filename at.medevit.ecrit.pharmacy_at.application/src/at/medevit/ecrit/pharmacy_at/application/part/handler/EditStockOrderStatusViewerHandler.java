@@ -1,5 +1,6 @@
 package at.medevit.ecrit.pharmacy_at.application.part.handler;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 import javax.inject.Inject;
@@ -7,12 +8,11 @@ import javax.inject.Named;
 
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart;
+import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
@@ -42,10 +42,9 @@ public class EditStockOrderStatusViewerHandler {
 				}
 			}
 		}
-		SampleModel.stockOrderReceived(selection);
-		MPart part = partService.findPart(Messages.getString("ID_PART_ARTICLELIST"));
-		ArticleListPart alPart = (ArticleListPart) part.getObject();
-		alPart.updatePart();
+		SampleModel.update();
+		PartUpdater.updatePart(partService,
+			Collections.singletonList(Messages.getString("ID_PART_ARTICLELIST")));
 	}
 	
 	private HashMap<String, Integer> calcUnitsPerArticle(){

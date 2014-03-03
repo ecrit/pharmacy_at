@@ -5,13 +5,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart;
+import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ArticleAvailability;
@@ -59,15 +59,14 @@ public class UpdateArticleListHandler {
 			File catalogFile = new File(selected);
 			catalog = loadCatalog(catalogFile);
 			updateLocalArticleList();
-			SampleModel.updateArticleList();
+			SampleModel.update();
 			MessageDialog.openInformation(shell, "Article List Updated",
 				"The synchronisation with the article catalog was successfull." + "\n["
 					+ blacklistCounter + "] articles blacklisted" + "\n[" + removedCounter
 					+ "] articles removed");
 			
-			MPart part = partService.findPart(Messages.getString("ID_PART_ARTICLELIST"));
-			ArticleListPart alPart = (ArticleListPart) part.getObject();
-			alPart.updatePart();
+			PartUpdater.updatePart(partService,
+				Collections.singletonList(Messages.getString("ID_PART_ARTICLELIST")));
 		}
 	}
 	
@@ -109,7 +108,7 @@ public class UpdateArticleListHandler {
 	}
 	
 	private boolean isUsedAsLineItem(Article article){
-		List<Article> lineItems = SampleModel.getAllLineItems();
+		List<Article> lineItems = SampleModel.getPharmacy().getLineItems().getArticle();
 		for (Article a : lineItems) {
 			if (a.getName().equals(article.getName())) {
 				return true;

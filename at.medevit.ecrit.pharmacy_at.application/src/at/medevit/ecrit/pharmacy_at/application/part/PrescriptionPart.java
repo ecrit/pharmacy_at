@@ -39,15 +39,15 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.handler.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.AddAsPrescriptionViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToPrescriptionViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.EditPrescriptionViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
-public class PrescriptionPart {
+public class PrescriptionPart implements IPart {
 	
 	private TableViewer tableViewer;
 	private IObservableList input;
@@ -129,7 +129,7 @@ public class PrescriptionPart {
 							Messages.getString("ID_CMD_ADD_AS_PRESCRIPTION"), null, null,
 							new AddAsPrescriptionViewerHandler());
 					}
-					invoiceDataPart.updateTable();
+					invoiceDataPart.updatePart();
 				}
 			}
 		});
@@ -191,16 +191,20 @@ public class PrescriptionPart {
 		}
 	}
 	
-	public void updateTable(){
-		if (tableViewer != null) {
-			prescriptions.clear();
-			prescriptions.addAll(SampleModel.getAllPrescriptionsForCurrentInvoice());
-			selectionService.setSelection(null);
-			tableViewer.refresh();
-		}
-	}
-	
 	public void deselectAll(){
 		selectionService.setPostSelection(null);
+	}
+	
+	@Override
+	public void updatePart(){
+		if (tableViewer != null) {
+			prescriptions.clear();
+			prescriptions.addAll(SampleModel.getInvoice().getPrescription());
+			selectionService.setSelection(null);
+			tableViewer.refresh();
+			
+			System.out.println("....updated prescription part");
+		}
+		
 	}
 }

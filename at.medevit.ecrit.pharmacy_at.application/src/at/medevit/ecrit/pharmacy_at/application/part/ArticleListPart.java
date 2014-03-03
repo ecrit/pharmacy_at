@@ -49,14 +49,14 @@ import org.eclipse.swt.widgets.Text;
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.filter.ArticleFilter;
 import at.medevit.ecrit.pharmacy_at.application.filter.CriticalLevelFilter;
-import at.medevit.ecrit.pharmacy_at.application.handler.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToInvoiceViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.util.Images;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
-public class ArticleListPart {
+public class ArticleListPart implements IPart {
 	private TableViewer tableViewer;
 	private List<StockArticle> stockArticles;
 	private ArticleFilter filter;
@@ -258,6 +258,7 @@ public class ArticleListPart {
 		});
 	}
 	
+	@Override
 	public void updatePart(){
 		stockArticles = SampleModel.getStock().getArticles();
 		tableViewer.refresh();

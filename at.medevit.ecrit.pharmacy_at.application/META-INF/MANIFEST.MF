@@ -33,3 +33,5 @@ Require-Bundle: javax.inject;bundle-version="1.0.0",
  at.medevit.ecrit.pharmacy_at.core;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: javax.annotation;version="1.0.0"
+Bundle-ClassPath: lib/itextpdf-5.5.0.jar,
+ .

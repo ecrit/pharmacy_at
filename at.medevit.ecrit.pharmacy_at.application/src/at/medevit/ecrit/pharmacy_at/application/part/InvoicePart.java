@@ -43,7 +43,7 @@ import at.medevit.ecrit.pharmacy_at.model.Invoice;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 
-public class InvoicePart {
+public class InvoicePart implements IPart {
 	private DataBindingContext m_bindingContext;
 	
 	private Invoice invoice;
@@ -62,7 +62,7 @@ public class InvoicePart {
 	
 	@Inject
 	public InvoicePart(){
-		invoice = SampleModel.getCurrentInvoice();
+		invoice = SampleModel.getInvoice();
 		prescriptions = new ArrayList<Prescription>();
 		articleAmountMap = new HashMap<String, String>();
 		noDuplicateList = new ArrayList<Article>();
@@ -213,13 +213,6 @@ public class InvoicePart {
 			EMFProperties.value(ModelPackage.Literals.PRESCRIPTION__NUMBER).observeDetail(
 				cp.getKnownElements());
 		tvc.setLabelProvider(new ObservableMapCellLabelProvider(nrObserveMap));
-// tvc = new TableViewerColumn(presTableViewer, SWT.NONE);
-// tvc.getColumn().setText(columnNames[1]);
-// tvc.getColumn().setWidth(columnWidths[1]);
-// IObservableMap practitionerObserveMap = EMFProperties.value(
-// ModelPackage.Literals.PRESCRIPTION__ISSUING_PRACTITIONER).observeDetail(
-// cp.getKnownElements());
-// tvc.setLabelProvider(new ObservableMapCellLabelProvider(practitionerObserveMap));
 		
 		tvc = new TableViewerColumn(presTableViewer, SWT.NONE);
 		tvc.getColumn().setText(columnNames[1]);
@@ -255,21 +248,24 @@ public class InvoicePart {
 	@Named(IServiceConstants.ACTIVE_SELECTION)
 	Object o){
 		if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
-			updateTable();
+			updatePart();
 		}
 	}
 	
-	public void updateTable(){
+	@Override
+	public void updatePart(){
 		if (presTableViewer != null && tableViewer != null) {
-			invoice = SampleModel.getCurrentInvoice();
+			invoice = SampleModel.getInvoice();
 			prescriptions.clear();
-			prescriptions.addAll(SampleModel.getAllPrescriptionsForCurrentInvoice());
+			prescriptions.addAll(SampleModel.getInvoice().getPrescription());
 			extractInvoiceRelevantValues(invoice.getArticle());
 			calculateTotalCosts();
 			
 			tableViewer.refresh();
 			presTableViewer.refresh();
 			tableViewer.getControl().getParent().pack();
+			
+			System.out.println("....updated invoice part");
 		}
 	}
 	
@@ -351,21 +347,11 @@ public class InvoicePart {
 		bindingContext.bindValue(textTotalCostsObsereveVale, totalCostsObserveValue, null,
 			new UpdateValueStrategy().setConverter(new FloatToStringConverter()));
 		//
-		// ObservableListContentProvider cp = new
-		// ObservableListContentProvider();
-		// tableViewer.setContentProvider(cp);
-		// IObservableMap map = EMFProperties.value(
-		// ModelPackage.Literals.ARTICLE__NAME).observeDetail(
-		// cp.getKnownElements());
-		// tableViewer.setLabelProvider(new
-		// ObservableMapCellLabelProvider(map));
-		//
-		
 		return bindingContext;
 	}
 	
 	public void updateBinding(){
 		m_bindingContext = initDataBinding();
-		
 	}
+	
 }

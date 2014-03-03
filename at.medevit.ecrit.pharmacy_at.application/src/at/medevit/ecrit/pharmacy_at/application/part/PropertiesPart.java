@@ -23,7 +23,7 @@ import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
-public class PropertiesPart {
+public class PropertiesPart implements IPart {
 	private DataBindingContext m_bindingContext;
 	protected IObservableValue element = new WritableValue(null, Article.class);
 	private Text txtDescription;
@@ -71,6 +71,12 @@ public class PropertiesPart {
 		bindingContext.bindValue(textTxtDescriptionObserveValue, descriptionObserveValue);
 		
 		return bindingContext;
+	}
+	
+	@Override
+	public void updatePart(){
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

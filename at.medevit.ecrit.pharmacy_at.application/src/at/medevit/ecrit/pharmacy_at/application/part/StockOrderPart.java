@@ -42,14 +42,14 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.handler.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToStockOrderViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.OrderArticlesViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
-public class StockOrderPart {
+public class StockOrderPart implements IPart {
 	
 	@Inject
 	private IEclipseContext context;
@@ -108,7 +108,7 @@ public class StockOrderPart {
 		btnPlaceOrder.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e){
-				SampleModel.getStockOrderInstance().setIssuer(txtTo.getText());
+				SampleModel.getStockOrder().setIssuer(txtTo.getText());
 				selectionService.setSelection(articleToOrder);
 				
 				CommandUtil.setContextAndServices(context, commandService, handlerService);
@@ -189,27 +189,15 @@ public class StockOrderPart {
 		tableViewer.refresh();
 	}
 	
-// public void addArticle(StockArticle stockArticle){
-// if (isNoDuplicate(stockArticle)) {
-// stockArticle.setNumberOrdered(1);
-// articleToOrder.add(stockArticle);
-// }
-// tableViewer.refresh();
-// }
-//
-// private boolean isNoDuplicate(StockArticle stockArticle){
-// String articleName = stockArticle.getArticle().getName();
-// for (StockArticle sa : articleToOrder) {
-// if (articleName.equals(sa.getArticle().getName())) {
-// return false;
-// }
-// }
-// return true;
-// }
-	
 	public void updateArticlesToOrder(List<StockArticle> articleToOrder){
 		this.articleToOrder = articleToOrder;
 		tableViewer.refresh();
+	}
+	
+	@Override
+	public void updatePart(){
+		// TODO Auto-generated method stub
+		
 	}
 	
 	class UnitsEditingSupport extends EditingSupport {

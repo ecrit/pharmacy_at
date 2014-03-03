@@ -39,6 +39,10 @@
             id="commandparameter.type.stockorder"
             type="at.medevit.ecrit.pharmacy_at.model.StockOrder">
       </commandParameterType>
+      <commandParameterType
+            id="commandParameterType.hashmap"
+            type="java.util.HashMap">
+      </commandParameterType>
    </extension>
    <extension
          point="org.eclipse.core.expressions.definitions">

@@ -1,5 +1,6 @@
 package at.medevit.ecrit.pharmacy_at.application.part.handler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -7,14 +8,13 @@ import javax.inject.Named;
 
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.part.ArticleListPart;
-import at.medevit.ecrit.pharmacy_at.application.part.StockOrderOverviewPart;
 import at.medevit.ecrit.pharmacy_at.application.part.StockOrderPart;
+import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
+import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 import at.medevit.ecrit.pharmacy_at.model.StockOrder;
@@ -35,27 +35,23 @@ public class OrderArticlesViewerHandler {
 		StockOrder order = setOrderValues();
 		SampleModel.addStockOrder(order);
 		
-		for (StockOrder so : SampleModel.getAllStockOrders()) {
+		for (StockOrder so : SampleModel.getPharmacy().getStockOrders()) {
 			System.out.println(so.getArticle().size());
 		}
 		
-		MPart part1 = partService.findPart(Messages.getString("ID_PART_STOCKORDER"));
-		StockOrderPart stockOrderPart = (StockOrderPart) part1.getObject();
+		StockOrderPart stockOrderPart =
+			((StockOrderPart) partService.findPart(Messages.getString("ID_PART_STOCKORDER"))
+				.getObject());
 		stockOrderPart.cleanPart();
-		
-		MPart part2 = partService.findPart(Messages.getString("ID_PART_STOCKORDER_OVERVIEW"));
-		StockOrderOverviewPart sooPart = (StockOrderOverviewPart) part2.getObject();
-		sooPart.updatePart();
-		
-		MPart part = partService.findPart(Messages.getString("ID_PART_ARTICLELIST"));
-		ArticleListPart alPart = (ArticleListPart) part.getObject();
-		alPart.updatePart();
+		List<String> partIds = new ArrayList<String>();
+		partIds.add(Messages.getString("ID_PART_STOCKORDER_OVERVIEW"));
+		partIds.add(Messages.getString("ID_PART_ARTICLELIST"));
+		PartUpdater.updatePart(partService, partIds);
 		
 	}
 	
 	private StockOrder setOrderValues(){
-		StockOrder stockOrder = SampleModel.getCurrentStockOrder();
-// stockOrder.setBoundFor(SampleModel.getStock());
+		StockOrder stockOrder = SampleModel.getStockOrder();
 		stockOrder.setStatus(StockOrderStatus.ORDERED);
 		
 		for (StockArticle sa : articlesToOrder) {
@@ -68,12 +64,12 @@ public class OrderArticlesViewerHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
-		Object selection = selectionService.getSelection(Messages.getString("ID_PART_STOCKORDER"));
-		if (selection != null && selection instanceof List<?>) {
-			this.articlesToOrder = (List<StockArticle>) selection;
+		articlesToOrder =
+			CommandUtil.getSelectionOfType(List.class,
+				selectionService.getSelection(Messages.getString("ID_PART_STOCKORDER")));
+		if (articlesToOrder != null) {
 			return true;
 		} else {
-			this.articlesToOrder = null;
 			return false;
 		}
 	}

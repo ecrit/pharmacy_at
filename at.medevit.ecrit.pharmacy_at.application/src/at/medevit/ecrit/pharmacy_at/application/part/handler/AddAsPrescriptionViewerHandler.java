@@ -9,7 +9,6 @@ import javax.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
@@ -19,9 +18,8 @@ import org.eclipse.swt.widgets.Shell;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.dialog.PrescriptionDialog;
-import at.medevit.ecrit.pharmacy_at.application.part.InvoiceDataPart;
-import at.medevit.ecrit.pharmacy_at.application.part.InvoicePart;
-import at.medevit.ecrit.pharmacy_at.application.part.PrescriptionPart;
+import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
+import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
@@ -38,7 +36,7 @@ public class AddAsPrescriptionViewerHandler {
 	// ArtilceList TableViewer selection
 	private StockArticle stockArticleSelection;
 	// Invoice TableViewer selection
-	private List<Article> invoiceArticles;
+	private List<Article> prescribables;
 	
 	@Execute
 	public void execute(@Optional
@@ -49,7 +47,7 @@ public class AddAsPrescriptionViewerHandler {
 	Shell shell){
 		
 		Prescription p = ModelFactory.eINSTANCE.createPrescription();
-		PrescriptionDialog dlg = new PrescriptionDialog(shell, getAvailableArticles());
+		PrescriptionDialog dlg = new PrescriptionDialog(shell, prescribables);
 		dlg.setPrescription(p);
 		
 		if (dlg.open() == IDialogConstants.OK_ID) {
@@ -59,24 +57,15 @@ public class AddAsPrescriptionViewerHandler {
 				p.getArticle().set(articleIdx, SampleModel.getValidArticleCopy(arti));
 				stockArticleSelection
 					.setNumberOnStock(stockArticleSelection.getNumberOnStock() - 1);
-				SampleModel.addPrescriptionAndSync(p);
+				synchPrescriptedArticlesWithInvoice(p);
 			}
-			SampleModel.addPrescription(p);
+			SampleModel.getInvoice().getPrescription().add(p);
 			
-			// assure tables are updated properly
-			// TODO check if this can be solved via injection as well (selection inj. didn't
-			// work as expected)
-			MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
-			PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
-			prescPart.updateTable();
-			
-			MPart iPart = partService.findPart(Messages.getString("ID_PART_INVOICE"));
-			InvoicePart invoicePart = (InvoicePart) iPart.getObject();
-			invoicePart.updateTable();
-			
-			MPart idPart = partService.findPart(Messages.getString("ID_PART_INVOICE_DATA"));
-			InvoiceDataPart invoiceDataPart = (InvoiceDataPart) idPart.getObject();
-			invoiceDataPart.updateTable();
+			List<String> partIds = new ArrayList<String>();
+			partIds.add(Messages.getString("ID_PART_PRESCRIPTION"));
+			partIds.add(Messages.getString("ID_PART_INVOICE"));
+			partIds.add(Messages.getString("ID_PART_INVOICE_DATA"));
+			PartUpdater.updatePart(partService, partIds);
 		}
 	}
 	
@@ -90,57 +79,52 @@ public class AddAsPrescriptionViewerHandler {
 		return null;
 	}
 	
-	private List<Article> getAvailableArticles(){
-		List<Article> availableArticles = new ArrayList<Article>();
-		
-		if (invoiceArticles != null && !invoiceArticles.isEmpty()) {
-			availableArticles.addAll(invoiceArticles);
-		}
-		if (stockArticleSelection != null) {
-			availableArticles.add(EcoreUtil.copy(stockArticleSelection.getArticle()));
-		}
-		return availableArticles;
-	}
-	
 	@CanExecute
 	public boolean canExecute(){
-		setupArticleListSelection();
-		setupAvailableInvoiceArticles();
+		stockArticleSelection =
+			CommandUtil.getSelectionOfType(StockArticle.class,
+				selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST")));
+		setPrescribableArticles();
 		
-		if (stockArticleSelection == null && invoiceArticles == null) {
+		if (stockArticleSelection == null && prescribables == null) {
 			return false;
 		}
 		if (stockArticleSelection.getNumberOnStock() < 1) {
 			this.stockArticleSelection = null;
 			return false;
 		}
+		prescribables.add(EcoreUtil.copy(stockArticleSelection.getArticle()));
 		return true;
 	}
 	
-	private void setupArticleListSelection(){
-		// is an article from the article list selected
-		Object selection = selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST"));
-		
-		if (selection != null && selection instanceof StockArticle) {
-			this.stockArticleSelection = (StockArticle) selection;
+	private void setPrescribableArticles(){
+		List<Article> artilces = SampleModel.getInvoice().getArticle();
+		if (artilces != null && !artilces.isEmpty()) {
+			List<Article> notPrescripted = SampleModel.getNotYetPrescriptedArticle();
+			if (notPrescripted.isEmpty()) {
+				prescribables = null;
+			} else {
+				prescribables = notPrescripted;
+			}
 		} else {
-			this.stockArticleSelection = null;
+			prescribables = null;
 		}
 	}
 	
-	private void setupAvailableInvoiceArticles(){
-		invoiceArticles = SampleModel.getCurrentInvoice().getArticle();
-// Collections.copy(invoiceArticles, SampleModel.getCurrentInvoice().getArticle());
+	/**
+	 * in case article was added to prescription directly -> add to invoice articles as well
+	 * 
+	 * @param p
+	 *            Prescription that was added
+	 */
+	private void synchPrescriptedArticlesWithInvoice(Prescription p){
+		List<Article> onInvoice = SampleModel.getInvoice().getArticle();
+		List<Article> onPrescription = p.getArticle();
 		
-		if (invoiceArticles != null && !invoiceArticles.isEmpty()) {
-			List<Article> notPrescripted = SampleModel.getNotYetPrescriptedArticle();
-			if (notPrescripted.isEmpty()) {
-				this.invoiceArticles = null;
-			} else {
-				this.invoiceArticles = notPrescripted;
+		for (Article a : onPrescription) {
+			if (!onInvoice.contains(a)) {
+				SampleModel.getInvoice().getArticle().add(a);
 			}
-		} else {
-			this.invoiceArticles = null;
 		}
 	}
 }

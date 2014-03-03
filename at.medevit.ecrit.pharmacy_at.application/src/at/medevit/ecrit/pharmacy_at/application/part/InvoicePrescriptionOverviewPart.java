@@ -6,6 +6,10 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.commands.ECommandService;
+import org.eclipse.e4.core.commands.EHandlerService;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -19,12 +23,15 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.control.InvoiceOverviewComposite;
 import at.medevit.ecrit.pharmacy_at.application.control.PrescriptionOverviewComposite;
+import at.medevit.ecrit.pharmacy_at.application.part.handler.PrintRefundFormViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.util.Images;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 
-public class InvoicePrescriptionOverviewPart {
+public class InvoicePrescriptionOverviewPart implements IPart {
 	private static InvoiceOverviewComposite ioc;
 	private static PrescriptionOverviewComposite poc;
 	private static Text txtTotalInvoice;
@@ -33,6 +40,15 @@ public class InvoicePrescriptionOverviewPart {
 	private static float totalPrescription;
 	private static Text txtTotal;
 	private static float total;
+	
+	@Inject
+	private IEclipseContext context;
+	@Inject
+	private ESelectionService selectionService;
+	@Inject
+	private ECommandService commandService;
+	@Inject
+	private EHandlerService handlerService;
 	
 	@Inject
 	public InvoicePrescriptionOverviewPart(){}
@@ -105,8 +121,8 @@ public class InvoicePrescriptionOverviewPart {
 		});
 		
 		ioc =
-			new InvoiceOverviewComposite(grpInvPrescOverview, SWT.NONE,
-				SampleModel.getAllInvoices());
+			new InvoiceOverviewComposite(grpInvPrescOverview, SWT.NONE, SampleModel.getPharmacy()
+				.getInvoices());
 		poc =
 			new PrescriptionOverviewComposite(grpInvPrescOverview, SWT.NONE,
 				SampleModel.getAllPrescriptions());
@@ -149,10 +165,12 @@ public class InvoicePrescriptionOverviewPart {
 		btnPrintRefund.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e){
-				Object[] checked = poc.getCheckedElements();
-				for (Object obj : checked) {
-					System.out.println(obj.toString());
-				}
+				selectionService.setSelection(poc.getCheckedElements());
+				
+				CommandUtil.setContextAndServices(context, commandService, handlerService);
+				CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_PRINT_REFUND_FORM"),
+					"commandparameter.printRefund", "checked prescriptions",
+					new PrintRefundFormViewerHandler());
 			}
 		});
 		ioc.calcTotalCosts();
@@ -185,11 +203,16 @@ public class InvoicePrescriptionOverviewPart {
 	
 	public static void updateInput(){
 		if (ioc != null && poc != null) {
-			ioc.updateTree(SampleModel.getAllInvoices());
+			ioc.updateTree(SampleModel.getPharmacy().getInvoices());
 			poc.updateTree(SampleModel.getAllPrescriptions());
 			
 			ioc.calcTotalCosts();
 			poc.calcTotalRefund();
 		}
+	}
+	
+	@Override
+	public void updatePart(){
+		updateInput();
 	}
 }

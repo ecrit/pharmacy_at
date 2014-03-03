@@ -13,7 +13,6 @@ import org.eclipse.core.databinding.property.Properties;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
@@ -46,15 +45,16 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
-import at.medevit.ecrit.pharmacy_at.application.handler.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.handler.seller.CancelInvoiceHandler;
+import at.medevit.ecrit.pharmacy_at.application.handler.seller.PrintInvoiceHandler;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.AddToInvoiceViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Invoice;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 
-public class InvoiceDataPart {
+public class InvoiceDataPart implements IPart {
 	private Invoice invoice;
 	private List<Article> noDuplicateArticles;
 	private HashMap<String, Integer> amountMap = new HashMap<String, Integer>();
@@ -82,7 +82,7 @@ public class InvoiceDataPart {
 	
 	@Inject
 	public InvoiceDataPart(){
-		invoice = SampleModel.getCurrentInvoice();
+		invoice = SampleModel.getInvoice();
 		noDuplicateArticles = new ArrayList<Article>();
 		// amountMap = new HashMap<String, Integer>();
 	}
@@ -115,23 +115,11 @@ public class InvoiceDataPart {
 		btnPay.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e){
-				MessageDialog.openInformation(parent.getShell(), "Receipt",
-					"Receipt printed... TODO ");
-				SampleModel.saveInvoice(invoice);
-				MPart idPart = partService.findPart(Messages.getString("ID_PART_INVOICE_DATA"));
-				InvoiceDataPart invoiceDataPart = (InvoiceDataPart) idPart.getObject();
-				invoiceDataPart.updateTable();
-				
-				MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
-				PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
-				prescPart.updateTable();
-				
-				MPart iPart = partService.findPart(Messages.getString("ID_PART_INVOICE"));
-				InvoicePart invoicePart = (InvoicePart) iPart.getObject();
-				invoicePart.updateTable();
-				invoicePart.updateBinding();
-				
-				InvoicePrescriptionOverviewPart.updateInput();
+				selectionService.setSelection(amountMap);
+				CommandUtil.setContextAndServices(context, commandService, handlerService);
+				CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_PRINT_INVOICE"),
+					"commandparameter.printInvoice", "article-amount map",
+					new PrintInvoiceHandler());
 			}
 		});
 		
@@ -283,21 +271,24 @@ public class InvoiceDataPart {
 		selectionService.setSelection(aList);
 	}
 	
-	public void updateTable(){
-		if (tableViewer != null) {
-			invoice = SampleModel.getCurrentInvoice();
-			noDuplicateArticles.clear();
-			assureNoDuplicates(invoice.getArticle());
-			selectionService.setSelection(invoice.getArticle());
-			tableViewer.refresh();
-		}
-	}
-	
 	public void addArticleAndUpdate(Article a){
 		List<Article> articles = new ArrayList<>();
 		articles.add(a);
 		assureNoDuplicates(articles);
 		tableViewer.refresh();
 		updateSelection(invoice.getArticle());
+	}
+	
+	@Override
+	public void updatePart(){
+		if (tableViewer != null) {
+			invoice = SampleModel.getInvoice();
+			noDuplicateArticles.clear();
+			assureNoDuplicates(invoice.getArticle());
+			selectionService.setSelection(invoice.getArticle());
+			tableViewer.refresh();
+			
+			System.out.println("...updated invoice data part");
+		}
 	}
 }

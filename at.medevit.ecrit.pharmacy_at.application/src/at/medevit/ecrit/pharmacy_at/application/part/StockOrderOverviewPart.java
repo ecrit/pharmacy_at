@@ -42,14 +42,14 @@ import org.eclipse.swt.widgets.Text;
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.dialog.StockOrderDialog;
 import at.medevit.ecrit.pharmacy_at.application.filter.StockOrderFilter;
-import at.medevit.ecrit.pharmacy_at.application.handler.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.part.handler.EditStockOrderStatusViewerHandler;
+import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.StockOrder;
 import at.medevit.ecrit.pharmacy_at.model.StockOrderStatus;
 
-public class StockOrderOverviewPart {
+public class StockOrderOverviewPart implements IPart {
 	private TableViewer tableViewer;
 	private List<StockOrder> stockOrders;
 	private StockOrderFilter filter;
@@ -67,7 +67,7 @@ public class StockOrderOverviewPart {
 	
 	@Inject
 	public StockOrderOverviewPart(){
-		stockOrders = SampleModel.getAllStockOrders();
+		stockOrders = SampleModel.getPharmacy().getStockOrders();
 	}
 	
 	@PostConstruct
@@ -151,8 +151,9 @@ public class StockOrderOverviewPart {
 		colStock.setText("Issuing Enterprise");
 	}
 	
+	@Override
 	public void updatePart(){
-		stockOrders = SampleModel.getAllStockOrders();
+		stockOrders = SampleModel.getPharmacy().getStockOrders();
 		tableViewer.refresh();
 	}
 	

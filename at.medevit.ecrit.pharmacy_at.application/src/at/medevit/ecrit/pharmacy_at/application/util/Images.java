@@ -28,6 +28,8 @@ public class Images {
 	
 	public static final Image MEDICINE = getImage("pill.png");
 	
+	public static final Image LOGO = getImage("ecrit_logo.png");
+	
 	private static Image getImage(String file){
 		Bundle bundle = FrameworkUtil.getBundle(ArticleListPart.class);
 		URL url = FileLocator.find(bundle, new Path("icons/" + file), null);

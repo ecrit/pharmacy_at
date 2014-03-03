@@ -1,4 +1,4 @@
-package at.medevit.ecrit.pharmacy_at.application.handler;
+package at.medevit.ecrit.pharmacy_at.application.util;
 
 import java.util.ArrayList;
 
@@ -83,5 +83,14 @@ public class CommandUtil {
 		context = ctxt;
 		commandService = commandSrv;
 		handlerService = handlerSrv;
+	}
+	
+	public static <T> T getSelectionOfType(Class<T> clazz, Object selection){
+		
+		if (selection != null && clazz.isAssignableFrom(selection.getClass())) {
+			return clazz.cast(selection);
+		} else {
+			return null;
+		}
 	}
 }

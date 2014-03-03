@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.dialog.StockArticleDialog;
+import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class EditStockArticleViewerHandler {
@@ -36,12 +37,12 @@ public class EditStockArticleViewerHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
-		Object selection = selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST"));
-		if (selection != null && selection instanceof StockArticle) {
-			this.selection = (StockArticle) selection;
+		selection =
+			CommandUtil.getSelectionOfType(StockArticle.class,
+				selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST")));
+		if (selection != null) {
 			return true;
 		} else {
-			this.selection = null;
 			return false;
 		}
 	}

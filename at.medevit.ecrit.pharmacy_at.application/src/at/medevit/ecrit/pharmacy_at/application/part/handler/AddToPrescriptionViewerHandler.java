@@ -8,7 +8,6 @@ import javax.inject.Named;
 
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
@@ -17,10 +16,10 @@ import org.eclipse.swt.widgets.Shell;
 
 import at.medevit.ecrit.pharmacy_at.application.Messages;
 import at.medevit.ecrit.pharmacy_at.application.dialog.PrescriptionSelectionDialog;
-import at.medevit.ecrit.pharmacy_at.application.part.InvoiceDataPart;
-import at.medevit.ecrit.pharmacy_at.application.part.InvoicePart;
-import at.medevit.ecrit.pharmacy_at.application.part.PrescriptionPart;
+import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
+import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
+import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Prescription;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
@@ -46,7 +45,7 @@ public class AddToPrescriptionViewerHandler {
 			}
 		} else {
 			List<Prescription> prescriptions = new ArrayList<Prescription>();
-			prescriptions.addAll(SampleModel.getAllPrescriptionsForCurrentInvoice());
+			prescriptions.addAll(SampleModel.getInvoice().getPrescription());
 			
 			Prescription selectedPrescription;
 			PrescriptionSelectionDialog dlg = new PrescriptionSelectionDialog(shell, prescriptions);
@@ -57,24 +56,21 @@ public class AddToPrescriptionViewerHandler {
 				}
 			}
 		}
-		MPart pPart = partService.findPart(Messages.getString("ID_PART_PRESCRIPTION"));
-		PrescriptionPart prescPart = (PrescriptionPart) pPart.getObject();
-		prescPart.updateTable();
 		
-		MPart iPart = partService.findPart(Messages.getString("ID_PART_INVOICE"));
-		InvoicePart invoicePart = (InvoicePart) iPart.getObject();
-		invoicePart.updateTable();
-		
-		MPart idPart = partService.findPart(Messages.getString("ID_PART_INVOICE_DATA"));
-		InvoiceDataPart invoiceDataPart = (InvoiceDataPart) idPart.getObject();
-		invoiceDataPart.updateTable();
+		List<String> partIds = new ArrayList<String>();
+		partIds.add(Messages.getString("ID_PART_PRESCRIPTION"));
+		partIds.add(Messages.getString("ID_PART_INVOICE_DATA"));
+		partIds.add(Messages.getString("ID_PART_INVOICE"));
+		PartUpdater.updatePart(partService, partIds);
 		
 		prescriptionSelected = false;
 	}
 	
 	@CanExecute
 	public boolean canExecute(){
-		checkArticleListSelection();
+		selection =
+			CommandUtil.getSelectionOfType(StockArticle.class,
+				selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST")));
 		
 		if (selection == null || !prescriptionsExist()) {
 			return false;
@@ -84,7 +80,7 @@ public class AddToPrescriptionViewerHandler {
 	}
 	
 	private boolean prescriptionsExist(){
-		List<Prescription> prescriptionList = SampleModel.getAllPrescriptionsForCurrentInvoice();
+		List<Prescription> prescriptionList = SampleModel.getInvoice().getPrescription();
 		
 		if (prescriptionList == null || prescriptionList.isEmpty()) {
 			return false;
@@ -93,19 +89,11 @@ public class AddToPrescriptionViewerHandler {
 		
 	}
 	
-	private void checkArticleListSelection(){
-		Object selection = selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST"));
-		if (selection != null && selection instanceof StockArticle) {
-			this.selection = (StockArticle) selection;
-		} else {
-			this.selection = null;
-		}
-		
-	}
-	
 	private void addArticleAndUpdate(Prescription p){
-		SampleModel.addArticleToPrescription(p, selection);
-		SampleModel.addArticleToInvoice(selection);
+		Article article = SampleModel.getValidArticleCopy(selection.getArticle());
+		SampleModel.getInvoice().getArticle().add(article);
+		p.getArticle().add(article);
+		
 		selection.setNumberOnStock(selection.getNumberOnStock() - 1);
 	}
 	
