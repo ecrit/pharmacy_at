@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_4Ip44EVIEeOaYLXjRggZbw" elementId="org.eclipse.e4.ide.application" bindingContexts="_4Ip46UVIEeOaYLXjRggZbw">
+  <persistedState key="about" value="This is a sample application used for demonstration purposes connected to the research project ecrit.&#xD;&#xA;For further information about ecrit see &quot;ecrit.at&quot;:http://www.ecrit.at&#xD;&#xA;"/>
+  <persistedState key="install" value="For more details about the installation of Pharmacy_AT see &quot;ecrit/pharmacy_at&quot;:https://github.com/ecrit/pharmacy_at"/>
   <children xsi:type="basic:TrimmedWindow" xmi:id="_4Ip44UVIEeOaYLXjRggZbw" elementId="" label="Ecrit Project - Pharmacy Austria" width="600" height="500">
     <children xsi:type="advanced:PerspectiveStack" xmi:id="_cEcx0EVJEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.perspectivestack.0" selectedElement="_sfjSUEVJEeOaYLXjRggZbw">
       <children xsi:type="advanced:Perspective" xmi:id="_sfjSUEVJEeOaYLXjRggZbw" elementId="perspective.seller" accessibilityPhrase="" label="Seller" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/user-gray.png">
@@ -22,7 +24,7 @@
           </children>
         </children>
       </children>
-      <children xsi:type="advanced:Perspective" xmi:id="_x-JB8EVJEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.perspective.stockist" label="Stockist" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/box.png">
+      <children xsi:type="advanced:Perspective" xmi:id="_x-JB8EVJEeOaYLXjRggZbw" elementId="perspective.stockist" label="Stockist" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/box.png">
         <persistedState key="description" value="This perspective contains all the necessary part to perform a stockists daily routine.&#xD;&#xA;On the lefthand side there is some basic information about the available articles and their further description (same as in the sellers part).&#xD;&#xA;On the righthand side the stockist can create and place a new order. On the right bottom an overview of all StockOrders is given."/>
         <persistedState key="precondition" value="Logged in as stockist."/>
         <children xsi:type="basic:PartSashContainer" xmi:id="_5_qkMEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.1" containerData="60,40" horizontal="true">
@@ -44,7 +46,7 @@
           <children xsi:type="advanced:Placeholder" xmi:id="_5Gs78JA7EeOWIIjTdYbWKw" elementId="part.InvoicePrescriptionOverview" containerData="75" ref="_Vxh-IJA7EeOWIIjTdYbWKw"/>
         </children>
       </children>
-      <children xsi:type="advanced:Perspective" xmi:id="_lbwGIEVOEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.perspective.admin" label="Admin" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/equalizer.png">
+      <children xsi:type="advanced:Perspective" xmi:id="_lbwGIEVOEeOaYLXjRggZbw" elementId="perspective.admin" label="Admin" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/equalizer.png">
         <persistedState key="description" value="This perspective supports the administrator of this product in different system managing activities."/>
         <persistedState key="precondition" value="Logged in as administrator."/>
         <children xsi:type="basic:PartSashContainer" xmi:id="_6yCcUEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.3" containerData="30,70" selectedElement="_tUei4IHIEeONWogwVWLEeA" horizontal="true">
