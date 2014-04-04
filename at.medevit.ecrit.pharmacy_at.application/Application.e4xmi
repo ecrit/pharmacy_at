@@ -10,8 +10,8 @@
         <children xsi:type="basic:PartSashContainer" xmi:id="_5YoZYEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.0" containerData="30,70" selectedElement="_nMVpgFEAEeOs7KUvDVp0Mg" horizontal="true">
           <children xsi:type="basic:PartSashContainer" xmi:id="_nMVpgFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.4" containerData="80,20">
             <persistedState key="description" value="This PartSashContainer holds the ArticeList on top and the Properties on the bottom."/>
-            <children xsi:type="advanced:Placeholder" xmi:id="_r_yxcFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.articlelist" containerData="80" ref="_K6LbcFEAEeOs7KUvDVp0Mg"/>
-            <children xsi:type="advanced:Placeholder" xmi:id="_wuKlEFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.properties" containerData="20" ref="_u11KcFEAEeOs7KUvDVp0Mg"/>
+            <children xsi:type="advanced:Placeholder" xmi:id="_r_yxcFEAEeOs7KUvDVp0Mg" elementId="placeholder.0.part.articlelist" containerData="80" ref="_K6LbcFEAEeOs7KUvDVp0Mg"/>
+            <children xsi:type="advanced:Placeholder" xmi:id="_wuKlEFEAEeOs7KUvDVp0Mg" elementId="placeholder.0.part.properties" containerData="20" ref="_u11KcFEAEeOs7KUvDVp0Mg"/>
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_oHm-8FEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.5" containerData="">
             <persistedState key="description" value="This PartSashContainer holds the invoice data on top and another PartSashContainer on the bottom."/>
@@ -34,7 +34,7 @@
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_1jIWUIqPEeOpo_cEPCGieA" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.10">
             <children xsi:type="advanced:Placeholder" xmi:id="_nHD54IqFEeOpo_cEPCGieA" elementId="at.medevit.ecrit.pharmacy_at.application.part.stockorder" containerData="" ref="_pLR0YIqFEeOpo_cEPCGieA"/>
-            <children xsi:type="advanced:Placeholder" xmi:id="_4ae98IqPEeOpo_cEPCGieA" elementId="part.stockOrderOverview" ref="_sOW_UIqPEeOpo_cEPCGieA"/>
+            <children xsi:type="advanced:Placeholder" xmi:id="_4ae98IqPEeOpo_cEPCGieA" elementId="placeholder.1.part.stockOrderOverview" ref="_sOW_UIqPEeOpo_cEPCGieA"/>
           </children>
         </children>
       </children>
@@ -42,8 +42,8 @@
         <persistedState key="description" value="This is the clerk specific perspective. It supports the clerk in his/her usual business."/>
         <persistedState key="precondition" value="Logged in as clerk."/>
         <children xsi:type="basic:PartSashContainer" xmi:id="_6cj7kEVQEeOaYLXjRggZbw" elementId="partsashcontainer.clerk" containerData="" horizontal="true">
-          <children xsi:type="advanced:Placeholder" xmi:id="_0jmkMJA7EeOWIIjTdYbWKw" elementId="part.inventory" containerData="25" ref="_5aP1QJYpEeO0oaI6xhkvrA" closeable="true"/>
-          <children xsi:type="advanced:Placeholder" xmi:id="_5Gs78JA7EeOWIIjTdYbWKw" elementId="part.InvoicePrescriptionOverview" containerData="75" ref="_Vxh-IJA7EeOWIIjTdYbWKw"/>
+          <children xsi:type="advanced:Placeholder" xmi:id="_0jmkMJA7EeOWIIjTdYbWKw" elementId="placeholder.0.part.inventory" containerData="25" ref="_5aP1QJYpEeO0oaI6xhkvrA" closeable="true"/>
+          <children xsi:type="advanced:Placeholder" xmi:id="_5Gs78JA7EeOWIIjTdYbWKw" elementId="placeholder.0.part.InvoicePrescriptionOverview" containerData="75" ref="_Vxh-IJA7EeOWIIjTdYbWKw"/>
         </children>
       </children>
       <children xsi:type="advanced:Perspective" xmi:id="_lbwGIEVOEeOaYLXjRggZbw" elementId="perspective.admin" label="Admin" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/equalizer.png">
@@ -125,11 +125,11 @@
         </children>
       </menus>
     </sharedElements>
-    <sharedElements xsi:type="basic:Part" xmi:id="_u11KcFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.properties" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.PropertiesPart" label="Properties">
+    <sharedElements xsi:type="basic:Part" xmi:id="_u11KcFEAEeOs7KUvDVp0Mg" elementId="part.properties" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.PropertiesPart" label="Properties">
       <persistedState key="description" value="Dispalys further descriptions to the currently in the article list selected article."/>
       <persistedState key="precondition" value="An article selection in the ArticleList part."/>
     </sharedElements>
-    <sharedElements xsi:type="basic:Part" xmi:id="_0mzDgFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.invoiceData" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.InvoiceDataPart" label="Invoice Data">
+    <sharedElements xsi:type="basic:Part" xmi:id="_0mzDgFEAEeOs7KUvDVp0Mg" elementId="part.invoiceData" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.InvoiceDataPart" label="Invoice Data">
       <persistedState key="description" value="On this part all the articles that should be sold can be placed during the selling process. &#xD;&#xA;The selling process will be compleded and stored by pressing the *Cash up* button. &#xD;&#xA;In case you'd like to revert the selling procedur press the 'Cancel Cash up' button.  For more information see: &quot;Google&quot;:http://www.google.com &#xD;&#xA;Table looks like this:&#xD;&#xA;|_. Nr  |_. Article  |&#xD;&#xA;| 123    | Testarticle1 |&#xD;&#xA;| 1 | Testarticle 2|"/>
       <menus xsi:type="menu:PopupMenu" xmi:id="_wnGHcHxoEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.invoiceData">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_w-qS4HxoEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.deleteFromInvoice" label="Delete from Invoice" command="_pSIwQHxhEeOl7olWdGHeBA">
@@ -150,7 +150,7 @@
         </children>
       </menus>
     </sharedElements>
-    <sharedElements xsi:type="basic:Part" xmi:id="_2ptWcFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.prescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.PrescriptionPart" label="Prescription">
+    <sharedElements xsi:type="basic:Part" xmi:id="_2ptWcFEAEeOs7KUvDVp0Mg" elementId="part.prescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.PrescriptionPart" label="Prescription">
       <persistedState key="description" value="This part is used to display the currently (for this invoice) relevant prescriptions."/>
       <persistedState key="precondition" value="The table in this part will be empty unless the current invoice includes a prescription."/>
       <handlers xmi:id="__-fqMIcnEeOHboXTCc9xHQ" elementId="handler.addPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.AddPrescriptionHandler" command="_KeYD8HeGEeOts5KVA_mezg"/>
@@ -171,19 +171,19 @@
         </children>
       </menus>
     </sharedElements>
-    <sharedElements xsi:type="basic:Part" xmi:id="_4GxKUFEAEeOs7KUvDVp0Mg" elementId="at.medevit.ecrit.pharmacy_at.application.part.invoice" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.InvoicePart" label="Invoice">
+    <sharedElements xsi:type="basic:Part" xmi:id="_4GxKUFEAEeOs7KUvDVp0Mg" elementId="part.invoice" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.InvoicePart" label="Invoice">
       <persistedState key="description" value="This part shows the overview of the final invoice."/>
       <persistedState key="precondition" value="It will be empty unless there are any articles on the invoice and/or prescription."/>
     </sharedElements>
-    <sharedElements xsi:type="basic:Part" xmi:id="_cLcGAHkPEeOVKfoEVF45Aw" elementId="at.medevit.ecrit.pharmacy_at.application.part.user" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.UserPart" label="User">
+    <sharedElements xsi:type="basic:Part" xmi:id="_cLcGAHkPEeOVKfoEVF45Aw" elementId="part.user" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.UserPart" label="User">
       <persistedState key="description" value="This part is used to display user relevant information."/>
       <handlers xmi:id="_EymcEIgdEeOZcL17UErZVw" elementId="at.medevit.ecrit.pharmacy_at.application.handler.deleteUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.DeleteUserHandler" command="_J6QKkHxlEeOl7olWdGHeBA"/>
     </sharedElements>
-    <sharedElements xsi:type="basic:Part" xmi:id="_5xUooIHJEeONWogwVWLEeA" elementId="at.medevit.ecrit.pharmacy_at.application.part.userdata" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.UserDataPart" label="User Data">
+    <sharedElements xsi:type="basic:Part" xmi:id="_5xUooIHJEeONWogwVWLEeA" elementId="part.userdata" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.UserDataPart" label="User Data">
       <persistedState key="description" value="The UserData part shows further information about the users."/>
       <handlers xmi:id="_MK9JsIgdEeOZcL17UErZVw" elementId="at.medevit.ecrit.pharmacy_at.application.handler.saveUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.SaveUserHandler" command="_bqz_YIgcEeOZcL17UErZVw"/>
     </sharedElements>
-    <sharedElements xsi:type="basic:Part" xmi:id="_pLR0YIqFEeOpo_cEPCGieA" elementId="at.medevit.ecrit.pharmacy_at.application.part.stockorder" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.StockOrderPart" label="Stock Order">
+    <sharedElements xsi:type="basic:Part" xmi:id="_pLR0YIqFEeOpo_cEPCGieA" elementId="part.stockorder" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.StockOrderPart" label="Stock Order">
       <persistedState key="description" value="This part offers the functionality to create a new stock order.&#xD;&#xA;The articles can be added by right click in the ArticleList part or via Drag&amp;Drop from the ArticleList part to this part.&#xD;&#xA;If you'd like to order i.e. 10 units of Aspirin simply click in the appropriate units cell and edit the amount.&#xD;&#xA;By pressing the 'PlaceOrder' button the ordering process will be completed."/>
       <handlers xmi:id="_qPLlMIylEeOQ2LZgBpBMxA" elementId="handler.orderArticles" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.stockist.parts.OrderArticlesViewerHandler" command="_J4i1EIylEeOQ2LZgBpBMxA"/>
     </sharedElements>
