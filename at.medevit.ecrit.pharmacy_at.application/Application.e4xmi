@@ -50,13 +50,9 @@
       <children xsi:type="advanced:Perspective" xmi:id="_lbwGIEVOEeOaYLXjRggZbw" elementId="perspective.admin" label="Admin" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/equalizer.png">
         <persistedState key="description" value="This perspective supports the administrator of this product in different system managing activities."/>
         <persistedState key="precondition" value="Logged in as administrator."/>
-        <children xsi:type="basic:PartSashContainer" xmi:id="_6yCcUEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.3" containerData="30,70" selectedElement="_tUei4IHIEeONWogwVWLEeA" horizontal="true">
-          <children xsi:type="basic:PartSashContainer" xmi:id="_tUei4IHIEeONWogwVWLEeA" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.7" containerData="70,30">
-            <children xsi:type="advanced:Placeholder" xmi:id="_6h7t4HkQEeOVKfoEVF45Aw" elementId="at.medevit.ecrit.pharmacy_at.application.placeholder.user" ref="_cLcGAHkPEeOVKfoEVF45Aw"/>
-          </children>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_vX_SwIHIEeONWogwVWLEeA" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.8">
-            <children xsi:type="advanced:Placeholder" xmi:id="_1LosYIHIEeONWogwVWLEeA" elementId="at.medevit.ecrit.pharmacy_at.application.placeholder.0" ref="_5xUooIHJEeONWogwVWLEeA"/>
-          </children>
+        <children xsi:type="basic:PartSashContainer" xmi:id="_6yCcUEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.3" containerData="30,70" horizontal="true">
+          <children xsi:type="advanced:Placeholder" xmi:id="_6h7t4HkQEeOVKfoEVF45Aw" elementId="at.medevit.ecrit.pharmacy_at.application.placeholder.user" ref="_cLcGAHkPEeOVKfoEVF45Aw"/>
+          <children xsi:type="advanced:Placeholder" xmi:id="_1LosYIHIEeONWogwVWLEeA" elementId="at.medevit.ecrit.pharmacy_at.application.placeholder.0" ref="_5xUooIHJEeONWogwVWLEeA"/>
         </children>
       </children>
     </children>
@@ -129,11 +125,11 @@
       </menus>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_u11KcFEAEeOs7KUvDVp0Mg" elementId="part.properties" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.PropertiesPart" label="Properties">
-      <persistedState key="description" value="Dispalys further descriptions to the currently in the article list selected article."/>
+      <persistedState key="description" value="Displays a description on the currently selected article of the article list."/>
       <persistedState key="precondition" value="An article selection in the ArticleList part."/>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_0mzDgFEAEeOs7KUvDVp0Mg" elementId="part.invoiceData" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.InvoiceDataPart" label="Invoice Data">
-      <persistedState key="description" value="Here the articles to be sold are collected during the purchase by a customer. The seller selects an article in the Article List to be included in this part by either double-clicking on it or dragging and dropping it to this part.&#xD;&#xA;&#xD;&#xA;The selling process will be completed and stored by pressing the *Cash up* button. &#xD;&#xA;In case you'd like to revert the selling procedur press the 'Cancel Cash up' button.  For more information see: &quot;Google&quot;:http://www.google.com &#xD;&#xA;"/>
+      <persistedState key="description" value="Here the articles to be sold are collected during the purchase by a customer. The seller selects an article in the Article List to be included in this part by either double-clicking on it or dragging and dropping it to this part.&#xD;&#xA;&#xD;&#xA;The selling process will be completed and stored by pressing the *Cash up* button. &#xD;&#xA;&#xD;&#xA;In case you'd like to revert the selling procedur press the 'Cancel Cash up' button.  For more information see: &quot;Google&quot;:http://www.google.com &#xD;&#xA;"/>
       <menus xsi:type="menu:PopupMenu" xmi:id="_wnGHcHxoEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.invoiceData">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_w-qS4HxoEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.deleteFromInvoice" label="Delete from Invoice" command="_pSIwQHxhEeOl7olWdGHeBA">
           <persistedState key="precondition" value="Logged in as seller.&#xD;&#xA;An article from the invoice creation part needs to be selected."/>
