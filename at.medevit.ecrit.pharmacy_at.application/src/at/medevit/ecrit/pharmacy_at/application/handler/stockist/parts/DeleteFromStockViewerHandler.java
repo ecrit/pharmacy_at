@@ -13,7 +13,7 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
@@ -39,7 +39,7 @@ public class DeleteFromStockViewerHandler {
 		if (retVal) {
 			SampleModel.removeFromStock(selection);
 			PartUpdater.updatePart(partService,
-				Collections.singletonList(Messages.getString("ID_PART_ARTICLELIST")));
+				Collections.singletonList(AppModelId.PART_PART_ARTICLELIST));
 		}
 	}
 	
@@ -48,7 +48,7 @@ public class DeleteFromStockViewerHandler {
 		// TODO only allow in stockist tab/ for stockist user
 		selection =
 			CommandUtil.getSelectionOfType(StockArticle.class,
-				selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST")));
+				selectionService.getSelection(AppModelId.PART_PART_ARTICLELIST));
 		if (selection != null) {
 			return true;
 		} else {

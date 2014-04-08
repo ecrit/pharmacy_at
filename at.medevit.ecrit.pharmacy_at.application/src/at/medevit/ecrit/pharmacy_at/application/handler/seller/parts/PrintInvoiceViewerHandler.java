@@ -14,7 +14,7 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.swt.widgets.Shell;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.part.InvoicePart;
 import at.medevit.ecrit.pharmacy_at.application.part.InvoicePrescriptionOverviewPart;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
@@ -40,11 +40,11 @@ public class PrintInvoiceViewerHandler {
 		
 		SampleModel.addInvoice(SampleModel.getInvoice());
 		List<String> partIds = new ArrayList<String>();
-		partIds.add(Messages.getString("ID_PART_PRESCRIPTION"));
-		partIds.add(Messages.getString("ID_PART_INVOICE_DATA"));
-		partIds.add(Messages.getString("ID_PART_INVOICE"));
+		partIds.add(AppModelId.PART_PART_PRESCRIPTION);
+		partIds.add(AppModelId.PART_PART_INVOICEDATA);
+		partIds.add(AppModelId.PART_PART_INVOICE);
 		PartUpdater.updatePart(partService, partIds);
-		((InvoicePart) PartUpdater.findPart(Messages.getString("ID_PART_INVOICE"))).updateBinding();
+		((InvoicePart) PartUpdater.findPart(AppModelId.PART_PART_INVOICE)).updateBinding();
 		
 		InvoicePrescriptionOverviewPart.updateInput();
 	}
@@ -54,7 +54,7 @@ public class PrintInvoiceViewerHandler {
 		// TODO only allow in seller tab/ for seller user
 		amountMap =
 			CommandUtil.getSelectionOfType(HashMap.class,
-				selectionService.getSelection(Messages.getString("ID_PART_INVOICE_DATA")));
+				selectionService.getSelection(AppModelId.PART_PART_INVOICEDATA));
 		if (amountMap != null) {
 			return true;
 		} else {

@@ -46,7 +46,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.filter.ArticleFilter;
 import at.medevit.ecrit.pharmacy_at.application.filter.CriticalLevelFilter;
 import at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.AddToInvoiceViewerHandler;
@@ -119,7 +119,7 @@ public class ArticleListPart implements IPart {
 		
 		initTableViewer(parent);
 		menuService.registerContextMenu(tableViewer.getTable(),
-			Messages.getString("ID_POPUP_ARTICLELIST"));
+				AppModelId.PART_PART_ARTICLELIST);
 		
 	}
 	
@@ -171,7 +171,7 @@ public class ArticleListPart implements IPart {
 			@Override
 			public void doubleClick(DoubleClickEvent event){
 				CommandUtil.setContextAndServices(context, commandService, handlerService);
-				CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_ADD_TO_INVOICE"),
+				CommandUtil.manuallyCallCommand(AppModelId.COMMAND_AT_MEDEVIT_ECRIT_PHARMACY_AT_APPLICATION_COMMAND_ADDTOINVOICE,
 					"commandparameter.modelelement.Article", "a stock article",
 					new AddToInvoiceViewerHandler());
 			}

@@ -14,7 +14,7 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.dialog.PrescriptionSelectionDialog;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
@@ -28,27 +28,28 @@ public class AddToPrescriptionViewerHandler {
 	private ESelectionService selectionService;
 	@Inject
 	private EPartService partService;
-	
+
 	// ArtilceList TableViewer selection
 	private StockArticle selection;
 	private boolean prescriptionSelected = false;
-	
+
 	@Execute
-	public void execute(@Named("commandparameter.addToPrescription")
-	String stockArticle, @Named(IServiceConstants.ACTIVE_SHELL)
-	Shell shell){
-		
+	public void execute(
+			@Named("commandparameter.addToPrescription") String stockArticle,
+			@Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
+
 		if (prescriptionSelected) {
-			Object sel = selectionService.getSelection(Messages.getString("ID_PART_PRESCRIPTION"));
+			Object sel = selectionService.getSelection(AppModelId.PART_PART_PRESCRIPTION);
 			if (sel != null && sel instanceof Prescription) {
 				addArticleAndUpdate((Prescription) sel);
 			}
 		} else {
 			List<Prescription> prescriptions = new ArrayList<Prescription>();
 			prescriptions.addAll(SampleModel.getInvoice().getPrescription());
-			
+
 			Prescription selectedPrescription;
-			PrescriptionSelectionDialog dlg = new PrescriptionSelectionDialog(shell, prescriptions);
+			PrescriptionSelectionDialog dlg = new PrescriptionSelectionDialog(
+					shell, prescriptions);
 			if (dlg.open() == IDialogConstants.OK_ID) {
 				if (!prescriptions.isEmpty()) {
 					selectedPrescription = prescriptions.get(0);
@@ -56,49 +57,50 @@ public class AddToPrescriptionViewerHandler {
 				}
 			}
 		}
-		
+
 		List<String> partIds = new ArrayList<String>();
-		partIds.add(Messages.getString("ID_PART_PRESCRIPTION"));
-		partIds.add(Messages.getString("ID_PART_INVOICE_DATA"));
-		partIds.add(Messages.getString("ID_PART_INVOICE"));
+		partIds.add(AppModelId.PART_PART_PRESCRIPTION);
+		partIds.add(AppModelId.PART_PART_INVOICEDATA);
+		partIds.add(AppModelId.PART_PART_INVOICE);
 		PartUpdater.updatePart(partService, partIds);
-		
+
 		prescriptionSelected = false;
 	}
-	
+
 	@CanExecute
-	public boolean canExecute(){
-		selection =
-			CommandUtil.getSelectionOfType(StockArticle.class,
-				selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST")));
-		
+	public boolean canExecute() {
+		selection = CommandUtil.getSelectionOfType(StockArticle.class,
+				selectionService.getSelection(AppModelId.PART_PART_ARTICLELIST));
+
 		if (selection == null || !prescriptionsExist()) {
 			return false;
 		}
 		return true;
-		
+
 	}
-	
-	private boolean prescriptionsExist(){
-		List<Prescription> prescriptionList = SampleModel.getInvoice().getPrescription();
-		
+
+	private boolean prescriptionsExist() {
+		List<Prescription> prescriptionList = SampleModel.getInvoice()
+				.getPrescription();
+
 		if (prescriptionList == null || prescriptionList.isEmpty()) {
 			return false;
 		}
 		return true;
-		
+
 	}
-	
-	private void addArticleAndUpdate(Prescription p){
-		Article article = SampleModel.getValidArticleCopy(selection.getArticle());
+
+	private void addArticleAndUpdate(Prescription p) {
+		Article article = SampleModel.getValidArticleCopy(selection
+				.getArticle());
 		SampleModel.getInvoice().getArticle().add(article);
 		p.getArticle().add(article);
-		
+
 		selection.setNumberOnStock(selection.getNumberOnStock() - 1);
 	}
-	
-	public void setPrescriptionSelected(boolean b){
+
+	public void setPrescriptionSelected(boolean b) {
 		prescriptionSelected = b;
 	}
-	
+
 }

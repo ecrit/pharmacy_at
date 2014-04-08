@@ -41,7 +41,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.handler.stockist.parts.AddToStockOrderViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.handler.stockist.parts.OrderArticlesViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
@@ -112,7 +112,7 @@ public class StockOrderPart implements IPart {
 				selectionService.setSelection(articleToOrder);
 				
 				CommandUtil.setContextAndServices(context, commandService, handlerService);
-				CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_ORDER_ARTICLES"),
+				CommandUtil.manuallyCallCommand(AppModelId.COMMAND_COMMAND_ORDERARTICLES,
 					"commandparameter.modelelement.articlesToOrder", "stockOrder",
 					new OrderArticlesViewerHandler());
 			}
@@ -146,7 +146,7 @@ public class StockOrderPart implements IPart {
 				if (TextTransfer.getInstance().isSupportedType(event.currentDataType)) {
 					selectionService.setSelection(articleToOrder);
 					CommandUtil.setContextAndServices(context, commandService, handlerService);
-					CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_ADD_TO_STOCKORDER"),
+					CommandUtil.manuallyCallCommand(AppModelId.COMMAND_COMMAND_ADDTOSTOCKORDER,
 						"commandparameter.modelelement.addToStockOrder", "article for order",
 						new AddToStockOrderViewerHandler());
 				}

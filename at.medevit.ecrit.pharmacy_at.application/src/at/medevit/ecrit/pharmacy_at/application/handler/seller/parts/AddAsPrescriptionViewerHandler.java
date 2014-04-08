@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.dialog.PrescriptionDialog;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
@@ -60,9 +60,9 @@ public class AddAsPrescriptionViewerHandler {
 			SampleModel.getInvoice().getPrescription().add(p);
 			
 			List<String> partIds = new ArrayList<String>();
-			partIds.add(Messages.getString("ID_PART_PRESCRIPTION"));
-			partIds.add(Messages.getString("ID_PART_INVOICE"));
-			partIds.add(Messages.getString("ID_PART_INVOICE_DATA"));
+			partIds.add(AppModelId.PART_PART_PRESCRIPTION);
+			partIds.add(AppModelId.PART_PART_INVOICEDATA);
+			partIds.add(AppModelId.PART_PART_INVOICE);
 			PartUpdater.updatePart(partService, partIds);
 		}
 	}
@@ -82,7 +82,7 @@ public class AddAsPrescriptionViewerHandler {
 		// TODO only allow in seller tab/ for seller user
 		stockArticleSelection =
 			CommandUtil.getSelectionOfType(StockArticle.class,
-				selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST")));
+				selectionService.getSelection(AppModelId.PART_PART_ARTICLELIST));
 		setPrescribableArticles();
 		
 		if (stockArticleSelection == null && prescribables.isEmpty()) {

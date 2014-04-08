@@ -38,7 +38,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.AddAsPrescriptionViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.AddToPrescriptionViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.EditPrescriptionViewerHandler;
@@ -79,7 +79,7 @@ public class PrescriptionPart implements IPart {
 		
 		initTableViewer(parent);
 		menuService.registerContextMenu(tableViewer.getTable(),
-			Messages.getString("ID_POPUP_PRESCRIPTION"));
+			AppModelId.POPUPMENU_AT_MEDEVIT_ECRIT_PHARMACY_AT_APPLICATION_POPUPMENU_PRESCRITPTION);
 	}
 	
 	@EcritDrop(command = "at.medevit.ecrit.pharmacy_at.application.command.addPrescritption")
@@ -111,14 +111,14 @@ public class PrescriptionPart implements IPart {
 				if (TextTransfer.getInstance().isSupportedType(event.currentDataType)) {
 					InvoiceDataPart invoiceDataPart =
 						(InvoiceDataPart) partService.findPart(
-							Messages.getString("ID_PART_INVOICE_DATA")).getObject();
+							AppModelId.PART_PART_INVOICEDATA).getObject();
 					
 					if (event.item != null) {
 						selectionService.setSelection((Prescription) event.item.getData());
 						
 						CommandUtil.setContextAndServices(context, commandService, handlerService);
 						CommandUtil.manuallyCallCommand(
-							Messages.getString("ID_CMD_ADD_TO_PRESCRIPTION"),
+							AppModelId.COMMAND_COMMAND_ADDTOPRESCRIPTION,
 							"commandparameter.addToPrescription", "selected article",
 							new AddToPrescriptionViewerHandler());
 						
@@ -126,7 +126,7 @@ public class PrescriptionPart implements IPart {
 						// dropped article from ARTICLE_LIST_PART
 						CommandUtil.setContextAndServices(context, commandService, handlerService);
 						CommandUtil.manuallyCallCommand(
-							Messages.getString("ID_CMD_ADD_AS_PRESCRIPTION"), null, null,
+								AppModelId.COMMAND_COMMAND_ADDASPRESCRITPTION, null, null,
 							new AddAsPrescriptionViewerHandler());
 					}
 					invoiceDataPart.updatePart();
@@ -138,7 +138,7 @@ public class PrescriptionPart implements IPart {
 			@Override
 			public void doubleClick(DoubleClickEvent event){
 				CommandUtil.setContextAndServices(context, commandService, handlerService);
-				CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_EDIT_PRESCRIPTION"),
+				CommandUtil.manuallyCallCommand(AppModelId.COMMAND_COMMAND_EDITPRESCRIPTION,
 					"commandparameter.editPrescription", "prescription to edit",
 					new EditPrescriptionViewerHandler());
 			}

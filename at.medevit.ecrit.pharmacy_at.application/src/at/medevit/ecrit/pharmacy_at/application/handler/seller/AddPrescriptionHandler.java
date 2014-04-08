@@ -14,7 +14,7 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.dialog.PrescriptionDialog;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
@@ -43,9 +43,9 @@ public class AddPrescriptionHandler {
 				SampleModel.getInvoice().getPrescription().add(p);
 				
 				List<String> partIds = new ArrayList<String>();
-				partIds.add(Messages.getString("ID_PART_PRESCRIPTION"));
-				partIds.add(Messages.getString("ID_PART_INVOICE"));
-				partIds.add(Messages.getString("ID_PART_INVOICE_DATA"));
+				partIds.add(AppModelId.PART_PART_PRESCRIPTION);
+				partIds.add(AppModelId.PART_PART_INVOICE);
+				partIds.add(AppModelId.PART_PART_INVOICEDATA);
 				PartUpdater.updatePart(partService, partIds);
 			}
 		}

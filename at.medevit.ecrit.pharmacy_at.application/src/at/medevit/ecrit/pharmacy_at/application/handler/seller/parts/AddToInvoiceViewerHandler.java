@@ -15,7 +15,7 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.part.InvoiceDataPart;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
@@ -44,26 +44,26 @@ public class AddToInvoiceViewerHandler {
 		Article article = SampleModel.getValidArticleCopy(selection.getArticle());
 		SampleModel.getInvoice().getArticle().add(article);
 		
-		InvoiceDataPart invDataPart =
-			(InvoiceDataPart) partService.findPart(Messages.getString("ID_PART_INVOICE_DATA"))
+		InvoiceDataPart invDataPart = 
+			(InvoiceDataPart) partService.findPart(AppModelId.PART_PART_INVOICEDATA)
 				.getObject();
 		invDataPart.addArticleAndUpdate(selection.getArticle());
 		
 		PartUpdater.updatePart(partService,
-			Collections.singletonList(Messages.getString("ID_PART_INVOICE")));
+			Collections.singletonList(AppModelId.PART_PART_INVOICE));
 		
 	}
 	
 	@CanExecute
 	public boolean canExecute(@Active
 	MPart activePart){
-		if (modelService.getActivePerspective(window).getElementId().equals("perspective.seller")) {
+		if (modelService.getActivePerspective(window).getElementId().equals(AppModelId.PERSPECTIVE_PERSPECTIVE_SELLER)) {
 			MMenuElement addToInvoiceMenu = activePart.getMenus().get(0).getChildren().get(0);
 			addToInvoiceMenu.setVisible(true);
 			
 			this.selection =
 				CommandUtil.getSelectionOfType(StockArticle.class,
-					selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST")));
+					selectionService.getSelection(AppModelId.PART_PART_ARTICLELIST));
 			if (selection != null && selection.getNumberOnStock() > 0) {
 				return true;
 			} else {

@@ -12,7 +12,7 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.swt.widgets.Shell;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.util.PrintRefundPDF;
 
 public class PrintRefundFormViewerHandler {
@@ -32,8 +32,7 @@ public class PrintRefundFormViewerHandler {
 	public boolean canExecute(){
 		// TODO only allow in clerk tab/ for clerk user
 		Object selection =
-			selectionService.getSelection(Messages
-				.getString("ID_PART_INVOICE_PRESCRIPTION_OVERVIEW"));
+			selectionService.getSelection(AppModelId.PART_PART_INVOICEPRESCRIPTIONOVERVIEW);
 		if (selection != null && selection instanceof Object[]) {
 			this.checked = Arrays.asList((Object[]) selection);
 			return true;

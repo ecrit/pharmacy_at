@@ -11,7 +11,7 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
@@ -44,7 +44,7 @@ public class EditStockOrderStatusViewerHandler {
 		}
 		SampleModel.update();
 		PartUpdater.updatePart(partService,
-			Collections.singletonList(Messages.getString("ID_PART_ARTICLELIST")));
+			Collections.singletonList(AppModelId.PART_PART_ARTICLELIST));
 	}
 	
 	private HashMap<String, Integer> calcUnitsPerArticle(){
@@ -64,7 +64,7 @@ public class EditStockOrderStatusViewerHandler {
 	public boolean canExecute(){
 		// TODO only allow in stockist tab/ for stockist user
 		Object selection =
-			selectionService.getSelection(Messages.getString("ID_PART_STOCKORDER_OVERVIEW"));
+			selectionService.getSelection(AppModelId.PART_PART_STOCKORDEROVERVIEW);
 		if (selection != null && selection instanceof StockOrder) {
 			this.selection = (StockOrder) selection;
 			return true;

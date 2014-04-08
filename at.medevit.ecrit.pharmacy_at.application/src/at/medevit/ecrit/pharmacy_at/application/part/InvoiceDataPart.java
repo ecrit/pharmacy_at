@@ -44,7 +44,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.handler.seller.CancelInvoiceHandler;
 import at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.AddToInvoiceViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.PrintInvoiceViewerHandler;
@@ -117,7 +117,7 @@ public class InvoiceDataPart implements IPart {
 			public void widgetSelected(SelectionEvent e){
 				selectionService.setSelection(amountMap);
 				CommandUtil.setContextAndServices(context, commandService, handlerService);
-				CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_PRINT_INVOICE"),
+				CommandUtil.manuallyCallCommand(AppModelId.COMMAND_COMMAND_PRINTINVOICE,
 					"commandparameter.printInvoice", "article-amount map",
 					new PrintInvoiceViewerHandler());
 			}
@@ -134,14 +134,14 @@ public class InvoiceDataPart implements IPart {
 					"Are you sure you want to cancle this selling process?\n All changes will be lost!")) {
 					
 					CommandUtil.setContextAndServices(context, commandService, handlerService);
-					CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_CANCEL_INVOICE"),
+					CommandUtil.manuallyCallCommand(AppModelId.COMMAND_COMMAND_CANCELINVOICE,
 						null, null, new CancelInvoiceHandler());
 				}
 			}
 		});
 		
 		menuService.registerContextMenu(tableViewer.getTable(),
-			Messages.getString("ID_POPUP_INVOICE_DATA"));
+			AppModelId.POPUPMENU_AT_MEDEVIT_ECRIT_PHARMACY_AT_APPLICATION_POPUPMENU_INVOICEDATA);
 	}
 	
 	private void initTableViewer(Composite composite){
@@ -171,7 +171,7 @@ public class InvoiceDataPart implements IPart {
 			public void drop(DropTargetEvent event){
 				if (TextTransfer.getInstance().isSupportedType(event.currentDataType)) {
 					CommandUtil.setContextAndServices(context, commandService, handlerService);
-					CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_ADD_TO_INVOICE"),
+					CommandUtil.manuallyCallCommand(AppModelId.COMMAND_AT_MEDEVIT_ECRIT_PHARMACY_AT_APPLICATION_COMMAND_ADDTOINVOICE,
 						"commandparameter.modelelement.Article", "put article on invoice",
 						new AddToInvoiceViewerHandler());
 					

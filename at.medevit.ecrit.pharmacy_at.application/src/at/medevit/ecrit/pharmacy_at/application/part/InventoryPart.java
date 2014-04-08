@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.handler.clerk.parts.CheckInventoryViewerHandler;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
@@ -97,7 +97,7 @@ public class InventoryPart implements IPart {
 			public void widgetSelected(SelectionEvent e){
 				selectionService.setSelection(tableViewer.getCheckedElements());
 				CommandUtil.setContextAndServices(context, commandService, handlerService);
-				CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_CHECK_INVENTORY"),
+				CommandUtil.manuallyCallCommand(AppModelId.COMMAND_COMMAND_CHECKINVENTORY,
 					"commandparameter.checkInventory", "consistent articles",
 					new CheckInventoryViewerHandler());
 			}

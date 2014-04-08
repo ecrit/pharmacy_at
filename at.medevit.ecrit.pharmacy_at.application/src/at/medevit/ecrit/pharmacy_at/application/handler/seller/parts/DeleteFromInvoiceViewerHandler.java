@@ -16,7 +16,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.dialog.DeleteFromPrescriptionDialog;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
@@ -36,7 +36,7 @@ public class DeleteFromInvoiceViewerHandler {
 	String articleToDelete, @Named(IServiceConstants.ACTIVE_SHELL)
 	Shell shell){
 		Article a =
-			(Article) selectionService.getSelection(Messages.getString("ID_PART_INVOICE_DATA"));
+			(Article) selectionService.getSelection(AppModelId.PART_PART_INVOICEDATA);
 		
 		List<Prescription> relevantPrescriptions = getRelevantPrescriptions(a);
 		if (!relevantPrescriptions.isEmpty()) {
@@ -65,16 +65,16 @@ public class DeleteFromInvoiceViewerHandler {
 						SampleModel.getInvoice().getPrescription().remove(selectedPrescription);
 					}
 					PartUpdater.updatePart(partService,
-						Collections.singletonList(Messages.getString("ID_PART_PRESCRIPTION")));
+						Collections.singletonList(AppModelId.PART_PART_PRESCRIPTION));
 				}
 			}
 		}
 		SampleModel.removeArticleFromInvoice(a);
 		
 		List<String> partIds = new ArrayList<String>();
-		partIds.add(Messages.getString("ID_PART_PRESCRIPTION"));
-		partIds.add(Messages.getString("ID_PART_INVOICE_DATA"));
-		partIds.add(Messages.getString("ID_PART_INVOICE"));
+		partIds.add(AppModelId.PART_PART_PRESCRIPTION);
+		partIds.add(AppModelId.PART_PART_INVOICEDATA);
+		partIds.add(AppModelId.PART_PART_INVOICE);
 		PartUpdater.updatePart(partService, partIds);
 	}
 	
@@ -99,7 +99,7 @@ public class DeleteFromInvoiceViewerHandler {
 		// TODO only allow in seller tab/ for seller user
 		Object selection =
 			CommandUtil.getSelectionOfType(Article.class,
-				selectionService.getSelection(Messages.getString("ID_PART_INVOICE_DATA")));
+				selectionService.getSelection(AppModelId.PART_PART_INVOICEDATA));
 		if (selection != null) {
 			return true;
 		} else {

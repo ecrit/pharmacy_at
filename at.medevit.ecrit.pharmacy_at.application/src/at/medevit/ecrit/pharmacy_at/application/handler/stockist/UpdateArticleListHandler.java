@@ -19,7 +19,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
@@ -66,7 +66,7 @@ public class UpdateArticleListHandler {
 					+ "] articles removed");
 			
 			PartUpdater.updatePart(partService,
-				Collections.singletonList(Messages.getString("ID_PART_ARTICLELIST")));
+				Collections.singletonList(AppModelId.PART_PART_ARTICLELIST));
 		}
 	}
 	

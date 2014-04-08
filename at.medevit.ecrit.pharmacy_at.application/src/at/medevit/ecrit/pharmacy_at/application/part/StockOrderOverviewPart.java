@@ -39,7 +39,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.dialog.StockOrderDialog;
 import at.medevit.ecrit.pharmacy_at.application.filter.StockOrderFilter;
 import at.medevit.ecrit.pharmacy_at.application.handler.stockist.parts.EditStockOrderStatusViewerHandler;
@@ -208,7 +208,7 @@ public class StockOrderOverviewPart implements IPart {
 					if (data.getStatus().equals(StockOrderStatus.RECEIVED)) {
 						CommandUtil.setContextAndServices(context, commandService, handlerService);
 						CommandUtil.manuallyCallCommand(
-							Messages.getString("ID_CMD_EDIT_STOCKORDER_STATUS"),
+							AppModelId.COMMAND_COMMAND_EDITSTOCKORDERSTATUS,
 							"commandparameter.editStockOrderStatus", "change orders status",
 							new EditStockOrderStatusViewerHandler());
 					}

@@ -11,7 +11,7 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.part.StockOrderPart;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
@@ -30,7 +30,7 @@ public class AddToStockOrderViewerHandler {
 	public void execute(@Named("commandparameter.modelelement.addToStockOrder")
 	String stockArticle){
 		StockOrderPart stockOrderPart =
-			(StockOrderPart) partService.findPart(Messages.getString("ID_PART_STOCKORDER"))
+			(StockOrderPart) partService.findPart(AppModelId.PART_PART_STOCKORDER)
 				.getObject();
 		if (isNoDuplicate()) {
 			selection.setNumberOrdered(1);
@@ -54,10 +54,10 @@ public class AddToStockOrderViewerHandler {
 		// TODO only allow in stockist tab/ for stockist user
 		selection =
 			CommandUtil.getSelectionOfType(StockArticle.class,
-				selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST")));
+				selectionService.getSelection(AppModelId.PART_PART_ARTICLELIST));
 		articleToOrder =
 			CommandUtil.getSelectionOfType(List.class,
-				selectionService.getSelection(Messages.getString("ID_PART_STOCKORDER")));
+				selectionService.getSelection(AppModelId.PART_PART_STOCKORDER));
 		
 		if (selection == null && (articleToOrder == null || articleToOrder.isEmpty())) {
 			return false;

@@ -11,7 +11,7 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.swt.widgets.Shell;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.dialog.StockArticleDialog;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
 
@@ -27,7 +27,7 @@ public class AddNewArticleHandler {
 		dlg.open();
 		
 		PartUpdater.updatePart(partService,
-			Collections.singletonList(Messages.getString("ID_PART_ARTICLELIST")));
+			Collections.singletonList(AppModelId.PART_PART_ARTICLELIST));
 	}
 	
 	@CanExecute

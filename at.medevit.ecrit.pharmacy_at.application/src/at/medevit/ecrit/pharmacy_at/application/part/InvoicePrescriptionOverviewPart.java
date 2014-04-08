@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.control.InvoiceOverviewComposite;
 import at.medevit.ecrit.pharmacy_at.application.control.PrescriptionOverviewComposite;
 import at.medevit.ecrit.pharmacy_at.application.handler.clerk.parts.PrintRefundFormViewerHandler;
@@ -168,7 +168,7 @@ public class InvoicePrescriptionOverviewPart implements IPart {
 				selectionService.setSelection(poc.getCheckedElements());
 				
 				CommandUtil.setContextAndServices(context, commandService, handlerService);
-				CommandUtil.manuallyCallCommand(Messages.getString("ID_CMD_PRINT_REFUND_FORM"),
+				CommandUtil.manuallyCallCommand(AppModelId.COMMAND_COMMAND_PRINTREFUNDFORM,
 					"commandparameter.printRefund", "checked prescriptions",
 					new PrintRefundFormViewerHandler());
 			}

@@ -11,7 +11,7 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.part.StockOrderPart;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
@@ -40,12 +40,12 @@ public class OrderArticlesViewerHandler {
 		}
 		
 		StockOrderPart stockOrderPart =
-			((StockOrderPart) partService.findPart(Messages.getString("ID_PART_STOCKORDER"))
+			((StockOrderPart) partService.findPart(AppModelId.PART_PART_STOCKORDER)
 				.getObject());
 		stockOrderPart.cleanPart();
 		List<String> partIds = new ArrayList<String>();
-		partIds.add(Messages.getString("ID_PART_STOCKORDER_OVERVIEW"));
-		partIds.add(Messages.getString("ID_PART_ARTICLELIST"));
+		partIds.add(AppModelId.PART_PART_STOCKORDEROVERVIEW);
+		partIds.add(AppModelId.PART_PART_ARTICLELIST);
 		PartUpdater.updatePart(partService, partIds);
 		
 	}
@@ -67,7 +67,7 @@ public class OrderArticlesViewerHandler {
 		// TODO only allow in stockist tab/ for stockist user
 		articlesToOrder =
 			CommandUtil.getSelectionOfType(List.class,
-				selectionService.getSelection(Messages.getString("ID_PART_STOCKORDER")));
+				selectionService.getSelection(AppModelId.PART_PART_STOCKORDER));
 		if (articlesToOrder != null) {
 			return true;
 		} else {

@@ -10,7 +10,7 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.swt.widgets.Shell;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.dialog.StockArticleDialog;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
@@ -40,7 +40,7 @@ public class EditStockArticleViewerHandler {
 		// TODO only allow in stockist tab/ for stockist user
 		selection =
 			CommandUtil.getSelectionOfType(StockArticle.class,
-				selectionService.getSelection(Messages.getString("ID_PART_ARTICLELIST")));
+				selectionService.getSelection(AppModelId.PART_PART_ARTICLELIST));
 		if (selection != null) {
 			return true;
 		} else {

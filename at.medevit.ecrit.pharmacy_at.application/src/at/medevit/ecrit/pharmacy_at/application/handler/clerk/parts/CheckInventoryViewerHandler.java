@@ -15,7 +15,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
-import at.medevit.ecrit.pharmacy_at.application.Messages;
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.dialog.ReportDialog;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
@@ -76,7 +76,7 @@ public class CheckInventoryViewerHandler {
 	@CanExecute
 	public boolean canExecute(){
 		// TODO only allow in clerk tab/ for clerk user
-		Object selection = selectionService.getSelection(Messages.getString("ID_PART_INVENTORY"));
+		Object selection = selectionService.getSelection(AppModelId.PART_PART_INVENTORY);
 		if (selection != null && selection instanceof Object[]) {
 			this.checked = Arrays.asList((Object[]) selection);
 			return true;
