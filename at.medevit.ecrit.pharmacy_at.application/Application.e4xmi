@@ -58,10 +58,10 @@
         </children>
       </children>
     </children>
-    <mainMenu xmi:id="_FocnYIdLEeOHboXTCc9xHQ" elementId="at.medevit.ecrit.pharmacy_at.application.menu.0">
+    <mainMenu xmi:id="_FocnYIdLEeOHboXTCc9xHQ" elementId="mainmenu">
       <persistedState key="description" value="In the main menu you can find some general valid commands."/>
-      <children xsi:type="menu:Menu" xmi:id="_kFt6ML8GEeOsfqRf7Ke75Q" elementId="at.medevit.ecrit.pharmacy_at.application.menu.1" label="Report">
-        <children xsi:type="menu:DirectMenuItem" xmi:id="_HtyjQIdLEeOHboXTCc9xHQ" elementId="at.medevit.ecrit.pharmacy_at.application.directmenuitem.0" label="Report Issue" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/report.png" tooltip="Report an issue" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.CreateReportHandler">
+      <children xsi:type="menu:Menu" xmi:id="_kFt6ML8GEeOsfqRf7Ke75Q" elementId="mainmenu.report" label="Report">
+        <children xsi:type="menu:DirectMenuItem" xmi:id="_HtyjQIdLEeOHboXTCc9xHQ" elementId="mainmenu.report.issue" label="Report Issue" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/report.png" tooltip="Report an issue" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.CreateReportHandler">
           <persistedState key="description" value="By this menu a report can be created. When clicking on it a report creation dialog will appear.&#xD;&#xA;This allows you to report any issues concerning the system or the daily business. "/>
           <persistedState key="precondition" value="Any issue you d'like to report.&#xD;&#xA;Examples: Errors executing a command, inconsistent inventory, ...;"/>
           <persistedState key="postcondition" value="A report will be saved and can be examined later. "/>
@@ -69,11 +69,11 @@
       </children>
       <children xsi:type="menu:Menu" xmi:id="_-CfkMJs2EeOxW9tmjsgl9w" elementId="mainmenu.maintenance" label="Stock management" iconURI="">
         <persistedState key="description" value="In this menu all actions for the general pharmacy maintenance can be found."/>
-        <children xsi:type="menu:DirectMenuItem" xmi:id="_HrpPwJs3EeOxW9tmjsgl9w" elementId="mainmenu.maintenance.menu.update.articles" label="Update Articles" iconURI="" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.stockist.UpdateArticleListHandler">
+        <children xsi:type="menu:DirectMenuItem" xmi:id="_HrpPwJs3EeOxW9tmjsgl9w" elementId="mainmenu.maintenance.update.articles" label="Update Articles" iconURI="" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.stockist.UpdateArticleListHandler">
           <persistedState key="description" value="By clicking on update articles the article list can be updated.&#xD;&#xA;A file dialog will open up so you can select the up to date article catalog (in CSV format).+&#xD;&#xA;This catalog will be loaded, compared to your local article list and used to update the local list."/>
           <persistedState key="postcondition" value="A up to date local article list.&#xD;&#xA;Articles that,...&#xD;&#xA;* are not available any more will be deleted.&#xD;&#xA;* in case they are still used in the system (for invoices, some units left on stock), they will be blacklisted&#xD;&#xA;* are new willl be added.&#xD;&#xA;"/>
         </children>
-        <children xsi:type="menu:DirectMenuItem" xmi:id="_45tHYKDGEeOoudDAbXzmGA" elementId="mainmenu.maintenance.menu.print.inventory" label="Print Inventory Form" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/printer.png" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.PrintInventoryHandler">
+        <children xsi:type="menu:DirectMenuItem" xmi:id="_45tHYKDGEeOoudDAbXzmGA" elementId="mainmenu.maintenance.print.inventory" label="Print Inventory Form" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/printer.png" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.PrintInventoryHandler">
           <persistedState key="description" value="This menu prints an inventory form, which supports the pharamcy staff in performing the inventory."/>
         </children>
       </children>
@@ -88,38 +88,38 @@
       <handlers xmi:id="_98xlAIqTEeOpo_cEPCGieA" elementId="handler.addToStockOrder" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.stockist.parts.AddToStockOrderViewerHandler" command="_TnG8UHxjEeOl7olWdGHeBA"/>
       <handlers xmi:id="_j2PsYIzVEeOQ2LZgBpBMxA" elementId="handler.deleteFromStock" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.stockist.parts.DeleteFromStockViewerHandler" command="_zf-yYHxjEeOl7olWdGHeBA"/>
       <handlers xmi:id="_5_ukoIzYEeOQ2LZgBpBMxA" elementId="handler.editStockArticle" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.stockist.parts.EditStockArticleViewerHandler" command="_-QqGsHxjEeOl7olWdGHeBA"/>
-      <menus xsi:type="menu:PopupMenu" xmi:id="_K1V90Hw5EeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.articlelist">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_MveIMHw5EeOl7olWdGHeBA" elementId="handledmenuitem.addToInvoice" label="Add To Invoice" command="_SPCvQHw5EeOl7olWdGHeBA">
+      <menus xsi:type="menu:PopupMenu" xmi:id="_K1V90Hw5EeOl7olWdGHeBA" elementId="popupmenu.articlelist">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_MveIMHw5EeOl7olWdGHeBA" elementId="popupmenu.articlelist.addToInvoice" label="Add To Invoice" command="_SPCvQHw5EeOl7olWdGHeBA">
           <persistedState key="precondition" value="Logged in as a seller.&#xD;&#xA;An article from the table has to be selected."/>
           <persistedState key="description" value="See the Add To Invoice command. &#xD;&#xA;The same behavior can be achieved by dragging the article from the ArticleList part to the InvoiceData part."/>
           <parameters xmi:id="_2cXt8IHoEeOzeOqq_Z5RBg" elementId="popupmenu.parameter.stockarticle" name="commandparameter.modelelement.Article" value="stockArticleSelection"/>
         </children>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_ROn60HyLEeOl7olWdGHeBA" elementId="handledmenuitem.addWithPrescription" label="Add as Prescription" command="_KeYD8HeGEeOts5KVA_mezg">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_ROn60HyLEeOl7olWdGHeBA" elementId="popupmenu.articlelist.addWithPrescription" label="Add as Prescription" command="_KeYD8HeGEeOts5KVA_mezg">
           <persistedState key="description" value="For further command description see the Add as Prescription command. &#xD;&#xA;When calling this command a PrescriptionDialog will automatically apear on your screen and &#xD;&#xA;ask you for some detailed information about the prescription (number, issuing practitioner).&#xD;&#xA;This command can be used as well via drag&amp;drop from the ArticleList to an empty table space in the Prescription part."/>
           <persistedState key="precondition" value="Logged in as a seller.&#xD;&#xA;The article you want to prescribe needs to be selected on the ArticleList part."/>
           <parameters xmi:id="_997JsITvEeOktYbaZ30rXw" elementId="popupmenu.parameter.addAsPrescriptionStockArticle" name="commandparameter.addAsPrescriptionStockArticle" value="stockArticle"/>
           <parameters xmi:id="_EOOQ0IT1EeOktYbaZ30rXw" elementId="popupmenu.parameter.addAsPrescriptionArticle" name="commandparameter.addAsPrescriptionArticle" value="article/s"/>
         </children>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_u47ycITtEeOktYbaZ30rXw" elementId="handledmenuitem.addToPrescription" label="Add to Prescription" command="_zgnf0HxIEeOl7olWdGHeBA">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_u47ycITtEeOktYbaZ30rXw" elementId="popupmenu.articlelist.addToPrescription" label="Add to Prescription" command="_zgnf0HxIEeOl7olWdGHeBA">
           <persistedState key="description" value="In order to add an article to an existing prescription you can use the Add to Prescription command.&#xD;&#xA;It can be either executed by selecting AddToPrescription in the popup menu or by drag&amp;drop to the prescription you'd like to add the article to.&#xD;&#xA;"/>
           <persistedState key="precondition" value="Logged in as a seller.&#xD;&#xA;A selected article."/>
           <parameters xmi:id="_MOqrcITwEeOktYbaZ30rXw" elementId="popupmenu.parameter.addToPrescription" name="commandparameter.addToPrescription" value="stockarticle"/>
         </children>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_1LIlsIqSEeOpo_cEPCGieA" elementId="articleList.handledmenuitem.addToStockOrder" label="Add to StockOrder" command="_TnG8UHxjEeOl7olWdGHeBA">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_1LIlsIqSEeOpo_cEPCGieA" elementId="popupmenu.articlelist.addToStockOrder" label="Add to StockOrder" command="_TnG8UHxjEeOl7olWdGHeBA">
           <persistedState key="description" value="By this menu item the stockist calls the Add to StockOrder command.&#xD;&#xA;After adding the article the units that should be ordered can be edited."/>
           <persistedState key="precondition" value="Logged in as stockist.&#xD;&#xA;An article that is selected on the ArticleList part."/>
           <parameters xmi:id="_iYbfMIqTEeOpo_cEPCGieA" elementId="popupmenu.parameter.stockorder.article" name="commandparameter.modelelement.addToStockOrder" value="Article for StockOrder"/>
         </children>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_iEsv4IzNEeOQ2LZgBpBMxA" elementId="handledmenuitem.newArticle" label="Add new Article" command="_cgKAoHxjEeOl7olWdGHeBA">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_iEsv4IzNEeOQ2LZgBpBMxA" elementId="popupmenu.articlelist.newArticle" label="Add new Article" command="_cgKAoHxjEeOl7olWdGHeBA">
           <persistedState key="precondition" value="Logged in as stockist."/>
           <persistedState key="description" value="A new article can be added to the article list by calling this menu items Add new Article command.&#xD;&#xA;It will open up a dialog that need's to be filled out."/>
         </children>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_QMF18IzVEeOQ2LZgBpBMxA" elementId="handledmenuitem.deleteFromStock" label="Delete from Stock" command="_zf-yYHxjEeOl7olWdGHeBA">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_QMF18IzVEeOQ2LZgBpBMxA" elementId="popupmenu.articlelist.deleteFromStock" label="Delete from Stock" command="_zf-yYHxjEeOl7olWdGHeBA">
           <persistedState key="description" value="The Delete from Stock command will be called by clicking on this menu item.&#xD;&#xA;Use this carefully, as you will irreversably delete the selected article from the stock when executing it."/>
           <persistedState key="precondition" value="Logged in as stockist.&#xD;&#xA;A selected article."/>
           <parameters xmi:id="_ZYUU8IzVEeOQ2LZgBpBMxA" elementId="popupmenu.parameter.delete.stockarticle" name="commandparameter.deleteStockArticle" value="Stockarticle to delete"/>
         </children>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_Tum9oIzZEeOQ2LZgBpBMxA" elementId="handledmenuitem.editStockArticle" label="Edit StockArticle" command="_-QqGsHxjEeOl7olWdGHeBA">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_Tum9oIzZEeOQ2LZgBpBMxA" elementId="popupmenu.articlelist.editStockArticle" label="Edit StockArticle" command="_-QqGsHxjEeOl7olWdGHeBA">
           <persistedState key="precondition" value="Logged in as stockist.&#xD;&#xA;A selected article from the ArticleLists table."/>
           <persistedState key="description" value="This item calls he Edit StockArticle command and therefore can be used to edit an article from the the article list"/>
           <parameters xmi:id="_cCVHUIzZEeOQ2LZgBpBMxA" elementId="popupmenu.parameter.edit.stockarticle" name="commandparameter.editStockArticle" value="StockArticle to edit"/>
@@ -132,20 +132,20 @@
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_0mzDgFEAEeOs7KUvDVp0Mg" elementId="part.invoiceData" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.InvoiceDataPart" label="Invoice Data">
       <persistedState key="description" value="Here the articles to be sold are collected during the purchase by a customer. The seller selects an article in the &quot;ArticleList&quot;:#part.articlelist to be included in this part by either _double-clicking_ on it or _drag&amp;drop_ it to this part.&#xD;&#xA;&#xD;&#xA;The selling process will be completed and stored by pressing the _Cash up_ button. &#xD;&#xA;In case you'd like to revert the selling procedur press the _Cancel Cash up_ button. &#xD;&#xA;"/>
-      <menus xsi:type="menu:PopupMenu" xmi:id="_wnGHcHxoEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.invoiceData">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_w-qS4HxoEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.deleteFromInvoice" label="Delete from Invoice" command="_pSIwQHxhEeOl7olWdGHeBA">
+      <menus xsi:type="menu:PopupMenu" xmi:id="_wnGHcHxoEeOl7olWdGHeBA" elementId="popupmenu.invoiceData">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_w-qS4HxoEeOl7olWdGHeBA" elementId="popupmenu.invoiceData.deleteFromInvoice" label="Delete from Invoice" command="_pSIwQHxhEeOl7olWdGHeBA">
           <persistedState key="precondition" value="Logged in as seller.&#xD;&#xA;An article from the invoice creation part needs to be selected."/>
           <persistedState key="description" value="This handled menu item will call the Delete from Invoice command which results in the deletion of the selected item from the invoice."/>
           <parameters xmi:id="_p_1DYIc7EeOHboXTCc9xHQ" elementId="popup.parameter.deletearticle" name="commandparameter.deleteFromInvocie" value="articleToDelete"/>
         </children>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_UJNdgKKnEeOTRs0pqibxVQ" elementId="handledmenuitem.printInvoice" label="Print Invoice" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/printer.png" command="_zN_ZoKKmEeOTRs0pqibxVQ">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_UJNdgKKnEeOTRs0pqibxVQ" elementId="popupmenu.invoiceData.printInvoice" label="Print Invoice" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/printer.png" command="_zN_ZoKKmEeOTRs0pqibxVQ">
           <persistedState key="description" value="By this command the invoice can be completed and a PDF file will be created. &#xD;&#xA;In the next step this PDF can than be printed out if needed."/>
           <parameters xmi:id="_Y6MgQKKnEeOTRs0pqibxVQ" elementId="popup.parameter.printInvoice" name="commandparameter.printInvoice" value="amount-article map"/>
         </children>
       </menus>
-      <menus xmi:id="_sC-wMIpXEeOpo_cEPCGieA" elementId="at.medevit.ecrit.pharmacy_at.application.menu.2">
+      <menus xmi:id="_sC-wMIpXEeOpo_cEPCGieA" elementId="viewmenu.invoiceData">
         <tags>ViewMenu</tags>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_gRjcYHxoEeOl7olWdGHeBA" elementId="handledmenuitem.cancelInvoice" label="Cancel Invoice" command="_1u-2AHxiEeOl7olWdGHeBA">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_gRjcYHxoEeOl7olWdGHeBA" elementId="viewmenu.invoiceData.cancelInvoice" label="Cancel Invoice" command="_1u-2AHxiEeOl7olWdGHeBA">
           <persistedState key="description" value="The current invoice will be cancelled by calling this menu."/>
           <persistedState key="precondition" value="Logged in as seller"/>
         </children>
@@ -155,18 +155,18 @@
       <persistedState key="description" value="In this part all the prescriptions connected to the current invoice are displayed. &#xD;&#xA;By the _Executable tasks_ can be called by _double clicking_ or calling the _popup menu_.&#xD;&#xA;&#xD;&#xA;"/>
       <persistedState key="precondition" value="The table in this part will be empty unless the current invoice includes a prescription."/>
       <handlers xmi:id="__-fqMIcnEeOHboXTCc9xHQ" elementId="handler.addPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.AddPrescriptionHandler" command="_KeYD8HeGEeOts5KVA_mezg"/>
-      <menus xsi:type="menu:PopupMenu" xmi:id="__JskUHd9EeOts5KVA_mezg" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.prescritption">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_hDYsgHxpEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.editPrescription" label="Edit Prescription" command="_YAGyUHxiEeOl7olWdGHeBA">
+      <menus xsi:type="menu:PopupMenu" xmi:id="__JskUHd9EeOts5KVA_mezg" elementId="popupmenu.prescritption">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_hDYsgHxpEeOl7olWdGHeBA" elementId="popupmenu.prescritption.edit" label="Edit Prescription" command="_YAGyUHxiEeOl7olWdGHeBA">
           <persistedState key="description" value="By this menu the selected prescription can be edited. The Edit Prescription command will be called in this context."/>
           <persistedState key="precondition" value="Logged in as seller.&#xD;&#xA;A selected prescription."/>
           <parameters xmi:id="_xdTcwIUmEeOktYbaZ30rXw" elementId="popupmenu.parameter.editPrescription" name="commandparameter.editPrescription" value="prescriptionToChange"/>
         </children>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_lBcdgHxpEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handledmenuitem.deletePrescription" label="Delete Prescription" command="_QGMyoHxpEeOl7olWdGHeBA">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_lBcdgHxpEeOl7olWdGHeBA" elementId="popupmenu.prescritption.delete" label="Delete Prescription" command="_QGMyoHxpEeOl7olWdGHeBA">
           <persistedState key="description" value="By executing this menu the selected prescription will be deleted."/>
           <persistedState key="precondition" value="Logged in as seller. A prescription selection."/>
           <parameters xmi:id="_vf44YIUnEeOktYbaZ30rXw" elementId="popupmenu.parameter.deletePrescription" name="commandparameter.deletePrescription" value="prescription to be deleted"/>
         </children>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_tdsk4IUsEeOktYbaZ30rXw" elementId="handledmenuitem.addPrescription" label="Add Prescription" command="_KeYD8HeGEeOts5KVA_mezg">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_tdsk4IUsEeOktYbaZ30rXw" elementId="popupmenu.prescritption.add" label="Add Prescription" command="_KeYD8HeGEeOts5KVA_mezg">
           <persistedState key="description" value="Supports the creation of a new prescription. Calls the Add Prescription command  which will cause a PrescriptionDialog to open up."/>
           <parameters xmi:id="_tdsk4YUsEeOktYbaZ30rXw" elementId="popupmenu.parameter.addPrescription" name="commandparameter.addAsPrescriptionArticle" value="invoice article/s"/>
         </children>
@@ -193,7 +193,7 @@
       <persistedState key="precondition" value="This part will contain an empty table unless there are any stock orders."/>
       <handlers xmi:id="_PlXmYJAFEeOWIIjTdYbWKw" elementId="at.medevit.ecrit.pharmacy_at.application.handler.1" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.stockist.parts.EditStockOrderStatusViewerHandler" command="_wkWlYJAEEeOWIIjTdYbWKw"/>
       <menus xsi:type="menu:PopupMenu" xmi:id="_7M6U8JADEeOWIIjTdYbWKw" elementId="popupmenu.stockorder.overview">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_IMi0IJAEEeOWIIjTdYbWKw" elementId="handledmenuitem.changeOrderStatus" label="Change order status" command="_-QqGsHxjEeOl7olWdGHeBA">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_IMi0IJAEEeOWIIjTdYbWKw" elementId="popupmenu.stockorder.overview.changeOrderStatus" label="Change order status" command="_-QqGsHxjEeOl7olWdGHeBA">
           <persistedState key="description" value="The ChangeOrderStatus menu supports the stockist in managing all the articles statuses from an order at once.&#xD;&#xA;By selecting the wished status from the table cells drop-down list an orders status can be changed.&#xD;&#xA;All the related articles will be updated when the status goes to RECEIVED.&#xD;&#xA;Example: You ordered 10 Aspririn - the Aspririns on stock field will go up for 10 units as soon as you change the StockOrder status to RECEIVED."/>
           <persistedState key="precondition" value="Logged in as stockist.&#xD;&#xA;A selected stock order."/>
           <parameters xmi:id="_IMi0IZAEEeOWIIjTdYbWKw" elementId="popupmenu.parameter.edit.stockOrderStatus" name="commandparameter.editStockOrderStatus" value="stockOrder to change"/>
@@ -203,8 +203,8 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_Vxh-IJA7EeOWIIjTdYbWKw" elementId="part.InvoicePrescriptionOverview" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.InvoicePrescriptionOverviewPart" label="Invoice Prescription Overview">
       <persistedState key="description" value="This part shows all the saved invoices and relating prescriptions.&#xD;&#xA;By applying the date filters only the invoices (and prescriptions) in between the selected timespan will be shown."/>
       <persistedState key="precondition" value="At least one invoice (otherwise it will be empty)."/>
-      <menus xsi:type="menu:PopupMenu" xmi:id="_7Sp7kKChEeOwTIKbo73Sog" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.1">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_8GJOAKChEeOwTIKbo73Sog" elementId="handledmenuitem.printRefundForm" label="Print Refund Form" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/printer.png" command="_J1xcMKChEeOwTIKbo73Sog">
+      <menus xsi:type="menu:PopupMenu" xmi:id="_7Sp7kKChEeOwTIKbo73Sog" elementId="popupmenu.ipOverview">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_8GJOAKChEeOwTIKbo73Sog" elementId="popupmenu.ipOverview.printRefundForm" label="Print Refund Form" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/printer.png" command="_J1xcMKChEeOwTIKbo73Sog">
           <persistedState key="description" value="By this menu a PDF File, which contains all the selected prescriptions/prescription articles and the total amount of refunds the pharmacy will get out of them.&#xD;&#xA;The created PDF File can be sent to the appropriate authority by e-mail or printed out and sent via the traditional way. "/>
           <parameters xmi:id="_E-gV0KCiEeOwTIKbo73Sog" elementId="popupmenu.parameter.printRefund" name="commandparameter.printRefund" value="marked prescriptions"/>
         </children>
@@ -212,8 +212,8 @@
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_5aP1QJYpEeO0oaI6xhkvrA" elementId="part.inventory" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.InventoryPart" label="Inventory" closeable="true">
       <persistedState key="description" value="This part gives an overview of the entire inventory and supports the clerk in evaluating the inventory."/>
-      <menus xsi:type="menu:PopupMenu" xmi:id="_OtJmoJY0EeO0oaI6xhkvrA" elementId="at.medevit.ecrit.pharmacy_at.application.popupmenu.0">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_PZyDIJY0EeO0oaI6xhkvrA" elementId="handledmenuitem.checkInventory" label="Check Inventory" command="_s2EpsHxkEeOl7olWdGHeBA">
+      <menus xsi:type="menu:PopupMenu" xmi:id="_OtJmoJY0EeO0oaI6xhkvrA" elementId="popupmenu.inventory">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_PZyDIJY0EeO0oaI6xhkvrA" elementId="popupmenu.inventory.checkInventory" label="Check Inventory" command="_s2EpsHxkEeOl7olWdGHeBA">
           <persistedState key="description" value="This menu calls the Check Inventory command. &#xD;&#xA;There will either be a success message or a question if you'd like to create a report about the discrepancies."/>
           <persistedState key="postcondition" value="Any discrepancies should be registered in the system (-> report)."/>
           <persistedState key="precondition" value="A list with all articles has been printed out, for each article the units on stock have been written down.&#xD;&#xA;The clerk now needs to compare this list with the table on the screen an check the appropriate article if there is no inconsistence."/>
@@ -222,8 +222,8 @@
       </menus>
     </sharedElements>
     <trimBars xmi:id="_lC8W0EVJEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.trimbar.0">
-      <children xsi:type="menu:ToolBar" xmi:id="_lvbpYEVJEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.toolbar.0">
-        <children xsi:type="menu:ToolControl" xmi:id="_zhQlEEVKEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.perspectiveSwitcher" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.direct.PerspectiveTabs"/>
+      <children xsi:type="menu:ToolBar" xmi:id="_lvbpYEVJEeOaYLXjRggZbw" elementId="toolbar">
+        <children xsi:type="menu:ToolControl" xmi:id="_zhQlEEVKEeOaYLXjRggZbw" elementId="toolbar.perspectiveSwitcher" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.direct.PerspectiveTabs"/>
       </children>
     </trimBars>
   </children>
