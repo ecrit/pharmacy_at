@@ -2,71 +2,61 @@
 <www.ecrit.at:Pharmacy xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:www.ecrit.at="pharmacy_at/model" name="Ecrit Test Phramacy">
   <address street="Hochschulstrasse 1" PostCode="6850" Town="Dornbirn" Country="Austria"/>
   <stock>
-    <articles numberOnStock="30" lowerBound="10">
+    <articles numberOnStock="22" lowerBound="10">
       <article name="Mexa-Vit-C" description="Against fever, coughs and sneezes. Usage: fizzy tablet into hot or cold water till it's dissolved. Do not take more than 4 tablets a day." admissionNumber="15354" price="4.0"/>
     </articles>
-    <articles numberOnStock="42" lowerBound="20">
+    <articles numberOnStock="36" lowerBound="20">
       <article name="Voltaren 50mg" description="For pain and inflammation connected to rheumatic diseases.\nUsage: Unchewed with water, best before a meal, do not split." admissionNumber="880476" price="13.5"/>
     </articles>
-    <articles numberOnStock="9" lowerBound="10">
+    <articles numberOnStock="3" lowerBound="10" numberOrdered="1">
       <article name="Elmex Tooth Gel" description="For dental enamel diseases.\nUsage: Use once a week like normal toothpaste. Can be used more often if adviced by the dentist." admissionNumber="984651" price="4.0"/>
     </articles>
-    <articles numberOnStock="20" lowerBound="10">
+    <articles numberOnStock="22" lowerBound="10" numberOrdered="-4">
       <article name="Coffedrops" description="Usage advice: do not overdose - can cause insomnia." admissionNumber="1276" price="3.0"/>
     </articles>
-    <articles numberOnStock="40" lowerBound="15">
+    <articles numberOnStock="33" lowerBound="15">
       <article name="Aspirin" description="Helps against light - medium pain like headache, toothache, fever, etc. " admissionNumber="35465" price="5.0"/>
     </articles>
-    <articles numberOnStock="39" lowerBound="20">
+    <articles numberOnStock="38" lowerBound="20" numberOrdered="1">
       <article name="Clindamycin 300mg - Ampulla" description="Against infections of the upper airways, i.e. throat, tonsils, middle ear inflammation, scarlet fever (bronchitis, pneumonia), wound infection, infection of bones and joints, tooth infections,..." admissionNumber="373731" price="14.3"/>
     </articles>
     <articles numberOnStock="39" lowerBound="25">
       <article name="Paracetamol Genericon 500mg" description="Used for light - medium pain (headache, toothache, fever, ...)" admissionNumber="38467" price="2.0"/>
     </articles>
-    <articles numberOnStock="28" lowerBound="15" numberOrdered="-2">
+    <articles numberOnStock="27" lowerBound="15">
       <article name="Lemocin Lozenge" description="Helps against painfull oropharyngeal inflammations. Usage: like usual cough sweets" admissionNumber="61947" price="3.5"/>
     </articles>
-    <articles numberOnStock="1">
+    <articles numberOrdered="1">
       <article name="TestBlacklistign" description="Test if this article gets blacklisted when updating with the catalog." admissionNumber="101010" availability="BLACKLISTED"/>
     </articles>
-    <articles lowerBound="4" numberOrdered="1">
+    <articles numberOnStock="5" lowerBound="4" numberOrdered="-4">
       <article name="Aspirin Complex" description="AspirinComplex has multiple fields of usage" admissionNumber="124" price="3.0"/>
     </articles>
     <articles>
       <article name="Cold and Sneeze Tea" description="This tea supports the well feeling and healing process of colds" admissionNumber="131189" price="3.5"/>
     </articles>
+    <articles numberOnStock="1" numberOrdered="1">
+      <article name="TestingDeletingStuff" admissionNumber="112233" availability="BLACKLISTED"/>
+    </articles>
   </stock>
-  <invoices id="1401" article="//@lineItems/@article.0" paidAmount="4.0"/>
-  <invoices id="478032619" article="//@lineItems/@article.1 //@lineItems/@article.2 //@invoices.1/@prescription.0/@article.0" paidAmount="8.0" date="2014-02-22T11:00:37.320+0100">
-    <prescription issuingPractitioner="Test" number="10">
-      <article name="Voltaren 50mg" description="For pain and inflammation connected to rheumatic diseases.\nUsage: Unchewed with water, best before a meal, do not split." admissionNumber="880476" price="13.5"/>
-    </prescription>
-  </invoices>
-  <invoices id="573729432" article="//@lineItems/@article.3 //@lineItems/@article.4" paidAmount="8.0" date="2014-02-22T11:02:21.238+0100"/>
-  <invoices id="524780583" article="//@invoices.3/@prescription.0/@article.0" date="2014-02-22T11:09:25.206+0100">
-    <prescription issuingPractitioner="test" number="1">
-      <article name="Voltaren 50mg" description="For pain and inflammation connected to rheumatic diseases.\nUsage: Unchewed with water, best before a meal, do not split." admissionNumber="880476" price="13.5"/>
-    </prescription>
-  </invoices>
-  <invoices id="90296498" article="//@invoices.4/@prescription.0/@article.0" date="2014-02-22T11:09:37.587+0100">
-    <prescription issuingPractitioner="">
-      <article name="Voltaren 50mg" description="For pain and inflammation connected to rheumatic diseases.\nUsage: Unchewed with water, best before a meal, do not split." admissionNumber="880476" price="13.5"/>
-    </prescription>
-  </invoices>
-  <invoices id="359007617" article="//@invoices.5/@prescription.0/@article.0" date="2014-02-22T11:09:48.069+0100">
-    <prescription issuingPractitioner="">
-      <article name="Mexa-Vit-C" description="Against fever, coughs and sneezes. Usage: fizzy tablet into hot or cold water till it's dissolved. Do not take more than 4 tablets a day." admissionNumber="15354" price="4.0"/>
-    </prescription>
-  </invoices>
-  <invoices id="187594591" article="//@invoices.6/@prescription.0/@article.0 //@lineItems/@article.7 //@lineItems/@article.8 //@lineItems/@article.9" paidAmount="12.0" date="2014-02-24T08:46:09.447+0100">
-    <prescription issuingPractitioner="Dr. No" number="1">
-      <article name="Mexa-Vit-C" description="Against fever, coughs and sneezes. Usage: fizzy tablet into hot or cold water till it's dissolved. Do not take more than 4 tablets a day." admissionNumber="15354" price="4.0"/>
-    </prescription>
-  </invoices>
-  <invoices id="1747465705" article="//@invoices.7/@prescription.0/@article.1 //@invoices.7/@prescription.0/@article.0 //@lineItems/@article.10" paidAmount="4.0" date="2014-02-24T13:27:39.804+0100">
-    <prescription issuingPractitioner="Dr. Huber" number="121">
+  <invoices id="1799893451" article="//@lineItems/@article.0 //@invoices.0/@prescription.0/@article.1 //@invoices.0/@prescription.0/@article.0" paidAmount="13.5" date="2014-03-03T09:31:59.937+0100">
+    <prescription issuingPractitioner="Dr. Seltsam" number="101">
       <article name="Clindamycin 300mg - Ampulla" description="Against infections of the upper airways, i.e. throat, tonsils, middle ear inflammation, scarlet fever (bronchitis, pneumonia), wound infection, infection of bones and joints, tooth infections,..." admissionNumber="373731" price="14.3"/>
-      <article name="Paracetamol Genericon 500mg" description="Used for light - medium pain (headache, toothache, fever, ...)" admissionNumber="38467" price="2.0"/>
+      <article name="Mexa-Vit-C" description="Against fever, coughs and sneezes. Usage: fizzy tablet into hot or cold water till it's dissolved. Do not take more than 4 tablets a day." admissionNumber="15354" price="4.0"/>
+    </prescription>
+  </invoices>
+  <invoices id="678608557" article="//@lineItems/@article.1 //@invoices.1/@prescription.0/@article.0 //@lineItems/@article.2 //@invoices.1/@prescription.0/@article.1" paidAmount="17.5" date="2014-03-03T11:26:15.579+0100">
+    <prescription issuingPractitioner="Dr. Dentist" number="123">
+      <article name="Elmex Tooth Gel" description="For dental enamel diseases.\nUsage: Use once a week like normal toothpaste. Can be used more often if adviced by the dentist." admissionNumber="984651" price="4.0"/>
+      <article name="Lemocin Lozenge" description="Helps against painfull oropharyngeal inflammations. Usage: like usual cough sweets" admissionNumber="61947" price="3.5"/>
+    </prescription>
+  </invoices>
+  <invoices id="497282473" article="//@lineItems/@article.3" paidAmount="5.0" date="2014-04-11T12:28:14.652+0200"/>
+  <invoices id="1227231662" article="//@invoices.3/@prescription.0/@article.0 //@lineItems/@article.4 //@invoices.3/@prescription.0/@article.1 //@lineItems/@article.5 //@lineItems/@article.6 //@lineItems/@article.7 //@lineItems/@article.8 //@invoices.3/@prescription.0/@article.2" paidAmount="20.5" date="2014-05-12T23:58:05.806+0200">
+    <prescription issuingPractitioner="asdf" number="10">
+      <article name="Aspirin" description="Helps against light - medium pain like headache, toothache, fever, etc. " admissionNumber="35465" price="5.0"/>
+      <article name="Lemocin Lozenge" description="Helps against painfull oropharyngeal inflammations. Usage: like usual cough sweets" admissionNumber="61947" price="3.5"/>
+      <article name="TestBlacklistign" description="Test if this article gets blacklisted when updating with the catalog." admissionNumber="101010" availability="BLACKLISTED"/>
     </prescription>
   </invoices>
   <reports title="Test Report" priority="LOW" concerns="testing" text="This report is only here for testing!">
@@ -80,24 +70,67 @@
     <article name="Lemocin Lozenge" description="Helps against painfull oropharyngeal inflammations. Usage: like usual cough sweets" admissionNumber="61947" price="3.5"/>
     <article name="Lemocin Lozenge" description="Helps against painfull oropharyngeal inflammations. Usage: like usual cough sweets" admissionNumber="61947" price="3.5"/>
   </stockOrders>
-  <stockOrders issuer="Bayer HealthCare Pharmaceuticals&#xD;&#xA;M&#xfc;llerstr. 178&#xD;&#xA;13353 Berlin" number="442928797" status="ORDERED">
+  <stockOrders issuer="Bayer HealthCare Pharmaceuticals&#xD;&#xA;M&#xfc;llerstr. 178&#xD;&#xA;13353 Berlin" number="442928797" status="RECEIVED">
     <article name="Aspirin Complex" description="AspirinComplex has multiple fields of usage" admissionNumber="124" price="3.0"/>
     <article name="Aspirin Complex" description="AspirinComplex has multiple fields of usage" admissionNumber="124" price="3.0"/>
     <article name="Aspirin Complex" description="AspirinComplex has multiple fields of usage" admissionNumber="124" price="3.0"/>
     <article name="Aspirin Complex" description="AspirinComplex has multiple fields of usage" admissionNumber="124" price="3.0"/>
     <article name="Aspirin Complex" description="AspirinComplex has multiple fields of usage" admissionNumber="124" price="3.0"/>
   </stockOrders>
+  <stockOrders issuer="Bayer HealthCare Pharmaceuticals&#xD;&#xA;M&#xfc;llerstr. 178&#xD;&#xA;13353 Berlin" number="1526769839" status="ORDERED">
+    <article name="Aspirin Complex" description="AspirinComplex has multiple fields of usage" admissionNumber="124" price="3.0"/>
+  </stockOrders>
+  <stockOrders issuer="Bayer HealthCare Pharmaceuticals&#xD;&#xA;M&#xfc;llerstr. 178&#xD;&#xA;13353 Berlin" number="1906969059" status="RECEIVED">
+    <article name="Coffedrops" description="Usage advice: do not overdose - can cause insomnia." admissionNumber="1276" price="3.0"/>
+    <article name="Coffedrops" description="Usage advice: do not overdose - can cause insomnia." admissionNumber="1276" price="3.0"/>
+    <article name="Coffedrops" description="Usage advice: do not overdose - can cause insomnia." admissionNumber="1276" price="3.0"/>
+    <article name="Coffedrops" description="Usage advice: do not overdose - can cause insomnia." admissionNumber="1276" price="3.0"/>
+    <article name="Coffedrops" description="Usage advice: do not overdose - can cause insomnia." admissionNumber="1276" price="3.0"/>
+    <article name="Lemocin Lozenge" description="Helps against painfull oropharyngeal inflammations. Usage: like usual cough sweets" admissionNumber="61947" price="3.5"/>
+  </stockOrders>
+  <stockOrders issuer="Bayer HealthCare Pharmaceuticals&#xD;&#xA;M&#xfc;llerstr. 178&#xD;&#xA;13353 Berlin" number="658129435" status="ORDERED">
+    <article name="Coffedrops" description="Usage advice: do not overdose - can cause insomnia." admissionNumber="1276" price="3.0"/>
+    <article name="TestBlacklistign" description="Test if this article gets blacklisted when updating with the catalog." admissionNumber="101010" availability="BLACKLISTED"/>
+    <article name="Elmex Tooth Gel" description="For dental enamel diseases.\nUsage: Use once a week like normal toothpaste. Can be used more often if adviced by the dentist." admissionNumber="984651" price="4.0"/>
+  </stockOrders>
+  <stockOrders issuer="Bayer HealthCare Pharmaceuticals&#xD;&#xA;M&#xfc;llerstr. 178&#xD;&#xA;13353 Berlin" number="1707708294" status="ORDERED">
+    <article name="Coffedrops" description="Usage advice: do not overdose - can cause insomnia." admissionNumber="1276" price="3.0"/>
+  </stockOrders>
+  <stockOrders issuer="Bayer HealthCare Pharmaceuticals&#xD;&#xA;M&#xfc;llerstr. 178&#xD;&#xA;13353 Berlin" number="707014990" status="ORDERED">
+    <article name="Clindamycin 300mg - Ampulla" description="Against infections of the upper airways, i.e. throat, tonsils, middle ear inflammation, scarlet fever (bronchitis, pneumonia), wound infection, infection of bones and joints, tooth infections,..." admissionNumber="373731" price="14.3"/>
+  </stockOrders>
   <lineItems>
-    <article name="Mexa-Vit-C" description="Against fever, coughs and sneezes. Usage: fizzy tablet into hot or cold water till it's dissolved. Do not take more than 4 tablets a day." admissionNumber="15354" price="4.0"/>
-    <article name="Mexa-Vit-C" description="Against fever, coughs and sneezes. Usage: fizzy tablet into hot or cold water till it's dissolved. Do not take more than 4 tablets a day." admissionNumber="15354" price="4.0"/>
-    <article name="Mexa-Vit-C" description="Against fever, coughs and sneezes. Usage: fizzy tablet into hot or cold water till it's dissolved. Do not take more than 4 tablets a day." admissionNumber="15354" price="4.0"/>
-    <article name="Elmex Tooth Gel" description="For dental enamel diseases.\nUsage: Use once a week like normal toothpaste. Can be used more often if adviced by the dentist." admissionNumber="984651" price="4.0"/>
-    <article name="Elmex Tooth Gel" description="For dental enamel diseases.\nUsage: Use once a week like normal toothpaste. Can be used more often if adviced by the dentist." admissionNumber="984651" price="4.0"/>
     <article name="Voltaren 50mg" description="For pain and inflammation connected to rheumatic diseases.\nUsage: Unchewed with water, best before a meal, do not split." admissionNumber="880476" price="13.5"/>
     <article name="Voltaren 50mg" description="For pain and inflammation connected to rheumatic diseases.\nUsage: Unchewed with water, best before a meal, do not split." admissionNumber="880476" price="13.5"/>
-    <article name="Mexa-Vit-C" description="Against fever, coughs and sneezes. Usage: fizzy tablet into hot or cold water till it's dissolved. Do not take more than 4 tablets a day." admissionNumber="15354" price="4.0"/>
-    <article name="Mexa-Vit-C" description="Against fever, coughs and sneezes. Usage: fizzy tablet into hot or cold water till it's dissolved. Do not take more than 4 tablets a day." admissionNumber="15354" price="4.0"/>
-    <article name="Mexa-Vit-C" description="Against fever, coughs and sneezes. Usage: fizzy tablet into hot or cold water till it's dissolved. Do not take more than 4 tablets a day." admissionNumber="15354" price="4.0"/>
     <article name="Elmex Tooth Gel" description="For dental enamel diseases.\nUsage: Use once a week like normal toothpaste. Can be used more often if adviced by the dentist." admissionNumber="984651" price="4.0"/>
+    <article name="Aspirin" description="Helps against light - medium pain like headache, toothache, fever, etc. " admissionNumber="35465" price="5.0"/>
+    <article name="Aspirin" description="Helps against light - medium pain like headache, toothache, fever, etc. " admissionNumber="35465" price="5.0"/>
+    <article name="Aspirin" description="Helps against light - medium pain like headache, toothache, fever, etc. " admissionNumber="35465" price="5.0"/>
+    <article name="Lemocin Lozenge" description="Helps against painfull oropharyngeal inflammations. Usage: like usual cough sweets" admissionNumber="61947" price="3.5"/>
+    <article name="Aspirin" description="Helps against light - medium pain like headache, toothache, fever, etc. " admissionNumber="35465" price="5.0"/>
+    <article name="Paracetamol Genericon 500mg" description="Used for light - medium pain (headache, toothache, fever, ...)" admissionNumber="38467" price="2.0"/>
   </lineItems>
+  <staff name="test" password="test">
+  	<role>SELLER</role>
+  	<role>CLERK</role>
+    <role>STOCKIST</role>
+  </staff>
+  <staff name="superuser" password="admin">
+  	<role>SELLER</role>
+    <role>CLERK</role>
+    <role>STOCKIST</role>
+    <role>SYSADMIN</role>
+  </staff>
+  <staff name="marco" password="password">
+    <role>CLERK</role>
+    <role>STOCKIST</role>
+  </staff>
+  <staff name="lucia" password="password">
+  	<role>SELLER</role>
+    <role>STOCKIST</role>
+  </staff>
+  <staff name="tom" password="password">
+  	<role>SELLER</role>
+    <role>CLERK</role>
+  </staff>
 </www.ecrit.at:Pharmacy>

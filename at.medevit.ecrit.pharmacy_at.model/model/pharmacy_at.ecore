@@ -19,6 +19,10 @@
           eType="#//model/StockOrder" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="lineItems" lowerBound="1"
           eType="#//model/LineItems" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="staff" upperBound="-1"
+          eType="#//application/User"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="currentUser" lowerBound="1"
+          eType="#//application/User"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Prescription">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="issuingPractitioner"

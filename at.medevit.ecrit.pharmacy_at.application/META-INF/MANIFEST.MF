@@ -31,7 +31,8 @@ Require-Bundle: javax.inject;bundle-version="1.0.0",
  org.eclipse.e4.core.services,
  org.eclipse.core.expressions,
  at.medevit.ecrit.pharmacy_at.core;bundle-version="1.0.0",
- com.lowagie.text;bundle-version="2.1.7"
+ com.lowagie.text;bundle-version="2.1.7",
+ org.eclipse.e4.ui.css.swt.theme
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: javax.annotation;version="1.0.0"
 Bundle-ClassPath: .

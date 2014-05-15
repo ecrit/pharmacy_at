@@ -15,6 +15,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 
 import at.medevit.ecrit.pharmacy_at.application.AppModelId;
+import at.medevit.ecrit.pharmacy_at.application.UserRole;
 import at.medevit.ecrit.pharmacy_at.application.dialog.PrescriptionDialog;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
@@ -49,15 +50,17 @@ public class EditPrescriptionViewerHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
-		// TODO only allow in seller tab/ for seller user
-		selection =
-			CommandUtil.getSelectionOfType(Prescription.class,
-				selectionService.getSelection(AppModelId.PART_PART_PRESCRIPTION));
-		if (selection != null) {
-			return true;
-		} else {
-			return false;
+		if (SampleModel.getPharmacy().getCurrentUser().getRole().contains(UserRole.SELLER)) {
+			selection =
+				CommandUtil.getSelectionOfType(Prescription.class,
+					selectionService.getSelection(AppModelId.PART_PART_PRESCRIPTION));
+			if (selection != null) {
+				return true;
+			} else {
+				return false;
+			}
 		}
+		return false;
 	}
 	
 	private List<Article> getAvailableArticles(){

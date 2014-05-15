@@ -15,6 +15,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 
 import at.medevit.ecrit.pharmacy_at.application.AppModelId;
+import at.medevit.ecrit.pharmacy_at.application.UserRole;
 import at.medevit.ecrit.pharmacy_at.application.dialog.PrescriptionDialog;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
@@ -53,14 +54,16 @@ public class AddPrescriptionHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
-		// TODO only allow in seller tab/ for seller user
-		List<Article> notPrescripted = SampleModel.getNotYetPrescriptedArticle();
-		if (notPrescripted.isEmpty()) {
-			this.invoiceArticles = null;
-			return false;
-		} else {
-			this.invoiceArticles = notPrescripted;
-			return true;
+		if (SampleModel.getPharmacy().getCurrentUser().getRole().contains(UserRole.SELLER)) {
+			List<Article> notPrescripted = SampleModel.getNotYetPrescriptedArticle();
+			if (notPrescripted.isEmpty()) {
+				this.invoiceArticles = null;
+				return false;
+			} else {
+				this.invoiceArticles = notPrescripted;
+				return true;
+			}
 		}
+		return false;
 	}
 }

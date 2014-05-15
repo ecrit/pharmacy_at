@@ -67,6 +67,8 @@ public class PharmacyItemProvider
 			addReportsPropertyDescriptor(object);
 			addCustomersPropertyDescriptor(object);
 			addStockOrdersPropertyDescriptor(object);
+			addStaffPropertyDescriptor(object);
+			addCurrentUserPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -217,6 +219,50 @@ public class PharmacyItemProvider
 				 getString("_UI_Pharmacy_stockOrders_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Pharmacy_stockOrders_feature", "_UI_Pharmacy_type"),
 				 ModelPackage.Literals.PHARMACY__STOCK_ORDERS,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Staff feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStaffPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Pharmacy_staff_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Pharmacy_staff_feature", "_UI_Pharmacy_type"),
+				 ModelPackage.Literals.PHARMACY__STAFF,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Current User feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCurrentUserPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Pharmacy_currentUser_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Pharmacy_currentUser_feature", "_UI_Pharmacy_type"),
+				 ModelPackage.Literals.PHARMACY__CURRENT_USER,
 				 true,
 				 false,
 				 true,

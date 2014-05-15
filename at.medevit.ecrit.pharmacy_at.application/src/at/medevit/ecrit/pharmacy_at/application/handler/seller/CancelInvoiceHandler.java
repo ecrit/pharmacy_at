@@ -10,6 +10,7 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 
 import at.medevit.ecrit.pharmacy_at.application.AppModelId;
+import at.medevit.ecrit.pharmacy_at.application.UserRole;
 import at.medevit.ecrit.pharmacy_at.application.part.InvoicePart;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
@@ -33,8 +34,10 @@ public class CancelInvoiceHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
-		// TODO only allow in seller tab/ for seller user
-		return true;
+		if (SampleModel.getPharmacy().getCurrentUser().getRole().contains(UserRole.SELLER)) {
+			return true;
+		}
+		return false;
 	}
 	
 }

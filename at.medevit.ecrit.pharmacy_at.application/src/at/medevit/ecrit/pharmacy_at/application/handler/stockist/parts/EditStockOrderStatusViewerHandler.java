@@ -12,6 +12,7 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 
 import at.medevit.ecrit.pharmacy_at.application.AppModelId;
+import at.medevit.ecrit.pharmacy_at.application.UserRole;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.Article;
@@ -62,16 +63,18 @@ public class EditStockOrderStatusViewerHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
-		// TODO only allow in stockist tab/ for stockist user
-		Object selection =
-			selectionService.getSelection(AppModelId.PART_PART_STOCKORDEROVERVIEW);
-		if (selection != null && selection instanceof StockOrder) {
-			this.selection = (StockOrder) selection;
-			return true;
-		} else {
-			this.selection = null;
-			return false;
+		if (SampleModel.getPharmacy().getCurrentUser().getRole().contains(UserRole.STOCKIST)) {
+			Object selection =
+				selectionService.getSelection(AppModelId.PART_PART_STOCKORDEROVERVIEW);
+			if (selection != null && selection instanceof StockOrder) {
+				this.selection = (StockOrder) selection;
+				return true;
+			} else {
+				this.selection = null;
+				return false;
+			}
 		}
+		return false;
 	}
 	
 }

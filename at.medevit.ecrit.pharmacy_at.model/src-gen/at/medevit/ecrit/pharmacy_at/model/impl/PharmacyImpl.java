@@ -2,6 +2,7 @@
  */
 package at.medevit.ecrit.pharmacy_at.model.impl;
 
+import at.medevit.ecrit.pharmacy_at.application.User;
 import at.medevit.ecrit.pharmacy_at.model.Address;
 import at.medevit.ecrit.pharmacy_at.model.Customer;
 import at.medevit.ecrit.pharmacy_at.model.Invoice;
@@ -20,6 +21,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -37,6 +39,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.PharmacyImpl#getCustomers <em>Customers</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.PharmacyImpl#getStockOrders <em>Stock Orders</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.PharmacyImpl#getLineItems <em>Line Items</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.PharmacyImpl#getStaff <em>Staff</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.impl.PharmacyImpl#getCurrentUser <em>Current User</em>}</li>
  * </ul>
  * </p>
  *
@@ -132,6 +136,26 @@ public class PharmacyImpl extends MinimalEObjectImpl.Container implements Pharma
 	 * @ordered
 	 */
 	protected LineItems lineItems;
+
+	/**
+	 * The cached value of the '{@link #getStaff() <em>Staff</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStaff()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<User> staff;
+
+	/**
+	 * The cached value of the '{@link #getCurrentUser() <em>Current User</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCurrentUser()
+	 * @generated
+	 * @ordered
+	 */
+	protected User currentUser;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -355,6 +379,56 @@ public class PharmacyImpl extends MinimalEObjectImpl.Container implements Pharma
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<User> getStaff() {
+		if (staff == null) {
+			staff = new EObjectResolvingEList<User>(User.class, this, ModelPackage.PHARMACY__STAFF);
+		}
+		return staff;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public User getCurrentUser() {
+		if (currentUser != null && currentUser.eIsProxy()) {
+			InternalEObject oldCurrentUser = (InternalEObject)currentUser;
+			currentUser = (User)eResolveProxy(oldCurrentUser);
+			if (currentUser != oldCurrentUser) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.PHARMACY__CURRENT_USER, oldCurrentUser, currentUser));
+			}
+		}
+		return currentUser;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public User basicGetCurrentUser() {
+		return currentUser;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCurrentUser(User newCurrentUser) {
+		User oldCurrentUser = currentUser;
+		currentUser = newCurrentUser;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.PHARMACY__CURRENT_USER, oldCurrentUser, currentUser));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -400,6 +474,11 @@ public class PharmacyImpl extends MinimalEObjectImpl.Container implements Pharma
 				return getStockOrders();
 			case ModelPackage.PHARMACY__LINE_ITEMS:
 				return getLineItems();
+			case ModelPackage.PHARMACY__STAFF:
+				return getStaff();
+			case ModelPackage.PHARMACY__CURRENT_USER:
+				if (resolve) return getCurrentUser();
+				return basicGetCurrentUser();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -441,6 +520,13 @@ public class PharmacyImpl extends MinimalEObjectImpl.Container implements Pharma
 			case ModelPackage.PHARMACY__LINE_ITEMS:
 				setLineItems((LineItems)newValue);
 				return;
+			case ModelPackage.PHARMACY__STAFF:
+				getStaff().clear();
+				getStaff().addAll((Collection<? extends User>)newValue);
+				return;
+			case ModelPackage.PHARMACY__CURRENT_USER:
+				setCurrentUser((User)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -477,6 +563,12 @@ public class PharmacyImpl extends MinimalEObjectImpl.Container implements Pharma
 			case ModelPackage.PHARMACY__LINE_ITEMS:
 				setLineItems((LineItems)null);
 				return;
+			case ModelPackage.PHARMACY__STAFF:
+				getStaff().clear();
+				return;
+			case ModelPackage.PHARMACY__CURRENT_USER:
+				setCurrentUser((User)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -505,6 +597,10 @@ public class PharmacyImpl extends MinimalEObjectImpl.Container implements Pharma
 				return stockOrders != null && !stockOrders.isEmpty();
 			case ModelPackage.PHARMACY__LINE_ITEMS:
 				return lineItems != null;
+			case ModelPackage.PHARMACY__STAFF:
+				return staff != null && !staff.isEmpty();
+			case ModelPackage.PHARMACY__CURRENT_USER:
+				return currentUser != null;
 		}
 		return super.eIsSet(featureID);
 	}

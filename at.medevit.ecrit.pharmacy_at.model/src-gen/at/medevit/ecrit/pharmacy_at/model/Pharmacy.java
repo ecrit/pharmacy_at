@@ -2,8 +2,8 @@
  */
 package at.medevit.ecrit.pharmacy_at.model;
 
+import at.medevit.ecrit.pharmacy_at.application.User;
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -22,6 +22,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getCustomers <em>Customers</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getStockOrders <em>Stock Orders</em>}</li>
  *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getLineItems <em>Line Items</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getStaff <em>Staff</em>}</li>
+ *   <li>{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getCurrentUser <em>Current User</em>}</li>
  * </ul>
  * </p>
  *
@@ -197,5 +199,47 @@ public interface Pharmacy extends EObject {
 	 * @generated
 	 */
 	void setLineItems(LineItems value);
+
+	/**
+	 * Returns the value of the '<em><b>Staff</b></em>' reference list.
+	 * The list contents are of type {@link at.medevit.ecrit.pharmacy_at.application.User}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Staff</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Staff</em>' reference list.
+	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getPharmacy_Staff()
+	 * @model
+	 * @generated
+	 */
+	EList<User> getStaff();
+
+	/**
+	 * Returns the value of the '<em><b>Current User</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Current User</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Current User</em>' reference.
+	 * @see #setCurrentUser(User)
+	 * @see at.medevit.ecrit.pharmacy_at.model.ModelPackage#getPharmacy_CurrentUser()
+	 * @model required="true"
+	 * @generated
+	 */
+	User getCurrentUser();
+
+	/**
+	 * Sets the value of the '{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getCurrentUser <em>Current User</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Current User</em>' reference.
+	 * @see #getCurrentUser()
+	 * @generated
+	 */
+	void setCurrentUser(User value);
 
 } // Pharmacy

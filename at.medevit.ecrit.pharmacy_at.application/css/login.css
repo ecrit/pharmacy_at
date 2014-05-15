@@ -1,0 +1,23 @@
+#LoginDialog {
+background-color: radial #f6f8fc #FFFFFF 60%;
+}
+
+#LoginDialog.Composite {
+background-color: #FFFFFF;
+}
+
+#LoginDialog.Label {
+font: Verdana 8px;
+color: #043144;
+}
+
+#LoginDialog.Button {
+font: Verdana 8px;
+background-color: #FFFFFF;
+}
+
+#LoginDialog.Text {
+color: #043144;
+font: Verdana 8px;
+background-color: #FFFFFF;
+}

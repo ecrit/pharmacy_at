@@ -234,11 +234,13 @@
         </children>
       </menus>
     </sharedElements>
-    <trimBars xmi:id="_lC8W0EVJEeOaYLXjRggZbw" elementId="trimbar.0">
+    <trimBars xmi:id="_lC8W0EVJEeOaYLXjRggZbw" elementId="trimbar.top">
       <children xsi:type="menu:ToolBar" xmi:id="_lvbpYEVJEeOaYLXjRggZbw" elementId="ToolbarPerspectiveSwitch">
         <children xsi:type="menu:ToolControl" xmi:id="_zhQlEEVKEeOaYLXjRggZbw" elementId="toolctrl.perspectiveSwitcher" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.direct.PerspectiveTabs"/>
       </children>
-      <children xsi:type="menu:ToolControl" xmi:id="_nHnXcNRbEeOq1eN54wzxjw" elementId="Toolcontrol Sample"/>
+    </trimBars>
+    <trimBars xmi:id="_wHyz4NxxEeOu0J-802EJ2A" elementId="trimbar.bottom" side="Bottom">
+      <children xsi:type="menu:ToolControl" xmi:id="_xVpuINxxEeOu0J-802EJ2A" elementId="toolcontrol.user" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.direct.CurrentUserToolItem"/>
     </trimBars>
   </children>
   <handlers xmi:id="_u79DAHxiEeOl7olWdGHeBA" elementId="at.medevit.ecrit.pharmacy_at.application.handler.editPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.EditPrescriptionViewerHandler" command="_YAGyUHxiEeOl7olWdGHeBA"/>

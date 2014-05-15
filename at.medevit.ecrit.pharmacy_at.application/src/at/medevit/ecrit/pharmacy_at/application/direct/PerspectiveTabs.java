@@ -9,6 +9,7 @@ package at.medevit.ecrit.pharmacy_at.application.direct;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -24,6 +25,10 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
+
+import at.medevit.ecrit.pharmacy_at.application.AppModelId;
+import at.medevit.ecrit.pharmacy_at.application.UserRole;
+import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 
 public class PerspectiveTabs {
 	private MPerspectiveStack mStack;
@@ -46,20 +51,47 @@ public class PerspectiveTabs {
 	
 	private void updateTabs(){
 		for (MPerspective perspective : mStack.getChildren()) {
-			TabItem ti = new TabItem(mFolder, SWT.NULL);
-			ti.setText(perspective.getLabel());
-			ti.setData("perspective", perspective);
-			if (ti.getImage() == null) {
-				try {
-					if (perspective.getIconURI() != null)
-						ti.setImage(ImageDescriptor
-							.createFromURL(new URL(perspective.getIconURI())).createImage());
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			if (userHasAccess(perspective)) {
+				
+				TabItem ti = new TabItem(mFolder, SWT.NULL);
+				ti.setText(perspective.getLabel());
+				ti.setData("perspective", perspective);
+				if (ti.getImage() == null) {
+					try {
+						if (perspective.getIconURI() != null)
+							ti.setImage(ImageDescriptor.createFromURL(
+								new URL(perspective.getIconURI())).createImage());
+					} catch (MalformedURLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		}
+	}
+	
+	private boolean userHasAccess(MPerspective perspective){
+		String perspectiveId = perspective.getElementId();
+		List<UserRole> roles = SampleModel.getPharmacy().getCurrentUser().getRole();
+		
+		if (perspectiveId.equals(AppModelId.PERSPECTIVE_PERSPECTIVE_SELLER)) {
+			if (roles.contains(UserRole.SELLER)) {
+				return true;
+			}
+		} else if (perspectiveId.equals(AppModelId.PERSPECTIVE_PERSPECTIVE_STOCKIST)) {
+			if (roles.contains(UserRole.STOCKIST)) {
+				return true;
+			}
+		} else if (perspectiveId.equals(AppModelId.PERSPECTIVE_PERSPECTIVE_CLERK)) {
+			if (roles.contains(UserRole.CLERK)) {
+				return true;
+			}
+		} else if (perspectiveId.equals(AppModelId.PERSPECTIVE_PERSPECTIVE_ADMIN)) {
+			if (roles.contains(UserRole.SYSADMIN)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	private void doTabClick(){

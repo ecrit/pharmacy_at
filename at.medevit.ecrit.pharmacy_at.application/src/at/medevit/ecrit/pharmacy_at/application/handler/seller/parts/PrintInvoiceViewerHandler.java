@@ -15,6 +15,7 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.swt.widgets.Shell;
 
 import at.medevit.ecrit.pharmacy_at.application.AppModelId;
+import at.medevit.ecrit.pharmacy_at.application.UserRole;
 import at.medevit.ecrit.pharmacy_at.application.part.InvoicePart;
 import at.medevit.ecrit.pharmacy_at.application.part.InvoicePrescriptionOverviewPart;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
@@ -51,15 +52,17 @@ public class PrintInvoiceViewerHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
-		// TODO only allow in seller tab/ for seller user
-		amountMap =
-			CommandUtil.getSelectionOfType(HashMap.class,
-				selectionService.getSelection(AppModelId.PART_PART_INVOICEDATA));
-		if (amountMap != null) {
-			return true;
-		} else {
-			return false;
+		if (SampleModel.getPharmacy().getCurrentUser().getRole().contains(UserRole.SELLER)) {
+			amountMap =
+				CommandUtil.getSelectionOfType(HashMap.class,
+					selectionService.getSelection(AppModelId.PART_PART_INVOICEDATA));
+			if (amountMap != null) {
+				return true;
+			} else {
+				return false;
+			}
 		}
+		return false;
 	}
 	
 	private List<Article> assureNoDuplicates(){

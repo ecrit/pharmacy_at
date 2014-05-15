@@ -13,7 +13,9 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.swt.widgets.Shell;
 
 import at.medevit.ecrit.pharmacy_at.application.AppModelId;
+import at.medevit.ecrit.pharmacy_at.application.UserRole;
 import at.medevit.ecrit.pharmacy_at.application.util.PrintRefundPDF;
+import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 
 public class PrintRefundFormViewerHandler {
 	
@@ -30,16 +32,19 @@ public class PrintRefundFormViewerHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
-		// TODO only allow in clerk tab/ for clerk user
-		Object selection =
-			selectionService.getSelection(AppModelId.PART_PART_INVOICEPRESCRIPTIONOVERVIEW);
-		if (selection != null && selection instanceof Object[]) {
-			this.checked = Arrays.asList((Object[]) selection);
-			return true;
-		} else {
-			this.checked = null;
-			return false;
+		if (SampleModel.getPharmacy().getCurrentUser().getRole().contains(UserRole.CLERK)) {
+			Object selection =
+				selectionService.getSelection(AppModelId.PART_PART_INVOICEPRESCRIPTIONOVERVIEW);
+			if (selection != null && selection instanceof Object[]) {
+				this.checked = Arrays.asList((Object[]) selection);
+				return true;
+			} else {
+				this.checked = null;
+				return false;
+			}
 		}
+		this.checked = null;
+		return false;
 	}
 	
 }

@@ -134,14 +134,14 @@ public class InvoiceDataPart implements IPart {
 					"Are you sure you want to cancle this selling process?\n All changes will be lost!")) {
 					
 					CommandUtil.setContextAndServices(context, commandService, handlerService);
-					CommandUtil.manuallyCallCommand(AppModelId.COMMAND_COMMAND_CANCELINVOICE,
-						null, null, new CancelInvoiceHandler());
+					CommandUtil.manuallyCallCommand(AppModelId.COMMAND_COMMAND_CANCELINVOICE, null,
+						null, new CancelInvoiceHandler());
 				}
 			}
 		});
 		
 		menuService.registerContextMenu(tableViewer.getTable(),
-			AppModelId.POPUPMENU_AT_MEDEVIT_ECRIT_PHARMACY_AT_APPLICATION_POPUPMENU_INVOICEDATA);
+			AppModelId.POPUPMENU_POPUPMENU_INVOICEDATA);
 	}
 	
 	private void initTableViewer(Composite composite){
@@ -171,9 +171,11 @@ public class InvoiceDataPart implements IPart {
 			public void drop(DropTargetEvent event){
 				if (TextTransfer.getInstance().isSupportedType(event.currentDataType)) {
 					CommandUtil.setContextAndServices(context, commandService, handlerService);
-					CommandUtil.manuallyCallCommand(AppModelId.COMMAND_AT_MEDEVIT_ECRIT_PHARMACY_AT_APPLICATION_COMMAND_ADDTOINVOICE,
-						"commandparameter.modelelement.Article", "put article on invoice",
-						new AddToInvoiceViewerHandler());
+					CommandUtil
+						.manuallyCallCommand(
+							AppModelId.COMMAND_AT_MEDEVIT_ECRIT_PHARMACY_AT_APPLICATION_COMMAND_ADDTOINVOICE,
+							"commandparameter.modelelement.Article", "put article on invoice",
+							new AddToInvoiceViewerHandler());
 					
 				}
 			}

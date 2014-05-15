@@ -79,7 +79,7 @@ public class PrescriptionPart implements IPart {
 		
 		initTableViewer(parent);
 		menuService.registerContextMenu(tableViewer.getTable(),
-			AppModelId.POPUPMENU_AT_MEDEVIT_ECRIT_PHARMACY_AT_APPLICATION_POPUPMENU_PRESCRITPTION);
+			AppModelId.POPUPMENU_POPUPMENU_PRESCRITPTION);
 	}
 	
 	@EcritDrop(command = "at.medevit.ecrit.pharmacy_at.application.command.addPrescritption")
@@ -110,8 +110,8 @@ public class PrescriptionPart implements IPart {
 			public void drop(DropTargetEvent event){
 				if (TextTransfer.getInstance().isSupportedType(event.currentDataType)) {
 					InvoiceDataPart invoiceDataPart =
-						(InvoiceDataPart) partService.findPart(
-							AppModelId.PART_PART_INVOICEDATA).getObject();
+						(InvoiceDataPart) partService.findPart(AppModelId.PART_PART_INVOICEDATA)
+							.getObject();
 					
 					if (event.item != null) {
 						selectionService.setSelection((Prescription) event.item.getData());
@@ -126,7 +126,7 @@ public class PrescriptionPart implements IPart {
 						// dropped article from ARTICLE_LIST_PART
 						CommandUtil.setContextAndServices(context, commandService, handlerService);
 						CommandUtil.manuallyCallCommand(
-								AppModelId.COMMAND_COMMAND_ADDASPRESCRITPTION, null, null,
+							AppModelId.COMMAND_COMMAND_ADDASPRESCRITPTION, null, null,
 							new AddAsPrescriptionViewerHandler());
 					}
 					invoiceDataPart.updatePart();

@@ -12,8 +12,10 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import at.medevit.ecrit.pharmacy_at.application.AppModelId;
+import at.medevit.ecrit.pharmacy_at.application.UserRole;
 import at.medevit.ecrit.pharmacy_at.application.part.StockOrderPart;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
+import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.StockArticle;
 
 public class AddToStockOrderViewerHandler {
@@ -30,8 +32,7 @@ public class AddToStockOrderViewerHandler {
 	public void execute(@Named("commandparameter.modelelement.addToStockOrder")
 	String stockArticle){
 		StockOrderPart stockOrderPart =
-			(StockOrderPart) partService.findPart(AppModelId.PART_PART_STOCKORDER)
-				.getObject();
+			(StockOrderPart) partService.findPart(AppModelId.PART_PART_STOCKORDER).getObject();
 		if (isNoDuplicate()) {
 			selection.setNumberOrdered(1);
 			articleToOrder.add(EcoreUtil.copy(selection));
@@ -51,18 +52,20 @@ public class AddToStockOrderViewerHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
-		// TODO only allow in stockist tab/ for stockist user
-		selection =
-			CommandUtil.getSelectionOfType(StockArticle.class,
-				selectionService.getSelection(AppModelId.PART_PART_ARTICLELIST));
-		articleToOrder =
-			CommandUtil.getSelectionOfType(List.class,
-				selectionService.getSelection(AppModelId.PART_PART_STOCKORDER));
-		
-		if (selection == null && (articleToOrder == null || articleToOrder.isEmpty())) {
-			return false;
-		} else {
-			return true;
+		if (SampleModel.getPharmacy().getCurrentUser().getRole().contains(UserRole.STOCKIST)) {
+			selection =
+				CommandUtil.getSelectionOfType(StockArticle.class,
+					selectionService.getSelection(AppModelId.PART_PART_ARTICLELIST));
+			articleToOrder =
+				CommandUtil.getSelectionOfType(List.class,
+					selectionService.getSelection(AppModelId.PART_PART_STOCKORDER));
+			
+			if (selection == null && (articleToOrder == null || articleToOrder.isEmpty())) {
+				return false;
+			} else {
+				return true;
+			}
 		}
+		return false;
 	}
 }

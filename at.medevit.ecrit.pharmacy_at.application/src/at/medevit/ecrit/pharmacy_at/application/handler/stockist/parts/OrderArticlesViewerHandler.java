@@ -12,6 +12,7 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 
 import at.medevit.ecrit.pharmacy_at.application.AppModelId;
+import at.medevit.ecrit.pharmacy_at.application.UserRole;
 import at.medevit.ecrit.pharmacy_at.application.part.StockOrderPart;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
@@ -40,8 +41,7 @@ public class OrderArticlesViewerHandler {
 		}
 		
 		StockOrderPart stockOrderPart =
-			((StockOrderPart) partService.findPart(AppModelId.PART_PART_STOCKORDER)
-				.getObject());
+			((StockOrderPart) partService.findPart(AppModelId.PART_PART_STOCKORDER).getObject());
 		stockOrderPart.cleanPart();
 		List<String> partIds = new ArrayList<String>();
 		partIds.add(AppModelId.PART_PART_STOCKORDEROVERVIEW);
@@ -64,15 +64,17 @@ public class OrderArticlesViewerHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
-		// TODO only allow in stockist tab/ for stockist user
-		articlesToOrder =
-			CommandUtil.getSelectionOfType(List.class,
-				selectionService.getSelection(AppModelId.PART_PART_STOCKORDER));
-		if (articlesToOrder != null) {
-			return true;
-		} else {
-			return false;
+		if (SampleModel.getPharmacy().getCurrentUser().getRole().contains(UserRole.STOCKIST)) {
+			articlesToOrder =
+				CommandUtil.getSelectionOfType(List.class,
+					selectionService.getSelection(AppModelId.PART_PART_STOCKORDER));
+			if (articlesToOrder != null) {
+				return true;
+			} else {
+				return false;
+			}
 		}
+		return false;
 	}
 	
 }

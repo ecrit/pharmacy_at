@@ -17,6 +17,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 
 import at.medevit.ecrit.pharmacy_at.application.AppModelId;
+import at.medevit.ecrit.pharmacy_at.application.UserRole;
 import at.medevit.ecrit.pharmacy_at.application.dialog.PrescriptionDialog;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
@@ -79,21 +80,23 @@ public class AddAsPrescriptionViewerHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
-		// TODO only allow in seller tab/ for seller user
-		stockArticleSelection =
-			CommandUtil.getSelectionOfType(StockArticle.class,
-				selectionService.getSelection(AppModelId.PART_PART_ARTICLELIST));
-		setPrescribableArticles();
-		
-		if (stockArticleSelection == null && prescribables.isEmpty()) {
-			return false;
+		if (SampleModel.getPharmacy().getCurrentUser().getRole().contains(UserRole.SELLER)) {
+			stockArticleSelection =
+				CommandUtil.getSelectionOfType(StockArticle.class,
+					selectionService.getSelection(AppModelId.PART_PART_ARTICLELIST));
+			setPrescribableArticles();
+			
+			if (stockArticleSelection == null && prescribables.isEmpty()) {
+				return false;
+			}
+			if (stockArticleSelection.getNumberOnStock() < 1) {
+				this.stockArticleSelection = null;
+				return false;
+			}
+			prescribables.add(EcoreUtil.copy(stockArticleSelection.getArticle()));
+			return true;
 		}
-		if (stockArticleSelection.getNumberOnStock() < 1) {
-			this.stockArticleSelection = null;
-			return false;
-		}
-		prescribables.add(EcoreUtil.copy(stockArticleSelection.getArticle()));
-		return true;
+		return false;
 	}
 	
 	private void setPrescribableArticles(){

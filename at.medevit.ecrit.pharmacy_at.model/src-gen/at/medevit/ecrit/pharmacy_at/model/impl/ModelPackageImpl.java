@@ -297,6 +297,24 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getPharmacy_Staff() {
+		return (EReference)pharmacyEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPharmacy_CurrentUser() {
+		return (EReference)pharmacyEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPrescription() {
 		return prescriptionEClass;
 	}
@@ -806,6 +824,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(pharmacyEClass, PHARMACY__CUSTOMERS);
 		createEReference(pharmacyEClass, PHARMACY__STOCK_ORDERS);
 		createEReference(pharmacyEClass, PHARMACY__LINE_ITEMS);
+		createEReference(pharmacyEClass, PHARMACY__STAFF);
+		createEReference(pharmacyEClass, PHARMACY__CURRENT_USER);
 
 		prescriptionEClass = createEClass(PRESCRIPTION);
 		createEAttribute(prescriptionEClass, PRESCRIPTION__ISSUING_PRACTITIONER);
@@ -915,6 +935,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getPharmacy_Customers(), this.getCustomer(), null, "customers", null, 0, -1, Pharmacy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPharmacy_StockOrders(), this.getStockOrder(), null, "stockOrders", null, 0, -1, Pharmacy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPharmacy_LineItems(), this.getLineItems(), null, "lineItems", null, 1, 1, Pharmacy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPharmacy_Staff(), theApplicationPackage.getUser(), null, "staff", null, 0, -1, Pharmacy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPharmacy_CurrentUser(), theApplicationPackage.getUser(), null, "currentUser", null, 1, 1, Pharmacy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(prescriptionEClass, Prescription.class, "Prescription", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPrescription_IssuingPractitioner(), ecorePackage.getEString(), "issuingPractitioner", null, 0, 1, Prescription.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -141,13 +141,31 @@ public interface ModelPackage extends EPackage {
 	int PHARMACY__LINE_ITEMS = 7;
 
 	/**
+	 * The feature id for the '<em><b>Staff</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PHARMACY__STAFF = 8;
+
+	/**
+	 * The feature id for the '<em><b>Current User</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PHARMACY__CURRENT_USER = 9;
+
+	/**
 	 * The number of structural features of the '<em>Pharmacy</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PHARMACY_FEATURE_COUNT = 8;
+	int PHARMACY_FEATURE_COUNT = 10;
 
 	/**
 	 * The number of operations of the '<em>Pharmacy</em>' class.
@@ -929,6 +947,28 @@ public interface ModelPackage extends EPackage {
 	EReference getPharmacy_LineItems();
 
 	/**
+	 * Returns the meta object for the reference list '{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getStaff <em>Staff</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Staff</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Pharmacy#getStaff()
+	 * @see #getPharmacy()
+	 * @generated
+	 */
+	EReference getPharmacy_Staff();
+
+	/**
+	 * Returns the meta object for the reference '{@link at.medevit.ecrit.pharmacy_at.model.Pharmacy#getCurrentUser <em>Current User</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Current User</em>'.
+	 * @see at.medevit.ecrit.pharmacy_at.model.Pharmacy#getCurrentUser()
+	 * @see #getPharmacy()
+	 * @generated
+	 */
+	EReference getPharmacy_CurrentUser();
+
+	/**
 	 * Returns the meta object for class '{@link at.medevit.ecrit.pharmacy_at.model.Prescription <em>Prescription</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1593,6 +1633,22 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PHARMACY__LINE_ITEMS = eINSTANCE.getPharmacy_LineItems();
+
+		/**
+		 * The meta object literal for the '<em><b>Staff</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PHARMACY__STAFF = eINSTANCE.getPharmacy_Staff();
+
+		/**
+		 * The meta object literal for the '<em><b>Current User</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PHARMACY__CURRENT_USER = eINSTANCE.getPharmacy_CurrentUser();
 
 		/**
 		 * The meta object literal for the '{@link at.medevit.ecrit.pharmacy_at.model.impl.PrescriptionImpl <em>Prescription</em>}' class.

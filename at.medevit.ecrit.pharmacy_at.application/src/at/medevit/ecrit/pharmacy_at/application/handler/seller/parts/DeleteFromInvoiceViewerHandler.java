@@ -17,6 +17,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
 import at.medevit.ecrit.pharmacy_at.application.AppModelId;
+import at.medevit.ecrit.pharmacy_at.application.UserRole;
 import at.medevit.ecrit.pharmacy_at.application.dialog.DeleteFromPrescriptionDialog;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.application.util.PartUpdater;
@@ -35,8 +36,7 @@ public class DeleteFromInvoiceViewerHandler {
 	public void execute(@Named("commandparameter.deleteFromInvocie")
 	String articleToDelete, @Named(IServiceConstants.ACTIVE_SHELL)
 	Shell shell){
-		Article a =
-			(Article) selectionService.getSelection(AppModelId.PART_PART_INVOICEDATA);
+		Article a = (Article) selectionService.getSelection(AppModelId.PART_PART_INVOICEDATA);
 		
 		List<Prescription> relevantPrescriptions = getRelevantPrescriptions(a);
 		if (!relevantPrescriptions.isEmpty()) {
@@ -96,15 +96,17 @@ public class DeleteFromInvoiceViewerHandler {
 	
 	@CanExecute
 	public boolean canExecute(){
-		// TODO only allow in seller tab/ for seller user
-		Object selection =
-			CommandUtil.getSelectionOfType(Article.class,
-				selectionService.getSelection(AppModelId.PART_PART_INVOICEDATA));
-		if (selection != null) {
-			return true;
-		} else {
-			return false;
+		if (SampleModel.getPharmacy().getCurrentUser().getRole().contains(UserRole.SELLER)) {
+			Object selection =
+				CommandUtil.getSelectionOfType(Article.class,
+					selectionService.getSelection(AppModelId.PART_PART_INVOICEDATA));
+			if (selection != null) {
+				return true;
+			} else {
+				return false;
+			}
 		}
+		return false;
 	}
 	
 }
