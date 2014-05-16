@@ -1,5 +1,9 @@
 package at.medevit.ecrit.pharmacy_at.application.direct;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
@@ -14,10 +18,15 @@ import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 
 public class CurrentUserToolItem {
 	private String currentUser;
+	private String loginTime;
 	
 	@Inject
 	public CurrentUserToolItem(){
 		currentUser = SampleModel.getPharmacy().getCurrentUser().getName();
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		loginTime = dateFormat.format(cal.getTime());
 	}
 	
 	@PostConstruct
@@ -29,9 +38,12 @@ public class CurrentUserToolItem {
 		
 		Label lblUserImage = new Label(container, SWT.NONE);
 		lblUserImage.setImage(Images.USER);
-		
+
 		Label lblCurrentUser = new Label(container, SWT.NONE);
 		lblCurrentUser.setText(currentUser);
+		
+		Label lblTime = new Label(container, SWT.NONE);
+		lblTime.setText(loginTime);
 		
 	}
 }

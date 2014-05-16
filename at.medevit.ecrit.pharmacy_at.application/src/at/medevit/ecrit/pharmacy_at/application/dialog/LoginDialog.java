@@ -113,11 +113,6 @@ public class LoginDialog extends Dialog {
 	}
 	
 	@Override
-	protected boolean canHandleShellCloseEvent(){
-		return false;
-	}
-	
-	@Override
 	protected void okPressed(){
 		username = txtUsername.getText();
 		password = txtPassword.getText();

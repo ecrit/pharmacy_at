@@ -10,6 +10,7 @@ import org.eclipse.e4.ui.workbench.lifecycle.PostContextCreate;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.equinox.app.IApplicationContext;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -37,6 +38,8 @@ public class StartupLifeCycleHandler {
 		// close the static splash screen
 		appContext.applicationRunning();
 		
-		dialog.open();
+		if(dialog.open() != Window.OK){
+			System.exit(-1);
+		}
 	}
 }
