@@ -56,5 +56,43 @@
             label="Login Theme">
       </theme>
    </extension>
-
+  <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="seller.perspective.selected">
+         <with
+               variable="activePerspective">
+            <equals
+                  value="perspective.seller">
+            </equals>
+         </with>
+        </definition>
+      <definition
+            id="stockist.perspective.selected">
+         <with
+               variable="activePerspective">
+            <equals
+                  value="perspective.stockist">
+            </equals>
+         </with>
+      </definition>
+      <definition
+            id="clerk.perspective.selected">
+         <with
+               variable="activePerspective">
+            <equals
+                  value="perspective.clerk">
+            </equals>
+         </with>
+      </definition>
+      <definition
+            id="admin.perspective.selected">
+         <with
+               variable="activePerspective">
+            <equals
+                  value="perspective.admin">
+            </equals>
+         </with>
+      </definition>
+   </extension>
 </plugin>

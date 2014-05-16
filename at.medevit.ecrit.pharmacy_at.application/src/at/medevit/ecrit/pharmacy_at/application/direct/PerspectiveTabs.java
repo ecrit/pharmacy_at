@@ -12,7 +12,9 @@ import java.net.URL;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
@@ -34,6 +36,9 @@ public class PerspectiveTabs {
 	private MPerspectiveStack mStack;
 	private TabFolder mFolder;
 	
+	@Inject
+	IEclipseContext context;
+	
 	@PostConstruct
 	public void createUI(Composite parent, MWindow window, EModelService service){
 		mFolder = new TabFolder(parent, SWT.TOP);
@@ -41,6 +46,8 @@ public class PerspectiveTabs {
 		if (mStack == null)
 			return;
 		updateTabs();
+		// called to make sure initial perspective is set in context
+		doTabClick();	
 		mFolder.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e){
@@ -98,6 +105,9 @@ public class PerspectiveTabs {
 		TabItem ti = mFolder.getSelection()[0];
 		MPerspective perspective = (MPerspective) ti.getData("perspective");
 		mStack.setSelectedElement(perspective);
+		//essential for core expressions
+		context.set("activePerspective", perspective.getElementId());
+		System.out.println(perspective.getElementId());
 	}
 	
 	private void findStack(MWindow window){

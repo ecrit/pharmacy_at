@@ -10,7 +10,6 @@ import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
-import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
@@ -55,12 +54,7 @@ public class AddToInvoiceViewerHandler {
 	
 	@CanExecute
 	public boolean canExecute(@Active MPart activePart){
-		if (SampleModel.getPharmacy().getCurrentUser().getRole().contains(UserRole.SELLER)) {
-			if (modelService.getActivePerspective(window).getElementId()
-				.equals(AppModelId.PERSPECTIVE_PERSPECTIVE_SELLER)) {
-				MMenuElement addToInvoiceMenu = activePart.getMenus().get(0).getChildren().get(0);
-				addToInvoiceMenu.setVisible(true);
-				
+		if (SampleModel.getPharmacy().getCurrentUser().getRole().contains(UserRole.SELLER)) {				
 				this.selection =
 					CommandUtil.getSelectionOfType(StockArticle.class,
 						selectionService.getSelection(AppModelId.PART_PART_ARTICLELIST));
@@ -70,11 +64,6 @@ public class AddToInvoiceViewerHandler {
 					return false;
 				}
 			}
-		} else {
-			MMenuElement addToInvoiceMenu = activePart.getMenus().get(0).getChildren().get(0);
-			addToInvoiceMenu.setVisible(false);
-			return false;
-		}
 		return false;
 	}
 }
