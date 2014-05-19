@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -125,7 +124,7 @@ public class LoginDialog extends Dialog {
 		List<User> staff = SampleModel.getPharmacy().getStaff();
 		for (User user : staff) {
 			if (user.getName().equals(username) && user.getPassword().equals(password)) {
-				SampleModel.getPharmacy().setCurrentUser(EcoreUtil.copy(user));
+				SampleModel.getPharmacy().setCurrentUser(user);
 				super.okPressed();
 			}
 		}
