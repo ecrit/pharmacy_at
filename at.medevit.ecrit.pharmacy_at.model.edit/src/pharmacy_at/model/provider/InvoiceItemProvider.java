@@ -1,13 +1,7 @@
 /**
  */
-package at.medevit.ecrit.pharmacy_at.application.provider;
+package pharmacy_at.model.provider;
 
-
-import at.medevit.ecrit.pharmacy_at.application.ApplicationFactory;
-import at.medevit.ecrit.pharmacy_at.application.ApplicationPackage;
-import at.medevit.ecrit.pharmacy_at.application.Users;
-
-import at.medevit.ecrit.pharmacy_at.model.provider.Pharmacy_atEditPlugin;
 
 import java.util.Collection;
 import java.util.List;
@@ -21,37 +15,40 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemColorProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import pharmacy_at.model.Invoice;
+import pharmacy_at.model.ModelFactory;
+import pharmacy_at.model.ModelPackage;
+
 /**
- * This is the item provider adapter for a {@link at.medevit.ecrit.pharmacy_at.application.Users} object.
+ * This is the item provider adapter for a {@link pharmacy_at.model.Invoice} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class UsersItemProvider 
+public class InvoiceItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
 		ITreeItemContentProvider,
 		IItemLabelProvider,
-		IItemPropertySource,
-		IItemColorProvider {
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public UsersItemProvider(AdapterFactory adapterFactory) {
+	public InvoiceItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -66,25 +63,117 @@ public class UsersItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addUsersPropertyDescriptor(object);
+			addIdPropertyDescriptor(object);
+			addArticlePropertyDescriptor(object);
+			addPaidAmountPropertyDescriptor(object);
+			addDatePropertyDescriptor(object);
+			addInvoiceCustomerPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Users feature.
+	 * This adds a property descriptor for the Id feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addUsersPropertyDescriptor(Object object) {
+	protected void addIdPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Users_users_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Users_users_feature", "_UI_Users_type"),
-				 ApplicationPackage.Literals.USERS__USERS,
+				 getString("_UI_Invoice_id_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Invoice_id_feature", "_UI_Invoice_type"),
+				 ModelPackage.Literals.INVOICE__ID,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Article feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addArticlePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Invoice_article_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Invoice_article_feature", "_UI_Invoice_type"),
+				 ModelPackage.Literals.INVOICE__ARTICLE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Paid Amount feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPaidAmountPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Invoice_paidAmount_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Invoice_paidAmount_feature", "_UI_Invoice_type"),
+				 ModelPackage.Literals.INVOICE__PAID_AMOUNT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Date feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDatePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Invoice_date_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Invoice_date_feature", "_UI_Invoice_type"),
+				 ModelPackage.Literals.INVOICE__DATE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Invoice Customer feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInvoiceCustomerPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Invoice_invoiceCustomer_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Invoice_invoiceCustomer_feature", "_UI_Invoice_type"),
+				 ModelPackage.Literals.INVOICE__INVOICE_CUSTOMER,
 				 true,
 				 false,
 				 true,
@@ -105,7 +194,7 @@ public class UsersItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(ApplicationPackage.Literals.USERS__USERS);
+			childrenFeatures.add(ModelPackage.Literals.INVOICE__PRESCRIPTION);
 		}
 		return childrenFeatures;
 	}
@@ -124,14 +213,14 @@ public class UsersItemProvider
 	}
 
 	/**
-	 * This returns Users.gif.
+	 * This returns Invoice.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Users"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Invoice"));
 	}
 
 	/**
@@ -142,7 +231,8 @@ public class UsersItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_Users_type");
+		Invoice invoice = (Invoice)object;
+		return getString("_UI_Invoice_type") + " " + invoice.getId();
 	}
 	
 
@@ -157,8 +247,13 @@ public class UsersItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Users.class)) {
-			case ApplicationPackage.USERS__USERS:
+		switch (notification.getFeatureID(Invoice.class)) {
+			case ModelPackage.INVOICE__ID:
+			case ModelPackage.INVOICE__PAID_AMOUNT:
+			case ModelPackage.INVOICE__DATE:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case ModelPackage.INVOICE__PRESCRIPTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -178,8 +273,8 @@ public class UsersItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(ApplicationPackage.Literals.USERS__USERS,
-				 ApplicationFactory.eINSTANCE.createUser()));
+				(ModelPackage.Literals.INVOICE__PRESCRIPTION,
+				 ModelFactory.eINSTANCE.createPrescription()));
 	}
 
 	/**

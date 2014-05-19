@@ -1,12 +1,7 @@
 /**
  */
-package at.medevit.ecrit.pharmacy_at.application.provider;
+package pharmacy_at.model.provider;
 
-
-import at.medevit.ecrit.pharmacy_at.application.ApplicationPackage;
-import at.medevit.ecrit.pharmacy_at.application.User;
-
-import at.medevit.ecrit.pharmacy_at.model.provider.Pharmacy_atEditPlugin;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,7 +13,6 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemColorProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
@@ -28,28 +22,30 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import pharmacy_at.model.Article;
+import pharmacy_at.model.ModelPackage;
+
 /**
- * This is the item provider adapter for a {@link at.medevit.ecrit.pharmacy_at.application.User} object.
+ * This is the item provider adapter for a {@link pharmacy_at.model.Article} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class UserItemProvider 
+public class ArticleItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
 		ITreeItemContentProvider,
 		IItemLabelProvider,
-		IItemPropertySource,
-		IItemColorProvider {
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public UserItemProvider(AdapterFactory adapterFactory) {
+	public ArticleItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -65,8 +61,10 @@ public class UserItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
-			addRolePropertyDescriptor(object);
-			addPasswordPropertyDescriptor(object);
+			addDescriptionPropertyDescriptor(object);
+			addAdmissionNumberPropertyDescriptor(object);
+			addAvailabilityPropertyDescriptor(object);
+			addPricePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -82,9 +80,9 @@ public class UserItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_User_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_User_name_feature", "_UI_User_type"),
-				 ApplicationPackage.Literals.USER__NAME,
+				 getString("_UI_Article_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Article_name_feature", "_UI_Article_type"),
+				 ModelPackage.Literals.ARTICLE__NAME,
 				 true,
 				 false,
 				 false,
@@ -94,19 +92,19 @@ public class UserItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Role feature.
+	 * This adds a property descriptor for the Description feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addRolePropertyDescriptor(Object object) {
+	protected void addDescriptionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_User_role_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_User_role_feature", "_UI_User_type"),
-				 ApplicationPackage.Literals.USER__ROLE,
+				 getString("_UI_Article_description_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Article_description_feature", "_UI_Article_type"),
+				 ModelPackage.Literals.ARTICLE__DESCRIPTION,
 				 true,
 				 false,
 				 false,
@@ -116,19 +114,41 @@ public class UserItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Password feature.
+	 * This adds a property descriptor for the Admission Number feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addPasswordPropertyDescriptor(Object object) {
+	protected void addAdmissionNumberPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_User_password_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_User_password_feature", "_UI_User_type"),
-				 ApplicationPackage.Literals.USER__PASSWORD,
+				 getString("_UI_Article_admissionNumber_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Article_admissionNumber_feature", "_UI_Article_type"),
+				 ModelPackage.Literals.ARTICLE__ADMISSION_NUMBER,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Availability feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAvailabilityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Article_availability_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Article_availability_feature", "_UI_Article_type"),
+				 ModelPackage.Literals.ARTICLE__AVAILABILITY,
 				 true,
 				 false,
 				 false,
@@ -138,14 +158,36 @@ public class UserItemProvider
 	}
 
 	/**
-	 * This returns User.gif.
+	 * This adds a property descriptor for the Price feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPricePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Article_price_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Article_price_feature", "_UI_Article_type"),
+				 ModelPackage.Literals.ARTICLE__PRICE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This returns Article.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/User"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Article"));
 	}
 
 	/**
@@ -156,10 +198,10 @@ public class UserItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((User)object).getName();
+		String label = ((Article)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_User_type") :
-			getString("_UI_User_type") + " " + label;
+			getString("_UI_Article_type") :
+			getString("_UI_Article_type") + " " + label;
 	}
 	
 
@@ -174,10 +216,12 @@ public class UserItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(User.class)) {
-			case ApplicationPackage.USER__NAME:
-			case ApplicationPackage.USER__ROLE:
-			case ApplicationPackage.USER__PASSWORD:
+		switch (notification.getFeatureID(Article.class)) {
+			case ModelPackage.ARTICLE__NAME:
+			case ModelPackage.ARTICLE__DESCRIPTION:
+			case ModelPackage.ARTICLE__ADMISSION_NUMBER:
+			case ModelPackage.ARTICLE__AVAILABILITY:
+			case ModelPackage.ARTICLE__PRICE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

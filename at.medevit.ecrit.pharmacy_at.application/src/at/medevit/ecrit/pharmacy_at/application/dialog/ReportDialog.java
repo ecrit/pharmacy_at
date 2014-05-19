@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import at.medevit.ecrit.pharmacy_at.core.SampleModel;
 import at.medevit.ecrit.pharmacy_at.model.ModelPackage;
 import at.medevit.ecrit.pharmacy_at.model.Priority;
 import at.medevit.ecrit.pharmacy_at.model.Report;
@@ -62,6 +63,8 @@ public class ReportDialog extends TitleAreaDialog {
 		GridData gd_txtIssuer = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_txtIssuer.widthHint = 180;
 		txtIssuer.setLayoutData(gd_txtIssuer);
+		txtIssuer.setText(SampleModel.getPharmacy().getCurrentUser().getName());
+		txtIssuer.setEnabled(false);
 		
 		// Priority
 		Label lblPrio = new Label(container, SWT.NONE);
@@ -107,11 +110,6 @@ public class ReportDialog extends TitleAreaDialog {
 		IObservableValue txtTitleObserve = WidgetProperties.text(SWT.Modify).observe(txtTitle);
 		bindingContext.bindValue(txtTitleObserve, titleObserve, null, null);
 		//
-		IObservableValue issuerObserve =
-			EMFProperties.value(ModelPackage.Literals.REPORT__ISSUER).observe(report);
-		IObservableValue txtIssuerObserve = WidgetProperties.text(SWT.Modify).observe(txtIssuer);
-		bindingContext.bindValue(txtIssuerObserve, issuerObserve);
-		//
 		IObservableValue concernObserve =
 			EMFProperties.value(ModelPackage.Literals.REPORT__CONCERNS).observe(report);
 		IObservableValue txtConcernObserve = WidgetProperties.text(SWT.Modify).observe(txtConcern);
@@ -123,14 +121,13 @@ public class ReportDialog extends TitleAreaDialog {
 			WidgetProperties.text(SWT.Modify).observe(txtDescription);
 		bindingContext.bindValue(txtTextfieldObserve, textfieldObserve);
 		//
-		
-		//
 		return bindingContext;
 	}
 	
 	@Override
 	protected void okPressed(){
 		String priority = comboPrio.getItem(comboPrio.getSelectionIndex());
+		report.setIssuer(SampleModel.getPharmacy().getCurrentUser());
 		report.setPriority(Priority.getByName(priority));
 		
 		super.okPressed();

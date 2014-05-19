@@ -170,11 +170,9 @@ public class ArticleListPart implements IPart {
 			@Override
 			public void doubleClick(DoubleClickEvent event){
 				CommandUtil.setContextAndServices(context, commandService, handlerService);
-				CommandUtil
-					.manuallyCallCommand(
-						AppModelId.COMMAND_AT_MEDEVIT_ECRIT_PHARMACY_AT_APPLICATION_COMMAND_ADDTOINVOICE,
-						"commandparameter.modelelement.Article", "a stock article",
-						new AddToInvoiceViewerHandler());
+				CommandUtil.manuallyCallCommand(AppModelId.COMMAND_COMMAND_ADDTOINVOICE,
+					"commandparameter.modelelement.Article", "a stock article",
+					new AddToInvoiceViewerHandler());
 			}
 		});
 		

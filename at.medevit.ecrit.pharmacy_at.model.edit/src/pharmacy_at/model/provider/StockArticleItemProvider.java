@@ -1,12 +1,7 @@
 /**
  */
-package at.medevit.ecrit.pharmacy_at.application.provider;
+package pharmacy_at.model.provider;
 
-
-import at.medevit.ecrit.pharmacy_at.application.ApplicationPackage;
-import at.medevit.ecrit.pharmacy_at.application.User;
-
-import at.medevit.ecrit.pharmacy_at.model.provider.Pharmacy_atEditPlugin;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,9 +11,10 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemColorProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
@@ -28,28 +24,31 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import pharmacy_at.model.ModelFactory;
+import pharmacy_at.model.ModelPackage;
+import pharmacy_at.model.StockArticle;
+
 /**
- * This is the item provider adapter for a {@link at.medevit.ecrit.pharmacy_at.application.User} object.
+ * This is the item provider adapter for a {@link pharmacy_at.model.StockArticle} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class UserItemProvider 
+public class StockArticleItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
 		ITreeItemContentProvider,
 		IItemLabelProvider,
-		IItemPropertySource,
-		IItemColorProvider {
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public UserItemProvider(AdapterFactory adapterFactory) {
+	public StockArticleItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -64,88 +63,118 @@ public class UserItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
-			addRolePropertyDescriptor(object);
-			addPasswordPropertyDescriptor(object);
+			addNumberOnStockPropertyDescriptor(object);
+			addLowerBoundPropertyDescriptor(object);
+			addNumberOrderedPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
+	 * This adds a property descriptor for the Number On Stock feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addNamePropertyDescriptor(Object object) {
+	protected void addNumberOnStockPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_User_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_User_name_feature", "_UI_User_type"),
-				 ApplicationPackage.Literals.USER__NAME,
+				 getString("_UI_StockArticle_numberOnStock_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StockArticle_numberOnStock_feature", "_UI_StockArticle_type"),
+				 ModelPackage.Literals.STOCK_ARTICLE__NUMBER_ON_STOCK,
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Role feature.
+	 * This adds a property descriptor for the Lower Bound feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addRolePropertyDescriptor(Object object) {
+	protected void addLowerBoundPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_User_role_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_User_role_feature", "_UI_User_type"),
-				 ApplicationPackage.Literals.USER__ROLE,
+				 getString("_UI_StockArticle_lowerBound_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StockArticle_lowerBound_feature", "_UI_StockArticle_type"),
+				 ModelPackage.Literals.STOCK_ARTICLE__LOWER_BOUND,
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Password feature.
+	 * This adds a property descriptor for the Number Ordered feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addPasswordPropertyDescriptor(Object object) {
+	protected void addNumberOrderedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_User_password_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_User_password_feature", "_UI_User_type"),
-				 ApplicationPackage.Literals.USER__PASSWORD,
+				 getString("_UI_StockArticle_numberOrdered_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StockArticle_numberOrdered_feature", "_UI_StockArticle_type"),
+				 ModelPackage.Literals.STOCK_ARTICLE__NUMBER_ORDERED,
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This returns User.gif.
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(ModelPackage.Literals.STOCK_ARTICLE__ARTICLE);
+		}
+		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
+	}
+
+	/**
+	 * This returns StockArticle.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/User"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/StockArticle"));
 	}
 
 	/**
@@ -156,10 +185,8 @@ public class UserItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((User)object).getName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_User_type") :
-			getString("_UI_User_type") + " " + label;
+		StockArticle stockArticle = (StockArticle)object;
+		return getString("_UI_StockArticle_type") + " " + stockArticle.getNumberOnStock();
 	}
 	
 
@@ -174,11 +201,14 @@ public class UserItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(User.class)) {
-			case ApplicationPackage.USER__NAME:
-			case ApplicationPackage.USER__ROLE:
-			case ApplicationPackage.USER__PASSWORD:
+		switch (notification.getFeatureID(StockArticle.class)) {
+			case ModelPackage.STOCK_ARTICLE__NUMBER_ON_STOCK:
+			case ModelPackage.STOCK_ARTICLE__LOWER_BOUND:
+			case ModelPackage.STOCK_ARTICLE__NUMBER_ORDERED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case ModelPackage.STOCK_ARTICLE__ARTICLE:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -194,6 +224,11 @@ public class UserItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ModelPackage.Literals.STOCK_ARTICLE__ARTICLE,
+				 ModelFactory.eINSTANCE.createArticle()));
 	}
 
 	/**

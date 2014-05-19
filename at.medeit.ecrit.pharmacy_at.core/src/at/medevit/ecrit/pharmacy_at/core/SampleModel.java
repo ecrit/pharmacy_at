@@ -7,6 +7,8 @@ import java.util.Random;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import at.medevit.ecrit.pharmacy_at.application.ApplicationFactory;
+import at.medevit.ecrit.pharmacy_at.application.User;
 import at.medevit.ecrit.pharmacy_at.model.Article;
 import at.medevit.ecrit.pharmacy_at.model.Invoice;
 import at.medevit.ecrit.pharmacy_at.model.ModelFactory;
@@ -102,6 +104,11 @@ public class SampleModel {
 		loader.save();
 	}
 	
+	public static void addStaffMember(User user){
+		pharmacy.getStaff().add(user);
+		loader.save();
+	}
+	
 	public static boolean addToStock(StockArticle newStockArticle){
 		for (StockArticle sa : getStock().getArticles()) {
 			if (sa.getArticle().getName().equals(newStockArticle.getArticle().getName())) {
@@ -129,6 +136,15 @@ public class SampleModel {
 		currOrder = factory.createStockOrder();
 		Random rnd = new Random();
 		currOrder.setNumber(rnd.nextInt(Integer.MAX_VALUE));
+	}
+	
+	public static User getPlainNewUser(){
+		User newUser = ApplicationFactory.eINSTANCE.createUser();
+		newUser.setName("");
+		newUser.setPassword("");
+		newUser.getRole().add(null);
+		
+		return newUser;
 	}
 	
 	public static void revertCurrentInvoice(){

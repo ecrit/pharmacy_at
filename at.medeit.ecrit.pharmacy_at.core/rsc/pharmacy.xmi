@@ -65,6 +65,14 @@
       <role>STOCKIST</role>
     </issuer>
   </reports>
+  <reports title="CoffeeReport" priority="LOW" concerns="Coffee Out" text="We got no more coffee left....! Buy! This is urgent!!!">
+    <issuer name="test" password="test">
+      <role>SELLER</role>
+      <role>CLERK</role>
+      <role>STOCKIST</role>
+      <role>SYSADMIN</role>
+    </issuer>
+  </reports>
   <stockOrders issuer="Bayer HealthCare Pharmaceuticals&#xD;&#xA;M&#xfc;llerstr. 178&#xD;&#xA;13353 Berlin" number="2005862677" status="RECEIVED">
     <article name="Lemocin Lozenge" description="Helps against painfull oropharyngeal inflammations. Usage: like usual cough sweets" admissionNumber="61947" price="3.5"/>
     <article name="Lemocin Lozenge" description="Helps against painfull oropharyngeal inflammations. Usage: like usual cough sweets" admissionNumber="61947" price="3.5"/>
@@ -111,12 +119,13 @@
     <article name="Paracetamol Genericon 500mg" description="Used for light - medium pain (headache, toothache, fever, ...)" admissionNumber="38467" price="2.0"/>
   </lineItems>
   <staff name="test" password="test">
-  	<role>SELLER</role>
-  	<role>CLERK</role>
+    <role>SELLER</role>
+    <role>CLERK</role>
     <role>STOCKIST</role>
+    <role>SYSADMIN</role>
   </staff>
   <staff name="superuser" password="admin">
-  	<role>SELLER</role>
+    <role>SELLER</role>
     <role>CLERK</role>
     <role>STOCKIST</role>
     <role>SYSADMIN</role>
@@ -126,11 +135,15 @@
     <role>STOCKIST</role>
   </staff>
   <staff name="lucia" password="password">
-  	<role>SELLER</role>
+    <role>SELLER</role>
     <role>STOCKIST</role>
   </staff>
   <staff name="tom" password="password">
-  	<role>SELLER</role>
+    <role>SELLER</role>
     <role>CLERK</role>
+  </staff>
+  <staff name="flo" password="asdf">
+    <role>CLERK</role>
+    <role>STOCKIST</role>
   </staff>
 </www.ecrit.at:Pharmacy>

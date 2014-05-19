@@ -1,13 +1,7 @@
 /**
  */
-package at.medevit.ecrit.pharmacy_at.application.provider;
+package pharmacy_at.model.provider;
 
-
-import at.medevit.ecrit.pharmacy_at.application.ApplicationFactory;
-import at.medevit.ecrit.pharmacy_at.application.ApplicationPackage;
-import at.medevit.ecrit.pharmacy_at.application.Users;
-
-import at.medevit.ecrit.pharmacy_at.model.provider.Pharmacy_atEditPlugin;
 
 import java.util.Collection;
 import java.util.List;
@@ -19,9 +13,7 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemColorProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
@@ -30,28 +22,31 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import pharmacy_at.model.ModelFactory;
+import pharmacy_at.model.ModelPackage;
+import pharmacy_at.model.Stock;
+
 /**
- * This is the item provider adapter for a {@link at.medevit.ecrit.pharmacy_at.application.Users} object.
+ * This is the item provider adapter for a {@link pharmacy_at.model.Stock} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class UsersItemProvider 
+public class StockItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
 		ITreeItemContentProvider,
 		IItemLabelProvider,
-		IItemPropertySource,
-		IItemColorProvider {
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public UsersItemProvider(AdapterFactory adapterFactory) {
+	public StockItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -66,31 +61,8 @@ public class UsersItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addUsersPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Users feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addUsersPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Users_users_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Users_users_feature", "_UI_Users_type"),
-				 ApplicationPackage.Literals.USERS__USERS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -105,7 +77,7 @@ public class UsersItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(ApplicationPackage.Literals.USERS__USERS);
+			childrenFeatures.add(ModelPackage.Literals.STOCK__ARTICLES);
 		}
 		return childrenFeatures;
 	}
@@ -124,14 +96,14 @@ public class UsersItemProvider
 	}
 
 	/**
-	 * This returns Users.gif.
+	 * This returns Stock.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Users"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Stock"));
 	}
 
 	/**
@@ -142,7 +114,7 @@ public class UsersItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_Users_type");
+		return getString("_UI_Stock_type");
 	}
 	
 
@@ -157,8 +129,8 @@ public class UsersItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Users.class)) {
-			case ApplicationPackage.USERS__USERS:
+		switch (notification.getFeatureID(Stock.class)) {
+			case ModelPackage.STOCK__ARTICLES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -178,8 +150,8 @@ public class UsersItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(ApplicationPackage.Literals.USERS__USERS,
-				 ApplicationFactory.eINSTANCE.createUser()));
+				(ModelPackage.Literals.STOCK__ARTICLES,
+				 ModelFactory.eINSTANCE.createStockArticle()));
 	}
 
 	/**

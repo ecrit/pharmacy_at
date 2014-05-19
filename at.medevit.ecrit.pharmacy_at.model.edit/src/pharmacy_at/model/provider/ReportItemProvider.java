@@ -1,12 +1,7 @@
 /**
  */
-package at.medevit.ecrit.pharmacy_at.application.provider;
+package pharmacy_at.model.provider;
 
-
-import at.medevit.ecrit.pharmacy_at.application.ApplicationPackage;
-import at.medevit.ecrit.pharmacy_at.application.User;
-
-import at.medevit.ecrit.pharmacy_at.model.provider.Pharmacy_atEditPlugin;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,9 +11,10 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemColorProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
@@ -28,28 +24,31 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import pharmacy_at.model.ModelFactory;
+import pharmacy_at.model.ModelPackage;
+import pharmacy_at.model.Report;
+
 /**
- * This is the item provider adapter for a {@link at.medevit.ecrit.pharmacy_at.application.User} object.
+ * This is the item provider adapter for a {@link pharmacy_at.model.Report} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class UserItemProvider 
+public class ReportItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
 		ITreeItemContentProvider,
 		IItemLabelProvider,
-		IItemPropertySource,
-		IItemColorProvider {
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public UserItemProvider(AdapterFactory adapterFactory) {
+	public ReportItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -64,27 +63,28 @@ public class UserItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
-			addRolePropertyDescriptor(object);
-			addPasswordPropertyDescriptor(object);
+			addTitlePropertyDescriptor(object);
+			addPriorityPropertyDescriptor(object);
+			addConcernsPropertyDescriptor(object);
+			addTextPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
+	 * This adds a property descriptor for the Title feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addNamePropertyDescriptor(Object object) {
+	protected void addTitlePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_User_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_User_name_feature", "_UI_User_type"),
-				 ApplicationPackage.Literals.USER__NAME,
+				 getString("_UI_Report_title_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Report_title_feature", "_UI_Report_type"),
+				 ModelPackage.Literals.REPORT__TITLE,
 				 true,
 				 false,
 				 false,
@@ -94,19 +94,19 @@ public class UserItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Role feature.
+	 * This adds a property descriptor for the Priority feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addRolePropertyDescriptor(Object object) {
+	protected void addPriorityPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_User_role_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_User_role_feature", "_UI_User_type"),
-				 ApplicationPackage.Literals.USER__ROLE,
+				 getString("_UI_Report_priority_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Report_priority_feature", "_UI_Report_type"),
+				 ModelPackage.Literals.REPORT__PRIORITY,
 				 true,
 				 false,
 				 false,
@@ -116,19 +116,19 @@ public class UserItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Password feature.
+	 * This adds a property descriptor for the Concerns feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addPasswordPropertyDescriptor(Object object) {
+	protected void addConcernsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_User_password_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_User_password_feature", "_UI_User_type"),
-				 ApplicationPackage.Literals.USER__PASSWORD,
+				 getString("_UI_Report_concerns_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Report_concerns_feature", "_UI_Report_type"),
+				 ModelPackage.Literals.REPORT__CONCERNS,
 				 true,
 				 false,
 				 false,
@@ -138,14 +138,66 @@ public class UserItemProvider
 	}
 
 	/**
-	 * This returns User.gif.
+	 * This adds a property descriptor for the Text feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTextPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Report_text_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Report_text_feature", "_UI_Report_type"),
+				 ModelPackage.Literals.REPORT__TEXT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(ModelPackage.Literals.REPORT__ISSUER);
+		}
+		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
+	}
+
+	/**
+	 * This returns Report.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/User"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Report"));
 	}
 
 	/**
@@ -156,10 +208,10 @@ public class UserItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((User)object).getName();
+		String label = ((Report)object).getTitle();
 		return label == null || label.length() == 0 ?
-			getString("_UI_User_type") :
-			getString("_UI_User_type") + " " + label;
+			getString("_UI_Report_type") :
+			getString("_UI_Report_type") + " " + label;
 	}
 	
 
@@ -174,11 +226,15 @@ public class UserItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(User.class)) {
-			case ApplicationPackage.USER__NAME:
-			case ApplicationPackage.USER__ROLE:
-			case ApplicationPackage.USER__PASSWORD:
+		switch (notification.getFeatureID(Report.class)) {
+			case ModelPackage.REPORT__TITLE:
+			case ModelPackage.REPORT__PRIORITY:
+			case ModelPackage.REPORT__CONCERNS:
+			case ModelPackage.REPORT__TEXT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case ModelPackage.REPORT__ISSUER:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -194,6 +250,11 @@ public class UserItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ModelPackage.Literals.REPORT__ISSUER,
+				 ModelFactory.eINSTANCE.createUser()));
 	}
 
 	/**

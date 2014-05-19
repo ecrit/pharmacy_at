@@ -171,11 +171,9 @@ public class InvoiceDataPart implements IPart {
 			public void drop(DropTargetEvent event){
 				if (TextTransfer.getInstance().isSupportedType(event.currentDataType)) {
 					CommandUtil.setContextAndServices(context, commandService, handlerService);
-					CommandUtil
-						.manuallyCallCommand(
-							AppModelId.COMMAND_AT_MEDEVIT_ECRIT_PHARMACY_AT_APPLICATION_COMMAND_ADDTOINVOICE,
-							"commandparameter.modelelement.Article", "put article on invoice",
-							new AddToInvoiceViewerHandler());
+					CommandUtil.manuallyCallCommand(AppModelId.COMMAND_COMMAND_ADDTOINVOICE,
+						"commandparameter.modelelement.Article", "put article on invoice",
+						new AddToInvoiceViewerHandler());
 					
 				}
 			}
