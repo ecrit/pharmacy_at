@@ -128,6 +128,12 @@ public class AppModelId {
 		"popupmenu.prescritption.edit";
 	public static final String HANDLEDMENUITEM_POPUPMENU_STOCKORDER_OVERVIEW_EDITSTOCKORDERSTATUS =
 		"popupmenu.stockorder.overview.editStockOrderStatus";
+	public static final String HANDLEDMENUITEM_POPUPMENU_USERDATA_SAVEUSER =
+		"popupmenu.userData.saveUser";
+	public static final String HANDLEDMENUITEM_POPUPMENU_USER_ADDNEWUSER =
+		"popupmenu.user.addNewUser";
+	public static final String HANDLEDMENUITEM_POPUPMENU_USER_DELETEUSER =
+		"popupmenu.user.deleteUser";
 	public static final String HANDLEDMENUITEM_VIEWMENU_INVOICEDATA_CANCELINVOICE =
 		"viewmenu.invoiceData.cancelInvoice";
 	public static final String HANDLEDMENUITEM_VIEWMENU_STOCKORDER_ORDERARTICLES =
@@ -261,8 +267,10 @@ public class AppModelId {
 	public static final String POPUPMENU_POPUPMENU_PRESCRITPTION = "popupmenu.prescritption";
 	public static final String POPUPMENU_POPUPMENU_STOCKORDER_OVERVIEW =
 		"popupmenu.stockorder.overview";
+	public static final String POPUPMENU_POPUPMENU_USER = "popupmenu.user";
+	public static final String POPUPMENU_POPUPMENU_USERDATA = "popupmenu.userData";
 	public static final String TOOLBAR_TOOLBARPERSPECTIVESWITCH = "ToolbarPerspectiveSwitch";
-	public static final String TOOLCONTROL_TOOLCONTROL_USER = "toolcontrol.user";
+	public static final String TOOLCONTROL_TOOLCONTROLUSER = "ToolcontrolUser";
 	public static final String TOOLCONTROL_TOOLCTRL_PERSPECTIVESWITCHER =
 		"toolctrl.perspectiveSwitcher";
 	public static final String TRIMBAR_TRIMBAR_BOTTOM = "trimbar.bottom";

@@ -61,6 +61,7 @@
     <mainMenu xmi:id="_FocnYIdLEeOHboXTCc9xHQ" elementId="mainmenu">
       <persistedState key="description" value="In the main menu you can find some general valid commands."/>
       <children xsi:type="menu:Menu" xmi:id="_0PatkNySEeONnd3NGX40kg" elementId="mainmenu.file" label="File">
+        <persistedState key="description" value="This menu contains basic menu item(s) for the application."/>
         <children xsi:type="menu:DirectMenuItem" xmi:id="_3c9AkNySEeONnd3NGX40kg" elementId="mainmenu.file.exit" label="Exit" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/exit.png" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.ExitHandler"/>
       </children>
       <children xsi:type="menu:Menu" xmi:id="_kFt6ML8GEeOsfqRf7Ke75Q" elementId="mainmenu.report" label="Report">
@@ -97,7 +98,7 @@
       <menus xsi:type="menu:PopupMenu" xmi:id="_K1V90Hw5EeOl7olWdGHeBA" elementId="popupmenu.articlelist" label="Popupmenu-ArticleList">
         <persistedState key="description" value="This menu will pop up when right clicking on the article list table."/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_MveIMHw5EeOl7olWdGHeBA" elementId="popupmenu.articlelist.addToInvoice" label="Add To Invoice" command="_SPCvQHw5EeOl7olWdGHeBA">
-          <persistedState key="precondition" value="Logged in as a seller.&#xD;&#xA;An article from the table has to be selected."/>
+          <persistedState key="precondition" value="*logged in as a seller.&#xD;&#xA;*an article from the table has to be selected."/>
           <persistedState key="description" value="See the Add To Invoice command. &#xD;&#xA;The same behavior can be achieved by dragging the article from the ArticleList part to the InvoiceData part."/>
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_aPfOwNy8EeONnd3NGX40kg" coreExpressionId="seller.perspective.selected"/>
           <parameters xmi:id="_2cXt8IHoEeOzeOqq_Z5RBg" elementId="popupmenu.parameter.stockarticle" name="commandparameter.modelelement.Article" value="stockArticleSelection"/>
@@ -196,11 +197,26 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_cLcGAHkPEeOVKfoEVF45Aw" elementId="part.user" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.UserPart" label="User">
       <persistedState key="description" value="This part is used to display user relevant information."/>
       <handlers xmi:id="_EymcEIgdEeOZcL17UErZVw" elementId="handler.deleteUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.DeleteUserHandler" command="_J6QKkHxlEeOl7olWdGHeBA"/>
-      <handlers xmi:id="_G7jc8NzdEeOlItdAnCyRKg" elementId="handler.addNewUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.AddNewUserHandler" command="_AjgyQNzcEeOlItdAnCyRKg"/>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_h3vawN9HEeOcZtnIrjvwsA" elementId="popupmenu.user" label="Popupmenu-User">
+        <persistedState key="description" value="This menu will popup when right clicking inside the user part."/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_ugFbUN9HEeOcZtnIrjvwsA" elementId="popupmenu.user.deleteUser" label="Delete User" command="_J6QKkHxlEeOl7olWdGHeBA">
+          <persistedState key="description" value="Use this command to delete a selected user. But be aware of the fact that this user will be finally removed from the system. In case you're deleting your own user the application will close after you confirmed the deletion process."/>
+          <persistedState key="precondition" value="* logged in as system admin"/>
+          <persistedState key="postcondition" value="The selected user will no longer be part of the system."/>
+        </children>
+      </menus>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_5xUooIHJEeONWogwVWLEeA" elementId="part.userdata" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.UserDataPart" label="User Data">
       <persistedState key="description" value="The UserData part shows further information about the users."/>
       <handlers xmi:id="_MK9JsIgdEeOZcL17UErZVw" elementId="handler.saveUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.SaveUserHandler" command="_bqz_YIgcEeOZcL17UErZVw"/>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_34mNYN9IEeOcZtnIrjvwsA" elementId="popupmenu.userData" label="Popupmenu-UserData">
+        <persistedState key="description" value="This menu will popup when right clicking in the &quot;UserData&quot;:#part.userdata part."/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_6v81AN9IEeOcZtnIrjvwsA" elementId="popupmenu.userData.saveUser" label="Save User" command="_bqz_YIgcEeOZcL17UErZVw">
+          <persistedState key="precondition" value="*logged in as system admin"/>
+          <persistedState key="postcondition" value="Any user data changes will be applied."/>
+          <persistedState key="description" value="By this menu you can save the previously changed userdata."/>
+        </children>
+      </menus>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_pLR0YIqFEeOpo_cEPCGieA" elementId="part.stockorder" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.part.StockOrderPart" label="Stock Order">
       <persistedState key="description" value="This part offers the functionality to create a new stock order.&#xD;&#xA;Articles can be added via _drag&amp;drop_  from the &quot;ArticleList&quot;:#part.articlelist part.&#xD;&#xA;Or calling the popup menu there and selecting the whished command.&#xD;&#xA;&#xD;&#xA;Moreover this part offers the ability to adapt the various articles units, the issuing enterprise and finally complete and place an order by pressing _PlaceOrder_ ."/>
@@ -248,12 +264,19 @@
       </menus>
     </sharedElements>
     <trimBars xmi:id="_lC8W0EVJEeOaYLXjRggZbw" elementId="trimbar.top">
+      <persistedState key="description" value="This is the trim bar on top of the application."/>
       <children xsi:type="menu:ToolBar" xmi:id="_lvbpYEVJEeOaYLXjRggZbw" elementId="ToolbarPerspectiveSwitch">
-        <children xsi:type="menu:ToolControl" xmi:id="_zhQlEEVKEeOaYLXjRggZbw" elementId="toolctrl.perspectiveSwitcher" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.direct.PerspectiveTabs"/>
+        <persistedState key="description" value="Inside of this toolbar item you can find the perspective switch tool control."/>
+        <children xsi:type="menu:ToolControl" xmi:id="_zhQlEEVKEeOaYLXjRggZbw" elementId="toolctrl.perspectiveSwitcher" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.direct.PerspectiveTabs">
+          <persistedState key="description" value="This is the PerspectiveSwitcher tool control. It is used to switch between the different perspectives."/>
+        </children>
       </children>
     </trimBars>
     <trimBars xmi:id="_wHyz4NxxEeOu0J-802EJ2A" elementId="trimbar.bottom" side="Bottom">
-      <children xsi:type="menu:ToolControl" xmi:id="_xVpuINxxEeOu0J-802EJ2A" elementId="toolcontrol.user" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.direct.CurrentUserToolItem"/>
+      <persistedState key="description" value="This is the trim bar you can see on the left bottom of your applications window."/>
+      <children xsi:type="menu:ToolControl" xmi:id="_xVpuINxxEeOu0J-802EJ2A" elementId="ToolcontrolUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.direct.CurrentUserToolItem">
+        <persistedState key="description" value="The user tool control gives information on the currently logged in user (her/his name) and the date and time the login took place."/>
+      </children>
     </trimBars>
   </children>
   <handlers xmi:id="_u79DAHxiEeOl7olWdGHeBA" elementId="handler.editPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.EditPrescriptionViewerHandler" command="_YAGyUHxiEeOl7olWdGHeBA"/>
@@ -265,7 +288,6 @@
   <handlers xmi:id="_3QidcHxkEeOl7olWdGHeBA" elementId="handler.checkInventory" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.clerk.parts.CheckInventoryViewerHandler" command="_s2EpsHxkEeOl7olWdGHeBA"/>
   <handlers xmi:id="_OaPHcHxmEeOl7olWdGHeBA" elementId="handler.updateArticleList" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.stockist.UpdateArticleListHandler" command="_4lPxIHxlEeOl7olWdGHeBA"/>
   <handlers xmi:id="_jPk-oHxmEeOl7olWdGHeBA" elementId="handler.createReport" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.CreateReportHandler" command="_Lydz8HxmEeOl7olWdGHeBA"/>
-  <handlers xmi:id="_asJvENzcEeOlItdAnCyRKg" elementId="handler.addNewUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.AddNewUserHandler" command="_AjgyQNzcEeOlItdAnCyRKg"/>
   <handlers xmi:id="_4grXcIgcEeOZcL17UErZVw" elementId="handler.saveUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.SaveUserHandler" command="_bqz_YIgcEeOZcL17UErZVw"/>
   <handlers xmi:id="_On9P0HxlEeOl7olWdGHeBA" elementId="handler.deleteUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.DeleteUserHandler" command="_J6QKkHxlEeOl7olWdGHeBA"/>
   <handlers xmi:id="_JKjU8KChEeOwTIKbo73Sog" elementId="handler.printRefundForm" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.clerk.parts.PrintRefundFormViewerHandler" command="_J1xcMKChEeOwTIKbo73Sog"/>
@@ -379,9 +401,6 @@
     <persistedState key="precondition" value="* logged in as admin&#xD;&#xA;* focus the user you'd like to change"/>
     <persistedState key="description" value="In the user data fields details about the user get displayed.&#xD;&#xA;Simply apply the necessary changes and press the _Save_ button and the userdata will be overwritten."/>
     <parameters xmi:id="_gS1TYIgcEeOZcL17UErZVw" elementId="commandparameter.saveUser" name="Command Parameter User" typeId="commandparameter.type.user" optional="false"/>
-  </commands>
-  <commands xmi:id="_AjgyQNzcEeOlItdAnCyRKg" elementId="command.addNewUser" commandName="Add new User">
-    <parameters xmi:id="_TgjrENzcEeOlItdAnCyRKg" elementId="commandparameter.newUser" name="Command Parameter User" typeId="commandparameter.type.user" optional="false"/>
   </commands>
   <commands xmi:id="_J1xcMKChEeOwTIKbo73Sog" elementId="command.printRefundForm" commandName="Print Refund Form">
     <persistedState key="description" value="Let's focus the &quot;InvoicePrescriptionOverview&quot;:#part.InvoicePrescriptionOverview .&#xD;&#xA;On the right bottom there is the _Print Refund Form_ button.&#xD;&#xA;Before you push the button be aware of the fact: Only _selected_ articles/prescriptios from the overview will be printed to the refund PDF file.&#xD;&#xA;Once you pressed the button a *FileDialog* will ask you for a location to save the PDF file to. Navigate to the desired location and press OK to complete."/>

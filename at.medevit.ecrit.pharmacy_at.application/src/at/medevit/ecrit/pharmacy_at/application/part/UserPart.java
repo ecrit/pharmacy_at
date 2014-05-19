@@ -11,6 +11,7 @@ import org.eclipse.core.databinding.property.Properties;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.emf.databinding.EMFProperties;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
@@ -47,6 +48,8 @@ public class UserPart implements IPart {
 	
 	@Inject
 	private IEclipseContext context;
+	@Inject
+	private EMenuService menuService;
 	@Inject
 	private ECommandService commandService;
 	@Inject
@@ -143,6 +146,8 @@ public class UserPart implements IPart {
 				}
 			}
 		});
+		menuService
+			.registerContextMenu(tableViewer.getTable(), AppModelId.POPUPMENU_POPUPMENU_USER);
 	}
 	
 	private void initTableViewer(Composite composite){

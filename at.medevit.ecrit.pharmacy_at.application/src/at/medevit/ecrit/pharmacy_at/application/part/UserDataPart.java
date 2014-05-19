@@ -15,6 +15,7 @@ import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.emf.databinding.EMFObservables;
@@ -42,7 +43,6 @@ import at.medevit.ecrit.pharmacy_at.application.AppModelId;
 import at.medevit.ecrit.pharmacy_at.application.ApplicationPackage;
 import at.medevit.ecrit.pharmacy_at.application.User;
 import at.medevit.ecrit.pharmacy_at.application.UserRole;
-import at.medevit.ecrit.pharmacy_at.application.handler.admin.AddNewUserHandler;
 import at.medevit.ecrit.pharmacy_at.application.handler.admin.SaveUserHandler;
 import at.medevit.ecrit.pharmacy_at.application.util.CommandUtil;
 import at.medevit.ecrit.pharmacy_at.core.SampleModel;
@@ -62,6 +62,8 @@ public class UserDataPart implements IPart {
 	private ESelectionService selectionService;
 	@Inject
 	private IEclipseContext context;
+	@Inject
+	private EMenuService menuService;
 	@Inject
 	private ECommandService commandService;
 	@Inject
@@ -173,6 +175,8 @@ public class UserDataPart implements IPart {
 			}
 		});
 		m_bindingContext = initDataBinding();
+		
+		menuService.registerContextMenu(udGroup, AppModelId.POPUPMENU_POPUPMENU_USERDATA);
 	}
 	
 	private void initTableViewer(Composite composite){
@@ -213,9 +217,8 @@ public class UserDataPart implements IPart {
 			
 			selectionService.setSelection(newUser);
 			CommandUtil.setContextAndServices(context, commandService, handlerService);
-			CommandUtil.manuallyCallCommand(AppModelId.COMMAND_COMMAND_ADDNEWUSER,
-				AppModelId.COMMANDPARAMETER_COMMANDPARAMETER_NEWUSER, "new user",
-				new AddNewUserHandler());
+			CommandUtil.manuallyCallCommand(AppModelId.COMMAND_COMMAND_SAVEUSER,
+				"commandparameter.saveUser", "save new user", new SaveUserHandler());
 			recentAdded = newUser;
 		} else {
 			// save existing user (overwrite user's data)
@@ -230,7 +233,7 @@ public class UserDataPart implements IPart {
 			
 			CommandUtil.setContextAndServices(context, commandService, handlerService);
 			CommandUtil.manuallyCallCommand(AppModelId.COMMAND_COMMAND_SAVEUSER,
-				"commandparameter.saveUser", "user to save", new SaveUserHandler());
+				"commandparameter.saveUser", "", new SaveUserHandler());
 		}
 	}
 	
