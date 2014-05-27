@@ -50,7 +50,7 @@
         </children>
       </children>
       <children xsi:type="advanced:Perspective" xmi:id="_lbwGIEVOEeOaYLXjRggZbw" elementId="perspective.admin" label="Admin" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/equalizer.png">
-        <persistedState key="description" value="This perspective supports the administrator of this product in different system managing activities."/>
+        <persistedState key="description" value="This perspective supports the administrator of this product in different system managing activities.&#xD;&#xA;test"/>
         <persistedState key="precondition" value="Logged in as administrator."/>
         <children xsi:type="basic:PartSashContainer" xmi:id="_6yCcUEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.3" containerData="30,70" horizontal="true">
           <children xsi:type="advanced:Placeholder" xmi:id="_6h7t4HkQEeOVKfoEVF45Aw" elementId="at.medevit.ecrit.pharmacy_at.application.placeholder.user" ref="_cLcGAHkPEeOVKfoEVF45Aw"/>
