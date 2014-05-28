@@ -50,11 +50,19 @@
         </children>
       </children>
       <children xsi:type="advanced:Perspective" xmi:id="_lbwGIEVOEeOaYLXjRggZbw" elementId="perspective.admin" label="Admin" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.application/icons/equalizer.png">
-        <persistedState key="description" value="This perspective supports the administrator of this product in different system managing activities.&#xD;&#xA;test"/>
-        <persistedState key="precondition" value="Logged in as administrator."/>
+        <persistedState key="description" value="This perspective supports the administrator of this product in different system managing activities, namely in the management of user accounts&#xD;&#xA;"/>
+        <persistedState key="precondition" value="* Logged in as administrator."/>
         <children xsi:type="basic:PartSashContainer" xmi:id="_6yCcUEVQEeOaYLXjRggZbw" elementId="at.medevit.ecrit.pharmacy_at.application.partsashcontainer.3" containerData="30,70" horizontal="true">
-          <children xsi:type="advanced:Placeholder" xmi:id="_6h7t4HkQEeOVKfoEVF45Aw" elementId="at.medevit.ecrit.pharmacy_at.application.placeholder.user" ref="_cLcGAHkPEeOVKfoEVF45Aw"/>
-          <children xsi:type="advanced:Placeholder" xmi:id="_1LosYIHIEeONWogwVWLEeA" elementId="at.medevit.ecrit.pharmacy_at.application.placeholder.0" ref="_5xUooIHJEeONWogwVWLEeA"/>
+          <persistedState key="description" value="This container provides the user management: create users, delete users, update user settings&#xD;&#xA;"/>
+          <persistedState key="precondition" value="* logged in as admin"/>
+          <children xsi:type="advanced:Placeholder" xmi:id="_6h7t4HkQEeOVKfoEVF45Aw" elementId="at.medevit.ecrit.pharmacy_at.application.placeholder.user" ref="_cLcGAHkPEeOVKfoEVF45Aw">
+            <persistedState key="description" value="This part enables the selection of the available users on the system and allows to create a new user or to delete an existing user&#xD;&#xA;"/>
+            <persistedState key="precondition" value="* logged in as admin&#xD;&#xA;"/>
+          </children>
+          <children xsi:type="advanced:Placeholder" xmi:id="_1LosYIHIEeONWogwVWLEeA" elementId="at.medevit.ecrit.pharmacy_at.application.placeholder.0" ref="_5xUooIHJEeONWogwVWLEeA">
+            <persistedState key="description" value="This part allows to edit the user settings and allows to save the data. Available user settings: Username, password, roles."/>
+            <persistedState key="precondition" value="* logged in as admin&#xD;&#xA;"/>
+          </children>
         </children>
       </children>
     </children>
@@ -288,8 +296,14 @@
   <handlers xmi:id="_3QidcHxkEeOl7olWdGHeBA" elementId="handler.checkInventory" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.clerk.parts.CheckInventoryViewerHandler" command="_s2EpsHxkEeOl7olWdGHeBA"/>
   <handlers xmi:id="_OaPHcHxmEeOl7olWdGHeBA" elementId="handler.updateArticleList" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.stockist.UpdateArticleListHandler" command="_4lPxIHxlEeOl7olWdGHeBA"/>
   <handlers xmi:id="_jPk-oHxmEeOl7olWdGHeBA" elementId="handler.createReport" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.CreateReportHandler" command="_Lydz8HxmEeOl7olWdGHeBA"/>
-  <handlers xmi:id="_4grXcIgcEeOZcL17UErZVw" elementId="handler.saveUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.SaveUserHandler" command="_bqz_YIgcEeOZcL17UErZVw"/>
-  <handlers xmi:id="_On9P0HxlEeOl7olWdGHeBA" elementId="handler.deleteUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.DeleteUserHandler" command="_J6QKkHxlEeOl7olWdGHeBA"/>
+  <handlers xmi:id="_4grXcIgcEeOZcL17UErZVw" elementId="handler.saveUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.SaveUserHandler" command="_bqz_YIgcEeOZcL17UErZVw">
+    <persistedState key="description" value="Handler to persist the settings of the selected user"/>
+    <persistedState key="precondition" value="* logged in as admin&#xD;&#xA;"/>
+  </handlers>
+  <handlers xmi:id="_On9P0HxlEeOl7olWdGHeBA" elementId="handler.deleteUser" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.admin.DeleteUserHandler" command="_J6QKkHxlEeOl7olWdGHeBA">
+    <persistedState key="description" value="Handler to delete the settings of the selected user"/>
+    <persistedState key="precondition" value="* logged in as admin"/>
+  </handlers>
   <handlers xmi:id="_JKjU8KChEeOwTIKbo73Sog" elementId="handler.printRefundForm" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.clerk.parts.PrintRefundFormViewerHandler" command="_J1xcMKChEeOwTIKbo73Sog"/>
   <handlers xmi:id="_qkxCIKDGEeOoudDAbXzmGA" elementId="handler.printInventory" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.PrintInventoryHandler" command="_ljLXkKDGEeOoudDAbXzmGA"/>
   <handlers xmi:id="_GMo08KKnEeOTRs0pqibxVQ" elementId="handler.printInovoice" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.PrintInvoiceViewerHandler" command="_zN_ZoKKmEeOTRs0pqibxVQ"/>
@@ -389,7 +403,7 @@
     <persistedState key="precondition" value="* any report worthy issue"/>
   </commands>
   <commands xmi:id="_J6QKkHxlEeOl7olWdGHeBA" elementId="command.deleteUser" commandName="Delete User" description="Delete User" category="_34iY8HxhEeOl7olWdGHeBA">
-    <persistedState key="description" value="Once you selected the user to delete, press the _Delete_ button. A *dialog* to confirm the deleting process will appear on your screen.&#xD;&#xA;# _Confirm_ *Attention:* _The user will be finally deleted from the system!_&#xD;&#xA;# Press _Cancle_ and the user will remain on the system"/>
+    <persistedState key="description" value="After selecting the user to be deleted in the user part, press the _Delete_ button. A *dialog* to confirm the deletion will appear on your screen.&#xD;&#xA;# _Confirm_ *Attention:* _The user's data will completely be deleted from the system!_&#xD;&#xA;# Press _Cancel_ and the user data will remain unchanged"/>
     <persistedState key="precondition" value="* logged in as admin&#xD;&#xA;* focus the user you'd like to delete."/>
     <persistedState key="postcondition" value="If confirmed, the user is no longer part of the system."/>
     <parameters xmi:id="_T_erYIgcEeOZcL17UErZVw" elementId="commandparameter.deleteUser" name="Command Parameter User" typeId="commandparameter.type.user" optional="false">
@@ -398,8 +412,8 @@
   </commands>
   <commands xmi:id="_bqz_YIgcEeOZcL17UErZVw" elementId="command.saveUser" commandName="Save User Data" description="Save User Data" category="_34iY8HxhEeOl7olWdGHeBA">
     <persistedState key="postcondition" value="Updated user data information."/>
-    <persistedState key="precondition" value="* logged in as admin&#xD;&#xA;* focus the user you'd like to change"/>
-    <persistedState key="description" value="In the user data fields details about the user get displayed.&#xD;&#xA;Simply apply the necessary changes and press the _Save_ button and the userdata will be overwritten."/>
+    <persistedState key="precondition" value="* logged in as admin&#xD;&#xA;* focus the user whose settings you'd like to update"/>
+    <persistedState key="description" value="The user data fields display the relevant setting infos about the selected user.&#xD;&#xA;Simply apply the necessary changes and press the _Save_ button and the userdata will be overwritten."/>
     <parameters xmi:id="_gS1TYIgcEeOZcL17UErZVw" elementId="commandparameter.saveUser" name="Command Parameter User" typeId="commandparameter.type.user" optional="false"/>
   </commands>
   <commands xmi:id="_J1xcMKChEeOwTIKbo73Sog" elementId="command.printRefundForm" commandName="Print Refund Form">
