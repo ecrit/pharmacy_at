@@ -40,7 +40,7 @@ public class PropertiesPart implements IPart {
 		Label lblPropertiespart = new Label(composite, SWT.NONE);
 		lblPropertiespart.setText("Article details");
 		
-		txtDescription = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
+		txtDescription = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		GridData gd_txtDescription = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
 		gd_txtDescription.heightHint = 100;
 		txtDescription.setLayoutData(gd_txtDescription);
