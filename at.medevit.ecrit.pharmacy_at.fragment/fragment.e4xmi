@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="ASCII"?>
 <fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_ruB7gPUhEeO8OscPAE2BIA">
-  <imports xsi:type="menu:ToolBar" xmi:id="_qlzLUPUlEeO8OscPAE2BIA" elementId="ToolbarPerspectiveSwitch"/>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_wQ14APUkEeO8OscPAE2BIA" featurename="children" parentElementId="ToolbarPerspectiveSwitch">
-    <elements xsi:type="menu:ToolControl" xmi:id="_1l7GUPUkEeO8OscPAE2BIA" elementId="at.medevit.ecrit.pharmacy_at.fragment.toolcontrol.0" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.fragment/at.medevit.ecrit.pharmacy_at.fragment.toolcontrol.ToolControl"/>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_4YDL8AXIEeSvnL4kHOTTWg" featurename="children" parentElementId="trimbar.right">
+    <elements xsi:type="menu:ToolControl" xmi:id="_LUXo0AXFEeSJsrPiZiY2Xw" elementId="FragmentToolControl" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.fragment/at.medevit.ecrit.pharmacy_at.fragment.toolcontrol.ToolControl">
+      <persistedState key="description" value="This is a ToolControl item added via a fragment."/>
+    </elements>
   </fragments>
 </fragment:ModelFragments>

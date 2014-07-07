@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_YOXPMPryEeO6PuysWyu-yg">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_aPgnkPryEeO6PuysWyu-yg" featurename="commands" parentElementId="org.eclipse.e4.ide.application">
+    <elements xsi:type="commands:Command" xmi:id="_oYLLYPryEeO6PuysWyu-yg" elementId="pharmacy_at.cmd.about" commandName="About">
+      <persistedState key="description" value="Triggers a small dialog to popup. It shows a short description about this (running) application."/>
+      <persistedState key="precondition" value="* accessible for all users"/>
+    </elements>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_u0PP4PryEeO6PuysWyu-yg" featurename="handlers" parentElementId="org.eclipse.e4.ide.application">
+    <elements xsi:type="commands:Handler" xmi:id="_17F90PryEeO6PuysWyu-yg" elementId="pharmacy_at.handler.about" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.fragment/at.medevit.ecrit.pharmacy_at.fragment.handler.AboutHandler" command="_oYLLYPryEeO6PuysWyu-yg"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_9d2koPryEeO6PuysWyu-yg" featurename="children" parentElementId="mainmenu">
+    <elements xsi:type="menu:Menu" xmi:id="_GhFfsPrzEeO6PuysWyu-yg" elementId="pharmacy_at.menu.about" label="About" iconURI="">
+      <persistedState key="description" value="The purpose of this menu is, to give the user some basic information about this application."/>
+      <children xsi:type="menu:HandledMenuItem" xmi:id="_O-hmEPrzEeO6PuysWyu-yg" elementId="pharmacy_at.handledmenuitem.about" label="About" iconURI="platform:/plugin/at.medevit.ecrit.pharmacy_at.fragment/icons/eclipse_luna.png" command="_oYLLYPryEeO6PuysWyu-yg"/>
+    </elements>
+  </fragments>
+</fragment:ModelFragments>

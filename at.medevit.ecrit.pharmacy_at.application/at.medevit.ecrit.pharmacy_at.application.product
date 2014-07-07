@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Ecrit Project - Pharmacy Austria" id="at.medevit.ecrit.pharmacy_at.application.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
+<product name="Ecrit Project - Pharmacy Austria" uid="at.medevit.ecrit.pharmacy_at.application.product" id="at.medevit.ecrit.pharmacy_at.application.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
 
    <launcherArgs>
-      <programArgs>-clearPersistedState</programArgs>
-      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+      <programArgs>-clearPersistedState
+      </programArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
    </launcherArgs>
 
    <windowImages/>
@@ -25,6 +27,7 @@
 
    <plugins>
       <plugin id="at.medevit.ecrit.pharmacy_at.application"/>
+      <plugin id="at.medevit.ecrit.pharmacy_at.fragment"/>
       <plugin id="at.medevit.ecrit.pharmacy_at.model"/>
       <plugin id="at.medevit.ecrit.pharmacy_at.model.edit"/>
       <plugin id="at.medevit.ecrit.pharmacy_at.model.editor"/>

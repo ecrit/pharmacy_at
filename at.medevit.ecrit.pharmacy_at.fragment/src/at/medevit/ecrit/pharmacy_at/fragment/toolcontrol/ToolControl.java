@@ -9,8 +9,8 @@ import org.eclipse.swt.widgets.Label;
 public class ToolControl {
 	
 	@PostConstruct
-	public void createGui(Composite comp) {
+	public void createGui(Composite comp){
 		Label lab = new Label(comp, SWT.TOP);
-		lab.setText("You just added the fragment!");
+		lab.setText("Fragment added!");
 	}
 }

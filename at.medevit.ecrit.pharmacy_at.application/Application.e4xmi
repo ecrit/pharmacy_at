@@ -286,6 +286,7 @@
         <persistedState key="description" value="The user tool control gives information on the currently logged in user (her/his name) and the date and time the login took place."/>
       </children>
     </trimBars>
+    <trimBars xmi:id="_8aixAAXIEeSvnL4kHOTTWg" elementId="trimbar.right" side="Right"/>
   </children>
   <handlers xmi:id="_u79DAHxiEeOl7olWdGHeBA" elementId="handler.editPrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.EditPrescriptionViewerHandler" command="_YAGyUHxiEeOl7olWdGHeBA"/>
   <handlers xmi:id="_VbifoHxpEeOl7olWdGHeBA" elementId="handler.deletePrescription" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.DeletePrescriptionViewerHandler" command="_QGMyoHxpEeOl7olWdGHeBA"/>
