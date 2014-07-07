@@ -308,6 +308,9 @@
   <handlers xmi:id="_JKjU8KChEeOwTIKbo73Sog" elementId="handler.printRefundForm" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.clerk.parts.PrintRefundFormViewerHandler" command="_J1xcMKChEeOwTIKbo73Sog"/>
   <handlers xmi:id="_qkxCIKDGEeOoudDAbXzmGA" elementId="handler.printInventory" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.PrintInventoryHandler" command="_ljLXkKDGEeOoudDAbXzmGA"/>
   <handlers xmi:id="_GMo08KKnEeOTRs0pqibxVQ" elementId="handler.printInovoice" contributionURI="bundleclass://at.medevit.ecrit.pharmacy_at.application/at.medevit.ecrit.pharmacy_at.application.handler.seller.parts.PrintInvoiceViewerHandler" command="_zN_ZoKKmEeOTRs0pqibxVQ"/>
+  <bindingTables xmi:id="_ZW-44AXOEeS7T--h2J73Ow" elementId="pharmacy_at.bindingtable" bindingContext="_4Ip46UVIEeOaYLXjRggZbw">
+    <bindings xmi:id="_bXMdIAXOEeS7T--h2J73Ow" elementId="pharmacy_at.keybinding.report" keySequence="M1+R" command="_Lydz8HxmEeOl7olWdGHeBA"/>
+  </bindingTables>
   <rootContext xmi:id="_4Ip46UVIEeOaYLXjRggZbw" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_4Ip46kVIEeOaYLXjRggZbw" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_4Ip460VIEeOaYLXjRggZbw" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>

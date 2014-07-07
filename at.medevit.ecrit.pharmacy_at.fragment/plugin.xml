@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
- <extension
-       id="fragments"
-       point="org.eclipse.e4.workbench.model">
-     <fragment
-           apply="always"
-           uri="fragment2.e4xmi">
-     </fragment>
-     <fragment
-           apply="always"
-           uri="fragment.e4xmi">
-     </fragment>
-  </extension>
+
+   <extension
+         id="fragments"
+         point="org.eclipse.e4.workbench.model">
+      <fragment
+            apply="always"
+            uri="fragment.e4xmi">
+      </fragment>
+      <fragment
+            apply="always"
+            uri="fragment2.e4xmi">
+      </fragment>
+   </extension>
+
 </plugin>

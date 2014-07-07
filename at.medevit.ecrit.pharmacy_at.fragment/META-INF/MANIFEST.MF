@@ -3,6 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Sample Fragments
 Bundle-SymbolicName: at.medevit.ecrit.pharmacy_at.fragment;singleton:=true
 Bundle-Version: 1.0.0.qualifier
+Export-Package: at.medevit.ecrit.pharmacy_at.fragment.toolcontrol
 Require-Bundle: org.eclipse.e4.ui.model.workbench,
  org.eclipse.e4.ui.workbench,
  org.eclipse.e4.core.di,
@@ -11,5 +12,4 @@ Require-Bundle: org.eclipse.e4.ui.model.workbench,
  org.eclipse.jface,
  org.eclipse.e4.ui.services
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: at.medevit.ecrit.pharmacy_at.fragment.toolcontrol
 Import-Package: javax.annotation
