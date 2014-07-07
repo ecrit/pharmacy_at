@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Sample Fragment
+Bundle-SymbolicName: at.medevit.ecrit.pharmacy_at.fragment;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.e4.ui.model.workbench;bundle-version="1.1.0.v20140512-1820",
+ org.eclipse.e4.core.di,
+ javax.inject,
+ org.eclipse.swt
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: at.medevit.ecrit.pharmacy_at.fragment.toolcontrol
+Import-Package: javax.annotation
