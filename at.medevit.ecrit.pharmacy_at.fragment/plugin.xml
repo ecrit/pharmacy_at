@@ -9,7 +9,6 @@
             uri="fragment.e4xmi">
       </fragment>
       <fragment
-            apply="always"
             uri="fragment2.e4xmi">
       </fragment>
    </extension>
