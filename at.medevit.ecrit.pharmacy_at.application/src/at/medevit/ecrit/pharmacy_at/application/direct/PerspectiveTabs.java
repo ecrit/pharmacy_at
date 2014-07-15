@@ -81,6 +81,8 @@ public class PerspectiveTabs {
 		String perspectiveId = perspective.getElementId();
 		List<UserRole> roles = SampleModel.getPharmacy().getCurrentUser().getRole();
 		
+		if(roles.contains(UserRole.SYSADMIN)) return true;
+		
 		if (perspectiveId.equals(AppModelId.PERSPECTIVE_PERSPECTIVE_SELLER)) {
 			if (roles.contains(UserRole.SELLER)) {
 				return true;
@@ -93,11 +95,8 @@ public class PerspectiveTabs {
 			if (roles.contains(UserRole.CLERK)) {
 				return true;
 			}
-		} else if (perspectiveId.equals(AppModelId.PERSPECTIVE_PERSPECTIVE_ADMIN)) {
-			if (roles.contains(UserRole.SYSADMIN)) {
-				return true;
-			}
 		}
+		
 		return false;
 	}
 	
