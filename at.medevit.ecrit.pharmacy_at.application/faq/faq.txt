@@ -1,0 +1,8 @@
+How to start the application:
+Double-click on the PharmAT symbol.
+
+How to include more FAQ:
+In your E4 application model, select the first element of the tree (Application).
+On the right hand side you will see various tabs with different setting possibilities. 
+Choose the _FAQ_ tab. Here you'll be able to see if there is already a FAQ file existant and where it is located.
+In case this field is empty, simple press the Browse button and select the textile file you'd like to include as FAQ file.
